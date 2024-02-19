@@ -160,9 +160,26 @@
 
 .categoryTooltipRootClass {
   :global {
+    .ant-tooltip-inner {
+      border-radius: 0px;
+      padding: 0px;
+      width: 78rem;
+    }
     .categoriesWrapper {
+      display: flex;
+      align-items: start;
+
+      max-width: 78rem;
+      min-width: 26rem;
+
       .linkColumn {
+        padding: 0.8rem 0;
         width: 26rem;
+
+        .heading {
+          padding: 16px 16px 0;
+        }
+
         .linkItem {
           color: #2d2f31;
           padding: 8px 16px;
@@ -177,14 +194,16 @@
             flex: 1;
           }
 
-          &:hover {
-            span {
-              color: var(--purple);
-            }
+          .icon {
+          }
+        }
+        .linkItem.isHovered {
+          span {
+            color: var(--purple);
+          }
 
-            svg {
-              fill: var(--purple);
-            }
+          svg {
+            fill: var(--purple);
           }
         }
       }

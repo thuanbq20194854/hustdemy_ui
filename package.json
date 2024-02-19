@@ -40,8 +40,5 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "typescript": "^5.2.2",
     "vite": "^5.1.0"
-  },
-  "resolutions": {
-    "styled-components": "^5"
   }
 }

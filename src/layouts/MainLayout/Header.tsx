@@ -1,11 +1,9 @@
-import { MdSearch } from 'react-icons/md'
+import { MdSearch, MdOutlineShoppingCart, MdKeyboardArrowRight } from 'react-icons/md'
 import styles from './Header.module.scss'
 import { IoMdHeartEmpty } from 'react-icons/io'
-import { MdOutlineShoppingCart } from 'react-icons/md'
 import { GoBell } from 'react-icons/go'
 import { Tooltip } from 'antd'
-
-import { MdKeyboardArrowRight } from 'react-icons/md'
+import { useState } from 'react'
 
 const fakesCategories = [
   'Development',
@@ -20,76 +18,288 @@ const fakesCategories = [
   'Music'
 ]
 
-const aaa = [
+const Level1Categories = [
   {
+    id: '1',
     category: 'Development',
     subcategories: [
       {
-        subcategory: '',
-        hotTopic: 'kkee'
+        id: '1',
+        category: 'Web Development',
+        topics: [
+          {
+            id: '1',
+            topic: 'JS'
+          },
+          'JS',
+          'React JS',
+          'Angular',
+          'CSS',
+          'Next.js',
+          'Node.js',
+          'ASP.NET Core',
+          'Typescript'
+        ]
+      },
+      {
+        id: '2',
+        category: 'Data Science',
+        topics: [
+          'Python',
+          'Machine Learning',
+          'Deep Learning',
+          'Artifical Intelligence',
+          'Natural Language Processing',
+          'LangChain',
+          'R(programming language)',
+          'TensorFlow'
+        ]
+      },
+      {
+        id: '3',
+        category: 'Mobile Development',
+        topics: [
+          'Google Flutter',
+          'iOS Development',
+          'Android Development',
+          'React Native',
+          'Dart',
+          'Swift',
+          'Kotlin',
+          'SwiftUI'
+        ]
+      },
+      {
+        id: '4',
+        category: 'Programming Language'
+      },
+      { id: '5', category: 'Game Development' },
+      {
+        id: '6',
+        category: 'Database Design & Development'
+      },
+      {
+        id: '7',
+        category: 'Software Testing'
+      },
+      { id: '8', category: 'Software Engineering' },
+      { id: '9', category: 'Software Development Tools' },
+      {
+        id: '10',
+        category: 'No Code Development'
       }
     ]
   },
   {
+    id: '2',
+
     category: 'Business',
-    subcategories: []
+    subcategories: [
+      { id: '1', category: 'Management' },
+
+      { id: '2', category: 'Sale' },
+      { id: '3', category: 'Operation' },
+      {
+        id: '4',
+        category: 'Industry'
+      },
+      {
+        id: '5',
+        category: 'E-Commerce'
+      },
+      {
+        id: '6',
+        category: 'Media'
+      }
+    ]
   },
   {
+    id: '3',
+
     category: 'Finance & Accounting',
-    subcategories: []
+    subcategories: [
+      { id: '1', category: 'Economics' },
+
+      { id: '2', category: 'Finance' },
+      { id: '3', category: 'Compliance' },
+      {
+        id: '4',
+        category: 'Taxes'
+      },
+      {
+        id: '5',
+        category: 'Investing'
+      }
+    ]
   },
   {
+    id: '4',
+
     category: 'IT & Software',
-    subcategories: []
+    subcategories: [
+      { id: '1', category: 'IT Certifications' },
+
+      { id: '2', category: 'Network & Security' },
+      { id: '3', category: 'Hardware' },
+      {
+        id: '4',
+        category: 'Operating System & Servers'
+      },
+      {
+        id: '5',
+        category: 'Other IT & Software'
+      }
+    ]
   },
   {
+    id: '5',
+
     category: 'Office Productivity',
-    subcategories: []
+    subcategories: [
+      { id: '1', category: 'Microsoft' },
+
+      { id: '2', category: 'Apple' },
+      { id: '3', category: 'Google' },
+      {
+        id: '4',
+        category: 'SAP'
+      },
+      {
+        id: '5',
+        category: 'Oracle'
+      },
+      {
+        id: '6',
+        category: 'Other Office Productivity'
+      }
+    ]
   },
   {
+    id: '6',
+
     category: 'Personal Development',
     subcategories: []
   },
   {
+    id: '7',
+
     category: 'Design',
     subcategories: []
   },
   {
+    id: '8',
+
     category: 'Marketing',
     subcategories: []
   },
   {
+    id: '9',
+
     category: 'Lifestyle',
     subcategories: []
   },
   {
+    id: '10',
+
     category: 'Photography & Video',
     subcategories: []
   },
   {
+    id: '11',
+
     category: 'Health & Fitness',
     subcategories: []
   },
   {
+    id: '12',
+
     category: 'Music',
     subcategories: []
   },
   {
+    id: '13',
+
     category: 'Teaching & Academics',
     subcategories: []
   }
 ]
 
 function Header() {
+  const [level1Category, setLevel1Category] = useState<string>('')
+  const [level2Category, setLevel2Category] = useState<string>('')
+
+  const handleMouseEnterLevel1Link = (categoryId: string) => {
+    setLevel1Category(categoryId)
+    setLevel2Category('')
+  }
+  const handleMouseEnterLevel2Link = (categoryId: string) => {
+    setLevel2Category(categoryId)
+  }
+
+  const renderLevel1CategoryList = () => (
+    <div className='linkColumn category-level1'>
+      {Level1Categories.map((categoryItem) => (
+        <div
+          className={`linkItem ${categoryItem.id === level1Category && 'isHovered'}`}
+          key={categoryItem.id}
+          onMouseEnter={() => handleMouseEnterLevel1Link(categoryItem.id)}
+        >
+          <span className='text ud-text-sm'>{categoryItem.category}</span>
+          <MdKeyboardArrowRight size={16} className='icon' />
+        </div>
+      ))}
+    </div>
+  )
+
+  const renderLevel2CategoryList = () => {
+    if (level1Category === '') {
+      return null
+    }
+
+    const selectedLevel1Category = Level1Categories.find((item) => item.id === level1Category)
+
+    return (
+      <div className='linkColumn category-level1'>
+        {selectedLevel1Category?.subcategories.map((categoryItem) => (
+          <div
+            className={`linkItem ${categoryItem.id === level2Category && 'isHovered'}`}
+            key={categoryItem.id}
+            onMouseEnter={() => handleMouseEnterLevel2Link(categoryItem.id)}
+          >
+            <span className='text ud-text-sm'>{categoryItem.category}</span>
+            <MdKeyboardArrowRight size={16} className='icon' />
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  const renderTopics = () => {
+    // if (level2Category === '') {
+    //   return null
+    // }
+
+    return (
+      <div className='linkColumn'>
+        <h1 className='heading'>Popular topics</h1>
+
+        {/* <div
+          className={`linkItem ${categoryItem.id === level2Category && 'isHovered'}`}
+          key={categoryItem.id}
+          onMouseEnter={() => handleMouseEnterLevel2Link(categoryItem.id)}
+        >
+          <span className='text ud-text-sm'>{categoryItem.category}</span>
+        </div> */}
+      </div>
+    )
+  }
+
   const renderCategoriesPopover = () => {
     return (
       <div className='categoriesWrapper'>
-        <div className='linkColumn'>
-          <div className='linkItem'>
-            <span className='text ud-text-sm'>Teaching & Academics</span>
-            <MdKeyboardArrowRight size={16} />
-          </div>
-        </div>
+        {renderLevel1CategoryList()}
+        {renderLevel2CategoryList()}
+        {renderTopics()}
       </div>
     )
   }
