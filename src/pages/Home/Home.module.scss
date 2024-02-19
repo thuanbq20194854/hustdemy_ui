@@ -1,0 +1,32 @@
+.homePage {
+  :global {
+    .carousel {
+      position: relative;
+      .heroBanner {
+        position: absolute;
+
+        top: 50%;
+        left: 25%;
+
+        transform: translate(-50%, -50%);
+        .heroBannerInner {
+          width: 440px;
+          padding: 24px;
+
+          box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.08),
+            0 4px 12px rgba(0, 0, 0, 0.08);
+
+          .hero-heading {
+            font-size: 4rem;
+            margin: 0 0 8px;
+          }
+
+          .ud-text-md {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

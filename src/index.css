@@ -57,7 +57,7 @@
   border: none;
 
   box-sizing: inherit;
-  font-size: inherit
+  font-size: inherit;
 }
 
 html {
@@ -65,14 +65,12 @@ html {
   line-height: 1.4;
   font-size: 62.5%;
   box-sizing: border-box;
-
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 400;
 }
-
 
 button {
   background-color: transparent;
@@ -86,7 +84,6 @@ input {
   /* Optional: Removes box shadow */
 }
 
-
 a {
   text-decoration: none;
   /* Remove underline */
@@ -98,7 +95,17 @@ a {
 
 ul,
 ol {
-
   list-style: none;
+}
 
+.ud-text-xs {
+  font-weight: 400;
+  line-height: 1.4;
+  font-size: 1.2rem;
+}
+
+.ud-text-sm {
+  font-weight: 400;
+  line-height: 1.4;
+  font-size: 1.4rem;
 }
