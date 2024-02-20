@@ -12,7 +12,15 @@ import 'normalize.css'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ConfigProvider>
+      <ConfigProvider
+        theme={{
+          components: {
+            Tooltip: {
+              colorBorder: '#d1d7dc'
+            }
+          }
+        }}
+      >
         <AntdApp>
           <App />
         </AntdApp>

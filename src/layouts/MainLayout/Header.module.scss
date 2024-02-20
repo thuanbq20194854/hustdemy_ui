@@ -160,22 +160,18 @@
 
 .categoryTooltipRootClass {
   :global {
-    .ant-tooltip-inner {
-      border-radius: 0px;
-      padding: 0px;
-      width: 78rem;
-    }
     .categoriesWrapper {
       display: flex;
       align-items: start;
+      max-width: 52rem;
 
-      max-width: 78rem;
-      min-width: 26rem;
+      & .linkColumn:not(:last-child) {
+        border-right: 1px solid #d1d7dc;
+      }
 
       .linkColumn {
         padding: 0.8rem 0;
-        width: 26rem;
-
+        min-width: 26rem;
         .heading {
           padding: 16px 16px 0;
         }
@@ -205,6 +201,98 @@
           svg {
             fill: var(--purple);
           }
+        }
+      }
+    }
+  }
+}
+
+.cartTooltipRootClass {
+  :global {
+    .ant-tooltip-content {
+      max-width: 305px;
+      min-width: 288px;
+    }
+    .cartTooltip {
+      .cartList {
+        height: 508px;
+        overflow: auto;
+
+        & .cartItem:not(:last-child) {
+          border-bottom: 1px solid #d1d7dc;
+        }
+        .cartItem {
+          padding: 16px;
+          max-width: 305px;
+
+          .courseTitle {
+            display: flex;
+            align-items: start;
+            .courseAvatarContainer {
+              width: 64px;
+              height: 64px;
+
+              object-fit: cover;
+              overflow: hidden;
+
+              flex-shrink: 0;
+
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+
+            .courseInfo {
+              padding: 0 0.8rem;
+              max-width: 19.2rem;
+
+              .courseName {
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+                margin-bottom: 0.4rem;
+              }
+
+              .courseInstructor {
+                color: #6a6f73;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-bottom: 0.4rem;
+              }
+            }
+          }
+
+          .atc-btn {
+            width: 100%;
+            text-align: center;
+            height: 40px;
+
+            margin-top: 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+
+      .btn-container {
+        border-top: 1px solid #d1d7dc;
+        padding: 16px;
+
+        .gtw-btn {
+          width: 100%;
+          text-align: center;
+          height: 40px;
+          margin-top: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

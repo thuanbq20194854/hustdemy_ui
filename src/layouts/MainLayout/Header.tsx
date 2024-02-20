@@ -2,8 +2,8 @@ import { MdSearch, MdOutlineShoppingCart, MdKeyboardArrowRight } from 'react-ico
 import styles from './Header.module.scss'
 import { IoMdHeartEmpty } from 'react-icons/io'
 import { GoBell } from 'react-icons/go'
-import { Tooltip } from 'antd'
 import { useState } from 'react'
+import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 
 const fakesCategories = [
   'Development',
@@ -274,35 +274,42 @@ function Header() {
     )
   }
 
-  const renderTopics = () => {
-    // if (level2Category === '') {
-    //   return null
-    // }
-
-    return (
-      <div className='linkColumn'>
-        <h1 className='heading'>Popular topics</h1>
-
-        {/* <div
-          className={`linkItem ${categoryItem.id === level2Category && 'isHovered'}`}
-          key={categoryItem.id}
-          onMouseEnter={() => handleMouseEnterLevel2Link(categoryItem.id)}
-        >
-          <span className='text ud-text-sm'>{categoryItem.category}</span>
-        </div> */}
-      </div>
-    )
-  }
-
   const renderCategoriesPopover = () => {
     return (
       <div className='categoriesWrapper'>
         {renderLevel1CategoryList()}
         {renderLevel2CategoryList()}
-        {renderTopics()}
       </div>
     )
   }
+
+  const renderMyLearningTooltip = () => (
+    <div className='cartTooltip'>
+      <div className='cartList'>
+        <div className='cartItem'>
+          <div className='courseTitle'>
+            <div className='courseAvatarContainer'>
+              <img src='https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg' alt='' />
+            </div>
+
+            <div className='courseInfo'>
+              <div className='courseName ud-heading-sm'>The Complete Introduction To Accounting and Finance</div>
+              <div className='courseInstructor ud-text-xs'>Chris Benjamin, MBA & CFO</div>
+              <div className='coursePrice ud-heading-sm'>₫1,299,000</div>
+            </div>
+          </div>
+          <button className='atc-btn ud-medium ud-btn ud-btn-secondary'>
+            <span>Add To Cart</span>
+          </button>
+        </div>
+      </div>
+      <div className='btn-container'>
+        <button className='gtw-btn ud-btn ud-btn-primary ud-large ud-heading-md'>
+          <span>Go To Wishlist</span>
+        </button>
+      </div>
+    </div>
+  )
   return (
     <div className={styles.headerWrapper}>
       <div className='upperRegion'>
@@ -315,18 +322,18 @@ function Header() {
           className='logo'
         />
 
-        <Tooltip
+        <CustomTooltip
           title={renderCategoriesPopover()}
           placement='bottomLeft'
           arrow={false}
           color='white'
-          overlayStyle={{ marginTop: '100px' }}
+          overlayStyle={{ maxWidth: '52rem' }}
           rootClassName={styles.categoryTooltipRootClass}
         >
           <button className='text-item'>
             <span className='ud-text-sm'>Categories</span>
           </button>
-        </Tooltip>
+        </CustomTooltip>
 
         <div className='search-wrapper'>
           <form action=''>
@@ -340,13 +347,21 @@ function Header() {
         <button className='text-item'>
           <span className='ud-text-sm'>Hustdemy Business</span>
         </button>
-
         <button className='text-item'>
           <span className='ud-text-sm'>Instructor</span>
         </button>
-        <button className='text-item'>
-          <span className='ud-text-sm'>My Learning</span>
-        </button>
+        <CustomTooltip
+          placement='bottomRight'
+          title={renderMyLearningTooltip()}
+          color='white'
+          arrow={false}
+          overlayStyle={{ maxWidth: '30.5rem' }}
+          rootClassName={styles.cartTooltipRootClass}
+        >
+          <button className='text-item'>
+            <span className='ud-text-sm'>My Learning</span>
+          </button>
+        </CustomTooltip>
 
         <div className='ud-btn'>
           <IoMdHeartEmpty size={24} />
