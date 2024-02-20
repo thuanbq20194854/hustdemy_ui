@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function MyCourses() {
-  return <div>MyCourses</div>
+  return <div>MyCourses k1k1k1k1k1k</div>
 }

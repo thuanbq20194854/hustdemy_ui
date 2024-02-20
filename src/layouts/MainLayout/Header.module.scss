@@ -213,15 +213,15 @@
       max-width: 305px;
       min-width: 288px;
     }
-    .cartTooltip {
-      .cartList {
+    .courseTooltip {
+      .courseList {
         height: 508px;
         overflow: auto;
 
-        & .cartItem:not(:last-child) {
+        & .courseItem:not(:last-child) {
           border-bottom: 1px solid #d1d7dc;
         }
-        .cartItem {
+        .courseItem {
           padding: 16px;
           max-width: 305px;
 

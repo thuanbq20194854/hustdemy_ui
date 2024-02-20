@@ -4,6 +4,8 @@ import { IoMdHeartEmpty } from 'react-icons/io'
 import { GoBell } from 'react-icons/go'
 import { useState } from 'react'
 import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
+import CourseList from './CourseList'
+import { NavLink } from 'react-router-dom'
 
 const fakesCategories = [
   'Development',
@@ -283,44 +285,22 @@ function Header() {
     )
   }
 
-  const renderMyLearningTooltip = () => (
-    <div className='cartTooltip'>
-      <div className='cartList'>
-        <div className='cartItem'>
-          <div className='courseTitle'>
-            <div className='courseAvatarContainer'>
-              <img src='https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg' alt='' />
-            </div>
+  const renderWishList = () => <CourseList hasAddToCart={true} buttonContent='Go To Wishlist' />
+  const renderCartList = () => <CourseList buttonContent='Go To Cart' />
 
-            <div className='courseInfo'>
-              <div className='courseName ud-heading-sm'>The Complete Introduction To Accounting and Finance</div>
-              <div className='courseInstructor ud-text-xs'>Chris Benjamin, MBA & CFO</div>
-              <div className='coursePrice ud-heading-sm'>₫1,299,000</div>
-            </div>
-          </div>
-          <button className='atc-btn ud-medium ud-btn ud-btn-secondary'>
-            <span>Add To Cart</span>
-          </button>
-        </div>
-      </div>
-      <div className='btn-container'>
-        <button className='gtw-btn ud-btn ud-btn-primary ud-large ud-heading-md'>
-          <span>Go To Wishlist</span>
-        </button>
-      </div>
-    </div>
-  )
   return (
     <div className={styles.headerWrapper}>
       <div className='upperRegion'>
-        <img
-          src='https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg'
-          alt='Udemy'
-          width='91'
-          height='34'
-          loading='lazy'
-          className='logo'
-        />
+        <NavLink to='/'>
+          <img
+            src='https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg'
+            alt='Udemy'
+            width='91'
+            height='34'
+            loading='lazy'
+            className='logo'
+          />
+        </NavLink>
 
         <CustomTooltip
           title={renderCategoriesPopover()}
@@ -347,31 +327,48 @@ function Header() {
         <button className='text-item'>
           <span className='ud-text-sm'>Hustdemy Business</span>
         </button>
-        <button className='text-item'>
-          <span className='ud-text-sm'>Instructor</span>
-        </button>
+
+        <NavLink to='instructor/courses'>
+          <button className='text-item'>
+            <span className='ud-text-sm'>Instructor</span>
+          </button>
+        </NavLink>
+
+        <NavLink to='my-course/courses'>
+          <button className='text-item'>
+            <span className='ud-text-sm'>My Learning</span>
+          </button>
+        </NavLink>
+
         <CustomTooltip
           placement='bottomRight'
-          title={renderMyLearningTooltip()}
+          title={renderWishList()}
           color='white'
           arrow={false}
           overlayStyle={{ maxWidth: '30.5rem' }}
           rootClassName={styles.cartTooltipRootClass}
         >
-          <button className='text-item'>
-            <span className='ud-text-sm'>My Learning</span>
-          </button>
+          <div className='ud-btn'>
+            <IoMdHeartEmpty size={24} />
+          </div>
         </CustomTooltip>
 
-        <div className='ud-btn'>
-          <IoMdHeartEmpty size={24} />
-        </div>
-        <div className='ud-btn cart'>
-          <MdOutlineShoppingCart size={24} />
-          <span className='purchase-number'>
-            <p>46</p>
-          </span>
-        </div>
+        <CustomTooltip
+          placement='bottomRight'
+          title={renderCartList()}
+          color='white'
+          arrow={false}
+          overlayStyle={{ maxWidth: '30.5rem' }}
+          rootClassName={styles.cartTooltipRootClass}
+        >
+          <div className='ud-btn cart'>
+            <MdOutlineShoppingCart size={24} />
+            <span className='purchase-number'>
+              <p>46</p>
+            </span>
+          </div>
+        </CustomTooltip>
+
         <div className='ud-btn'>
           <GoBell size={24} />
         </div>
