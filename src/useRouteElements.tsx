@@ -63,10 +63,10 @@ export const useRouteElements = () => {
 
         {
           path: '/my-courses',
-          // element: <Navigate to='/my-courses/learning' />,
           element: <Outlet />,
           children: [
             {
+              index: true,
               path: '/my-courses/learning',
               element: <MyCourses />
             }

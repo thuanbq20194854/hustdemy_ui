@@ -6,6 +6,7 @@ import { useState } from 'react'
 import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 import CourseList from './CourseList'
 import { NavLink } from 'react-router-dom'
+import { GrLanguage } from 'react-icons/gr'
 
 const fakesCategories = [
   'Development',
@@ -288,6 +289,99 @@ function Header() {
   const renderWishList = () => <CourseList hasAddToCart={true} buttonContent='Go To Wishlist' />
   const renderCartList = () => <CourseList buttonContent='Go To Cart' />
 
+  const renderMenuList = () => {
+    return (
+      <div className={styles.headerMenuWrapper}>
+        <div className='userProfile'>
+          <div className='avatarContainer'>
+            <img
+              src='https://lh3.googleusercontent.com/a/ACg8ocJEoJUYixlFMzUzd9DpRQhHhKAAYx3l1wGSEWfeidHDyrw=s96-c'
+              alt=''
+            />
+          </div>
+
+          <div className='userInfo'>
+            <div className='ud-heading-md userName'>Bui QUoc Thuan</div>
+            <div className='ud-text-xs userEmail'>nauhtdz@gmail.com</div>
+          </div>
+        </div>
+        <div className='menuBlock'>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>My Learning</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>My Cart</div>{' '}
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Wishlist</div>{' '}
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Instructor Dashboard</div>{' '}
+          </NavLink>
+        </div>
+
+        <div className='menuBlock'>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Notifications</div>{' '}
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Messages</div>{' '}
+          </NavLink>
+        </div>
+
+        <div className='menuBlock'>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Account Settings</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Payment Method</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Subcription</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Subcription</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Hustdemy History</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Puschase History</div>
+          </NavLink>
+        </div>
+
+        <div className='menuBlock'>
+          <NavLink to='/'>
+            <div className='menuItem languageItem'>
+              <div className='languageValueContainer'>
+                <span>Language</span>
+                <span>English</span>
+              </div>
+              <GrLanguage />
+            </div>
+          </NavLink>
+        </div>
+
+        <div className='menuBlock'>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Public Profile</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Edit Profile</div>
+          </NavLink>
+        </div>
+        <div className='menuBlock'>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Help</div>
+          </NavLink>
+          <NavLink to='/'>
+            <div className='menuItem ud-text-sm'>Logout</div>
+          </NavLink>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.headerWrapper}>
       <div className='upperRegion'>
@@ -373,15 +467,24 @@ function Header() {
           <GoBell size={24} />
         </div>
 
-        <div className='avatar-ud-btn'>
-          <div className='avatar-container'>
-            <img
-              className='avatar'
-              src='https://lh3.googleusercontent.com/a/ACg8ocJEoJUYixlFMzUzd9DpRQhHhKAAYx3l1wGSEWfeidHDyrw=s96-c'
-              alt=''
-            />
+        <CustomTooltip
+          placement='bottomRight'
+          title={renderMenuList()}
+          color='white'
+          arrow={false}
+          overlayStyle={{ maxWidth: '26rem' }}
+          rootClassName={styles.cartTooltipRootClass}
+        >
+          <div className='avatar-ud-btn'>
+            <div className='avatar-container'>
+              <img
+                className='avatar'
+                src='https://lh3.googleusercontent.com/a/ACg8ocJEoJUYixlFMzUzd9DpRQhHhKAAYx3l1wGSEWfeidHDyrw=s96-c'
+                alt=''
+              />
+            </div>
           </div>
-        </div>
+        </CustomTooltip>
       </div>
 
       <div className='bottomRegion'>
