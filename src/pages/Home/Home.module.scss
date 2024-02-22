@@ -44,19 +44,8 @@
       .courseCardList {
         position: relative;
 
-        // .slick-slide {
-        //   width: 100px;
-        // }
-        /* the parent */
-        // .slick-list {
-        //   margin: 0 -10px;
-        // }
-
-        // .slick-track {
-        //   margin: 0 -10px;
-        // }
-
         .btnArrow {
+          z-index: 999;
           background-color: var(--color-gray-500);
           color: var(--color-white);
           height: 4.8rem;
@@ -70,13 +59,13 @@
         }
         .leftArrow {
           position: absolute;
-          left: -50px;
+          left: -25px;
           top: 50%;
         }
 
         .rightArrow {
           position: absolute;
-          right: -50px;
+          right: -25px;
           top: 50%;
         }
 
@@ -85,12 +74,15 @@
         }
 
         .courseCard {
-          // max-width: 37.5rem;
-          // min-width: 17.5rem;
-
-          border: 1px solid black;
-
           .courseAvatar {
+            width: 100%;
+
+            object-fit: cover;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+            }
           }
 
           .courseName {

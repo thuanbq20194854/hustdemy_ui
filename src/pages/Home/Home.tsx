@@ -1,5 +1,3 @@
-import Slider from 'react-slick'
-
 import styles from './Home.module.scss'
 
 import BannerImage from 'src/assets/images/banner.png'
@@ -13,6 +11,15 @@ import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 
 import { IoCheckmark } from 'react-icons/io5'
 import { CiHeart } from 'react-icons/ci'
+
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/swiper-bundle.css'
+import { NavLink } from 'react-router-dom'
 const items = [
   {
     key: '1',
@@ -69,52 +76,52 @@ const items = [
     courseOriginalPrice: 89900,
     courseRating: 4.5,
     sold: 3628
+  },
+
+  {
+    key: '6',
+    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+    courseName: '66666Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+    courseActualPrice: 12999000,
+    courseOriginalPrice: 89900,
+    courseRating: 4.5,
+    sold: 3628
+  },
+  {
+    key: '7',
+    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+    courseName: '7777777Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+    courseActualPrice: 12999000,
+    courseOriginalPrice: 89900,
+    courseRating: 4.5,
+    sold: 3628
+  },
+  {
+    key: '8',
+    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+    courseName: '8888888Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+    courseActualPrice: 12999000,
+    courseOriginalPrice: 89900,
+    courseRating: 4.5,
+    sold: 3628
+  },
+  {
+    key: '9',
+    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+    courseName: '9999999999Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+    courseActualPrice: 12999000,
+    courseOriginalPrice: 89900,
+    courseRating: 4.5,
+    sold: 3628
   }
-
-  // {
-  //   key: '6',
-  //   courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-  //   courseName: '66666Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-  //   courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-  //   courseActualPrice: 12999000,
-  //   courseOriginalPrice: 89900,
-  //   courseRating: 4.5,
-  //   sold: 3628
-  // }
-  // {
-  //   key: '7',
-  //   courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-  //   courseName: '7777777Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-  //   courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-  //   courseActualPrice: 12999000,
-  //   courseOriginalPrice: 89900,
-  //   courseRating: 4.5,
-  //   sold: 3628
-  // },
-  // {
-  //   key: '8',
-  //   courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-  //   courseName: '8888888Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-  //   courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-  //   courseActualPrice: 12999000,
-  //   courseOriginalPrice: 89900,
-  //   courseRating: 4.5,
-  //   sold: 3628
-  // },
-  // {
-  //   key: '9',
-  //   courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-  //   courseName: '9999999999Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-  //   courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-  //   courseActualPrice: 12999000,
-  //   courseOriginalPrice: 89900,
-  //   courseRating: 4.5,
-  //   sold: 3628
-  // }
 ]
 
 export default function Home() {
@@ -128,15 +135,6 @@ export default function Home() {
     slidesToShow: 5,
     slidesToScroll: 3,
     adaptiveHeight: true
-  }
-
-  const sliderRef = useRef<any>(null)
-
-  const goToPrev = () => {
-    sliderRef.current.slickPrev()
-  }
-  const goToNext = () => {
-    sliderRef.current.slickNext()
   }
 
   const renderCourseCardPopover = () => {
@@ -218,44 +216,82 @@ export default function Home() {
       <div className='courseCardListContainer'>
         <div className='listType ud-heading-xl'>Recommended for you</div>
         <div className='courseCardList'>
-          <button className='btnArrow leftArrow' onClick={goToPrev}>
+          <Swiper
+            // install Swiper modules
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={16}
+            slidesPerView={1}
+            slidesPerGroup={1}
+            navigation={{
+              nextEl: '.btnArrow.rightArrow',
+              prevEl: '.btnArrow.leftArrow'
+            }}
+            // pagination={{ clickable: true }}
+            // scrollbar={{ draggable: true }}
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log('slide change')}
+            effect='fade'
+            fadeEffect={{
+              crossFade: true
+            }}
+            breakpoints={{
+              400: {
+                slidesPerView: 2,
+                slidesPerGroup: 1
+              },
+              700: {
+                slidesPerView: 3,
+                slidesPerGroup: 2
+              },
+              980: {
+                slidesPerView: 4,
+                slidesPerGroup: 3
+              },
+              1200: {
+                slidesPerView: 5,
+                slidesPerGroup: 3
+              }
+            }}
+          >
+            {items.map((itemCourse) => (
+              <SwiperSlide key={itemCourse.key}>
+                <CustomTooltip
+                  title={renderCourseCardPopover()}
+                  key={itemCourse.key}
+                  rootClassName={styles.cardTooltipRootClass}
+                  placement='left'
+                >
+                  <NavLink to='/' className='courseCard' key={itemCourse.key}>
+                    <div className='courseAvatar'>
+                      <img src={itemCourse.courseAvatar} alt='' />
+                    </div>
+
+                    <div className='ud-heading-md courseName'>{itemCourse.courseName}</div>
+
+                    <div className='ud-text-xs courseInstructor'>{itemCourse.courseInstrutor}</div>
+
+                    <div className='statics'>
+                      <StarsContainer rating={3.5} />
+                      <div className='ud-text-xs sold'>277,455</div>
+                    </div>
+                    <div className='price'>
+                      <div className='currentPrice ud-heading-md'>₫2,499,000</div>
+                    </div>
+
+                    <div className='courseBadges'>
+                      <div className='courseBadge ud-heading-xs'>Best Seller</div>
+                    </div>
+                  </NavLink>
+                </CustomTooltip>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <button className='btnArrow leftArrow'>
             <MdArrowBackIosNew />
           </button>
-          <button className='btnArrow rightArrow' onClick={goToNext}>
+          <button className='btnArrow rightArrow'>
             <MdArrowForwardIos />
           </button>
-          <Slider {...settings} ref={sliderRef}>
-            {items.map((itemCourse) => (
-              <CustomTooltip
-                title={renderCourseCardPopover()}
-                key={itemCourse.key}
-                rootClassName={styles.cardTooltipRootClass}
-                placement='left'
-              >
-                <div className='courseCard' key={itemCourse.key}>
-                  <div className='courseCardAvatar'>
-                    <img src={itemCourse.courseAvatar} alt='' />
-                  </div>
-
-                  <div className='ud-heading-md courseName'>{itemCourse.courseName}</div>
-
-                  <div className='ud-text-xs courseInstructor'>{itemCourse.courseInstrutor}</div>
-
-                  <div className='statics'>
-                    <StarsContainer rating={3.5} />
-                    <div className='ud-text-xs sold'>277,455</div>
-                  </div>
-                  <div className='price'>
-                    <div className='currentPrice ud-heading-md'>₫2,499,000</div>
-                  </div>
-
-                  <div className='courseBadges'>
-                    <div className='courseBadge ud-heading-xs'>Best Seller</div>
-                  </div>
-                </div>
-              </CustomTooltip>
-            ))}
-          </Slider>
         </div>
       </div>
     </div>
