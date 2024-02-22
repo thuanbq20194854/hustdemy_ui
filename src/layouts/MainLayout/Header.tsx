@@ -286,8 +286,17 @@ function Header() {
     )
   }
 
+  const test = {
+    cartListEmpty: true
+  }
+
   const renderWishList = () => <CourseList hasAddToCart={true} buttonContent='Go To Wishlist' />
-  const renderCartList = () => <CourseList buttonContent='Go To Cart' />
+  const renderCartList = () => {
+    if (test.cartListEmpty) {
+      return
+    }
+    return <CourseList buttonContent='Go To Cart' />
+  }
 
   const renderMenuList = () => {
     return (

@@ -131,6 +131,14 @@ ol {
   font-size: 1.4rem;
 }
 
+.ud-heading-xs {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-size: 1.2rem;
+  letter-spacing: 0.02rem;
+}
+
 .ud-heading-sm {
   font-weight: 700;
   line-height: 1.2;
@@ -143,6 +151,14 @@ ol {
   line-height: 1.2;
   letter-spacing: 0;
   font-size: 1.6rem;
+}
+
+.ud-heading-lg {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-size: 1.9rem;
+  max-width: 36em;
 }
 
 .ud-heading-sans-serif-xl {
@@ -188,6 +204,19 @@ ol {
   border: 1px solid #2d2f31;
 }
 
+.ud-btn-brand,
+.ud-btn-brand.ud-btn-disabled {
+  background-color: var(--color-purple-300);
+}
+
+.ud-btn-brand:hover {
+  background-color: #8710d8;
+}
+
+.ud-btn-brand {
+  color: var(--color-white);
+}
+
 .ud-btn-secondary:hover {
   background-color: rgba(23, 57, 83, 0.12);
 }
@@ -198,4 +227,22 @@ ol {
 
 .ud-btn-large {
   height: 4.8rem;
+}
+
+.ud-btn-round {
+  border-radius: 9999px;
+  min-width: 4rem;
+}
+
+.ud-btn-icon-round {
+  border-radius: 50%;
+}
+
+.ud-btn-icon-large {
+  padding: 0 1.2rem rem;
+  width: 4.8rem;
+}
+
+.ud-btn-icon {
+  min-width: auto;
 }

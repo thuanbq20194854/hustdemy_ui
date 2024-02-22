@@ -44,44 +44,55 @@
       .courseCardList {
         position: relative;
 
+        // .slick-slide {
+        //   width: 100px;
+        // }
+        /* the parent */
+        // .slick-list {
+        //   margin: 0 -10px;
+        // }
+
+        // .slick-track {
+        //   margin: 0 -10px;
+        // }
+
         .btnArrow {
           background-color: var(--color-gray-500);
           color: var(--color-white);
-
           height: 4.8rem;
-          height: 4.8rem;
-
+          width: 4.8rem;
           border-radius: 50%;
-
           cursor: pointer;
           svg {
             height: 16px;
             width: 16px;
           }
         }
-      width: 100%;
-
-      position: relative;
-      .courseCardList {
-        position: relative;
-
         .leftArrow {
           position: absolute;
           left: -50px;
           top: 50%;
-          width: 50px;
-          height: 50px;
         }
 
         .rightArrow {
           position: absolute;
           right: -50px;
           top: 50%;
-          width: 50px;
-          height: 50px;
+        }
+
+        .courseCard > *:not(:last-child) {
+          margin-bottom: 0.4rem; /* Adjust margin value as needed */
         }
 
         .courseCard {
+          // max-width: 37.5rem;
+          // min-width: 17.5rem;
+
+          border: 1px solid black;
+
+          .courseAvatar {
+          }
+
           .courseName {
             display: -webkit-box !important;
             -webkit-line-clamp: 2;
@@ -100,6 +111,159 @@
             text-overflow: ellipsis;
             white-space: normal;
             color: #6a6f73;
+          }
+
+          .statics {
+            display: flex;
+            align-items: center;
+            .ratingContainer {
+              display: flex;
+              align-items: center;
+              margin-right: 0.4rem;
+
+              .ratingNumber {
+                margin-right: 0.4rem;
+                color: #4d3105;
+              }
+              .stars {
+                display: flex;
+                align-items: center;
+                .star {
+                  display: inline-block;
+                  .innerContent {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    .innerStar {
+                      overflow: hidden;
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .price {
+            .currentPrice {
+              line-height: 1;
+              padding: 0.4rem 0;
+              margin-right: 0.8rem;
+              white-space: nowrap;
+            }
+          }
+
+          .courseBadges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+
+            .courseBadge {
+              display: inline-block;
+              padding: 0.4rem 0.8rem;
+              white-space: nowrap;
+
+              background-color: var(--color-yellow-200);
+              color: var(--color-yellow-500);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.cardTooltipRootClass {
+  :global {
+    .ant-tooltip-content {
+      .ant-tooltip-inner {
+        .courseQuickViewWrapper {
+          width: 340px;
+          padding: 24px;
+
+          & > div:not(:last-child) {
+            margin-bottom: 1rem;
+          }
+
+          .badge-container {
+            display: flex;
+            align-items: center;
+            .courseBadges {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.4rem 0.8rem;
+
+              margin-right: 1rem;
+
+              .courseBadge {
+                display: inline-block;
+                padding: 0.4rem 0.8rem;
+                white-space: nowrap;
+
+                background-color: var(--color-yellow-200);
+                color: var(--color-yellow-500);
+              }
+            }
+
+            .updated {
+              color: #1e6055;
+              span {
+                font-weight: bold;
+              }
+            }
+          }
+
+          .stats {
+            & > span:not(:last-child)::after {
+              content: '●';
+              margin: 0 0.4rem;
+              font-size: 6px;
+              vertical-align: middle;
+            }
+          }
+
+          .objectives {
+            .objective-item {
+              display: flex;
+              align-items: start;
+
+              .objective-content {
+                margin-left: 16px;
+              }
+            }
+          }
+
+          .actionContainer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .atc-btn {
+              flex: 1;
+            }
+            .heart-btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              height: 48px;
+              width: 48px;
+
+              &:hover {
+                color: var(--color-gray-500);
+                background-color: rgba(23, 57, 83, 0.12);
+              }
+              svg {
+                width: 24px;
+              }
+              border: 1px solid black;
+
+              border-radius: 9999px;
+
+              cursor: pointer;
+            }
           }
         }
       }

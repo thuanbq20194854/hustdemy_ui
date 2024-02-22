@@ -1,6 +1,7 @@
 .udTooltip {
   border: 1px solid #d1d7dc;
   background-color: white;
+  max-width: none;
   :global {
     .ant-tooltip-arrow {
       border: #000 transparent transparent transparent;
@@ -9,6 +10,11 @@
       border-radius: 0px;
       padding: 0px;
       color: black;
+      background-color: white;
+    }
+
+    .ant-tooltip-arrow::before {
+      background-color: white;
     }
   }
 }
