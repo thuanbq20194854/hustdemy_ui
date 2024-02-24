@@ -1,0 +1,148 @@
+.homePage {
+  :global {
+    .carousel {
+      position: relative;
+
+      .heroBanner {
+        position: absolute;
+
+        top: 50%;
+        left: 25%;
+
+        transform: translate(-50%, -50%);
+        .heroBannerInner {
+          width: 440px;
+          padding: 24px;
+
+          box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.08),
+            0 4px 12px rgba(0, 0, 0, 0.08);
+
+          .hero-heading {
+            font-size: 3.2rem;
+            margin: 0 0 8px;
+          }
+
+          .ud-text-md {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .heading {
+      margin-bottom: 2.4rem;
+      font-family: 'sans-serif';
+      font-weight: 700;
+      font-size: 3.2rem;
+      line-height: 1.25;
+      letter-spacing: -0.016rem;
+      max-width: 36em;
+
+      padding: 0 24px;
+    }
+
+    .courseListsContainer {
+      padding: 0 24px 48px;
+    }
+  }
+}
+
+.cardTooltipRootClass {
+  :global {
+    .ant-tooltip-content {
+      .ant-tooltip-inner {
+        .courseQuickViewWrapper {
+          width: 340px;
+          padding: 24px;
+
+          & > div:not(:last-child) {
+            margin-bottom: 1rem;
+          }
+
+          .badge-container {
+            display: flex;
+            align-items: center;
+            .courseBadges {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.4rem 0.8rem;
+
+              margin-right: 1rem;
+
+              .courseBadge {
+                display: inline-block;
+                padding: 0.4rem 0.8rem;
+                white-space: nowrap;
+
+                background-color: var(--color-yellow-200);
+                color: var(--color-yellow-500);
+              }
+            }
+
+            .updated {
+              color: #1e6055;
+              span {
+                font-weight: bold;
+              }
+            }
+          }
+
+          .stats {
+            & > span:not(:last-child)::after {
+              content: '●';
+              margin: 0 0.4rem;
+              font-size: 6px;
+              vertical-align: middle;
+            }
+          }
+
+          .objectives {
+            .objective-item {
+              display: flex;
+              align-items: start;
+
+              .objective-content {
+                margin-left: 16px;
+              }
+            }
+          }
+
+          .actionContainer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .atc-btn {
+              flex: 1;
+            }
+            .heart-btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              height: 48px;
+              width: 48px;
+
+              &:hover {
+                color: var(--color-gray-500);
+                background-color: rgba(23, 57, 83, 0.12);
+              }
+              svg {
+                width: 24px;
+              }
+              border: 1px solid black;
+
+              border-radius: 9999px;
+
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.NotAuthHomePage {
+}

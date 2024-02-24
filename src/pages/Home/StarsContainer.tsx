@@ -1,4 +1,4 @@
-import './Home.module.scss'
+import './AuthHome.module.scss'
 import { IoIosStarOutline, IoMdStar } from 'react-icons/io'
 
 interface IProps {

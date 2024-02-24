@@ -242,14 +242,15 @@ function Header() {
   const renderLevel1CategoryList = () => (
     <div className='linkColumn category-level1'>
       {Level1Categories.map((categoryItem) => (
-        <div
-          className={`linkItem ${categoryItem.id === level1Category && 'isHovered'}`}
-          key={categoryItem.id}
-          onMouseEnter={() => handleMouseEnterLevel1Link(categoryItem.id)}
-        >
-          <span className='text ud-text-sm'>{categoryItem.category}</span>
-          <MdKeyboardArrowRight size={16} className='icon' />
-        </div>
+        <NavLink key={categoryItem.id} to='/courses/level1'>
+          <div
+            className={`linkItem ${categoryItem.id === level1Category && 'isHovered'}`}
+            onMouseEnter={() => handleMouseEnterLevel1Link(categoryItem.id)}
+          >
+            <span className='text ud-text-sm'>{categoryItem.category}</span>
+            <MdKeyboardArrowRight size={16} className='icon' />
+          </div>
+        </NavLink>
       ))}
     </div>
   )
@@ -264,14 +265,16 @@ function Header() {
     return (
       <div className='linkColumn category-level1'>
         {selectedLevel1Category?.subcategories.map((categoryItem) => (
-          <div
-            className={`linkItem ${categoryItem.id === level2Category && 'isHovered'}`}
-            key={categoryItem.id}
-            onMouseEnter={() => handleMouseEnterLevel2Link(categoryItem.id)}
-          >
-            <span className='text ud-text-sm'>{categoryItem.category}</span>
-            <MdKeyboardArrowRight size={16} className='icon' />
-          </div>
+          <NavLink key={categoryItem.id} to='/courses/level1/level2'>
+            <div
+              className={`linkItem ${categoryItem.id === level2Category && 'isHovered'}`}
+              key={categoryItem.id}
+              onMouseEnter={() => handleMouseEnterLevel2Link(categoryItem.id)}
+            >
+              <span className='text ud-text-sm'>{categoryItem.category}</span>
+              <MdKeyboardArrowRight size={16} className='icon' />
+            </div>
+          </NavLink>
         ))}
       </div>
     )
@@ -290,11 +293,8 @@ function Header() {
     cartListEmpty: true
   }
 
-  const renderWishList = () => <CourseList hasAddToCart={true} buttonContent='Go To Wishlist' />
+  const renderWishList = () => <CourseList isWishList={true} buttonContent='Go To Wishlist' />
   const renderCartList = () => {
-    if (test.cartListEmpty) {
-      return
-    }
     return <CourseList buttonContent='Go To Cart' />
   }
 

@@ -215,7 +215,7 @@
     }
     .courseTooltip {
       .courseList {
-        height: 508px;
+        max-height: 508px;
         overflow: auto;
 
         & .courseItem:not(:last-child) {
@@ -296,6 +296,22 @@
         }
       }
     }
+
+    .emptyList {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      padding: 16px;
+      .noItems {
+        color: #6a6f73;
+        margin-bottom: 16px;
+      }
+
+      .nav {
+        color: #5624d0;
+      }
+    }
   }
 }
 
@@ -356,4 +372,9 @@
       }
     }
   }
+}
+
+a.navLink:hover {
+  cursor: pointer;
+  color: black;
 }
