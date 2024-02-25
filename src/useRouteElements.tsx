@@ -1,7 +1,6 @@
 import { Outlet, useRoutes } from 'react-router-dom'
 
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
-import Login from './pages/Login/Login'
 import Payment from './pages/Payment/Payment'
 import MainLayout from './layouts/MainLayout/MainLayout'
 import Cart from './pages/Cart/Cart'
@@ -10,6 +9,8 @@ import CourseDetail from './pages/Courses/CourseDetail/CourseDetail'
 import MyCourses from './pages/MyCourses/MyCourses'
 import NotAuthHome from './pages/Home/NotAuthHome'
 import AuthHome from './pages/Home/AuthHome'
+import Login from './pages/Auth/Login/Login'
+import Register from './pages/Auth/Register/Register'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -27,6 +28,10 @@ export const useRouteElements = () => {
         {
           path: '/login',
           element: <Login />
+        },
+        {
+          path: '/register',
+          element: <Register />
         },
 
         {

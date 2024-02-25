@@ -8,21 +8,19 @@ import { App as AntdApp, ConfigProvider } from 'antd'
 
 import './index.css'
 import 'normalize.css'
+import { Provider } from 'react-redux'
+import { store } from './services/state/redux/store'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider
-        theme={{
-          components: {
-            Tooltip: {}
-          }
-        }}
-      >
-        <AntdApp>
-          <App />
-        </AntdApp>
-      </ConfigProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ConfigProvider>
+          <AntdApp>
+            <App />
+          </AntdApp>
+        </ConfigProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 )

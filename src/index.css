@@ -266,3 +266,14 @@ a.navLink:hover {
   cursor: pointer;
   color: inherit;
 }
+
+
+.ud-link-underline {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+  text-decoration-color: #8072e6;
+}
+
+.ud-text-bold {
+  font-weight: 700;
+}
