@@ -4,9 +4,12 @@ import StarsContainer from '../Home/RatingContainer'
 
 import { GoDotFill } from 'react-icons/go'
 import { RiCoupon5Line } from 'react-icons/ri'
+import { CartItem } from '../../models/cart'
 
 interface IProps {
   title: string
+
+  cartList: CartItem[]
 }
 function ShoppingList({ title }: IProps) {
   return (
@@ -39,7 +42,7 @@ function ShoppingList({ title }: IProps) {
 
             {/* Rating Stars */}
 
-            <StarsContainer rating={4.5} />
+            <StarsContainer averageReview={4.5} />
           </div>
 
           {/* meta */}
@@ -97,7 +100,7 @@ function ShoppingList({ title }: IProps) {
 
             {/* Rating Stars */}
 
-            <StarsContainer rating={4.5} />
+            <StarsContainer averageReview={4.5} />
           </div>
 
           {/* meta */}
@@ -155,7 +158,7 @@ function ShoppingList({ title }: IProps) {
 
             {/* Rating Stars */}
 
-            <StarsContainer rating={4.5} />
+            <StarsContainer averageReview={4.5} />
           </div>
 
           {/* meta */}

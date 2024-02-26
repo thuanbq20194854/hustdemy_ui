@@ -2,18 +2,19 @@ import styles from './RatingContainer.module.scss'
 import { IoIosStarOutline, IoMdStar } from 'react-icons/io'
 
 interface IProps {
-  rating: number
-
-  showNumberOfRating?: boolean
+  countReview?: number
+  averageReview: number
 }
 
 function RatingContainer(props: IProps) {
-  const { rating, showNumberOfRating = true } = props
+  const { countReview, averageReview } = props
+
+  const rating = averageReview
 
   return (
     <div className={styles.ratingContainer}>
       <div className='ratingNumber ud-heading-sm'>
-        <span>4.7</span>
+        <span>{rating}</span>
       </div>
       <div className='stars'>
         {Array(5)
@@ -49,9 +50,9 @@ function RatingContainer(props: IProps) {
           })}
       </div>
 
-      {showNumberOfRating && (
+      {countReview && (
         <div className='ud-text-xs numberOfRating'>
-          <span>(277,455)</span>
+          <span>{countReview}</span>
         </div>
       )}
     </div>

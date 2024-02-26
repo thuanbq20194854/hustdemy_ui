@@ -14,113 +14,201 @@ import 'swiper/swiper-bundle.css'
 import { NavLink } from 'react-router-dom'
 import { IoCheckmark } from 'react-icons/io5'
 import { CiHeart } from 'react-icons/ci'
+import { useAppDispatch } from '../../services/state/redux/store'
+import { cartSliceActions } from '../../services/state/redux/cartSlice'
+import { CartItem } from '../../models/cart'
 
-const items = [
+const items: CartItem[] = [
   {
-    key: '1',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-    courseName: 'Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 4.5,
-    sold: 3628
+    id: '1',
+    cart_id: '1',
+    cartCourse: {
+      ID: 1,
+      Title: '1111 Become a Certified Web Developer: HTML, CSS and JavaScript',
+      Image: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+      Price: '12999000',
+      CountReview: 300,
+      AverageReview: 4.5
+    }
   },
   {
-    key: '2',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/8324_fa84_13.jpg',
-    courseName: 'Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor:
-      'Javascript for BeginnersLearn javascript online and supercharge your web design with this Javascript for beginners training course.Rating: 4.5 out of 52786 reviews8 total hours72 lecturesAll',
-    courseActualPrice: 399000,
-    courseOriginalPrice: 299000,
-    courseRating: 4.5,
-    sold: 2786
+    id: '2',
+    cart_id: '1',
+    cartCourse: {
+      ID: 2,
+      Title: '2222 Become a Certified Web Developer: HTML, CSS and JavaScript',
+      Image: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+      Price: '12999000',
+      CountReview: 300,
+      AverageReview: 4.5
+    }
   },
   {
-    key: '3',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/14346_9972_8.jpg',
-    courseName: 'Learn C# Programming (In Ten Easy Steps)',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 3.5,
-    sold: 3628
+    id: '3',
+    cart_id: '1',
+    cartCourse: {
+      ID: 3,
+      Title: '3333 Become a Certified Web Developer: HTML, CSS and JavaScript',
+      Image: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+      Price: '12999000',
+      CountReview: 300,
+      AverageReview: 4.5
+    }
   },
   {
-    key: '4',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/3142166_a637_3.jpg',
-    courseName: '[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02',
-
-    courseInstrutor: 'Stephane Maarek | AWS Certified Cloud Practitioner,Solutions Architect,Developer',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 5.5,
-    sold: 3628
+    id: '4',
+    cart_id: '1',
+    cartCourse: {
+      ID: 4,
+      Title: '4444 Become a Certified Web Developer: HTML, CSS and JavaScript',
+      Image: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+      Price: '12999000',
+      CountReview: 300,
+      AverageReview: 4.5
+    }
   },
   {
-    key: '5',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-    courseName: '555555555555555Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 4.5,
-    sold: 3628
-  },
-
-  {
-    key: '6',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-    courseName: '66666Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 4.5,
-    sold: 3628
+    id: '5',
+    cart_id: '1',
+    cartCourse: {
+      ID: 5,
+      Title: '5555 Become a Certified Web Developer: HTML, CSS and JavaScript',
+      Image: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+      Price: '12999000',
+      CountReview: 300,
+      AverageReview: 4.5
+    }
   },
   {
-    key: '7',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-    courseName: '7777777Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 4.5,
-    sold: 3628
-  },
-  {
-    key: '8',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-    courseName: '8888888Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 4.5,
-    sold: 3628
-  },
-  {
-    key: '9',
-    courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
-    courseName: '9999999999Become a Certified Web Developer: HTML, CSS and JavaScript',
-
-    courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
-    courseActualPrice: 12999000,
-    courseOriginalPrice: 89900,
-    courseRating: 4.5,
-    sold: 3628
+    id: '6',
+    cart_id: '1',
+    cartCourse: {
+      ID: 6,
+      Title: '6666 Become a Certified Web Developer: HTML, CSS and JavaScript',
+      Image: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+      Price: '12999000',
+      CountReview: 300,
+      AverageReview: 4.5
+    }
   }
 ]
 
-function CourseCardListSlider() {
-  const renderCourseCardPopover = () => {
+// const items: IItem[] = [
+//   {
+//     id: '1',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+//     courseName: 'Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 300,
+//     sold: 3628
+//   },
+//   {
+//     id: '2',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/8324_fa84_13.jpg',
+//     courseName: 'Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor:
+//       'Javascript for BeginnersLearn javascript online and supercharge your web design with this Javascript for beginners training course.Rating: 300 out of 52786 reviews8 total hours72 lecturesAll',
+//     courseActualPrice: 399000,
+//     courseOriginalPrice: 299000,
+//     courseRating: 300,
+//     sold: 2786
+//   },
+//   {
+//     id: '3',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/14346_9972_8.jpg',
+//     courseName: 'Learn C# Programming (In Ten Easy Steps)',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 3.5,
+//     sold: 3628
+//   },
+//   {
+//     id: '4',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/3142166_a637_3.jpg',
+//     courseName: '[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02',
+
+//     courseInstrutor: 'Stephane Maarek | AWS Certified Cloud Practitioner,Solutions Architect,Developer',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 5.5,
+//     sold: 3628
+//   },
+//   {
+//     id: '5',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+//     courseName: '555555555555555Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 4.5,
+//     sold: 3628
+//   },
+
+//   {
+//     id: '6',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+//     courseName: '66666Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 4.5,
+//     sold: 3628
+//   },
+//   {
+//     id: '7',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+//     courseName: '7777777Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 4.5,
+//     sold: 3628
+//   },
+//   {
+//     id: '8',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+//     courseName: '8888888Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 4.5,
+//     sold: 3628
+//   },
+//   {
+//     id: '9',
+//     courseAvatar: 'https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg',
+//     courseName: '9999999999Become a Certified Web Developer: HTML, CSS and JavaScript',
+
+//     courseInstrutor: 'SkillSprints Inc., Mark Lassoff',
+//     courseActualPrice: 12999000,
+//     courseOriginalPrice: 89900,
+//     courseRating: 4.5,
+//     sold: 3628
+//   }
+// ]
+
+interface IProps {
+  title: string
+}
+
+function CourseCardListSlider(props: IProps) {
+  const { title } = props
+
+  const dispatch = useAppDispatch()
+  const handleAddToCart = (cartItem: CartItem) => {
+    dispatch(cartSliceActions.addCartItem(cartItem))
+  }
+  const renderCourseCardPopover = (cartItem: CartItem) => {
     return (
       <div className='courseQuickViewWrapper'>
         <div className='title ud-heading-lg'>100 Days of Code: The Complete Python Pro Bootcamp</div>
@@ -168,7 +256,12 @@ function CourseCardListSlider() {
         </div>
 
         <div className='actionContainer'>
-          <button className='atc-btn ud-btn ud-btn-large ud-heading-md ud-btn-brand'>Add To Cart</button>
+          <button
+            className='atc-btn ud-btn ud-btn-large ud-heading-md ud-btn-brand'
+            onClick={() => handleAddToCart(cartItem)}
+          >
+            Add To Cart
+          </button>
           <button className='heart-btn'>
             <CiHeart size={24} />
           </button>
@@ -179,7 +272,7 @@ function CourseCardListSlider() {
 
   return (
     <div className={styles.courseCardListContainer}>
-      <div className='listTitle ud-heading-xl'>Recommended for you</div>
+      <div className='listTitle ud-heading-xl'>{title}</div>
       <div className='courseCardList'>
         <Swiper
           // install Swiper modules
@@ -218,28 +311,31 @@ function CourseCardListSlider() {
             }
           }}
         >
-          {items.map((itemCourse) => (
-            <SwiperSlide key={itemCourse.key}>
+          {items.map((cartItem: CartItem) => (
+            <SwiperSlide key={cartItem.cartCourse.ID}>
               <CustomTooltip
-                title={renderCourseCardPopover()}
-                key={itemCourse.key}
+                title={renderCourseCardPopover(cartItem)}
                 rootClassName={styles.cardTooltipRootClass}
                 placement='left'
               >
-                <NavLink to='/' className='courseCard navLink' key={itemCourse.key}>
+                <NavLink to='/' className='courseCard navLink'>
                   <div className='courseAvatar'>
-                    <img src={itemCourse.courseAvatar} alt='' />
+                    <img src={cartItem.cartCourse.Image ?? ''} alt='' />
+                    {/* <img src='https://img-c.udemycdn.com/course/240x135/11475_9dac_15.jpg' alt='' /> */}
                   </div>
 
-                  <div className='ud-heading-md courseName'>{itemCourse.courseName}</div>
+                  <div className='ud-heading-md courseName'>{cartItem.cartCourse.Title}</div>
 
-                  <div className='ud-text-xs courseInstructor'>{itemCourse.courseInstrutor}</div>
+                  <div className='ud-text-xs courseInstructor'>Instructor Bui Quoc Thuan</div>
 
                   <div className='statics'>
-                    <RatingContainer rating={3.5} />
+                    <RatingContainer
+                      averageReview={cartItem.cartCourse.AverageReview as number}
+                      countReview={cartItem.cartCourse.CountReview}
+                    />
                   </div>
                   <div className='price'>
-                    <div className='currentPrice ud-heading-md'>₫2,499,000</div>
+                    <div className='currentPrice ud-heading-md'>₫{cartItem.cartCourse.Price}</div>
                   </div>
 
                   <div className='courseBadges'>

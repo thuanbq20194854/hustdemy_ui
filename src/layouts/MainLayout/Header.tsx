@@ -229,6 +229,7 @@ const Level1Categories = [
 ]
 
 function Header() {
+  const cartState = useAppSelector((state) => state.cart)
   const userState = useAppSelector((state) => state.user)
   const { isAuthenticated } = userState
 
@@ -293,13 +294,15 @@ function Header() {
     )
   }
 
-  const test = {
-    cartListEmpty: true
-  }
+  // const test = {
+  //   cartListEmpty: true
+  // }
 
-  const renderWishList = () => <CourseList isWishList={true} buttonContent='Go To Wishlist' />
+  const renderWishList = () => (
+    <CourseList data={cartState.cart?.cart_items || []} isWishList={true} buttonContent='Go To Wishlist' />
+  )
   const renderCartList = () => {
-    return <CourseList buttonContent='Go To Cart' />
+    return <CourseList data={cartState.cart?.cart_items || []} buttonContent='Go To Cart' />
   }
 
   const renderMenuList = () => {
@@ -475,7 +478,7 @@ function Header() {
           <div className='ud-btn cart'>
             <MdOutlineShoppingCart size={24} />
             <span className='purchase-number'>
-              <p>46</p>
+              <p>{cartState.cart?.cart_items.length}</p>
             </span>
           </div>
         </CustomTooltip>

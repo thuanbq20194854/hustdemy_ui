@@ -193,7 +193,7 @@ export default function Home() {
 
       <h1 className='heading'>What to learn next</h1>
       <div className='courseListsContainer'>
-        <CourseCardListSlider />
+        <CourseCardListSlider title='Viết gì đó vào đây' />
       </div>
     </div>
   )

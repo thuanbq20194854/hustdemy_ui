@@ -11,10 +11,33 @@
 
       .shoppingSection {
         margin-top: 3.2rem;
+
+        display: flex;
+        align-items: start;
         .shoppingListsPane {
         }
 
         .checkoutPanel {
+          width: 30rem;
+          margin-left: 4.8rem;
+
+          .totalPrice {
+            padding-bottom: 16px;
+            border-bottom: 1px solid #d1d7dc;
+            .totalPrice-inner {
+              .label {
+                color: #6a6f73;
+              }
+
+              .base-price {
+                margin: 16px 0;
+              }
+            }
+          }
+
+          .checkoutBtn {
+            width: 100%;
+          }
         }
       }
     }

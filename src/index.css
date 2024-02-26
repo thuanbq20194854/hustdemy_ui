@@ -192,6 +192,15 @@ ol {
   font-size: 2.4rem;
   max-width: 36em;
 }
+
+.ud-heading-xxl {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-size: 3.2rem;
+  max-width: 36em;
+}
+
 .ud-heading-xxxl {
   font-weight: 700;
   line-height: 1.2;
@@ -306,9 +315,11 @@ a.navLink:hover {
 a.resetNavlink {
   color: inherit;
 }
+
 a.resetNavlink:active {
   color: inherit;
 }
+
 a.resetNavlink:hover {
   color: inherit;
 }

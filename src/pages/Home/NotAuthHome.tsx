@@ -151,7 +151,7 @@ function NotAuthHome() {
           tabBarStyle={{ borderBottomColor: '#fff' }}
         />
 
-        <CourseCardListSlider />
+        <CourseCardListSlider title='Recommended for you' />
       </div>
     </div>
   )

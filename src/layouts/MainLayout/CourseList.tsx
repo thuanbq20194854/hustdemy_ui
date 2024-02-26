@@ -1,43 +1,46 @@
 import { NavLink } from 'react-router-dom'
 import './Header.module.scss'
+import { CartItem } from '../../models/cart'
 
 interface IProps {
   isWishList?: boolean
   buttonContent?: string
   buttonPath?: string
+
+  data: CartItem[]
 }
 
-const fakesItems = [
-  {
-    courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
-    courseName: 'The Complete Introduction To Accounting and Finance',
-    courseInstructor: 'Chris Benjamin, MBA & CFO',
-    coursePrice: '₫1,299,000'
-  },
-  {
-    courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
-    courseName: 'The Complete Introduction To Accounting and Finance',
-    courseInstructor: 'Chris Benjamin, MBA & CFO',
-    coursePrice: '₫1,299,000'
-  },
-  {
-    courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
-    courseName: 'The Complete Introduction To Accounting and Finance',
-    courseInstructor: 'Chris Benjamin, MBA & CFO',
-    coursePrice: '₫1,299,000'
-  },
-  {
-    courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
-    courseName: 'The Complete Introduction To Accounting and Finance',
-    courseInstructor: 'Chris Benjamin, MBA & CFO',
-    coursePrice: '₫1,299,000'
-  }
-]
+// const fakesItems = [
+//   {
+//     courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
+//     courseName: 'The Complete Introduction To Accounting and Finance',
+//     courseInstructor: 'Chris Benjamin, MBA & CFO',
+//     coursePrice: '₫1,299,000'
+//   },
+//   {
+//     courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
+//     courseName: 'The Complete Introduction To Accounting and Finance',
+//     courseInstructor: 'Chris Benjamin, MBA & CFO',
+//     coursePrice: '₫1,299,000'
+//   },
+//   {
+//     courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
+//     courseName: 'The Complete Introduction To Accounting and Finance',
+//     courseInstructor: 'Chris Benjamin, MBA & CFO',
+//     coursePrice: '₫1,299,000'
+//   },
+//   {
+//     courseAvatar: 'https://img-c.udemycdn.com/course/100x100/32908_4e19_7.jpg',
+//     courseName: 'The Complete Introduction To Accounting and Finance',
+//     courseInstructor: 'Chris Benjamin, MBA & CFO',
+//     coursePrice: '₫1,299,000'
+//   }
+// ]
 
 function CourseList(props: IProps) {
-  const { isWishList = false } = props
+  const { isWishList = false, data } = props
 
-  if (fakesItems.length === 0) {
+  if (data.length === 0) {
     if (isWishList) {
       return (
         <div className='emptyList'>
@@ -61,18 +64,19 @@ function CourseList(props: IProps) {
   return (
     <div className='courseTooltip'>
       <div className='courseList'>
-        {fakesItems.map((item, index) => (
-          <NavLink to='/course/hehe' key={index} className='navLink'>
+        {data.map((item: CartItem) => (
+          <NavLink to='/course/hehe' key={item.id} className='navLink'>
             <div className='courseItem'>
               <div className='courseTitle'>
                 <div className='courseAvatarContainer'>
-                  <img src={item.courseAvatar} alt='' />
+                  <img src={item.cartCourse.Image ?? ''} alt='' />
                 </div>
 
                 <div className='courseInfo'>
-                  <div className='courseName ud-heading-sm'>{item.courseName}</div>
-                  <div className='courseInstructor ud-text-xs'>{item.courseInstructor}</div>
-                  <div className='coursePrice ud-heading-sm'>{item.coursePrice}</div>
+                  <div className='courseName ud-heading-sm'>{item.cartCourse.Title}</div>
+                  {/* <div className='courseInstructor ud-text-xs'>{item.courseInstructor}</div> */}
+                  <div className='courseInstructor ud-text-xs'>Instructor Bui Quoc Thuan</div>
+                  <div className='coursePrice ud-heading-sm'>{item.cartCourse.Price}</div>
                 </div>
               </div>
               {isWishList && (
