@@ -76,34 +76,6 @@
         .statics {
           display: flex;
           align-items: center;
-          .ratingContainer {
-            display: flex;
-            align-items: center;
-            margin-right: 0.4rem;
-
-            .ratingNumber {
-              margin-right: 0.4rem;
-              color: #4d3105;
-            }
-            .stars {
-              display: flex;
-              align-items: center;
-              .star {
-                display: inline-block;
-                .innerContent {
-                  display: flex;
-                  align-items: center;
-                  position: relative;
-                  .innerStar {
-                    overflow: hidden;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                  }
-                }
-              }
-            }
-          }
         }
 
         .price {
@@ -127,6 +99,102 @@
 
             background-color: var(--color-yellow-200);
             color: var(--color-yellow-500);
+          }
+        }
+      }
+    }
+  }
+}
+
+.cardTooltipRootClass {
+  :global {
+    .ant-tooltip-content {
+      .ant-tooltip-inner {
+        .courseQuickViewWrapper {
+          width: 340px;
+          padding: 24px;
+
+          & > div:not(:last-child) {
+            margin-bottom: 1rem;
+          }
+
+          .badge-container {
+            display: flex;
+            align-items: center;
+            .courseBadges {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.4rem 0.8rem;
+
+              margin-right: 1rem;
+
+              .courseBadge {
+                display: inline-block;
+                padding: 0.4rem 0.8rem;
+                white-space: nowrap;
+
+                background-color: var(--color-yellow-200);
+                color: var(--color-yellow-500);
+              }
+            }
+
+            .updated {
+              color: #1e6055;
+              span {
+                font-weight: bold;
+              }
+            }
+          }
+
+          .stats {
+            & > span:not(:last-child)::after {
+              content: '●';
+              margin: 0 0.4rem;
+              font-size: 6px;
+              vertical-align: middle;
+            }
+          }
+
+          .objectives {
+            .objective-item {
+              display: flex;
+              align-items: start;
+
+              .objective-content {
+                margin-left: 16px;
+              }
+            }
+          }
+
+          .actionContainer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .atc-btn {
+              flex: 1;
+            }
+            .heart-btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              height: 48px;
+              width: 48px;
+
+              &:hover {
+                color: var(--color-gray-500);
+                background-color: rgba(23, 57, 83, 0.12);
+              }
+              svg {
+                width: 24px;
+              }
+              border: 1px solid black;
+
+              border-radius: 9999px;
+
+              cursor: pointer;
+            }
           }
         }
       }

@@ -3,7 +3,7 @@ import styles from './CourseCardListSlider.module.scss'
 import { MdArrowBackIosNew } from 'react-icons/md'
 import { MdArrowForwardIos } from 'react-icons/md'
 
-import StarsContainer from './StarsContainer'
+import RatingContainer from './RatingContainer'
 import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 
 // import Swiper core and required modules
@@ -236,8 +236,7 @@ function CourseCardListSlider() {
                   <div className='ud-text-xs courseInstructor'>{itemCourse.courseInstrutor}</div>
 
                   <div className='statics'>
-                    <StarsContainer rating={3.5} />
-                    <div className='ud-text-xs sold'>277,455</div>
+                    <RatingContainer rating={3.5} />
                   </div>
                   <div className='price'>
                     <div className='currentPrice ud-heading-md'>₫2,499,000</div>

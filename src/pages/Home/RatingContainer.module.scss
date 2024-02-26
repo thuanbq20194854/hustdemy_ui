@@ -1,0 +1,35 @@
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 0.4rem;
+
+  :global {
+    .ratingNumber {
+      margin-right: 0.4rem;
+      color: #4d3105;
+    }
+    .stars {
+      display: flex;
+      align-items: center;
+
+      .ratingNumber {
+        display: flex;
+        align-items: center;
+      }
+      .star {
+        display: inline-block;
+        .innerContent {
+          display: flex;
+          align-items: center;
+          position: relative;
+          .innerStar {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}

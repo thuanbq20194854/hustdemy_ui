@@ -1,6 +1,6 @@
 import styles from './Register.module.scss'
 import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { userSliceActions } from '../../../services/state/redux/userSlice'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -70,6 +70,17 @@ export default function Register() {
             <span>Sign up</span>
           </button>
         </form>
+
+        <div className='helperAuth'>
+          <div className='seperator'></div>
+
+          <div className='ud-text-sm'>
+            <span>Already have an account?</span>
+            <NavLink className='link ud-link-underline ud-text-bold' to='/login'>
+              Log in
+            </NavLink>
+          </div>
+        </div>
       </div>
     </div>
   )

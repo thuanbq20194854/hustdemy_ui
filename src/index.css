@@ -192,6 +192,19 @@ ol {
   font-size: 2.4rem;
   max-width: 36em;
 }
+.ud-heading-xxxl {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-size: 4rem;
+  max-width: 36em;
+}
+
+.ud-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+}
 
 .ud-btn {
   position: relative;
@@ -219,6 +232,13 @@ ol {
   border: 1px solid #2d2f31;
 }
 
+.ud-btn-ghost {
+  color: #5624d0;
+  background-color: transparent;
+  min-width: auto;
+  padding: 0;
+}
+
 .ud-btn-brand,
 .ud-btn-brand.ud-btn-disabled {
   background-color: var(--color-purple-300);
@@ -234,6 +254,12 @@ ol {
 
 .ud-btn-secondary:hover {
   background-color: rgba(23, 57, 83, 0.12);
+}
+
+.ud-btn-xsmall {
+  min-width: 8rem;
+  padding: 0 0.8rem;
+  height: 2.8rem;
 }
 
 .ud-btn-medium {
@@ -267,7 +293,6 @@ a.navLink:hover {
   color: inherit;
 }
 
-
 .ud-link-underline {
   text-decoration: underline;
   text-underline-offset: 0.4rem;
@@ -276,4 +301,14 @@ a.navLink:hover {
 
 .ud-text-bold {
   font-weight: 700;
+}
+
+a.resetNavlink {
+  color: inherit;
+}
+a.resetNavlink:active {
+  color: inherit;
+}
+a.resetNavlink:hover {
+  color: inherit;
 }

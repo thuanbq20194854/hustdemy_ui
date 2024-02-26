@@ -7,6 +7,7 @@ import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 import CourseList from './CourseList'
 import { NavLink } from 'react-router-dom'
 import { GrLanguage } from 'react-icons/gr'
+import { useAppSelector } from '../../services/state/redux/store'
 
 const fakesCategories = [
   'Development',
@@ -228,6 +229,9 @@ const Level1Categories = [
 ]
 
 function Header() {
+  const userState = useAppSelector((state) => state.user)
+  const { isAuthenticated } = userState
+
   const [level1Category, setLevel1Category] = useState<string>('')
   const [level2Category, setLevel2Category] = useState<string>('')
 
@@ -437,24 +441,28 @@ function Header() {
           </button>
         </NavLink>
 
-        <NavLink to='my-course/courses'>
-          <button className='text-item'>
-            <span className='ud-text-sm'>My Learning</span>
-          </button>
-        </NavLink>
+        {isAuthenticated && (
+          <>
+            <NavLink to='my-course/courses'>
+              <button className='text-item'>
+                <span className='ud-text-sm'>My Learning</span>
+              </button>
+            </NavLink>
 
-        <CustomTooltip
-          placement='bottomRight'
-          title={renderWishList()}
-          color='white'
-          arrow={false}
-          overlayStyle={{ maxWidth: '30.5rem' }}
-          rootClassName={styles.cartTooltipRootClass}
-        >
-          <div className='ud-btn'>
-            <IoMdHeartEmpty size={24} />
-          </div>
-        </CustomTooltip>
+            <CustomTooltip
+              placement='bottomRight'
+              title={renderWishList()}
+              color='white'
+              arrow={false}
+              overlayStyle={{ maxWidth: '30.5rem' }}
+              rootClassName={styles.cartTooltipRootClass}
+            >
+              <div className='ud-btn'>
+                <IoMdHeartEmpty size={24} />
+              </div>
+            </CustomTooltip>
+          </>
+        )}
 
         <CustomTooltip
           placement='bottomRight'
@@ -472,28 +480,45 @@ function Header() {
           </div>
         </CustomTooltip>
 
-        <div className='ud-btn'>
-          <GoBell size={24} />
-        </div>
-
-        <CustomTooltip
-          placement='bottomRight'
-          title={renderMenuList()}
-          color='white'
-          arrow={false}
-          overlayStyle={{ maxWidth: '26rem' }}
-          rootClassName={styles.cartTooltipRootClass}
-        >
-          <div className='avatar-ud-btn'>
-            <div className='avatar-container'>
-              <img
-                className='avatar'
-                src='https://lh3.googleusercontent.com/a/ACg8ocJEoJUYixlFMzUzd9DpRQhHhKAAYx3l1wGSEWfeidHDyrw=s96-c'
-                alt=''
-              />
+        {isAuthenticated ? (
+          <>
+            <div className='ud-btn'>
+              <GoBell size={24} />
             </div>
-          </div>
-        </CustomTooltip>
+
+            <CustomTooltip
+              placement='bottomRight'
+              title={renderMenuList()}
+              color='white'
+              arrow={false}
+              overlayStyle={{ maxWidth: '26rem' }}
+              rootClassName={styles.cartTooltipRootClass}
+            >
+              <div className='avatar-ud-btn'>
+                <div className='avatar-container'>
+                  <img
+                    className='avatar'
+                    src='https://lh3.googleusercontent.com/a/ACg8ocJEoJUYixlFMzUzd9DpRQhHhKAAYx3l1wGSEWfeidHDyrw=s96-c'
+                    alt=''
+                  />
+                </div>
+              </div>
+            </CustomTooltip>
+          </>
+        ) : (
+          <>
+            <button className='ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm ud-btn-icon ud-btn-icon-medium auth-btn'>
+              <NavLink to='/login' className='resetNavlink'>
+                Log in
+              </NavLink>
+            </button>
+            <button className='ud-btn ud-btn-medium ud-btn-primary ud-heading-sm ud-btn-icon ud-btn-icon-medium auth-btn'>
+              <NavLink to='/register' className='resetNavlink'>
+                Sign up
+              </NavLink>
+            </button>
+          </>
+        )}
       </div>
 
       <div className='bottomRegion'>

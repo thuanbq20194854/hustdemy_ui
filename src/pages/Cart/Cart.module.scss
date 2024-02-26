@@ -1,0 +1,22 @@
+.cartPage {
+  :global {
+    .cartPageContainer {
+      width: 1340px;
+
+      padding: 0 4.8rem;
+      margin-bottom: 6.4rem;
+      margin: 32px auto;
+      .titleSection {
+      }
+
+      .shoppingSection {
+        margin-top: 3.2rem;
+        .shoppingListsPane {
+        }
+
+        .checkoutPanel {
+        }
+      }
+    }
+  }
+}

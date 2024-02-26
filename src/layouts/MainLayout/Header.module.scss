@@ -31,9 +31,7 @@
 
       .ud-btn {
         padding: 0 12px;
-
         height: 4.8rem;
-
         display: flex;
         align-items: center;
 
@@ -46,8 +44,11 @@
         }
       }
 
-      .ud-btn.cart {
+      .cart {
         position: relative;
+
+        flex-shrink: 0;
+        min-width: 40px;
         .purchase-number {
           position: absolute;
 
@@ -75,6 +76,7 @@
       .avatar-ud-btn {
         margin: 12px 0;
         height: 4.8rem;
+        min-width: 40px;
         .avatar-container {
           margin: 8px;
           object-fit: cover;
@@ -92,6 +94,13 @@
             height: 100%;
           }
         }
+      }
+
+      .auth-btn {
+        height: 40px;
+        min-width: 80px;
+
+        margin-left: 10px;
       }
 
       .search-wrapper {

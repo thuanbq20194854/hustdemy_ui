@@ -1,0 +1,99 @@
+.shoppingList {
+  width: 880px;
+
+  :global {
+    .title {
+      margin-bottom: 8px;
+    }
+    .shoppingItem {
+      padding: 1.6rem 0;
+      border-top: 1px solid #d1d7dc;
+
+      display: flex;
+      align-items: start;
+
+      .imageContainer {
+        margin-right: 1.6rem;
+        img {
+          width: 12rem;
+          height: 6.8rem;
+        }
+      }
+
+      .detailInfo {
+        flex: 1;
+        .header {
+          .courseTitle {
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+          }
+
+          .instructor {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-top: 0.4rem;
+          }
+        }
+
+        .badgAndRating {
+          margin-top: 0.8rem;
+
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .badges {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .bestseller {
+              background-color: var(--color-yellow-200);
+              color: var(--color-yellow-500);
+            }
+
+            .updated-recently {
+              background-color: var(--color-green-200);
+              color: var(--color-green-500);
+            }
+          }
+        }
+        .meta {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          margin-top: 0.8rem;
+          color: #6a6f73;
+          // & > span:not(:last-child)::after {
+          //   content: '●';
+          //   font-size: 16px;
+          //   vertical-align: middle;
+          // }
+        }
+      }
+
+      .actions {
+        margin-top: 0;
+        padding-left: 2.4rem;
+        grid-area: actions;
+        gap: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+      }
+
+      .priceContainer {
+        padding-left: 4.8rem;
+        display: flex;
+        color: #a435f0;
+      }
+    }
+  }
+}

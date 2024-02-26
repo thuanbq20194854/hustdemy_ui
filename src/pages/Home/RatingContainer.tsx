@@ -1,16 +1,20 @@
-import './AuthHome.module.scss'
+import styles from './RatingContainer.module.scss'
 import { IoIosStarOutline, IoMdStar } from 'react-icons/io'
 
 interface IProps {
   rating: number
+
+  showNumberOfRating?: boolean
 }
 
-function StarsContainer(props: IProps) {
-  const { rating } = props
+function RatingContainer(props: IProps) {
+  const { rating, showNumberOfRating = true } = props
 
   return (
-    <div className='ratingContainer'>
-      <div className='ratingNumber ud-heading-sm'>4.7</div>
+    <div className={styles.ratingContainer}>
+      <div className='ratingNumber ud-heading-sm'>
+        <span>4.7</span>
+      </div>
       <div className='stars'>
         {Array(5)
           .fill(0)
@@ -44,8 +48,14 @@ function StarsContainer(props: IProps) {
             )
           })}
       </div>
+
+      {showNumberOfRating && (
+        <div className='ud-text-xs numberOfRating'>
+          <span>(277,455)</span>
+        </div>
+      )}
     </div>
   )
 }
 
-export default StarsContainer
+export default RatingContainer
