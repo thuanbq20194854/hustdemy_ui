@@ -4,13 +4,13 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import Payment from './pages/Payment/Payment'
 import MainLayout from './layouts/MainLayout/MainLayout'
 import Cart from './pages/Cart/Cart'
-import CourseList from './pages/Courses/CourseList/CourseList'
 import CourseDetail from './pages/Courses/CourseDetail/CourseDetail'
 import MyCourses from './pages/MyCourses/MyCourses'
 import NotAuthHome from './pages/Home/NotAuthHome'
 import AuthHome from './pages/Home/AuthHome'
 import Login from './pages/Auth/Login/Login'
 import Register from './pages/Auth/Register/Register'
+import CourseSearch from './pages/Courses/CourseSearch/CourseSearch'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -46,13 +46,18 @@ export const useRouteElements = () => {
           children: [
             {
               path: '/courses/:level1Id',
-              element: <CourseList></CourseList>,
+              element: <CourseSearch />,
               children: [
                 {
                   path: '/courses/:level1Id/:level2Id',
-                  element: <CourseList></CourseList>
+                  element: <CourseSearch />
                 }
               ]
+            },
+
+            {
+              path: '/courses/search',
+              element: <CourseSearch />
             }
           ]
         },

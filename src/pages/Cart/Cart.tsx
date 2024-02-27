@@ -1,8 +1,10 @@
+import { useAppSelector } from '../../services/state/redux/store'
 import CourseCardListSlider from '../Home/CourseCardListSlider'
 import styles from './Cart.module.scss'
 import ShoppingList from './ShoppingList'
 
 function Cart() {
+  const { cart } = useAppSelector((state) => state.cart)
   return (
     <div className={styles.cartPage}>
       {/* Shoppping List Panel */}
@@ -12,9 +14,9 @@ function Cart() {
 
         <div className='shoppingSection'>
           <div className='shoppingListsPane'>
-            <ShoppingList cartItems={} title='3 cart' />
-            <ShoppingList title='Save for later' />
-            <ShoppingList title='Recently wishlist' />
+            <ShoppingList cartList={cart?.cart_items || []} title='3 cart' />
+            {/* <ShoppingList title='Save for later' />
+            <ShoppingList title='Recently wishlist' /> */}
           </div>
 
           {/* Checkout Panel */}

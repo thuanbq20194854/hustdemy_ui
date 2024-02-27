@@ -1,0 +1,158 @@
+.courseDetailPage {
+  :global {
+    .topContainer {
+      padding: 32px 0;
+      background-color: #2d2f31;
+
+      color: white;
+      .inner {
+        max-width: 1184px;
+        margin: 0 auto;
+
+        .mainContent {
+          width: 700px;
+          margin: 0 4.8rem;
+
+          .topicMenu {
+            margin-bottom: 16px;
+            .breadCumb {
+              display: flex;
+              align-items: center;
+              span {
+                color: #c0c4fc;
+              }
+            }
+          }
+
+          .title {
+            margin-bottom: 16px;
+          }
+
+          .headline {
+            margin-bottom: 24px;
+            font-size: 1.9rem;
+          }
+
+          .ratingContainer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+
+            .ratingCount {
+              margin-left: 10px;
+              color: #c0c4fc;
+              text-decoration: underline;
+            }
+          }
+
+          .instructor {
+            a {
+              margin-left: 10px;
+              color: #c0c4fc;
+              text-decoration: underline;
+            }
+          }
+
+          .meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            .updated {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+
+            .language {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .bodyContainer {
+      .inner {
+        max-width: 1184px;
+        margin: 0 auto;
+        .mainContent {
+          width: 700px;
+          margin: 32px 4.8rem;
+
+          .whatYouWillLearn {
+            border: 1px solid #d1d7dc;
+            padding: 2.4rem;
+            margin-bottom: 3.2rem;
+            .title {
+              padding-bottom: 1.6rem;
+            }
+
+            ul {
+              display: flex;
+              flex-flow: row wrap;
+              justify-content: space-between;
+
+              li {
+                width: 45%;
+
+                display: flex;
+                align-items: start;
+
+                svg {
+                  width: 40px;
+
+                  display: flex;
+                  align-items: start;
+                }
+              }
+            }
+          }
+
+          .curriculumContainer {
+            .header {
+            }
+
+            .subheader {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              .contentLength {
+              }
+            }
+
+            .section-panel {
+              .section-toggleContainer {
+                padding: 1.6rem 2.4rem;
+                background-color: #f7f9fa;
+
+                .section-toggler {
+                  margin-left: 1.2rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+
+                  position: relative;
+
+                  .svg-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: -12px;
+                    transform: translate(-50%, -50%);
+                    transition: transform 150ms linear;
+                  }
+
+                  .svg-icon.isOpened {
+                    transform: translate(-50%, -50%) rotate(180deg);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
