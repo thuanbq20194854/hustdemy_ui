@@ -1,0 +1,33 @@
+.objectiveList {
+  border: 1px solid #d1d7dc;
+  padding: 2.4rem;
+  margin-bottom: 3.2rem;
+
+  :global {
+    .title {
+      padding-bottom: 1.6rem;
+    }
+
+    ul {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+
+      li {
+        width: 45%;
+
+        display: flex;
+        align-items: start;
+
+        gap: 10px;
+
+        .icon {
+          font-size: 16px;
+        }
+
+        .objective {
+        }
+      }
+    }
+  }
+}

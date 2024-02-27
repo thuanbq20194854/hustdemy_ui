@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-
 import styles from './CourseDetail.module.scss'
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { Bestseller, UpdatedRecently } from '../../../components/Badges/Badges'
@@ -9,17 +7,33 @@ import { BsPatchExclamation } from 'react-icons/bs'
 
 import { MdLanguage } from 'react-icons/md'
 
-import { IoCheckmark } from 'react-icons/io5'
+import SectionPanel from './SectionPanel'
+import ObjectiveList from './ObjectiveList'
+import { useState } from 'react'
 
-import { IoIosArrowDown } from 'react-icons/io'
+const items = [
+  { id: '1' },
+  { id: '2' },
+  { id: '3' },
+  { id: '4' },
+  { id: '5' },
+  { id: '6' },
+  { id: '7' },
+  { id: '8' },
+  { id: '9' },
+  { id: '10' }
+]
 
 function CourseDetail() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [totalItems, setTotalItems] = useState<any>(items)
 
-  const handleToggleOpen = () => {
-    setIsOpen((prev) => !prev)
+  const hidenItems = totalItems.slice(3)
+
+  const [showMoreSection, setShowMoreSection] = useState<boolean>(false)
+
+  const handleShowMoreSections = () => {
+    setShowMoreSection(true)
   }
-
   return (
     <div className={styles.courseDetailPage}>
       <div className='topContainer'>
@@ -85,48 +99,7 @@ function CourseDetail() {
         <div className='inner'>
           <div className='mainContent'>
             {/* what you will learn */}
-            <div className='whatYouWillLearn'>
-              <div className='title'>What you'll learn</div>
-
-              <ul>
-                <li>
-                  <IoCheckmark size={40} />
-
-                  <div>
-                    <span>
-                      Build 16 web development projects for your portfolio, ready to apply for junior developer jobs.
-                    </span>
-                  </div>
-                </li>
-                <li>
-                  <IoCheckmark size={40} />
-
-                  <div>
-                    <span>
-                      Build 16 web development projects for your portfolio, ready to apply for junior developer jobs.
-                    </span>
-                  </div>
-                </li>
-                <li>
-                  <IoCheckmark size={40} />
-
-                  <div>
-                    <span>
-                      Build 16 web development projects for your portfolio, ready to apply for junior developer jobs.
-                    </span>
-                  </div>
-                </li>
-                <li>
-                  <IoCheckmark size={40} />
-
-                  <div>
-                    <span>
-                      Build 16 web development projects for your portfolio, ready to apply for junior developer jobs.
-                    </span>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <ObjectiveList />
 
             {/* curriculum */}
 
@@ -146,23 +119,20 @@ function CourseDetail() {
                 </button>
               </div>
 
-              <div>
-                <div className='section-panel'>
-                  <div className='section-toggleContainer' onClick={handleToggleOpen}>
-                    <div className='section-toggler'>
-                      <IoIosArrowDown className={`${isOpen && 'isOpened'} svg-icon`} />
-                      <div className='section-title ud-heading-md'>Front-End Web Development</div>
-                      <span>
-                        <span>9 lectures</span>
-                        <span> • </span>
-                        <span>37min</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className='content-wrapper'></div>
-                </div>
+              <div className='section-panel-list'>
+                {totalItems.slice(0, showMoreSection ? totalItems.length : 3).map((item: any) => {
+                  return <SectionPanel key={item.id} />
+                })}
               </div>
+
+              {!showMoreSection && (
+                <button
+                  className='moreSectionBtn ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm'
+                  onClick={handleShowMoreSections}
+                >
+                  Show more {hidenItems.length} sections
+                </button>
+              )}
             </div>
 
             {/* requirement */}

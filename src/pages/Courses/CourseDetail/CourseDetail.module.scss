@@ -82,35 +82,6 @@
           width: 700px;
           margin: 32px 4.8rem;
 
-          .whatYouWillLearn {
-            border: 1px solid #d1d7dc;
-            padding: 2.4rem;
-            margin-bottom: 3.2rem;
-            .title {
-              padding-bottom: 1.6rem;
-            }
-
-            ul {
-              display: flex;
-              flex-flow: row wrap;
-              justify-content: space-between;
-
-              li {
-                width: 45%;
-
-                display: flex;
-                align-items: start;
-
-                svg {
-                  width: 40px;
-
-                  display: flex;
-                  align-items: start;
-                }
-              }
-            }
-          }
-
           .curriculumContainer {
             .header {
             }
@@ -123,32 +94,13 @@
               }
             }
 
-            .section-panel {
-              .section-toggleContainer {
-                padding: 1.6rem 2.4rem;
-                background-color: #f7f9fa;
+            .section-panel-list:is(:last-child) {
+              border-bottom: 1px solid #d1d7dc;
+            }
 
-                .section-toggler {
-                  margin-left: 1.2rem;
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-
-                  position: relative;
-
-                  .svg-icon {
-                    position: absolute;
-                    top: 50%;
-                    left: -12px;
-                    transform: translate(-50%, -50%);
-                    transition: transform 150ms linear;
-                  }
-
-                  .svg-icon.isOpened {
-                    transform: translate(-50%, -50%) rotate(180deg);
-                  }
-                }
-              }
+            .moreSectionBtn {
+              margin-top: 1.6rem;
+              width: 100%;
             }
           }
         }

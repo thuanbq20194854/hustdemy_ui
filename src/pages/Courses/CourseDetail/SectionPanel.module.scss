@@ -1,0 +1,37 @@
+.sectionPanel {
+  border-left: 1px solid #d1d7dc;
+  border-right: 1px solid #d1d7dc;
+  border-top: 1px solid #d1d7dc;
+
+  :global {
+    .section-toggleContainer {
+      padding: 1.6rem 2.4rem;
+      background-color: #f7f9fa;
+      width: 100%;
+      .section-toggler {
+        margin-left: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        position: relative;
+
+        .svg-icon {
+          position: absolute;
+          top: 50%;
+          left: -12px;
+          transform: translate(-50%, -50%);
+          transition: transform 150ms linear;
+        }
+
+        .svg-icon.isOpened {
+          transform: translate(-50%, -50%) rotate(180deg);
+        }
+      }
+    }
+
+    .content-wrapper {
+      padding: 1.6rem 2.4rem;
+    }
+  }
+}
