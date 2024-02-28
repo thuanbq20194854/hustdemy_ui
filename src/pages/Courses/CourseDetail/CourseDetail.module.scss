@@ -81,29 +81,6 @@
         .mainContent {
           width: 700px;
           margin: 32px 4.8rem;
-
-          .curriculumContainer {
-            margin-bottom: 3.2rem;
-            .header {
-            }
-
-            .subheader {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              .contentLength {
-              }
-            }
-
-            .section-panel-list:is(:last-child) {
-              border-bottom: 1px solid #d1d7dc;
-            }
-
-            .moreSectionBtn {
-              margin-top: 1.6rem;
-              width: 100%;
-            }
-          }
         }
       }
     }

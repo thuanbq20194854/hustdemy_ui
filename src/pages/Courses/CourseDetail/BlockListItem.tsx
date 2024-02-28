@@ -6,13 +6,18 @@ import { FaRegFile } from 'react-icons/fa6'
 import styles from './BlockListItem.module.scss'
 
 interface IProps {
+  itemData?: any
   previewable?: boolean
   type?: string
+  onClickItem?: (previewVideoId: string) => void
 }
 
-function BlockListItem({ previewable = false, type = 'video' }: IProps) {
+function BlockListItem({ previewable = false, type = 'video', onClickItem, itemData }: IProps) {
   return (
-    <div className={`${styles.blockListItem} ${previewable && styles.previewable}`}>
+    <button
+      className={`${styles.blockListItem} ${previewable && styles.previewable}`}
+      onClick={() => onClickItem && onClickItem(itemData.id)}
+    >
       {type === 'file' ? <FaRegFile size={14} /> : <PiVideoLight size={16} />}
       <div className='blockListItem-content'>
         <div className='title'>
@@ -31,7 +36,7 @@ function BlockListItem({ previewable = false, type = 'video' }: IProps) {
         )}
         <span className='duration'>03:08</span>
       </div>
-    </div>
+    </button>
   )
 }
 

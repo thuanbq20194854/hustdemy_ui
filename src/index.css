@@ -304,6 +304,7 @@ ol {
 .ud-btn-icon {
   min-width: auto;
 }
+
 /*  */
 .ud-link-underline {
   text-decoration: underline;
@@ -336,4 +337,19 @@ a.resetNavlink:hover {
   margin: 0;
   padding: 0;
   max-width: none;
+}
+
+/*  */
+
+.ud-form-label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding-bottom: 0.8rem;
+  min-height: 2.8rem;
+}
+
+
+.ud-select-container-large .ud-select {
+  height: 4.8rem;
 }

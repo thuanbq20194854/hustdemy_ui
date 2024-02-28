@@ -6,13 +6,18 @@ import BlockListItem from './BlockListItem'
 
 interface IProps {
   hiden?: boolean
+  onOpenPreviewModal: (previewItemId: string) => void
 }
 
-function SectionPanel({ hiden = false }: IProps) {
+function SectionPanel({ hiden = false, onOpenPreviewModal }: IProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleToggleOpen = () => {
     setIsOpen((prev) => !prev)
+  }
+
+  const handleClickPreviewableItem = (previewVideoId: string) => {
+    onOpenPreviewModal(previewVideoId)
   }
 
   return (
@@ -29,8 +34,9 @@ function SectionPanel({ hiden = false }: IProps) {
         </div>
       </button>
       <div style={{ display: isOpen ? '' : 'none' }} className='content-wrapper'>
+        {/* If item.previewable === true => pass handleClickPreviewableItem */}
         <BlockListItem />
-        <BlockListItem type='file' previewable={true} />
+        <BlockListItem type='file' previewable={true} onClickItem={handleClickPreviewableItem} />
         <BlockListItem />
         <BlockListItem type='video' previewable={true} />
       </div>

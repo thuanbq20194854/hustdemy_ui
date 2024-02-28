@@ -1,0 +1,101 @@
+.curriculumContainer {
+  margin-bottom: 3.2rem;
+
+  :global {
+    .header {
+    }
+
+    .subheader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .contentLength {
+      }
+    }
+
+    .section-panel-list:is(:last-child) {
+      border-bottom: 1px solid #d1d7dc;
+    }
+
+    .moreSectionBtn {
+      margin-top: 1.6rem;
+      width: 100%;
+    }
+  }
+}
+
+.rootPreviewModal {
+  :global {
+    .ant-modal {
+      width: 600px !important;
+
+      .ant-modal-footer {
+        display: none;
+      }
+      .ant-modal-content {
+        width: 600px !important;
+        padding: 24px;
+
+        border-radius: 0px;
+        background-color: #2d2f31;
+
+        .coursePreviewContainer {
+          color: #fff;
+          .coursePreview {
+            color: #d1d7dc;
+            display: block;
+            padding-bottom: 0.8rem;
+          }
+
+          .courseTitle {
+          }
+
+          .separationText {
+            padding: 1.6rem 0;
+          }
+
+          .previewCourseItem {
+            background-color: transparent;
+            color: #fff;
+            border: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #2d2f31;
+
+            width: 600px;
+            padding: 1.6rem 2.4rem;
+            margin: 0 -2.4rem;
+
+            &:hover {
+              background-color: #3e4143;
+            }
+            .thumbnailWrapper {
+              width: 6.4rem;
+              height: 3.6rem;
+              object-fit: cover;
+              overflow: hidden;
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            .previewTitle {
+              flex: 1;
+              text-align: left;
+              margin: 0px 1.6rem;
+
+              display: flex;
+              align-items: center;
+
+              .playIcon {
+                margin-right: 12px;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -98,8 +98,10 @@
   :global {
     .ant-modal {
       width: 920px !important;
-      padding: 24px;
       .ant-modal-content {
+        width: 920px !important;
+        padding: 24px;
+
         border-radius: 0px;
 
         .title {

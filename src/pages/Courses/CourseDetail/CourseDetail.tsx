@@ -15,30 +15,10 @@ import DescriptionSection from './DescriptionSection'
 import RequirementSection from './RequirementSection'
 import InstructorSection from './InstructorSection'
 import ReviewSection from './ReviewSection'
-
-const items = [
-  { id: '1' },
-  { id: '2' },
-  { id: '3' },
-  { id: '4' },
-  { id: '5' },
-  { id: '6' },
-  { id: '7' },
-  { id: '8' },
-  { id: '9' },
-  { id: '10' }
-]
+import CurriculumSection from './CurriculumSection'
+import ReportSection from './ReportSection'
 
 function CourseDetail() {
-  const [totalItems, setTotalItems] = useState<any>(items)
-
-  const hidenItems = totalItems.slice(3)
-
-  const [showMoreSection, setShowMoreSection] = useState<boolean>(false)
-
-  const handleShowMoreSections = () => {
-    setShowMoreSection(true)
-  }
   return (
     <div className={styles.courseDetailPage}>
       <div className='topContainer'>
@@ -108,37 +88,7 @@ function CourseDetail() {
 
             {/* curriculum */}
 
-            <div className='curriculumContainer'>
-              <div className='header ud-heading-xl'>Course content</div>
-              <div className='subheader ud-heading-xl'>
-                <div className='contentLength ud-text-sm'>
-                  <span>44 sections</span>
-                  <span> • </span>
-                  <span>375 lectures</span>
-                  <span> • </span>
-                  <span>62h&nbsp;12m total length</span>
-                </div>
-
-                <button className='ud-btn ud-btn-medium ud-btn-ghost ud-heading-sm'>
-                  <span>Expand all sections</span>
-                </button>
-              </div>
-
-              <div className='section-panel-list'>
-                {totalItems.slice(0, showMoreSection ? totalItems.length : 3).map((item: any) => {
-                  return <SectionPanel key={item.id} />
-                })}
-              </div>
-
-              {!showMoreSection && (
-                <button
-                  className='moreSectionBtn ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm'
-                  onClick={handleShowMoreSections}
-                >
-                  Show more {hidenItems.length} sections
-                </button>
-              )}
-            </div>
+            <CurriculumSection />
 
             {/* requirement */}
 
@@ -153,6 +103,9 @@ function CourseDetail() {
 
             {/* reviews */}
             <ReviewSection />
+
+            {/* Report Abuse */}
+            <ReportSection />
           </div>
         </div>
       </div>

@@ -1,0 +1,90 @@
+.reportCourseSection {
+  margin-bottom: 3.2rem;
+  border-top: 1px solid #d1d7dc;
+  padding: 1.6rem 0;
+
+  :global {
+    .reportBtn {
+      width: 100%;
+    }
+  }
+}
+
+.rootClassReportModal {
+  :global {
+    .ant-modal {
+      width: 600px !important;
+
+      .ant-modal-footer {
+        display: none;
+      }
+      .ant-modal-content {
+        width: 600px !important;
+        padding: 24px;
+        margin: 10vh 0;
+        border-radius: 0px;
+
+        .title {
+          padding: 0 3.6rem 2.4rem 0;
+          margin: 0;
+        }
+
+        .reportForm {
+          .reportIntroduction {
+            margin-bottom: 2.4rem;
+          }
+
+          .formGroup {
+            .label {
+              display: flex;
+              align-items: center;
+              margin: 0;
+              padding-bottom: 0.8rem;
+              min-height: 2.8rem;
+            }
+            .rootClassSelect {
+              height: 4.8rem;
+              width: 100%;
+
+              .ant-select-selector {
+                color: #6a6f73;
+                border-color: #2d2f31;
+                border-radius: 0px;
+              }
+            }
+
+            .rootClassTextArea {
+              width: 100%;
+              color: #6a6f73;
+              border-color: #2d2f31;
+              border-radius: 0px;
+
+              height: 80px;
+              .ant-select-textarea {
+              }
+            }
+          }
+        }
+        .actions {
+          margin-top: 32px;
+          text-align: right;
+          .cancleBtn {
+          }
+          .cancleBtn:active,
+          .cancleBtn:hover {
+            color: #3e4143;
+          }
+
+          .submitBtn {
+            margin-left: 16px;
+          }
+
+          .submitBtn:active,
+          .submitBtn:hover {
+            background-color: #3e4143;
+          }
+        }
+      }
+    }
+  }
+}
