@@ -119,6 +119,10 @@ ol {
   list-style: none;
 }
 
+.ud-text-bold {
+  font-weight: 700;
+}
+
 .ud-text-xs {
   font-weight: 400;
   line-height: 1.4;
@@ -137,6 +141,7 @@ ol {
   font-size: 1.6rem;
 }
 
+/*  */
 .ud-heading-xs {
   font-weight: 700;
   line-height: 1.2;
@@ -209,12 +214,15 @@ ol {
   max-width: 36em;
 }
 
+/*  */
+
 .ud-badge {
   display: inline-block;
   padding: 0.4rem 0.8rem;
   white-space: nowrap;
 }
 
+/*  */
 .ud-btn {
   position: relative;
   align-items: center;
@@ -296,20 +304,18 @@ ol {
 .ud-btn-icon {
   min-width: auto;
 }
-
-a.navLink:hover {
-  cursor: pointer;
-  color: inherit;
-}
-
+/*  */
 .ud-link-underline {
   text-decoration: underline;
   text-underline-offset: 0.4rem;
   text-decoration-color: #8072e6;
 }
 
-.ud-text-bold {
-  font-weight: 700;
+/*  */
+
+a.navLink:hover {
+  cursor: pointer;
+  color: inherit;
 }
 
 a.resetNavlink {
@@ -322,4 +328,12 @@ a.resetNavlink:active {
 
 a.resetNavlink:hover {
   color: inherit;
+}
+
+/*  */
+.ud-unstyled-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: none;
 }

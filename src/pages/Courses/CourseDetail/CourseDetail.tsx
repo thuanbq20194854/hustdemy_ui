@@ -11,6 +11,11 @@ import SectionPanel from './SectionPanel'
 import ObjectiveList from './ObjectiveList'
 import { useState } from 'react'
 
+import DescriptionSection from './DescriptionSection'
+import RequirementSection from './RequirementSection'
+import InstructorSection from './InstructorSection'
+import ReviewSection from './ReviewSection'
+
 const items = [
   { id: '1' },
   { id: '2' },
@@ -137,10 +142,17 @@ function CourseDetail() {
 
             {/* requirement */}
 
+            <RequirementSection />
+
             {/* description */}
 
+            <DescriptionSection />
+
             {/* instructor */}
+            <InstructorSection />
+
             {/* reviews */}
+            <ReviewSection />
           </div>
         </div>
       </div>

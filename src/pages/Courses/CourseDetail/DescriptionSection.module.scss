@@ -1,0 +1,30 @@
+.descriptionSection {
+  margin-bottom: 3.2rem;
+  :global {
+    .title {
+      margin-bottom: 16px;
+    }
+
+    .content {
+      max-height: 15rem;
+      overflow: hidden;
+    }
+
+    .content.show {
+      max-height: none;
+    }
+
+    .showBtn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .iconArrow {
+        transition: transform 150ms linear;
+      }
+
+      .iconArrow.rotate {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

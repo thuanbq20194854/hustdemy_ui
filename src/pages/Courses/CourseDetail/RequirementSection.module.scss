@@ -1,0 +1,26 @@
+.requirementSection {
+  margin-bottom: 2.4rem;
+
+  :global {
+    .title {
+      margin-bottom: 1.6rem;
+    }
+
+    .list {
+      list-style-type: disc;
+      li {
+        display: flex;
+        align-items: center;
+
+        font-size: 12px;
+        padding: 4px 0;
+
+        gap: 24px;
+
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
