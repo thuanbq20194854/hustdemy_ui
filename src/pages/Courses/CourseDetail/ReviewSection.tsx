@@ -4,7 +4,7 @@ import styles from './ReviewSection.module.scss'
 
 import { IoStar } from 'react-icons/io5'
 import { BsDot } from 'react-icons/bs'
-import RatingContainer from '../../Home/RatingContainer'
+import RatingContainer from '../../../components/RatingContainer/RatingContainer'
 import { RiMore2Fill } from 'react-icons/ri'
 import { BiLike } from 'react-icons/bi'
 import { BiDislike } from 'react-icons/bi'

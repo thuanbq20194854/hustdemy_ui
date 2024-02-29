@@ -5,9 +5,12 @@
       background-color: #2d2f31;
 
       color: white;
+
       .inner {
         max-width: 1184px;
         margin: 0 auto;
+
+        position: relative;
 
         .mainContent {
           width: 700px;
@@ -70,6 +73,115 @@
               gap: 10px;
             }
           }
+        }
+
+        .sidebar {
+          position: absolute;
+          top: 24px;
+          left: 796px;
+
+          width: 340px;
+
+          background-color: white;
+          color: #2d2f31;
+          box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.08),
+            0 4px 12px rgba(0, 0, 0, 0.08);
+
+          .introductionVideo {
+            width: 340px;
+            height: 190px;
+
+            object-fit: cover;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .purchaseSection {
+            padding: 24px;
+
+            .price {
+              display: flex;
+              align-items: center;
+              flex-wrap: wrap;
+              gap: 8px;
+              .basePrice {
+                color: #6a6f73;
+                text-decoration: line-through;
+                font-size: 16px;
+
+                margin-left: 8px;
+              }
+
+              .discount {
+                color: #6a6f73;
+                font-size: 16px;
+              }
+            }
+
+            .discountExpiration {
+              color: #b32d0f;
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+
+            .actions {
+              .topActions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin: 16px 0 8px;
+
+                .addToCartBtn {
+                  flex: 1;
+                }
+
+                .addToWishlistBtn {
+                  font-size: 48px;
+                }
+              }
+
+              .buynowBtn {
+                width: 100%;
+                color: var(--color-gray-500);
+                background-color: transparent;
+                border: 1px solid #2d2f31;
+
+                &:hover,
+                &:active {
+                  color: var(--color-gray-500);
+                  background-color: rgba(23, 57, 83, 0.12);
+                }
+              }
+            }
+
+            .incentivesContainer {
+              padding: 16px 0px 0px;
+
+              .title {
+                margin-bottom: 0.8rem;
+              }
+
+              .incentiveList {
+                .incentiveItem {
+                  padding: 4px 0;
+
+                  display: flex;
+                  align-items: center;
+                  gap: 15px;
+                }
+              }
+            }
+          }
+        }
+
+        .sidebar.fixed {
+          position: sticky;
         }
       }
     }

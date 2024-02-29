@@ -1,0 +1,153 @@
+.courseSearchPageWrapper {
+  width: 134rem;
+
+  margin: 0 auto;
+
+  padding: 48px 24px;
+
+  :global {
+    .headerTitle {
+      margin: 16px 0 32px;
+    }
+    .heading {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      .sortBtn {
+        display: inline-block;
+        position: relative;
+        .classSelect {
+          width: 176px;
+          height: 60px !important;
+
+          .ant-select-selection-item {
+            color: #2d2f31;
+
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 1.6rem;
+          }
+        }
+
+        .label {
+          position: absolute;
+          bottom: 40px;
+          left: 16px;
+        }
+      }
+
+      .clearFilterBtn {
+        margin-left: 12px;
+      }
+
+      .resultCount {
+        color: #6a6f73;
+        margin-left: auto;
+      }
+    }
+
+    .filterRegion {
+      .filterSidebar {
+        width: 311px;
+        .accordionPanel {
+          border-top: 1px solid #d1d7dc;
+
+          .panelToggler {
+            width: 100%;
+            padding: 1.6rem 0rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+
+          .content {
+            padding: 8px 0 16px;
+            .optionItem {
+              padding: 4px 0;
+              .ant-radio-wrapper {
+                color: #2d2f31;
+                .ant-radio {
+                  border-color: #2d2f31;
+                  .ant-radio-input {
+                    .ant-radio-inner {
+                      background-color: #2d2f31;
+                    }
+
+                    .ant-radio-inner::after {
+                      background-color: #2d2f31;
+                    }
+                  }
+                }
+
+                .radioContent {
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+
+                  .count {
+                    color: #6a6f73;
+                  }
+                }
+              }
+
+              .ant-checkbox-wrapper {
+                .checkboxContent {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.rootClassSelect {
+  border-radius: 0px;
+  border-color: #2d2f31;
+  :global {
+    .ant-select-selector {
+      width: 176px !important;
+      height: 60px !important;
+      padding: 20px 16px 0px !important;
+
+      &:hover,
+      &:active {
+        background-color: rgba(23, 57, 83, 0.12);
+        border-color: #2d2f31;
+      }
+      color: #6a6f73;
+      border-color: #2d2f31 !important;
+      border-radius: 0px;
+    }
+
+    .ant-select-arrow {
+      color: #2d2f31;
+    }
+
+    .listbox {
+      width: 100%;
+    }
+    .rc-virtual-list {
+      .rc-virtual-list-holder {
+        .rc-virtual-list-holder-inner {
+          .ant-select-item.ant-select-item-option {
+            border-radius: 0px;
+
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 1.6rem;
+            &:hover {
+              background-color: rgba(0, 0, 255, 0.533);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import styles from './CourseCardListSlider.module.scss'
 import { MdArrowBackIosNew } from 'react-icons/md'
 import { MdArrowForwardIos } from 'react-icons/md'
 
-import RatingContainer from './RatingContainer'
+import RatingContainer from '../../components/RatingContainer/RatingContainer'
 import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 
 // import Swiper core and required modules

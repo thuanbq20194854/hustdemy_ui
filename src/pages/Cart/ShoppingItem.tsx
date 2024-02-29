@@ -1,7 +1,7 @@
 import { CartItem } from '../../models/cart'
 import styles from './ShopingItem.module.scss'
 
-import StarsContainer from '../Home/RatingContainer'
+import StarsContainer from '../../components/RatingContainer/RatingContainer'
 
 import { GoDotFill } from 'react-icons/go'
 import { RiCoupon5Line } from 'react-icons/ri'

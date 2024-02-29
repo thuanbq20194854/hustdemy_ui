@@ -10,7 +10,7 @@ function ReportSection() {
         Report abuse
       </button>
 
-      <Modal open={isOpenModal} rootClassName={styles.rootClassReportModal}>
+      <Modal open={isOpenModal} rootClassName={styles.rootClassReportModal} onCancel={handleCloseModal}>
         <div className='title ud-heading-lg'>Report abuse</div>
 
         <form action='' className='reportForm'>
@@ -29,7 +29,7 @@ function ReportSection() {
         </form>
 
         <div className='actions'>
-          <button className='cancleBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'>
+          <button className='cancleBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md' onClick={handleCloseModal}>
             <span>Cancle</span>
           </button>
           <button type='submit' className='submitBtn ud-btn ud-btn-large ud-btn-primary ud-heading-md'>
