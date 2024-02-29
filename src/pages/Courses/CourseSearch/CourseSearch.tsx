@@ -1,7 +1,7 @@
 import { useForm } from 'antd/es/form/Form'
 import AccordionFilterPanel from './AccordionFilterPanel'
 import styles from './CourseSearch.module.scss'
-import { Form, Select, SelectProps } from 'antd'
+import { Form, Select, SelectProps, Spin } from 'antd'
 
 const options: SelectProps['options'] = []
 
@@ -15,7 +15,6 @@ for (let i = 10; i < 36; i++) {
 function CourseSearch() {
   const [form] = useForm()
 
-  console.log('form: ', form.getFieldsValue())
   return (
     <div className={styles.courseSearchPageWrapper}>
       <h1 className='headerTitle ud-heading-xl'>904 results for “abc”</h1>

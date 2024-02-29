@@ -63,39 +63,57 @@
 
           .content {
             padding: 8px 0 16px;
-            .optionItem {
-              padding: 4px 0;
-              .ant-radio-wrapper {
-                color: #2d2f31;
-                .ant-radio {
-                  border-color: #2d2f31;
-                  .ant-radio-input {
-                    .ant-radio-inner {
-                      background-color: #2d2f31;
-                    }
+            padding: 4px 0;
 
-                    .ant-radio-inner::after {
-                      background-color: #2d2f31;
+            .ant-radio-group {
+              .optionItem {
+                .ant-radio-wrapper {
+                  color: #2d2f31;
+
+                  padding: 4px 0;
+                  .ant-radio {
+                    border-color: #2d2f31;
+                    .ant-radio-input {
+                      .ant-radio-inner {
+                        background-color: #2d2f31;
+                      }
+
+                      .ant-radio-inner::after {
+                        background-color: #2d2f31;
+                      }
                     }
                   }
-                }
 
-                .radioContent {
-                  display: flex;
-                  align-items: center;
-                  gap: 5px;
+                  .radioContent {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
 
-                  .count {
-                    color: #6a6f73;
+                    .count {
+                      color: #6a6f73;
+                    }
                   }
                 }
               }
+            }
 
-              .ant-checkbox-wrapper {
-                .checkboxContent {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
+            .ant-checkbox-group {
+              display: flex;
+              flex-direction: column;
+              .optionItem {
+                .ant-checkbox-wrapper {
+                  padding: 4px 0;
+
+                  .ant-checkbox {
+                  }
+                  .checkboxContent {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    .count {
+                      color: #6a6f73;
+                    }
+                  }
                 }
               }
             }

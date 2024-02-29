@@ -10,6 +10,7 @@ import './index.css'
 import 'normalize.css'
 import { Provider } from 'react-redux'
 import { store } from './services/state/redux/store'
+import LoadingProvider from './contexts/loading.context'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <BrowserRouter>
         <ConfigProvider>
           <AntdApp>
-            <App />
+            <LoadingProvider>
+              <App />
+            </LoadingProvider>
           </AntdApp>
         </ConfigProvider>
       </BrowserRouter>

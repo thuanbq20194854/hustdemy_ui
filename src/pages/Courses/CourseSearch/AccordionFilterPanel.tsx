@@ -1,32 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { IoIosArrowDown } from 'react-icons/io'
 import RatingContainer from '../../../components/RatingContainer/RatingContainer'
 
-import { Checkbox, Form, FormInstance, Radio } from 'antd'
+import { Checkbox, Form, Radio } from 'antd'
 import useFormInstance from 'antd/es/form/hooks/useFormInstance'
+import { LoadingContext } from '../../../contexts/loading.context'
 interface IProps {
   filterType: string
   filterTitle: string
-  form: FormInstance<any>
 }
 
-const ratings = [
-  {
-    value: '1',
-    label: 'English'
-  },
-  {
-    value: '2',
-    label: 'French'
-  },
-  {
-    value: '3',
-    label: 'Vietnam'
-  }
-]
-
-function AccordionFilterPanel({ filterType, filterTitle, form }: IProps) {
+function AccordionFilterPanel({ filterType, filterTitle }: IProps) {
+  const { showLoading, closeLoading } = useContext(LoadingContext)
+  const { setFieldValue, getFieldsValue } = useFormInstance()
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleFilterContent = (e) => {
@@ -34,13 +21,35 @@ function AccordionFilterPanel({ filterType, filterTitle, form }: IProps) {
     setIsOpen((prev) => !prev)
   }
 
-  const handleRadioChange = (value: string) => {
-    form.setFieldValue('radion', value)
+  const handleRadioChange = (value: any) => {
+    setFieldValue('radion', value)
+    // Loading Modal ngăn tạo thêm filter + Call API
+
+    showLoading()
+
+    setTimeout(() => {
+      closeLoading()
+    }, 2000)
+
+    console.log('form: ', getFieldsValue())
+  }
+
+  const handleCheckboxChange = (value: any) => {
+    setFieldValue('checkbox', value)
+    // Loading Modal ngăn tạo thêm filter + Call API
+
+    showLoading()
+
+    setTimeout(() => {
+      closeLoading()
+    }, 2000)
+
+    console.log('form: ', getFieldsValue())
   }
 
   const renderRadio = () => (
     <Form.Item name='rating'>
-      <Radio.Group defaultValue={1} onChange={(value) => handleRadioChange(value.target.value)}>
+      <Radio.Group defaultValue={1} onChange={(e) => handleRadioChange(e.target.value)}>
         <div className='optionItem'>
           <Radio value={1}>
             <div className='radioContent'>
@@ -66,11 +75,10 @@ function AccordionFilterPanel({ filterType, filterTitle, form }: IProps) {
 
   const renderCheckbox = () => (
     <Form.Item name={'language'}>
-      <Checkbox.Group>
+      <Checkbox.Group onChange={(value) => handleCheckboxChange(value)}>
         <div className='optionItem'>
           <Checkbox value={1}>
             <div className='checkboxContent'>
-              <RatingContainer averageReview={4.5} showNumber={false} />
               <span className='label'>English</span>
               <div className='count'>(201)</div>
             </div>
@@ -79,7 +87,6 @@ function AccordionFilterPanel({ filterType, filterTitle, form }: IProps) {
         <div className='optionItem'>
           <Checkbox value={2}>
             <div className='checkboxContent'>
-              <RatingContainer averageReview={4.5} showNumber={false} />
               <span className='label'>French</span>
               <div className='count'>(201)</div>
             </div>
