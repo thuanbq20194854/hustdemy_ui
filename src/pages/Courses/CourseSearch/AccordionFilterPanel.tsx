@@ -99,7 +99,7 @@ function AccordionFilterPanel({ filterType, filterTitle }: IProps) {
     <div className='accordionPanel'>
       <button className='panelToggler ud-btn ud-btn-large ud-btn-link ud-heading-lg' onClick={toggleFilterContent}>
         <span>{filterTitle}</span>
-        <IoIosArrowDown />
+        <IoIosArrowDown className={`arrowIcon ${isOpen && 'rotate'}`} />
       </button>
 
       <div className={`content`} style={{ display: isOpen ? '' : 'none' }}>

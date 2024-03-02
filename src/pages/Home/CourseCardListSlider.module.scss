@@ -114,7 +114,7 @@
           width: 340px;
           padding: 24px;
 
-          & > div:not(:last-child) {
+          & > *:not(:last-child) {
             margin-bottom: 1rem;
           }
 
