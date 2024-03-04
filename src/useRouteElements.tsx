@@ -15,6 +15,7 @@ import LectureDetail from './pages/Course/LectureDetail/LectureDetail'
 import InstructorLayout from './layouts/InstructorLayout/InstructorLayout'
 import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
+import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -74,10 +75,7 @@ export const useRouteElements = () => {
               path: '/course/:courseId',
               element: <CourseDetail />
             },
-            {
-              path: '/course/create',
-              element: <CourseDetail />
-            },
+
             {
               path: '/course/:courseId/learn/lecture/:lectureId',
               element: <LectureDetail />
@@ -103,6 +101,12 @@ export const useRouteElements = () => {
         }
       ]
     },
+
+    {
+      path: '/course/create',
+      element: <CourseCreate />
+    },
+
     {
       path: '/instructor',
       element: <InstructorLayout />,

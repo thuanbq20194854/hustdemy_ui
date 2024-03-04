@@ -10,22 +10,22 @@ function InstructorCourses() {
   const renderSortMenu = () => (
     <div className='sortMenuContainer'>
       <ul className='menuList'>
-        <button className='menuItem ud-btn ud-btn-large ud-btn-ghost ud-text-sm'>
+        <button className='menuItem ud-btn ud-btn-ghost ud-text-sm'>
           <span>Newest</span>
         </button>
-        <button className='menuItem ud-btn ud-btn-large ud-btn-ghost ud-text-sm'>
+        <button className='menuItem ud-btn ud-btn-ghost ud-text-sm'>
           <span>Oldest</span>
         </button>
-        <button className='menuItem ud-btn ud-btn-large ud-btn-ghost ud-text-sm'>
+        <button className='menuItem ud-btn ud-btn-ghost ud-text-sm'>
           <span>A-Z</span>
         </button>
-        <button className='menuItem ud-btn ud-btn-large ud-btn-ghost ud-text-sm'>
+        <button className='menuItem ud-btn ud-btn-ghost ud-text-sm'>
           <span>Z-A</span>
         </button>
-        <button className='menuItem ud-btn ud-btn-large ud-btn-ghost ud-text-sm'>
+        <button className='menuItem ud-btn ud-btn-ghost ud-text-sm'>
           <span>Published First</span>
         </button>
-        <button className='menuItem ud-btn ud-btn-large ud-btn-ghost ud-text-sm'>
+        <button className='menuItem ud-btn ud-btn-ghost ud-text-sm'>
           <span>Unpublished First</span>
         </button>
       </ul>

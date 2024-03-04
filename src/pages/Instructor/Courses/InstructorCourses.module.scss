@@ -162,8 +162,11 @@
   :global {
     .sortMenuContainer {
       .menuList {
+        max-height: 28rem;
+        width: 19.8rem;
         display: flex;
         flex-direction: column;
+        padding: 8px 0px;
 
         .menuItem {
           text-align: start;
