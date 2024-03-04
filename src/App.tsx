@@ -17,8 +17,8 @@ function App() {
   }
   return (
     <>
-      <button onClick={callAPi}>API</button>
-      {isLoading && <LazyLoading />}
+      {/* <button onClick={callAPi}>API</button>
+      {isLoading && <LazyLoading />} */}
       <div>{useRouteElements()}</div>
     </>
   )

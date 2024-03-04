@@ -1,0 +1,87 @@
+.instructorLayout {
+  :global {
+    .headerWrapper {
+      height: 7.2rem;
+
+      z-index: 1010;
+
+      .headerInner {
+        display: flex;
+        justify-content: end;
+
+        align-items: center;
+
+        .studentBtn {
+          a {
+            color: #2d2f31;
+          }
+
+          a:hover,
+          a:active {
+            color: #5624d0;
+          }
+        }
+
+        .notificationBtn {
+          width: 48px;
+          height: 48px;
+          margin: 12px 0;
+
+          font-size: 20px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover {
+            color: #5624d0;
+
+            svg {
+              fill: #5624d0;
+            }
+          }
+        }
+
+        .avatarContainer {
+          width: 48px;
+          height: 48px;
+          margin: 12px 0;
+
+          .innerContainer {
+            width: 32px;
+            height: 32px;
+            margin: 8px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              height: 100%;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    .mainContent {
+      margin-top: -7.2rem;
+
+      display: flex;
+      align-items: start;
+
+      .sideNavWrapper {
+        width: 5.6rem;
+        background-color: red;
+        z-index: 1010;
+        align-self: stretch;
+      }
+
+      .mainContainer {
+        padding-top: 7.2rem;
+        margin-bottom: 6.4rem;
+
+        flex: 1;
+
+        height: 2000px;
+      }
+    }
+  }
+}

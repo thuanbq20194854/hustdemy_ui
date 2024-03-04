@@ -326,6 +326,9 @@
 
 .headerMenuWrapper {
   :global {
+    .ant-tooltip-content {
+      width: 260px;
+    }
     .userProfile {
       padding: 16px;
 

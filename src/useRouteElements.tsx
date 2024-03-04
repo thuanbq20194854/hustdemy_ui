@@ -4,13 +4,17 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import Payment from './pages/Payment/Payment'
 import MainLayout from './layouts/MainLayout/MainLayout'
 import Cart from './pages/Cart/Cart'
-import CourseDetail from './pages/Courses/CourseDetail/CourseDetail'
+import CourseDetail from './pages/Course/CourseDetail/CourseDetail'
 import MyCourses from './pages/MyCourses/MyCourses'
 import NotAuthHome from './pages/Home/NotAuthHome'
 import AuthHome from './pages/Home/AuthHome'
 import Login from './pages/Auth/Login/Login'
 import Register from './pages/Auth/Register/Register'
 import CourseSearch from './pages/Courses/CourseSearch/CourseSearch'
+import LectureDetail from './pages/Course/LectureDetail/LectureDetail'
+import InstructorLayout from './layouts/InstructorLayout/InstructorLayout'
+import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
+import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -69,17 +73,25 @@ export const useRouteElements = () => {
             {
               path: '/course/:courseId',
               element: <CourseDetail />
+            },
+            {
+              path: '/course/create',
+              element: <CourseDetail />
+            },
+            {
+              path: '/course/:courseId/learn/lecture/:lectureId',
+              element: <LectureDetail />
             }
           ]
         },
 
         {
-          path: '/my-courses',
+          path: '/home/my-course/learning',
           element: <Outlet />,
           children: [
             {
               index: true,
-              path: '/my-courses/learning',
+              path: '/home/my-course/learning',
               element: <MyCourses />
             }
           ]
@@ -93,7 +105,17 @@ export const useRouteElements = () => {
     },
     {
       path: '/instructor',
-      element: <MainLayout />
+      element: <InstructorLayout />,
+      children: [
+        {
+          path: '/instructor/courses',
+          element: <InstructorCourses />
+        },
+        {
+          path: '/instructor/communication',
+          element: <InstructorCommunication />
+        }
+      ]
     },
     {
       path: '*',

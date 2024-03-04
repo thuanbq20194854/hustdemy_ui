@@ -1,25 +1,25 @@
 import styles from './Register.module.scss'
 import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { userSliceActions } from '../../../services/state/redux/userSlice'
+import { authSliceActions } from '../../../services/state/redux/authSlice'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RegisterSchema, registerSchema } from '../../../validators/auth'
 
 export default function Register() {
   const navigate = useNavigate()
-  const userState = useAppSelector((state) => state.user)
+  const userState = useAppSelector((state) => state.auth)
 
   const dispatch = useAppDispatch()
 
-  if (userState.isAuthenticated) {
+  if (userState.isLoggedIn) {
     navigate('/')
   } else {
-    console.log('isAuth: ', userState.isAuthenticated)
+    console.log('isAuth: ', userState.isLoggedIn)
   }
 
   const handleClick = () => {
-    dispatch(userSliceActions.loginSuccess())
+    dispatch(authSliceActions.loginSuccess())
   }
 
   const {

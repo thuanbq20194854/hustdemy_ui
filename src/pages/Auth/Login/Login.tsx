@@ -6,8 +6,22 @@ import styles from './Login.module.scss'
 
 import { FcGoogle } from 'react-icons/fc'
 import { NavLink } from 'react-router-dom'
+import { useGoogleLogin } from '@react-oauth/google'
+import { useAppDispatch } from '../../../services/state/redux/store'
+import { authSliceActions } from '../../../services/state/redux/authSlice'
 
 function Login() {
+  const dispatch = useAppDispatch()
+  const loginGoogle = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      dispatch(authSliceActions.loginSuccess())
+      console.log(tokenResponse)
+    },
+    onError: (err) => {
+      console.log(err)
+    }
+  })
+
   const {
     register,
     handleSubmit,
@@ -25,10 +39,10 @@ function Login() {
       <div className='authSection'>
         <div className='title ud-heading-md'>Log in to you Hustdemy Account</div>
 
-        <div className='googleLoginContainer  ud-btn-large ud-btn-secondary ud-heading-md'>
+        <button className='googleLoginBtn  ud-btn-large ud-btn-secondary ud-heading-md' onClick={() => loginGoogle()}>
           <FcGoogle />
           <span>Continue with Google</span>
-        </div>
+        </button>
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
           <div className='inputWrapper'>
             <div className='inputContainer'>

@@ -230,8 +230,8 @@ const Level1Categories = [
 
 function Header() {
   const cartState = useAppSelector((state) => state.cart)
-  const userState = useAppSelector((state) => state.user)
-  const { isAuthenticated } = userState
+  const userState = useAppSelector((state) => state.auth)
+  const { isLoggedIn } = userState
 
   const [level1Category, setLevel1Category] = useState<string>('')
   const [level2Category, setLevel2Category] = useState<string>('')
@@ -444,7 +444,7 @@ function Header() {
           </button>
         </NavLink>
 
-        {isAuthenticated && (
+        {isLoggedIn && (
           <>
             <NavLink to='my-course/courses'>
               <button className='text-item'>
@@ -483,7 +483,7 @@ function Header() {
           </div>
         </CustomTooltip>
 
-        {isAuthenticated ? (
+        {isLoggedIn ? (
           <>
             <div className='ud-btn'>
               <GoBell size={24} />
@@ -494,7 +494,6 @@ function Header() {
               title={renderMenuList()}
               color='white'
               arrow={false}
-              overlayStyle={{ maxWidth: '26rem' }}
               rootClassName={styles.cartTooltipRootClass}
             >
               <div className='avatar-ud-btn'>
