@@ -1,21 +1,23 @@
 .instructorLayout {
   :global {
     .headerWrapper {
-      height: 7.2rem;
-
-      z-index: 1010;
-
       .headerInner {
+        height: 7.2rem;
+        z-index: 1010;
+
         display: flex;
         justify-content: end;
-
         align-items: center;
 
         .studentBtn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          padding: 0 12px;
           a {
             color: #2d2f31;
           }
-
           a:hover,
           a:active {
             color: #5624d0;
@@ -32,6 +34,9 @@
           display: flex;
           align-items: center;
           justify-content: center;
+
+          padding: 0 12px;
+
           &:hover {
             color: #5624d0;
 
@@ -45,6 +50,10 @@
           width: 48px;
           height: 48px;
           margin: 12px 0;
+
+          &:hover {
+            cursor: pointer;
+          }
 
           .innerContainer {
             width: 32px;
@@ -62,25 +71,109 @@
     }
 
     .mainContent {
-      margin-top: -7.2rem;
+      .mainContentInner {
+        display: flex;
+        align-items: start;
+        .sideNavWrapper {
+          margin-top: -7.2rem;
 
-      display: flex;
-      align-items: start;
+          width: 5.6rem;
+          align-self: stretch;
+          position: relative;
 
-      .sideNavWrapper {
-        width: 5.6rem;
-        background-color: red;
-        z-index: 1010;
-        align-self: stretch;
-      }
+          .sideNavInner:hover .ulContainer .itemContainer.logoImgContainer::after {
+            opacity: 0;
+          }
 
-      .mainContainer {
-        padding-top: 7.2rem;
-        margin-bottom: 6.4rem;
+          .sideNavInner {
+            width: 5.6rem;
+            height: 100%;
 
-        flex: 1;
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
 
-        height: 2000px;
+            transition: width 400ms cubic-bezier(0.2, 0, 0.38, 0.9);
+            background-color: #2d2f31;
+            color: white;
+
+            box-shadow:
+              0 4px 8px rgba(0, 0, 0, 0.08),
+              0 4px 12px rgba(0, 0, 0, 0.24);
+
+            overflow: hidden;
+
+            &:hover {
+              width: 28.6rem;
+            }
+
+            .ulContainer {
+              a,
+              a:hover,
+              a:active {
+                color: white;
+              }
+              .itemContainer {
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                padding: 16px;
+
+                &:hover,
+                &:active,
+                &:visited {
+                  background-color: #3e4143;
+                  outline-offset: -4px;
+
+                  box-shadow: 4px 0 #a435f0 inset;
+                }
+                .iconContainer {
+                  display: flex;
+                  align-items: center;
+                  width: 24px;
+                  height: 24px;
+                  font-size: 24px;
+                }
+
+                .spanText {
+                  padding-left: 24px;
+                  margin-left: 4px;
+                }
+              }
+
+              .itemContainer.logoImgContainer {
+                position: relative;
+
+                .logoImg {
+                  margin-left: 4px;
+                }
+              }
+
+              .itemContainer.logoImgContainer::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 1.3rem;
+                left: 3.6rem;
+                height: 4rem;
+                width: 25.1rem;
+                background-color: #2d2f31;
+                opacity: 1;
+                transition: opacity 400ms linear;
+              }
+            }
+          }
+        }
+
+        .mainContainer {
+          flex: 1;
+
+          margin-bottom: 6.4rem;
+          padding: 0px 48px;
+
+          height: 2000px;
+        }
       }
     }
   }

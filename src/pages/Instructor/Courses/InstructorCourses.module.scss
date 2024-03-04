@@ -1,0 +1,182 @@
+.instructorCoursePage {
+  :global {
+    .pageHeader {
+      margin: 0.8rem 0 3.2rem;
+    }
+
+    .courseActionsWrapper {
+      display: flex;
+      align-items: center;
+      gap: 3.2rem;
+      .searchContainer {
+        .searchInput {
+          border: 1px solid black;
+
+          height: 48px;
+          padding: 0 16px;
+        }
+
+        .searchBtn {
+          width: 48px;
+          height: 48px;
+
+          font-size: 48px;
+        }
+      }
+
+      .sortBtnContainer {
+        height: 48px;
+        padding: 0 16px;
+
+        .arrowIcon {
+          font-size: 24px;
+        }
+      }
+
+      .newCourseBtn {
+        height: 48px;
+
+        justify-self: end;
+
+        margin-left: auto;
+      }
+    }
+
+    .courseListSection {
+      margin: 24px 0 64px;
+      .courseList {
+        .courseCard {
+          //   color: black;
+          display: flex;
+          align-items: center;
+
+          border: 1px solid #d1d7dc;
+          background-color: #fff;
+          height: 12rem;
+
+          .imgContainer {
+            width: 118px;
+            height: 118px;
+
+            object-fit: cover;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .mainContent {
+            // display: flex;
+            // align-items: center;
+
+            flex: 1;
+            height: 118px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            &:hover .editNavLinkOverlay {
+              opacity: 1;
+              background-color: rgba(255, 255, 255, 0.9);
+            }
+
+            .editNavLinkOverlay {
+              position: absolute;
+              height: 100%;
+              width: 100%;
+
+              top: 0;
+              left: 0;
+              opacity: 0;
+
+              background-color: rgba(255, 255, 255, 0.9);
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .editNav,
+              .editNav:hover,
+              .editNav:active {
+                color: #401b9c;
+                width: 100%;
+
+                display: flex;
+                justify-content: center;
+              }
+            }
+            .details {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+
+              justify-content: space-between;
+
+              width: 30%;
+
+              .courseStatus {
+                display: flex;
+
+                gap: 16px;
+              }
+            }
+
+            .processPart {
+              width: 70%;
+              height: 100%;
+
+              display: flex;
+              align-items: center;
+
+              padding: 0.8rem 1.6rem;
+              .processBar {
+                flex: 1;
+                background: var(--color-gray-200);
+                height: 0.8rem;
+                overflow: hidden;
+
+                margin-left: 16px;
+
+                .actualProcess {
+                  //   transform: scaleX(0.26);
+                  width: 26%;
+                  background: var(--color-blue-300);
+                  height: 100%;
+                  transform-origin: left center;
+                  transition: transform 150ms cubic-bezier(0.2, 0, 0.38, 0.9);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.rootClassnameSortBtn {
+  :global {
+    .sortMenuContainer {
+      .menuList {
+        display: flex;
+        flex-direction: column;
+
+        .menuItem {
+          text-align: start;
+          color: #2d2f31;
+          padding: 8px 16px;
+
+          display: flex;
+          justify-content: start;
+          &:hover {
+            color: #5624d0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,17 +2,25 @@ import { NavLink, Outlet } from 'react-router-dom'
 import styles from './InstructorLayout.module.scss'
 import Footer from '../components/Footer'
 import { GoBell } from 'react-icons/go'
+import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
+import { MdOutlineOndemandVideo } from 'react-icons/md'
+import { BiMessageDetail } from 'react-icons/bi'
+import { FaChartSimple, FaRegCircleQuestion } from 'react-icons/fa6'
+import { TbTool } from 'react-icons/tb'
 
 function InstructorLayout() {
+  const renderTooltipStudentBtn = () => <div></div>
   return (
     <div className={styles.instructorLayout}>
       <div className='headerWrapper'>
         <div className='headerInner'>
-          <div className='studentBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'>
-            <NavLink to='/'>
-              <span className='ud-text-sm'>Student</span>
-            </NavLink>
-          </div>
+          <CustomTooltip title={renderTooltipStudentBtn()}>
+            <div className='studentBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'>
+              <NavLink to='/'>
+                <span className='ud-text-sm'>Student</span>
+              </NavLink>
+            </div>
+          </CustomTooltip>
 
           <div className='notificationBtn'>
             <NavLink to='/'>
@@ -33,11 +41,70 @@ function InstructorLayout() {
       </div>
 
       <div className='mainContent'>
-        <div className='sideNavWrapper'>
-          <div className='inner'>size NAV</div>
-        </div>
-        <div className='mainContainer'>
-          <Outlet />
+        <div className='mainContentInner'>
+          <div className='sideNavWrapper'>
+            <div className='sideNavInner'>
+              <ul className='ulContainer'>
+                <NavLink to='/instructor/courses' className='itemContainer logoImgContainer'>
+                  {/* <div className='iconContainer'>
+                    <MdOutlineOndemandVideo />
+                  </div> */}
+                  <img
+                    className='logoImg'
+                    src='https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg'
+                    alt=''
+                    width='91'
+                    height='34'
+                  />
+                </NavLink>
+                <NavLink
+                  to='/instructor/courses'
+                  className='itemContainer ud-btn ud-btn-large ud-btn-link ud-heading-md'
+                >
+                  <div className='iconContainer'>
+                    <MdOutlineOndemandVideo />
+                  </div>
+                  <span className='spanText'>Course</span>
+                </NavLink>
+                <NavLink
+                  to='/instructor/communication'
+                  className='itemContainer ud-btn ud-btn-large ud-btn-link ud-heading-md'
+                >
+                  <div className='iconContainer'>
+                    <BiMessageDetail />
+                  </div>
+                  <span className='spanText'>Communication</span>
+                </NavLink>
+                <NavLink
+                  to='/instructor/performance'
+                  className='itemContainer ud-btn ud-btn-large ud-btn-link ud-heading-md'
+                >
+                  <div className='iconContainer'>
+                    <FaChartSimple />
+                  </div>
+                  <span className='spanText'>Performance</span>
+                </NavLink>
+                <NavLink to='/instructor/tool' className='itemContainer ud-btn ud-btn-large ud-btn-link ud-heading-md'>
+                  <div className='iconContainer'>
+                    <TbTool />
+                  </div>
+                  <span className='spanText'>Tool</span>
+                </NavLink>
+                <NavLink
+                  to='/instructor/question'
+                  className='itemContainer ud-btn ud-btn-large ud-btn-link ud-heading-md'
+                >
+                  <div className='iconContainer'>
+                    <FaRegCircleQuestion />
+                  </div>
+                  <span className='spanText'>Resource</span>
+                </NavLink>
+              </ul>
+            </div>
+          </div>
+          <div className='mainContainer'>
+            <Outlet />
+          </div>
         </div>
       </div>
 

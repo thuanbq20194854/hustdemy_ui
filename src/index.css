@@ -190,6 +190,15 @@ ol {
   max-width: 36em;
 }
 
+.ud-heading-serif-xxl {
+  font-family: serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 1.25;
+  letter-spacing: -0.016rem;
+  max-width: 36em;
+}
+
 .ud-heading-xl {
   font-weight: 700;
   line-height: 1.2;
@@ -348,7 +357,6 @@ a.resetNavlink:hover {
   padding-bottom: 0.8rem;
   min-height: 2.8rem;
 }
-
 
 .ud-select-container-large .ud-select {
   height: 4.8rem;
