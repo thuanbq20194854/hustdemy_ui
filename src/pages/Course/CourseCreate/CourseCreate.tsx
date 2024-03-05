@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import styles from './CourseCreate.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'antd/es/form/Form'
-import { Form, Input } from 'antd'
+import { Form, Input, Select } from 'antd'
 
 function CourseCreate() {
   const [canBeContinue, setCanBeContinue] = useState(false)
+
+  const [canBeCreate, setCanBeCreate] = useState(false)
 
   const [currentStep, setCurrentStep] = useState(2)
 
@@ -30,15 +32,55 @@ function CourseCreate() {
     navigate('/instructor/courses')
   }
 
-  const cssDisabled = () => {
-    if (currentStep === 1 && form.getFieldValue('courseTitle').trim().length > 0) {
-      return false
-    } else if (currentStep === 2 && form.getFieldValue('courseCategory') !== null) {
-      return false
+  const handleCreateCourse = () => {
+    // API Create Course
+    // navigate https://www.udemy.com/instructor/course/5856028/manage/goals/
+  }
+
+  const checkCanBeContinue = () => {
+    if (currentStep === 1 && form.getFieldValue('courseTitle')?.trim().length > 0) {
+      return true
+    } else if (currentStep === 2 && form.getFieldValue('courseCategory') !== undefined) {
+      return true
     }
 
-    return true
+    return false
   }
+
+  const checkCanBeCreateCourse = () => {
+    const field1OK = form.getFieldValue('courseTitle')?.trim().length > 0
+
+    const field2OK = form.getFieldValue('courseCategory') !== undefined
+
+    return field1OK && field2OK
+  }
+
+  const handleInputCourseChange = (value: any) => {
+    console.log('form: ', form.getFieldsValue())
+  }
+
+  const handleFormValuesChange = () => {
+    setCanBeContinue(checkCanBeContinue())
+
+    if (currentStep === totalStep) {
+      setCanBeCreate(checkCanBeCreateCourse())
+    }
+  }
+
+  const options = [
+    {
+      label: 'It and Software',
+      value: '1'
+    },
+    {
+      label: 'Businesss',
+      value: '2'
+    },
+    {
+      label: 'Education',
+      value: '3'
+    }
+  ]
 
   const renderStep1 = () => (
     <div className={`takeoverContent`} style={{ display: currentStep === 1 ? '' : 'none' }}>
@@ -47,7 +89,12 @@ function CourseCreate() {
       <div className='subheaderText'>It's ok if you can't think of a good title now. You can change it later.</div>
 
       <Form.Item className='formItem' name='courseTitle'>
-        <Input type='text' placeholder='e.g. Learn Photoshop CS6 from Scratch' className='formInput' />
+        <Input
+          type='text'
+          placeholder='e.g. Learn Photoshop CS6 from Scratch'
+          className='formInput'
+          onChange={(e) => handleInputCourseChange(e.target.value)}
+        />
       </Form.Item>
     </div>
   )
@@ -58,7 +105,12 @@ function CourseCreate() {
       <div className='subheaderText'>If you're not sure about the right category, you can change it later.</div>
 
       <Form.Item className='formItem' name='courseCategory'>
-        <Input type='text' placeholder='e.g. Learn Photoshop CS6 from Scratch' className='formInput' />
+        <Select
+          placeholder='e.g. Learn Photoshop CS6 from Scratch'
+          className='formInput'
+          rootClassName={styles.rootClassAntdSelect}
+          options={options}
+        />
       </Form.Item>
     </div>
   )
@@ -91,7 +143,7 @@ function CourseCreate() {
       </div>
 
       <div className='pageBody'>
-        <Form form={form}>
+        <Form form={form} onValuesChange={handleFormValuesChange}>
           {renderStep1()}
           {renderStep2()}
         </Form>
@@ -103,13 +155,21 @@ function CourseCreate() {
             <span>Previous</span>
           </button>
         )}
-
-        <button
-          className={`ud-btn ud-btn-large ud-btn-primary ud-heading-md ud-btn-disabled ${cssDisabled() && 'ud-btn-disabled'}`}
-          onClick={handleGoToNextStep}
-        >
-          {currentStep === totalStep ? <span>Create Course</span> : <span>Continue</span>}
-        </button>
+        {currentStep === totalStep ? (
+          <button
+            className={`ud-btn ud-btn-large ud-btn-primary ud-heading-md ${!canBeCreate && 'ud-btn-disabled'}`}
+            onClick={handleCreateCourse}
+          >
+            <span>Create Course</span>
+          </button>
+        ) : (
+          <button
+            className={`ud-btn ud-btn-large ud-btn-primary ud-heading-md ${!canBeContinue && 'ud-btn-disabled'}`}
+            onClick={handleGoToNextStep}
+          >
+            <span>Continue</span>
+          </button>
+        )}
       </div>
     </div>
   )

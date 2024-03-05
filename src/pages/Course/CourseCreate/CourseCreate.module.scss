@@ -82,7 +82,7 @@
         .formItem {
           margin: 6.4rem auto 0px;
           max-width: 60rem;
-          .formInput {
+          .formInput.ant-input {
             height: 48px;
             padding: 0 1.6rem;
 
@@ -90,6 +90,20 @@
 
             border: 1px solid #2d2f31;
             border-radius: 0;
+
+            color: #2d2f31;
+            margin-top: 2.4rem;
+            font-size: 16px;
+            font-weight: 400;
+          }
+
+          .ant-input::placeholder {
+            text-overflow: ellipsis;
+
+            color: #2d2f31;
+            margin-top: 2.4rem;
+            font-size: 16px;
+            font-weight: 400;
           }
         }
       }
@@ -113,8 +127,63 @@
       width: 100%;
       z-index: 1;
       .ud-btn.ud-btn-disabled {
+        pointer-events: none;
         cursor: not-allowed;
         opacity: 0.5;
+      }
+    }
+  }
+}
+
+.rootClassAntdSelect {
+  width: 60rem !important;
+  padding: 0px !important;
+  overflow: hidden;
+
+  border-radius: 0px !important;
+
+  border: 1px solid black;
+
+  :global {
+    .ant-select-selector {
+      width: 60rem !important;
+      border: none !important;
+      padding: 0px !important;
+
+      .ant-select-selection-placeholder,
+      .ant-select-selection-item {
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 1.6rem;
+        color: black;
+
+        text-align: left;
+        padding-left: 16px;
+      }
+    }
+    .rc-virtual-list {
+      .rc-virtual-list-holder {
+        .rc-virtual-list-holder-inner {
+          .ant-select-item.ant-select-item-option {
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 1.6rem;
+            color: black;
+
+            border-radius: 0px;
+
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+
+            display: flex;
+            align-items: center;
+          }
+          .ant-select-item-option-active {
+            background-color: rgba(0, 0, 255, 0.6) !important;
+            color: white !important;
+          }
+        }
       }
     }
   }

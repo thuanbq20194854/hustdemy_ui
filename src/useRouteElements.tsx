@@ -16,6 +16,8 @@ import InstructorLayout from './layouts/InstructorLayout/InstructorLayout'
 import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
 import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
+import CourseManageLayout from './layouts/InstructorLayout/CourseManageLayout/CourseManageLayout'
+import CourseGoals from './pages/Instructor/ManageCourse/CourseGoals'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -118,6 +120,17 @@ export const useRouteElements = () => {
         {
           path: '/instructor/communication',
           element: <InstructorCommunication />
+        }
+      ]
+    },
+    {
+      path: '/instructor/course/:courseId/manage',
+      element: <CourseManageLayout />,
+
+      children: [
+        {
+          path: '/instructor/course/:courseId/manage/goals',
+          element: <CourseGoals />
         }
       ]
     },
