@@ -131,7 +131,19 @@ export const useRouteElements = () => {
         {
           path: '/instructor/course/:courseId/manage/goals',
           element: <CourseGoals />
-        }
+        },
+        {
+          path: '/instructor/course/:courseId/manage/curriculum',
+          element: <CourseGoals />
+        },
+        {
+          path: '/instructor/course/:courseId/manage/goals',
+          element: <CourseGoals />
+        },
+        {
+          path: '/instructor/course/:courseId/manage/goals',
+          element: <CourseGoals />
+        },
       ]
     },
     {

@@ -34,7 +34,7 @@ function CourseCreate() {
 
   const handleCreateCourse = () => {
     // API Create Course
-    // navigate https://www.udemy.com/instructor/course/5856028/manage/goals/
+    navigate('/instructor/course/5856028/manage/goals/') //https://www.udemy.com
   }
 
   const checkCanBeContinue = () => {
