@@ -70,7 +70,7 @@ function CourseManageLayout() {
               <div className='sectionTitle ud-heading-md'>Publish your course</div>
               <ul>
                 <li className='sideNavItem'>
-                  <NavLink to='/instructor/course/:courseId/manage/curriculum' className='navLinkCss'>
+                  <NavLink to='/instructor/course/:courseId/manage/basics' className='navLinkCss'>
                     <div className='checkIconContainer'>
                       <IoMdCheckmark />
                     </div>
@@ -78,7 +78,7 @@ function CourseManageLayout() {
                   </NavLink>
                 </li>
                 <li className='sideNavItem'>
-                  <NavLink to='/instructor/course/:courseId/manage/curriculum' className='navLinkCss'>
+                  <NavLink to='/instructor/course/:courseId/manage/pricing' className='navLinkCss'>
                     <div className='checkIconContainer'>
                       <IoMdCheckmark />
                     </div>

@@ -118,6 +118,7 @@
 
             .sideNavItem {
               .navLinkCss {
+                border-left: 4px solid transparent;
                 &.active {
                   border-left: 4px solid #2d2f31;
                 }
@@ -161,7 +162,7 @@
         flex: 1;
         min-width: 1px;
         width: 100%;
-        background: #fff;
+        background-color: #fff;
         box-shadow:
           0 2px 4px rgba(0, 0, 0, 0.08),
           0 4px 12px rgba(0, 0, 0, 0.16);

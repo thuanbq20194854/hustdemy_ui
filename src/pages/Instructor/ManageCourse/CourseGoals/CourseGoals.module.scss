@@ -1,0 +1,105 @@
+.courseGoalsWrapper {
+  .headerWrapper {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2.4rem;
+    padding: 2.4rem 4.8rem;
+    border-bottom: 1px solid #d1d7dc;
+
+    .headerContent {
+    }
+  }
+  :global {
+    .mainContentWrapper {
+      padding: 48px;
+
+      font-size: 16px;
+      .questionsContainer {
+        margin-bottom: 32px;
+        max-width: 800px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .questionLabel {
+          margin-bottom: 8px;
+        }
+
+        .fieldArrayListContainer {
+          .inputFlexWrapper {
+            display: flex;
+            align-items: center;
+
+            margin-bottom: 16px;
+
+            .inputContainer {
+              border: 1px solid #2d2f31;
+
+              width: 100%;
+              padding-right: 60px;
+              position: relative;
+              height: 48px;
+
+              .antInput {
+                background-color: transparent;
+              }
+
+              .antInput {
+                height: 100%;
+                width: 100%;
+
+                padding: 10px 0px 10px 16px;
+                border-radius: 0px;
+
+                border: none;
+
+                box-shadow: none;
+
+                &::placeholder {
+                  color: #6a6f73;
+                }
+              }
+
+              .counter {
+                position: absolute;
+                right: 0;
+                padding: 0 16px;
+                top: 50%;
+                transform: translate(0, -50%);
+
+                color: #6a6f73;
+                font-size: 16px;
+              }
+            }
+
+            .btnContainer {
+              min-width: 48px;
+              height: 48px;
+              font-size: 24px;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 1px solid #2d2f31;
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(23, 57, 83, 0.12);
+              }
+
+              &.hidden {
+                opacity: 0;
+                pointer-events: none;
+              }
+            }
+          }
+        }
+
+        .addMoreBtn {
+          margin-right: auto;
+        }
+      }
+    }
+  }
+}

@@ -17,7 +17,10 @@ import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
 import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
 import CourseManageLayout from './layouts/InstructorLayout/CourseManageLayout/CourseManageLayout'
-import CourseGoals from './pages/Instructor/ManageCourse/CourseGoals'
+import CourseGoals from './pages/Instructor/ManageCourse/CourseGoals/CourseGoals'
+import CourseCurriculum from './pages/Instructor/ManageCourse/CourseCurriculum'
+import CourseBasics from './pages/Instructor/ManageCourse/CourseBasics'
+import CoursePricing from './pages/Instructor/ManageCourse/CoursePricing'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -134,16 +137,16 @@ export const useRouteElements = () => {
         },
         {
           path: '/instructor/course/:courseId/manage/curriculum',
-          element: <CourseGoals />
+          element: <CourseCurriculum />
         },
         {
-          path: '/instructor/course/:courseId/manage/goals',
-          element: <CourseGoals />
+          path: '/instructor/course/:courseId/manage/basics',
+          element: <CourseBasics />
         },
         {
-          path: '/instructor/course/:courseId/manage/goals',
-          element: <CourseGoals />
-        },
+          path: '/instructor/course/:courseId/manage/pricing',
+          element: <CoursePricing />
+        }
       ]
     },
     {
