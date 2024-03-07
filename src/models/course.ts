@@ -24,3 +24,15 @@ export interface Course {
   updated_at: string
   created_at: string
 }
+
+export interface IntendedLearners {
+  outcomes: {
+    value: string
+  }[]
+  requirements?: {
+    value: string
+  }[]
+  intended_for?: {
+    value: string
+  }[]
+}

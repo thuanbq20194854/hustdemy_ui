@@ -18,7 +18,7 @@ import InstructorCommunication from './pages/Instructor/Communication/Instructor
 import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
 import CourseManageLayout from './layouts/InstructorLayout/CourseManageLayout/CourseManageLayout'
 import CourseGoals from './pages/Instructor/ManageCourse/CourseGoals/CourseGoals'
-import CourseCurriculum from './pages/Instructor/ManageCourse/CourseCurriculum'
+import CourseCurriculum from './pages/Instructor/ManageCourse/CourseCurriculum/CourseCurriculum'
 import CourseBasics from './pages/Instructor/ManageCourse/CourseBasics'
 import CoursePricing from './pages/Instructor/ManageCourse/CoursePricing'
 

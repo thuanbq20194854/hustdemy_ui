@@ -7,60 +7,60 @@ import { FaBars } from 'react-icons/fa'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { LuPlus } from 'react-icons/lu'
-import { FormContext } from 'antd/es/form/context'
 
-interface IFormValues {
-  objectives: {
-    value: string
-  }[]
-  prerequisites?: {
-    value: string
-  }[]
-  intendFor?: {
-    value: string
-  }[]
-}
-
+import { IntendedLearners } from '../../../../models/course'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schemeUdpateIntendedLearner } from '../../../../validators/course'
+import { BiSolidErrorAlt } from 'react-icons/bi'
 const defaultFormValue = {
-  objectives: [{ value: '' }, { value: '' }, { value: '' }, { value: '' }],
+  outcomes: [{ value: '' }, { value: '' }, { value: '' }, { value: '' }],
   prerequisites: [{ value: '' }],
   intendFor: [{ value: '' }]
 }
 
 function CourseGoals() {
-  const { handleSubmit, control, watch, register } = useForm<IFormValues>({ defaultValues: defaultFormValue })
+  const {
+    handleSubmit,
+    control,
+    watch,
+    register,
+    formState: { errors }
+  } = useForm<IntendedLearners>({
+    defaultValues: defaultFormValue,
+    resolver: yupResolver(schemeUdpateIntendedLearner)
+  })
 
   const {
-    fields: objectivesField,
-    remove: removeObjective,
-    append: appendObjective,
+    fields: objectivesOutcomes,
+    remove: removeOutcome,
+    append: appendOutcome,
 
-    swap: swapObjective
+    swap: swapOutcome
   } = useFieldArray({
     control,
-    name: 'objectives'
+    name: 'outcomes'
   })
   const {
-    fields: prerequisitesField,
-    remove: removePrerequisites,
-    append: appendPrerequisites,
+    fields: requirementsField,
+    remove: removeRequirements,
+    append: appendRequirements,
 
-    swap: swapPrerequisites
+    swap: swapRequirements
   } = useFieldArray({
     control,
-    name: 'prerequisites'
+    name: 'requirements'
   })
   const {
-    fields: intendForField,
-    remove: removeIntendFor,
-    append: appendIntendFor,
+    fields: intendedForField,
+    remove: removeIntendedFor,
+    append: appendIntendedFor,
     swap: swapIntendFor
   } = useFieldArray({
     control,
-    name: 'intendFor'
+    name: 'intended_for'
   })
 
-  const onSubmit = (data: IFormValues) => {
+  const onSubmit = (data: IntendedLearners) => {
     console.log('DAta: ', data)
   }
 
@@ -73,28 +73,30 @@ function CourseGoals() {
   3. Tất cả input phải có length > 0 => THì mới cho add thêm Response Input
   */
 
-  const handleAppendObjective = () => {
+  const canOutcomesItemBeDeleted = objectivesOutcomes.length > 4
+
+  const handleAppendOutComes = () => {
     // console.log('watch ', watch('objectives'))
-    if (watch('objectives').every((item) => item.value.trim().length > 0)) {
-      appendObjective({
+    if (watch('outcomes').every((item) => item.value.trim().length > 0)) {
+      appendOutcome({
         value: ''
       })
     } else {
       return
     }
   }
-  const handleAppendPrerequisite = () => {
-    if (watch('prerequisites')?.length === 0 || watch('prerequisites')?.every((item) => item.value.trim().length > 0)) {
-      appendPrerequisites({
+  const handleAppendRequirements = () => {
+    if (watch('requirements')?.length === 0 || watch('requirements')?.every((item) => item.value.trim().length > 0)) {
+      appendRequirements({
         value: ''
       })
     } else {
       return
     }
   }
-  const handleAppendIntendFor = () => {
-    if (watch('intendFor')?.length === 0 || watch('intendFor')?.every((item) => item.value.trim().length > 0)) {
-      appendIntendFor({
+  const handleAppendIntendedFor = () => {
+    if (watch('intended_for')?.length === 0 || watch('intended_for')?.every((item) => item.value.trim().length > 0)) {
+      appendIntendedFor({
         value: ''
       })
     } else {
@@ -102,31 +104,31 @@ function CourseGoals() {
     }
   }
 
-  const handleRemoveObjective = (index: any) => {
-    if (objectivesField.length === 4) {
+  const handleRemoveOutcome = (index: any) => {
+    if (!canOutcomesItemBeDeleted) {
       return
     }
 
-    removeObjective(index)
+    removeOutcome(index)
   }
 
-  const handleOnDragEndObjective = (result: any) => {
+  const handleOnDragEndOutcome = (result: any) => {
     if (!result.destination) {
       return
     }
-    swapObjective(result.source.index, result.destination.index)
+    swapOutcome(result.source.index, result.destination.index)
 
     console.log(result)
   }
-  const handleOnDragEndPrerequisites = (result: any) => {
+  const handleOnDragEndRequirement = (result: any) => {
     if (!result.destination) {
       return
     }
-    swapPrerequisites(result.source.index, result.destination.index)
+    swapRequirements(result.source.index, result.destination.index)
 
     console.log(result)
   }
-  const handleOnDragEndIntendFor = (result: any) => {
+  const handleOnDragEndIntendedFor = (result: any) => {
     if (!result.destination) {
       return
     }
@@ -135,7 +137,7 @@ function CourseGoals() {
     console.log(result)
   }
 
-  console.log('objectivesField: ', objectivesField)
+  console.log('objectivesOutcomes: ', objectivesOutcomes)
 
   return (
     <div className={styles.courseGoalsWrapper}>
@@ -158,16 +160,16 @@ function CourseGoals() {
               </span>
             </p>
 
-            <DragDropContext onDragEnd={handleOnDragEndObjective}>
-              <Droppable droppableId='objectives'>
+            <DragDropContext onDragEnd={handleOnDragEndOutcome}>
+              <Droppable droppableId='outcomes'>
                 {(provided) => (
                   <ul className='fieldArrayListContainer' {...provided.droppableProps} ref={provided.innerRef}>
-                    {objectivesField.map(({ id }, index) => (
+                    {objectivesOutcomes.map(({ id }, index) => (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
                           <Controller
                             control={control}
-                            {...register(`objectives.${index}.value`)}
+                            {...register(`outcomes.${index}.value`)}
                             render={({ field }) => (
                               <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
                                 <div className='inputContainer'>
@@ -178,9 +180,11 @@ function CourseGoals() {
                                   />
                                   <span className='counter'>160</span>
                                 </div>
-                                <button className='btnContainer' onClick={() => handleRemoveObjective(index)}>
-                                  <MdDelete />
-                                </button>
+                                <span className={`btnWrapper ${!canOutcomesItemBeDeleted && 'prevent'}`}>
+                                  <button className={`btnContainer`} onClick={() => handleRemoveOutcome(index)}>
+                                    <MdDelete />
+                                  </button>
+                                </span>
                                 <button className='btnContainer' {...provided.dragHandleProps}>
                                   <FaBars />
                                 </button>
@@ -197,9 +201,14 @@ function CourseGoals() {
               </Droppable>
             </DragDropContext>
 
+            <div className='formErrorMessage'>
+              <BiSolidErrorAlt className='errorIcon' />
+              <span className='text ud-heading-md'>This field should contain at least 4 items.</span>
+            </div>
+
             <button
               className='addMoreBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'
-              onClick={handleAppendObjective}
+              onClick={handleAppendOutComes}
             >
               <LuPlus size={24} />
               <span style={{ marginLeft: '4px' }}>Add more to your response</span>
@@ -218,16 +227,16 @@ function CourseGoals() {
               </span>
             </p>
 
-            <DragDropContext onDragEnd={handleOnDragEndPrerequisites}>
-              <Droppable droppableId='prerequisites'>
+            <DragDropContext onDragEnd={handleOnDragEndRequirement}>
+              <Droppable droppableId='requirements'>
                 {(provided) => (
                   <ul className='fieldArrayListContainer' {...provided.droppableProps} ref={provided.innerRef}>
-                    {prerequisitesField.map(({ id }, index) => (
+                    {requirementsField.map(({ id }, index) => (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
                           <Controller
                             control={control}
-                            {...register(`prerequisites.${index}.value`)}
+                            {...register(`requirements.${index}.value`)}
                             render={({ field }) => (
                               <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
                                 <div className='inputContainer'>
@@ -238,7 +247,7 @@ function CourseGoals() {
                                   />
                                   <span className='counter'>160</span>
                                 </div>
-                                <button className='btnContainer' onClick={() => removePrerequisites(index)}>
+                                <button className='btnContainer' onClick={() => removeRequirements(index)}>
                                   <MdDelete />
                                 </button>
                                 <button className='btnContainer' {...provided.dragHandleProps}>
@@ -259,7 +268,7 @@ function CourseGoals() {
 
             <button
               className='addMoreBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'
-              onClick={handleAppendPrerequisite}
+              onClick={handleAppendRequirements}
             >
               <LuPlus size={24} />
               <span style={{ marginLeft: '4px' }}>Add more to your response</span>
@@ -277,16 +286,16 @@ function CourseGoals() {
               </span>
             </p>
 
-            <DragDropContext onDragEnd={handleOnDragEndIntendFor}>
-              <Droppable droppableId='intendFor'>
+            <DragDropContext onDragEnd={handleOnDragEndIntendedFor}>
+              <Droppable droppableId='intended_for'>
                 {(provided) => (
                   <ul className='fieldArrayListContainer' {...provided.droppableProps} ref={provided.innerRef}>
-                    {intendForField.map(({ id }, index) => (
+                    {intendedForField.map(({ id }, index) => (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
                           <Controller
                             control={control}
-                            {...register(`intendFor.${index}.value`)}
+                            {...register(`intended_for.${index}.value`)}
                             render={({ field }) => (
                               <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
                                 <div className='inputContainer'>
@@ -297,7 +306,7 @@ function CourseGoals() {
                                   />
                                   <span className='counter'>160</span>
                                 </div>
-                                <button className='btnContainer' onClick={() => removeIntendFor(index)}>
+                                <button className='btnContainer' onClick={() => removeIntendedFor(index)}>
                                   <MdDelete />
                                 </button>
                                 <button className='btnContainer' {...provided.dragHandleProps}>
@@ -318,7 +327,7 @@ function CourseGoals() {
 
             <button
               className='addMoreBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'
-              onClick={handleAppendIntendFor}
+              onClick={handleAppendIntendedFor}
             >
               <LuPlus size={24} />
               <span style={{ marginLeft: '4px' }}>Add more to your response</span>
