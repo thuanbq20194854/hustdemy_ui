@@ -36,62 +36,64 @@ function CourseManageLayout() {
         </div>
       </div>
 
-      <div className='appContainer'>
-        <div className='sidebarWrapper'>
-          <ul className='sidebarWrapper-ul'>
-            <li className='sidebarWrapper-li'>
-              <div className='sectionTitle ud-heading-md'>Plan your course</div>
-              <ul>
-                <li className='sideNavItem'>
-                  <NavLink to='/instructor/course/:courseId/manage/goals' className='navLinkCss'>
-                    <div className='checkIconContainer'>
-                      <IoMdCheckmark />
-                    </div>
-                    <span className='linkTitle'>Intended learners</span>
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
+      <div className='appWrapper'>
+        <div className='appContainer'>
+          <div className='sidebarWrapper'>
+            <ul className='sidebarWrapper-ul'>
+              <li className='sidebarWrapper-li'>
+                <div className='sectionTitle ud-heading-md'>Plan your course</div>
+                <ul>
+                  <li className='sideNavItem'>
+                    <NavLink to='/instructor/course/:courseId/manage/goals' className='navLinkCss'>
+                      <div className='checkIconContainer'>
+                        <IoMdCheckmark />
+                      </div>
+                      <span className='linkTitle'>Intended learners</span>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
 
-            <li className='sidebarWrapper-li'>
-              <div className='sectionTitle ud-heading-md'>Create your content</div>
-              <ul>
-                <li className='sideNavItem'>
-                  <NavLink to='/instructor/course/:courseId/manage/curriculum' className='navLinkCss'>
-                    <div className='checkIconContainer'>
-                      <IoMdCheckmark />
-                    </div>
-                    <span className='linkTitle'>Curriculum</span>
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-            <li className='sidebarWrapper-li'>
-              <div className='sectionTitle ud-heading-md'>Publish your course</div>
-              <ul>
-                <li className='sideNavItem'>
-                  <NavLink to='/instructor/course/:courseId/manage/basics' className='navLinkCss'>
-                    <div className='checkIconContainer'>
-                      <IoMdCheckmark />
-                    </div>
-                    <span className='linkTitle'>Cours Landing Page</span>
-                  </NavLink>
-                </li>
-                <li className='sideNavItem'>
-                  <NavLink to='/instructor/course/:courseId/manage/pricing' className='navLinkCss'>
-                    <div className='checkIconContainer'>
-                      <IoMdCheckmark />
-                    </div>
-                    <span className='linkTitle'>Pricing</span>
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+              <li className='sidebarWrapper-li'>
+                <div className='sectionTitle ud-heading-md'>Create your content</div>
+                <ul>
+                  <li className='sideNavItem'>
+                    <NavLink to='/instructor/course/:courseId/manage/curriculum' className='navLinkCss'>
+                      <div className='checkIconContainer'>
+                        <IoMdCheckmark />
+                      </div>
+                      <span className='linkTitle'>Curriculum</span>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li className='sidebarWrapper-li'>
+                <div className='sectionTitle ud-heading-md'>Publish your course</div>
+                <ul>
+                  <li className='sideNavItem'>
+                    <NavLink to='/instructor/course/:courseId/manage/basics' className='navLinkCss'>
+                      <div className='checkIconContainer'>
+                        <IoMdCheckmark />
+                      </div>
+                      <span className='linkTitle'>Cours Landing Page</span>
+                    </NavLink>
+                  </li>
+                  <li className='sideNavItem'>
+                    <NavLink to='/instructor/course/:courseId/manage/pricing' className='navLinkCss'>
+                      <div className='checkIconContainer'>
+                        <IoMdCheckmark />
+                      </div>
+                      <span className='linkTitle'>Pricing</span>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
 
-        <div className='mainContentWrapper'>
-          <Outlet />
+          <div className='mainContentWrapper'>
+            <Outlet />
+          </div>
         </div>
       </div>
 

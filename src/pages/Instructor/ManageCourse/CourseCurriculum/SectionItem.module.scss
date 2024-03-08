@@ -1,0 +1,118 @@
+.sectionItemWrapper {
+  font-size: 16px;
+
+  border: 1px solid #6a6f73;
+
+  margin-top: 64px;
+  :global {
+    .sectionHeader {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 19px 8px;
+      .title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .iconContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .btnPart {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        gap: 12px;
+
+        .btnContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          svg {
+            fill: #2d213f;
+          }
+          &:hover {
+            svg {
+              fill: #101011;
+            }
+          }
+        }
+
+        .dragBtn {
+          margin-left: auto;
+        }
+      }
+    }
+
+    .editSectionWrapper {
+      padding: 8px;
+
+      .editSectionWrapper--inner {
+        border: 1px solid #2d2f31;
+        padding: 8px;
+
+        display: flex;
+        align-items: start;
+        gap: 8px;
+
+        .editForm {
+          flex: 1;
+
+          .label {
+            margin-bottom: 8px;
+          }
+
+          & > .formItem:not(:first-child) {
+            margin-top: 16px;
+          }
+
+          .btnActionsContainer {
+            margin-top: 16px;
+            margin-left: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            gap: 16px;
+
+            .btn {
+              height: 34px;
+              margin-left: 16px;
+            }
+
+            .btnCancle {
+              color: #2d2f31;
+            }
+
+            .btnSave:hover {
+              background-color: var(--color-gray-400);
+            }
+          }
+        }
+      }
+    }
+
+    .addSectionItemBtnContainer {
+      margin: 0 0 24px 60px;
+
+      .addSectionItemBtn {
+        height: 34px;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        svg {
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+  }
+}

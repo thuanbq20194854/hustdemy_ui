@@ -1,0 +1,38 @@
+.rootClassNameModal {
+  :global {
+    .ant-modal-wrap {
+    }
+    .ant-modal {
+      width: 60rem !important;
+      margin: auto !important;
+      top: 25%;
+      transform-origin: initial !important;
+
+      .ant-modal-content {
+        width: 60rem;
+        border-radius: 0px;
+
+        .ant-modal-body {
+          .modalMessage {
+            font-size: 16px;
+          }
+
+          .actionPart {
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            gap: 16px;
+            .cancelBtn {
+              color: #2d2131;
+            }
+          }
+        }
+
+        .ant-modal-footer {
+          display: none;
+        }
+      }
+    }
+  }
+}
