@@ -4,23 +4,23 @@ import CustomModal from '../../../../components/CustomModal/CustomModal'
 interface IProps {
   curriculumItemId: string
   open: boolean
-  handleCloseModal: () => void
+  handleCommandModal: (cmd: boolean) => void
 }
 
-function DeleteCurriculumItemModal(props: IProps) {
+function DeleteCurriculumItemModal({ curriculumItemId, open, handleCommandModal }: IProps) {
   const handleOkModal = (curriculumItemId: string) => {
     console.log(curriculumItemId)
 
-    props.handleCloseModal()
+    handleCommandModal(false)
   }
 
   return (
     <CustomModal
-      onCancleModal={props.handleCloseModal}
+      onCancleModal={() => handleCommandModal(false)}
       modalTitle='Please confirm'
       modalMessage='You are about to remove a curriculum item. Are you sure you want to continue?'
-      open={props.open}
-      onOkModal={() => handleOkModal(props.curriculumItemId)}
+      open={open}
+      onOkModal={() => handleOkModal(curriculumItemId)}
     />
   )
 }

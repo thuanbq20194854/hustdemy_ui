@@ -31,7 +31,7 @@ function CurriculumSection() {
     setShowMoreSection(true)
   }
 
-  const [isOpenModal, handleOpenModal, handleCloseModal] = useBoolean()
+  const [isOpenModal, , handleOpenModal, handleCloseModal] = useBoolean()
 
   const [previewItemIdToPlay, setPreviewItemIdToPlay] = useState<string>('')
 
@@ -109,7 +109,7 @@ function CurriculumSection() {
             </div>
 
             <div className='previewTitle ud-heading-sm'>
-              <FaRegCirclePlay className='playIcon'/>
+              <FaRegCirclePlay className='playIcon' />
               <span>The Complete 2024 Web Development Bootcamp</span>
             </div>
             <div className='ud-heading-xs'>03:06</div>

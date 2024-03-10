@@ -3,7 +3,7 @@ import { useBoolean } from '../../../hooks/useBoolean'
 import styles from './ReportSection.module.scss'
 import TextArea from 'antd/es/input/TextArea'
 function ReportSection() {
-  const [isOpenModal, handleOpenModal, handleCloseModal] = useBoolean()
+  const [isOpenModal, , handleOpenModal, handleCloseModal] = useBoolean()
   return (
     <div className={styles.reportCourseSection}>
       <button className='reportBtn ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm' onClick={handleOpenModal}>

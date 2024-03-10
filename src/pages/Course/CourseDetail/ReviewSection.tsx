@@ -42,7 +42,7 @@ const fakeFilters = [
 ]
 
 function ReviewSection() {
-  const [isOpen, handleOpen, handleClose] = useBoolean()
+  const [isOpen, , handleOpen, handleClose] = useBoolean()
 
   const initialFilter = [1, 2, 3, 4, 5]
 

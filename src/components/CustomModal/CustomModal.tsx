@@ -25,7 +25,7 @@ function CustomModal(props: IProps) {
 
       <div className='actionPart'>
         <button
-          className='cancelBtn ud-btn ud-btn-large ud-btn-ghost ud-heading-md'
+          className='ud-btn ud-btn-large ud-btn-ghost ud-heading-md'
           onClick={() => {
             console.log('2 cancle')
 
@@ -35,7 +35,7 @@ function CustomModal(props: IProps) {
           <span>Cancle</span>
         </button>
         <button
-          className='okBtn ud-btn ud-btn-large ud-btn-primary ud-heading-md'
+          className='ud-btn ud-btn-large ud-btn-primary ud-heading-md'
           onClick={() => {
             props.onOkModal()
           }}

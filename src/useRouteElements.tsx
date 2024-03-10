@@ -16,7 +16,7 @@ import InstructorLayout from './layouts/InstructorLayout/InstructorLayout'
 import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
 import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
-import CourseManageLayout from './layouts/InstructorLayout/CourseManageLayout/CourseManageLayout'
+import CourseManageLayout from './pages/Instructor/ManageCourse/CourseManageLayout'
 import CourseGoals from './pages/Instructor/ManageCourse/CourseGoals/CourseGoals'
 import CourseCurriculum from './pages/Instructor/ManageCourse/CourseCurriculum/CourseCurriculum'
 import CourseBasics from './pages/Instructor/ManageCourse/CourseBasics'
@@ -127,27 +127,8 @@ export const useRouteElements = () => {
       ]
     },
     {
-      path: '/instructor/course/:courseId/manage',
-      element: <CourseManageLayout />,
-
-      children: [
-        {
-          path: '/instructor/course/:courseId/manage/goals',
-          element: <CourseGoals />
-        },
-        {
-          path: '/instructor/course/:courseId/manage/curriculum',
-          element: <CourseCurriculum />
-        },
-        {
-          path: '/instructor/course/:courseId/manage/basics',
-          element: <CourseBasics />
-        },
-        {
-          path: '/instructor/course/:courseId/manage/pricing',
-          element: <CoursePricing />
-        }
-      ]
+      path: '/instructor/course/:courseId/manage/:content',
+      element: <CourseManageLayout />
     },
     {
       path: '*',

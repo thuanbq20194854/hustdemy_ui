@@ -6,7 +6,7 @@ import { LoadingContext } from './contexts/loading.context'
 import LazyLoading from './components/LazyLoading/LazyLoading'
 
 function App() {
-  const { isLoading, showLoading, closeLoading } = useContext(LoadingContext)
+  const { isLoading, _, showLoading, closeLoading } = useContext(LoadingContext)
 
   const callAPi = () => {
     showLoading()

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const useBoolean = (initValue = false): [boolean, () => void, () => void, () => void] => {
+const useBoolean = (initValue = false): [boolean, (cmd: boolean) => void, () => void, () => void, () => void] => {
   const [value, setValue] = useState<boolean>(initValue)
   const setTrue = () => {
     setValue(true)
@@ -11,7 +11,11 @@ const useBoolean = (initValue = false): [boolean, () => void, () => void, () => 
   const toggle = () => {
     setValue((prev) => !prev)
   }
-  return [value, setTrue, setFalse, toggle]
+
+  const setCommand = (cmd: boolean) => {
+    setValue(cmd)
+  }
+  return [value, setCommand, setTrue, setFalse, toggle]
 }
 
 export { useBoolean }

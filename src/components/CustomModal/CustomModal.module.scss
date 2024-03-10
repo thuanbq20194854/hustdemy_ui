@@ -6,7 +6,8 @@
       width: 60rem !important;
       margin: auto !important;
       top: 25%;
-      transform-origin: initial !important;
+      // transform: translate(0%, -50%);
+      // transform-origin: initial !important;
 
       .ant-modal-content {
         width: 60rem;
@@ -23,9 +24,6 @@
             align-items: center;
             justify-content: end;
             gap: 16px;
-            .cancelBtn {
-              color: #2d2131;
-            }
           }
         }
 

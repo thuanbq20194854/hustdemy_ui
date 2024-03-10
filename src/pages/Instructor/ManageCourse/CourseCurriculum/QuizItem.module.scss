@@ -1,0 +1,251 @@
+.quizItemWrapper {
+  margin: 0 0 24px 60px;
+
+  :global {
+    .normalWrapper {
+      display: flex;
+      align-items: center;
+
+      // height: 28px;
+
+      padding: 11px 8px;
+      border: 1px solid #6a6f73;
+
+      .leftRegion {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        line-height: 1;
+
+        .iconContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          font-size: 16px;
+
+          svg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
+        .deleteBtn,
+        .editBtn {
+          width: 28px;
+          height: 28px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          cursor: pointer;
+
+          opacity: 0;
+        }
+      }
+
+      .rightRegion {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+
+        .showBtn {
+          width: 24px;
+          height: 24px;
+
+          cursor: pointer;
+        }
+
+        .addBtn {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .dragBtn {
+          width: 20px;
+          height: 20px;
+
+          cursor: pointer;
+          opacity: 0;
+        }
+      }
+
+      &:hover {
+        .deleteBtn,
+        .editBtn,
+        .dragBtn {
+          opacity: 1;
+        }
+      }
+    }
+
+    .showModeWrapper {
+      padding: 11px 8px;
+      border: 1px solid #6a6f73;
+      border-top: 0;
+      padding: 8px;
+
+      .headerWrapper--1 {
+        display: flex;
+        align-items: center;
+
+        .headerLeft {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .headerRight {
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .questionListWrapper {
+        margin-top: 16px;
+        .questionItemWrapper {
+          display: flex;
+          align-items: center;
+          .infoPart {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            .index {
+            }
+            .questionName {
+            }
+          }
+          .actionPart {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            .btnContainer {
+              height: 28px;
+              width: 28px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .selectQuestionTypeWrapper {
+      padding: 8px;
+      border: 1px solid #6a6f73;
+      border-top: 0;
+
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      .imageContainer {
+        padding: 4px;
+        width: 88px;
+        height: 60px;
+        border: 1px solid #d1d7dc;
+        background-color: #f7f9fa;
+
+        cursor: pointer;
+
+        margin: 0px auto;
+        &:hover {
+          background-color: #2d2f31;
+
+          .multiChoiceBtn {
+            .iconContainer {
+              svg {
+                stroke: white;
+              }
+            }
+            .text {
+              color: white;
+            }
+          }
+        }
+
+        .multiChoiceBtn {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          width: 100%;
+          color: #d1d7dc;
+          .iconContainer {
+            width: 100%;
+            flex: 1;
+            font-size: 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .text {
+            width: 100%;
+            text-align: center;
+            color: #2d2f31;
+            background-color: #d1d7dc;
+
+            font-size: 10px;
+          }
+        }
+      }
+
+      .tabTitleContainer {
+        position: absolute;
+        bottom: 100%;
+        right: 3.2rem;
+        max-width: 90%;
+        border: 1px solid #6a6f73;
+        border-bottom: 1px solid white;
+
+        padding: 0.8rem;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .iconBtn {
+          font-size: 20px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .addQuestionWrapper {
+      padding: 8px;
+      border: 1px solid #6a6f73;
+      border-top: 0;
+
+      position: relative;
+
+      .tabTitleContainer {
+        position: absolute;
+        bottom: 100%;
+        right: 3.2rem;
+        max-width: 90%;
+        border: 1px solid #6a6f73;
+        border-bottom: 1px solid white;
+
+        padding: 0.8rem;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .iconBtn {
+          font-size: 20px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

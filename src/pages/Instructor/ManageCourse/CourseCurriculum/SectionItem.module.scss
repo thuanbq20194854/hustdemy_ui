@@ -4,6 +4,9 @@
   border: 1px solid #6a6f73;
 
   margin-top: 64px;
+
+  padding: 8px;
+
   :global {
     .sectionHeader {
       display: flex;
@@ -52,12 +55,10 @@
     }
 
     .editSectionWrapper {
-      padding: 8px;
-
       .editSectionWrapper--inner {
         border: 1px solid #2d2f31;
-        padding: 8px;
 
+        padding: 8px;
         display: flex;
         align-items: start;
         gap: 8px;
@@ -81,38 +82,11 @@
             align-items: center;
             justify-content: end;
             gap: 16px;
-
-            .btn {
-              height: 34px;
-              margin-left: 16px;
-            }
-
-            .btnCancle {
-              color: #2d2f31;
-            }
-
-            .btnSave:hover {
-              background-color: var(--color-gray-400);
-            }
           }
         }
       }
     }
 
-    .addSectionItemBtnContainer {
-      margin: 0 0 24px 60px;
 
-      .addSectionItemBtn {
-        height: 34px;
-
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        svg {
-          height: 20px;
-          width: 20px;
-        }
-      }
-    }
   }
 }

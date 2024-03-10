@@ -4,6 +4,11 @@ import styles from './CourseCurriculum.module.scss'
 import SectionItem from './SectionItem'
 
 function CourseCurriculum() {
+  const handleUpdateSection = () => {
+    // API Update Section
+    // Loading
+    // Toasting
+  }
   return (
     <div className={styles.courseCurriculumPage}>
       <div className='subHeaderWrapper'>
@@ -12,10 +17,6 @@ function CourseCurriculum() {
 
       <div className='mainContent'>
         <div className='alertContainer'>
-          <p>
-            Start putting together your course by creating sections, lectures and practice (quizzes, coding exercises
-            and assignments).
-          </p>
           <p>
             Start putting together your course by creating sections, lectures and practice activities (
             <span className='ud-link-underline' color='#5624d0'>
@@ -31,7 +32,7 @@ function CourseCurriculum() {
         </div>
 
         <div className='curriculumPart'>
-          <SectionItem />
+          <SectionItem handleUpdateSection={handleUpdateSection} />
         </div>
       </div>
     </div>

@@ -159,6 +159,8 @@ ol {
   letter-spacing: 0.02rem;
 }
 
+
+
 .ud-heading-sm {
   font-weight: 700;
   line-height: 1.2;
@@ -270,6 +272,11 @@ ol {
   color: var(--color-white);
 }
 
+.ud-btn-primary:active,
+.ud-btn-primary:hover {
+  background-color: var(--color-gray-400);
+}
+
 .ud-btn-secondary {
   color: var(--color-gray-500);
   background-color: transparent;
@@ -281,6 +288,14 @@ ol {
   background-color: transparent;
   min-width: auto;
   padding: 0;
+}
+
+/* color: #101011; */
+
+
+.ud-btn-ghost:hover,
+.ud-btn-ghost:active {
+  color: #401b9c;
 }
 
 .ud-btn-brand,
@@ -300,10 +315,25 @@ ol {
   background-color: rgba(23, 57, 83, 0.12);
 }
 
+.ud-link-neutral {
+  color: #2d2f31;
+}
+
+.ud-link-neutral:active,
+.ud-link-neutral:hover {
+  color: #101011;
+}
+
+
 .ud-btn-xsmall {
   min-width: 8rem;
   padding: 0 0.8rem;
   height: 2.8rem;
+}
+
+.ud-btn-small {
+  min-width: 8rem;
+  height: 3.4rem;
 }
 
 .ud-btn-medium {
