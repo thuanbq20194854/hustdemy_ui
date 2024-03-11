@@ -409,3 +409,18 @@ a.resetNavlink:hover {
 .ud-select-container-large .ud-select {
   height: 4.8rem;
 }
+
+
+
+.ud-form-group-error {
+  border-color: #fcbca0;
+  box-shadow: 0 0 0 2px #fcbca0;
+}
+
+.ud-form-note {
+  color: #b32d0f;
+
+  font-weight: 400;
+  line-height: 1.4;
+  font-size: 1.2rem;
+}

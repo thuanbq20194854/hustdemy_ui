@@ -17,3 +17,5 @@ export function clearTokenLS() {
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
 }
+
+export const uuid = () => (String(Date.now().toString(32)) + Math.random().toString(16)).replace(/\./g, '')

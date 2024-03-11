@@ -19,6 +19,8 @@ const initCurriculum: ISection[] = [
 
     sectionTitle: 'Introduction',
 
+    sectionOutcome: 'Get the first 10 grade',
+
     lectures: [
       {
         id: '1',
@@ -132,7 +134,7 @@ function CourseManageLayout() {
         <div className='mainContentWrapper'>
           {renderedTab === 'goals' && <CourseGoals />}
 
-          {renderedTab === 'curriculum' && <CourseCurriculum sections={sections} />}
+          {renderedTab === 'curriculum' && <CourseCurriculum setSections={setSections} sections={sections} />}
           {renderedTab === 'pricing' && <CoursePricing />}
 
           {renderedTab === 'basics' && <CourseBasics />}

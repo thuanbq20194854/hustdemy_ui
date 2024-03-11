@@ -39,12 +39,6 @@ function SectionItem({ handleUpdateSection, section }: IProps) {
     setSectionMode(SECTION_MODE.NORMAL)
   }
 
-
-  const handleAddSection = (sectionData : ) => {
-
-
-  }
-
   return (
     <div className={styles.sectionItemWrapper}>
       <DeleteSectionItemModal handleCommandModal={handleCommandModal} open={isOpenModal} curriculumItemId='123123' />

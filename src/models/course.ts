@@ -1,8 +1,13 @@
 export interface ISection {
   id: string
   sectionTitle: string
-
+  sectionOutcome: string
   lectures: ILecture[]
+}
+
+export interface IAddSection {
+  sectionTitle: string
+  sectionOutcome: string
 }
 
 export interface ILecture {

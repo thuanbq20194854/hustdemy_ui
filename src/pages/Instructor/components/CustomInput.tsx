@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 import styles from './CustomInput.module.scss'
 
-interface IProps {
+interface IProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   maxLength?: number
   placeholder?: string
   className?: string
 }
 
-function CustomInput({ maxLength, placeholder, className }: IProps) {
+function CustomInput({ maxLength, placeholder, className, ...rest }: IProps) {
   const [inputValue, setInputValue] = useState('')
 
   const handleInputChange = (value: string) => {
@@ -27,6 +27,7 @@ function CustomInput({ maxLength, placeholder, className }: IProps) {
         type='text'
         className='input'
         placeholder={placeholder && placeholder}
+        {...rest}
       />
       {maxLength && <span className='charLength'>{maxLength - inputValue.length}</span>}
     </div>

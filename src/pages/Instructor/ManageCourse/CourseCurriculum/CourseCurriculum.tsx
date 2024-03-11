@@ -2,20 +2,36 @@ import React from 'react'
 
 import styles from './CourseCurriculum.module.scss'
 import SectionItem from './SectionItem'
-import { ISection } from '../../../../models/course'
-import { useForm } from 'react-hook-form'
+import { IAddSection, ISection } from '../../../../models/course'
 import AddSectionForm from './AddSectionForm'
+import { uuid } from '../../../../utils/utils'
 
 interface IProps {
   sections: ISection[]
   setSections: React.Dispatch<React.SetStateAction<ISection[]>>
 }
 
-function CourseCurriculum({ sections }: IProps) {
+function CourseCurriculum({ sections, setSections }: IProps) {
   const handleUpdateSection = () => {
     // API Update Section
     // Loading
     // Toasting
+  }
+
+  const handleAddSection = (data: IAddSection) => {
+    /// API first
+    /// Put response into this SET function
+
+    setSections((prev) => [
+      ...prev,
+      {
+        id: uuid(),
+
+        sectionOutcome: data.sectionOutcome,
+        lectures: [],
+        sectionTitle: data.title
+      }
+    ])
   }
 
   return (
@@ -45,7 +61,7 @@ function CourseCurriculum({ sections }: IProps) {
             <SectionItem key={sectionItem.id} handleUpdateSection={handleUpdateSection} section={sectionItem} />
           ))}
 
-          <AddSectionForm />
+          <AddSectionForm handleAddSection={handleAddSection} />
         </div>
       </div>
     </div>
