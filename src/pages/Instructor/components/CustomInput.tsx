@@ -5,9 +5,10 @@ import styles from './CustomInput.module.scss'
 interface IProps {
   maxLength?: number
   placeholder?: string
+  className?: string
 }
 
-function CustomInput({ maxLength, placeholder }: IProps) {
+function CustomInput({ maxLength, placeholder, className }: IProps) {
   const [inputValue, setInputValue] = useState('')
 
   const handleInputChange = (value: string) => {
@@ -19,7 +20,7 @@ function CustomInput({ maxLength, placeholder }: IProps) {
   }
 
   return (
-    <div className={styles.inputWrapper}>
+    <div className={`${styles.inputWrapper} ${className}`}>
       <input
         value={inputValue}
         onChange={(e) => handleInputChange(e.target.value)}

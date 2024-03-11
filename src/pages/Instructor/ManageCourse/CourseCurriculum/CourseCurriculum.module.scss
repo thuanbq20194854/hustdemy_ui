@@ -19,6 +19,12 @@
         font-size: 1.6rem;
         color: #2d2f31;
       }
+
+      .curriculumPart {
+        & > *:not(:first-child, :last-child) {
+          margin-top: 80px;
+        }
+      }
     }
   }
 }

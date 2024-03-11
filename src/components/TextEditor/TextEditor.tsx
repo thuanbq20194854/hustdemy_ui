@@ -24,9 +24,10 @@ const toolBarImage = [
 interface IProps {
   customToolBar?: Array<any>
   placeholder?: string
+  className?: string
 }
 
-function TextEditor({ customToolBar, placeholder }: IProps) {
+function TextEditor({ customToolBar, placeholder, className }: IProps) {
   const { quill, quillRef } = useQuill({
     modules: {
       toolbar: customToolBar ? customToolBar : toolBarStandard
@@ -54,7 +55,7 @@ function TextEditor({ customToolBar, placeholder }: IProps) {
   }, [quill])
 
   return (
-    <div className={styles.textEditorWrapper}>
+    <div className={`${styles.textEditorWrapper} ${className}`}>
       <div ref={quillRef} />
     </div>
   )

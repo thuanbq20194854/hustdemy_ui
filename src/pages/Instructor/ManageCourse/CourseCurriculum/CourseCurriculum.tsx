@@ -2,13 +2,22 @@ import React from 'react'
 
 import styles from './CourseCurriculum.module.scss'
 import SectionItem from './SectionItem'
+import { ISection } from '../../../../models/course'
+import { useForm } from 'react-hook-form'
+import AddSectionForm from './AddSectionForm'
 
-function CourseCurriculum() {
+interface IProps {
+  sections: ISection[]
+  setSections: React.Dispatch<React.SetStateAction<ISection[]>>
+}
+
+function CourseCurriculum({ sections }: IProps) {
   const handleUpdateSection = () => {
     // API Update Section
     // Loading
     // Toasting
   }
+
   return (
     <div className={styles.courseCurriculumPage}>
       <div className='subHeaderWrapper'>
@@ -32,7 +41,11 @@ function CourseCurriculum() {
         </div>
 
         <div className='curriculumPart'>
-          <SectionItem handleUpdateSection={handleUpdateSection} />
+          {sections.map((sectionItem) => (
+            <SectionItem key={sectionItem.id} handleUpdateSection={handleUpdateSection} section={sectionItem} />
+          ))}
+
+          <AddSectionForm />
         </div>
       </div>
     </div>

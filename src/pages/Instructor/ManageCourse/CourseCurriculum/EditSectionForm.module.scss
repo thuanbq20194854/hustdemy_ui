@@ -1,0 +1,36 @@
+.editSectionWrapper {
+  :global {
+    .editSectionWrapper--inner {
+      border: 1px solid #2d2f31;
+
+      padding: 8px;
+      display: flex;
+      align-items: start;
+      gap: 8px;
+
+      font-size: 16px;
+
+      .editForm {
+        flex: 1;
+
+        .label {
+          margin-bottom: 8px;
+        }
+
+        & > .formItem:not(:first-child) {
+          margin-top: 16px;
+        }
+
+        .btnActionsContainer {
+          margin-top: 16px;
+          margin-left: auto;
+
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          gap: 16px;
+        }
+      }
+    }
+  }
+}

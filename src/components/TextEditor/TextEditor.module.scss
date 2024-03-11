@@ -1,8 +1,11 @@
 .textEditorWrapper {
-  margin-top: 16px;
   border-color: #2d2f31;
-
   :global {
+    .ql-toolbar,
+    .ql-container {
+      border-color: #2d2f31;
+      height: auto;
+    }
     .ql-editor.ql-blank::before {
       font-size: 14px;
       font-style: initial;

@@ -1,0 +1,25 @@
+.questionItemWrapper {
+  display: flex;
+  align-items: center;
+  :global {
+    .infoPart {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      .index {
+      }
+      .questionName {
+      }
+    }
+    .actionPart {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      .btnContainer {
+        height: 28px;
+        width: 28px;
+        cursor: pointer;
+      }
+    }
+  }
+}

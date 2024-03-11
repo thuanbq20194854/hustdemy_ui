@@ -1,4 +1,3 @@
-import React from 'react'
 import CustomModal from '../../../../components/CustomModal/CustomModal'
 
 interface IProps {
@@ -7,7 +6,7 @@ interface IProps {
   handleCommandModal: (cmd: boolean) => void
 }
 
-function DeleteCurriculumItemModal({ curriculumItemId, open, handleCommandModal }: IProps) {
+function DeleteSectionItemModal({ curriculumItemId, open, handleCommandModal }: IProps) {
   const handleOkModal = (curriculumItemId: string) => {
     console.log(curriculumItemId)
 
@@ -25,4 +24,4 @@ function DeleteCurriculumItemModal({ curriculumItemId, open, handleCommandModal 
   )
 }
 
-export default DeleteCurriculumItemModal
+export default DeleteSectionItemModal

@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { IoIosArrowBack, IoMdCheckmark } from 'react-icons/io'
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { IoIosArrowBack } from 'react-icons/io'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import styles from './CourseManageLayout.module.scss'
 import { IoSettingsOutline } from 'react-icons/io5'
@@ -11,6 +11,66 @@ import CoursePricing from './CoursePricing/CoursePricing'
 import CourseBasics from './CourseBasics/CourseBasics'
 import CMSidebar from './CMSidebar'
 import { tabPaths } from './constant/CourseManage'
+import { ISection } from '../../../models/course'
+
+const initCurriculum: ISection[] = [
+  {
+    id: '1',
+
+    sectionTitle: 'Introduction',
+
+    lectures: [
+      {
+        id: '1',
+        type: 'lecture',
+        title: 'Hello world with C#',
+        desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
+        videoURL: '/'
+      },
+      {
+        id: '2',
+        type: 'quiz',
+
+        title: 'Mini Test Quiz  Revision',
+        desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
+
+        questions: [
+          {
+            id: '1',
+            desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aut qui amet, at harum assumenda repudiandae. Et vitae facilis rem.',
+            title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, et.',
+
+            question_text:
+              ' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?',
+            answers: [
+              {
+                id: '1',
+                answer_text:
+                  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
+                explaination:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
+              },
+              {
+                id: '3',
+                answer_text:
+                  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
+                explaination:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
+              },
+              {
+                id: '2',
+                answer_text:
+                  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
+                explaination:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
 
 function CourseManageLayout() {
   const { courseId, content } = useParams()
@@ -18,7 +78,7 @@ function CourseManageLayout() {
   const navigate = useNavigate()
   const [course, setCourse] = useState<any>()
 
-  const [curriculum, setCurriculum] = useState<any>()
+  const [sections, setSections] = useState<ISection[]>(initCurriculum)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -72,7 +132,7 @@ function CourseManageLayout() {
         <div className='mainContentWrapper'>
           {renderedTab === 'goals' && <CourseGoals />}
 
-          {renderedTab === 'curriculum' && <CourseCurriculum />}
+          {renderedTab === 'curriculum' && <CourseCurriculum sections={sections} />}
           {renderedTab === 'pricing' && <CoursePricing />}
 
           {renderedTab === 'basics' && <CourseBasics />}

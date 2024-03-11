@@ -1,0 +1,70 @@
+.addCurriculumItemSectionWrapper {
+  :global {
+    .addCurriculumItemBtnPart {
+      margin: 0 0 24px 60px;
+
+      .addCurriculumItemBtn {
+        height: 34px;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        svg {
+          height: 20px;
+          width: 20px;
+        }
+      }
+
+      .selectCurriculumItemContainer {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border: 1px dashed #6a6f73;
+
+        .btnContainer {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          padding: 0 4px;
+
+          &:hover {
+            color: #401b9c;
+          }
+        }
+      }
+
+      .addLectureWrapper {
+        display: flex;
+        align-items: start;
+        gap: 8px;
+
+        border: 1px solid #6a6f73;
+        padding: 8px;
+
+        .labelWrapper {
+          font-weight: 400;
+          line-height: 1.4;
+          font-size: 1.6rem;
+          color: #2d2f31;
+
+          height: 34px;
+          display: flex;
+          align-items: center;
+        }
+
+        .formEdit {
+          flex: 1;
+          .btnsContainer {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            gap: 16px;
+          }
+        }
+      }
+    }
+  }
+}

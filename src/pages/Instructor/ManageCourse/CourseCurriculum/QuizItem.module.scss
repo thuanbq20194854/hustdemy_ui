@@ -109,29 +109,6 @@
 
       .questionListWrapper {
         margin-top: 16px;
-        .questionItemWrapper {
-          display: flex;
-          align-items: center;
-          .infoPart {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            .index {
-            }
-            .questionName {
-            }
-          }
-          .actionPart {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            .btnContainer {
-              height: 28px;
-              width: 28px;
-              cursor: pointer;
-            }
-          }
-        }
       }
     }
 
@@ -194,36 +171,6 @@
           }
         }
       }
-
-      .tabTitleContainer {
-        position: absolute;
-        bottom: 100%;
-        right: 3.2rem;
-        max-width: 90%;
-        border: 1px solid #6a6f73;
-        border-bottom: 1px solid white;
-
-        padding: 0.8rem;
-
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        .iconBtn {
-          font-size: 20px;
-
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .addQuestionWrapper {
-      padding: 8px;
-      border: 1px solid #6a6f73;
-      border-top: 0;
-
-      position: relative;
 
       .tabTitleContainer {
         position: absolute;

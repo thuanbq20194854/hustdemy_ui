@@ -1,0 +1,97 @@
+.addQuestionWrapper {
+  padding: 8px;
+  border: 1px solid #6a6f73;
+  border-top: 0;
+
+  position: relative;
+
+  :global {
+    .tabTitleContainer {
+      position: absolute;
+      bottom: 100%;
+      right: 3.2rem;
+      max-width: 90%;
+      border: 1px solid #6a6f73;
+      border-bottom: 1px solid white;
+
+      padding: 0.8rem;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .iconBtn {
+        font-size: 20px;
+
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+
+    .formWrapper {
+      & > *:not(:first-child) {
+        margin-top: 16px;
+      }
+      .formItem {
+        .formLabel {
+          padding: 0 0 8px 0;
+        }
+
+        .textEditor {
+          margin: 0;
+        }
+
+        .answerListWrapper {
+          .answerItem {
+            margin-top: 16px;
+            display: flex;
+            align-items: start;
+            .left {
+              min-width: 4%;
+
+              display: flex;
+              align-items: start;
+
+              .ant-radio-wrapper {
+                .ant-radio {
+                  .ant-radio-input {
+                    width: 20px;
+                    height: 20px;
+                  }
+                }
+              }
+            }
+            .middle {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+
+              .textEditor {
+                .ql-editor::before {
+                  font-size: 16px;
+                }
+              }
+
+              .customInput {
+                margin-top: 16px;
+                margin-left: 60px;
+              }
+            }
+            .right {
+              min-width: 6%;
+
+              display: flex;
+              align-items: end;
+
+              .deleteBtn {
+                cursor: pointer;
+                margin-left: auto;
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

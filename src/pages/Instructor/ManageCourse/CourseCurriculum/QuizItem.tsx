@@ -7,22 +7,18 @@ import { MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
-import CustomModal from '../../../../components/CustomModal/CustomModal'
 import { useBoolean } from '../../../../hooks/useBoolean'
 import DeleteQuestionItemModal from './DeleteQuestionItemModal'
 import { GrCircleQuestion } from 'react-icons/gr'
-import TextEditor from '../../../../components/TextEditor/TextEditor'
+import AddQuestionForm from './AddQuestionForm'
+import { IQuestion } from '../../../../models/course'
+import QuestionItem from './QuestionItem'
 
-const questions = [
-  {
-    id: '1'
-  },
-  {
-    id: '2'
-  }
-]
+interface IProps {
+  questions: IQuestion[]
+}
 
-function QuizItem() {
+function QuizItem({ questions }: IProps) {
   const QUIZ_ITEM_MODE = {
     NORMAL: 0,
     SHOW: 2,
@@ -35,7 +31,7 @@ function QuizItem() {
 
   const [isOpen, setCommandModal, handleOpenModal] = useBoolean()
 
-  const handleCloseAdd = () => {
+  const handleCloseAddQuestion = () => {
     if (questions.length === 0) {
       setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)
     } else {
@@ -120,24 +116,14 @@ function QuizItem() {
           </div>
 
           <div className='questionListWrapper'>
-            <div className='questionItemWrapper ud-text-sm'>
-              <div className='infoPart'>
-                <div className='index ud-text-bold'>1.</div>
-                <div className='questionName'>What is the best player of Java</div>
-              </div>
-
-              <div className='actionPart'>
-                <button className='btnContainer editBtn'>
-                  <MdEdit size={16} />
-                </button>
-                <button className='btnContainer deleteBtn' onClick={handleOpenModal}>
-                  <MdDelete size={16} />
-                </button>
-                <button className='btnContainer dragBtn'>
-                  <FaBars size={16} />
-                </button>
-              </div>
-            </div>
+            {questions.map((questionItem, index) => (
+              <QuestionItem
+                key={questionItem.id}
+                index={index + 1}
+                question={questionItem}
+                handleOpenModal={handleOpenModal}
+              />
+            ))}
           </div>
         </div>
       )}
@@ -155,7 +141,7 @@ function QuizItem() {
 
           <div className='tabTitleContainer'>
             <span className='text ud-heading-sm'>Select question type</span>
-            <button className='iconBtn' onClick={handleCloseAdd}>
+            <button className='iconBtn' onClick={handleCloseAddQuestion}>
               <MdOutlineClose />
             </button>
           </div>
@@ -163,20 +149,7 @@ function QuizItem() {
       )}
 
       {quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION && (
-        <div className='addQuestionWrapper'>
-          <div className='tabTitleContainer'>
-            <span className='text ud-heading-sm'>Add Multiple Choice</span>
-            <button className='iconBtn' onClick={handleCloseAdd}>
-              <MdOutlineClose />
-            </button>
-          </div>
-
-          <form action=''>
-            <div className='formLabel ud-heading-sm'>Question</div>
-            <TextEditor />
-            <div className='formLabel ud-heading-sm'>Answer</div>
-          </form>
-        </div>
+        <AddQuestionForm handleCloseAddQuestion={handleCloseAddQuestion} />
       )}
     </div>
   )

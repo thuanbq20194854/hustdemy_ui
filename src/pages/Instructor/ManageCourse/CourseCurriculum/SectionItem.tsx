@@ -4,12 +4,13 @@ import { FaBars, FaRegFile } from 'react-icons/fa'
 import styles from './SectionItem.module.scss'
 import { MdDelete, MdEdit } from 'react-icons/md'
 
-import CustomInput from '../../components/CustomInput'
 import { useBoolean } from '../../../../hooks/useBoolean'
-import DeleteCurriculumItemModal from './DeleteCurriculumItemModal'
-import AddCurriculumItemSection from './AddCurriculumItemSection'
+import DeleteSectionItemModal from './DeleteSectionItemModal'
+import AddNewCurriculumItem from './AddNewCurriculumItem'
 import LectureItem from './LectureItem'
 import QuizItem from './QuizItem'
+import { ISection } from '../../../../models/course'
+import EditSectionForm from './EditSectionForm'
 
 const fakeitems = [
   {
@@ -22,29 +23,35 @@ const fakeitems = [
 
 interface IProps {
   handleUpdateSection: () => void
+  section: ISection
 }
 
-function SectionItem(props: IProps) {
-  const { handleUpdateSection } = props
+function SectionItem({ handleUpdateSection, section }: IProps) {
   const [isOpenModal, handleCommandModal, handleOpenModal, handleCloseModal] = useBoolean()
   const SECTION_MODE = {
     NORMAL: 0,
     EDIT: 2
   }
 
-  const [mode, setMode] = useState<number>(2)
+  const [sectionMode, setSectionMode] = useState<number>(2)
 
   const handleSetSectionModeNormal = () => {
-    setMode(SECTION_MODE.NORMAL)
+    setSectionMode(SECTION_MODE.NORMAL)
+  }
+
+
+  const handleAddSection = (sectionData : ) => {
+
+
   }
 
   return (
     <div className={styles.sectionItemWrapper}>
-      <DeleteCurriculumItemModal open={isOpenModal} curriculumItemId='123123' />
+      <DeleteSectionItemModal handleCommandModal={handleCommandModal} open={isOpenModal} curriculumItemId='123123' />
 
       {/* Mode Normal */}
 
-      {mode !== SECTION_MODE.EDIT && (
+      {sectionMode !== SECTION_MODE.EDIT && (
         <div className='sectionHeader'>
           <span className='label ud-text-bold'>{fakeitems.length > 0 ? 'Unpublished Section: ' : 'Section 1: '}</span>
           <span className='title'>
@@ -56,7 +63,7 @@ function SectionItem(props: IProps) {
           </span>
 
           <div className='btnPart'>
-            <button className='btnContainer' onClick={() => setMode(SECTION_MODE.EDIT)}>
+            <button className='btnContainer' onClick={() => setSectionMode(SECTION_MODE.EDIT)}>
               <MdEdit />
             </button>
             <button className='btnContainer' onClick={handleOpenModal}>
@@ -71,46 +78,21 @@ function SectionItem(props: IProps) {
 
       {/* Mode Edit Section */}
 
-      {mode === SECTION_MODE.EDIT && (
-        <div className='editSectionWrapper'>
-          <div className='editSectionWrapper--inner'>
-            <div className='sectionLabel ud-text-bold'>Section 1: </div>
-            <form className='editForm'>
-              <div className='formItem'>
-                <CustomInput maxLength={80} placeholder='Enter a title' />
-              </div>
-
-              <div className='formItem'>
-                <p className='ud-heading-sm label'>What will students be able to do at the end of this section?</p>
-                <CustomInput maxLength={200} placeholder='Enter a Learning Objective' />
-              </div>
-
-              <div className='btnActionsContainer'>
-                <button
-                  className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-                  onClick={() => setMode(SECTION_MODE.NORMAL)}
-                >
-                  <span>Cancle</span>
-                </button>
-
-                <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm'>
-                  <span>Save Section</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {sectionMode === SECTION_MODE.EDIT && <EditSectionForm handleSetSectionModeNormal={handleSetSectionModeNormal} />}
 
       {/* Map Lecturers (LectureItem / QuestionItem) */}
 
-      <LectureItem />
-
-      <QuizItem />
+      {section.lectures.map((lectureItem) => {
+        if (lectureItem.type === 'quiz') {
+          return <QuizItem key={lectureItem.id} questions={lectureItem.questions || []} />
+        }
+        if (lectureItem.type === 'lecture') {
+          return <LectureItem key={lectureItem.id} />
+        }
+      })}
 
       {/* Add New Section Item */}
-
-      <AddCurriculumItemSection />
+      <AddNewCurriculumItem />
     </div>
   )
 }
