@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { IAddSection, IntendedLearners } from '../models/course'
+import { ICreateSection, IDeleteSection, IUpdateSection, IntendedLearners } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
 //   outcomes: Yup.array()
@@ -28,7 +28,15 @@ export const schemeUdpateIntendedLearner: Yup.ObjectSchema<IntendedLearners> = Y
   intended_for: Yup.array().required()
 })
 
-export const schemaAddSection: Yup.ObjectSchema<IAddSection> = Yup.object({
+export const schemaCreateSection: Yup.ObjectSchema<ICreateSection> = Yup.object({
   sectionTitle: Yup.string().required('This field may not be blank').max(80, 'Max length of this field is 80'),
   sectionOutcome: Yup.string().required('This field may not be blank').max(200, 'Max length of this field is 200')
+})
+export const schemaUpdateSection: Yup.ObjectSchema<IUpdateSection> = Yup.object({
+  id: Yup.string().required('This field may not be blank'),
+  sectionTitle: Yup.string().required('This field may not be blank').max(80, 'Max length of this field is 80'),
+  sectionOutcome: Yup.string().required('This field may not be blank').max(200, 'Max length of this field is 200')
+})
+export const schemaDeleteSection: Yup.ObjectSchema<IDeleteSection> = Yup.object({
+  id: Yup.string().required('This field may not be blank')
 })

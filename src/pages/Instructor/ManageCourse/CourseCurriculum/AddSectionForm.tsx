@@ -2,13 +2,13 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import styles from './AddSectionForm.module.scss'
 import { useState } from 'react'
 import CustomInput from '../../components/CustomInput'
-import { IAddSection } from '../../../../models/course'
-import { FormProvider, useForm } from 'react-hook-form'
-import { schemaAddSection } from '../../../../validators/course'
+import { ICreateSection } from '../../../../models/course'
+import { Controller, useForm } from 'react-hook-form'
+import { schemaCreateSection } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 interface IProps {
-  handleAddSection: (data: IAddSection) => void
+  handleAddSection: (data: ICreateSection) => void
 }
 
 function AddSectionForm({ handleAddSection }: IProps) {
@@ -18,27 +18,29 @@ function AddSectionForm({ handleAddSection }: IProps) {
     setOpenForm(false)
   }
 
-  const handleSave = () => {}
+  const handleSave = () => {
+    console.log(watch('sectionTitle'))
+  }
 
-  const methods = useForm<IAddSection>({
+  const {
+    handleSubmit,
+    formState: { errors },
+    watch,
+    control
+  } = useForm<ICreateSection>({
     // mode: 'onSubmit',
     defaultValues: {
       sectionTitle: '',
       sectionOutcome: ''
     },
-    resolver: yupResolver(schemaAddSection)
+    resolver: yupResolver(schemaCreateSection)
   })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    reset
-  } = methods
-
-  const handleAddSectionSubmit = (addSectionData: IAddSection) => {
+  const handleAddSectionSubmit = (addSectionData: ICreateSection) => {
     console.log('addSectionData: ', addSectionData)
+
+    handleAddSection(addSectionData)
+    setOpenForm(false)
   }
 
   return (
@@ -59,23 +61,38 @@ function AddSectionForm({ handleAddSection }: IProps) {
 
             <form className='editForm' onSubmit={handleSubmit(handleAddSectionSubmit)}>
               <div className='formItem'>
-                <CustomInput
-                  maxLength={80}
-                  placeholder='Enter a title'
-                  className='ud-form-group-error'
-                  // {...register('sectionTitle')}
+                <Controller
+                  control={control}
+                  name='sectionTitle'
+                  render={({ field }) => (
+                    <CustomInput
+                      maxLength={80}
+                      placeholder='Enter a title'
+                      className={errors.sectionTitle ? 'ud-form-group-error' : ''}
+                      {...field}
+                    />
+                  )}
                 />
-                {<span className='ud-form-note'>Erroweqeqweqwdqwdqww</span>}
+
+                {errors.sectionTitle && <span className='ud-form-note'>{errors.sectionTitle.message}</span>}
               </div>
 
               <div className='formItem'>
                 <p className='ud-heading-sm label'>What will students be able to do at the end of this section?</p>
-                <CustomInput
-                  maxLength={200}
-                  placeholder='Enter a Learning Objective'
 
-                  // {...register('sectionOutcome')}
+                <Controller
+                  control={control}
+                  name='sectionOutcome'
+                  render={({ field }) => (
+                    <CustomInput
+                      maxLength={200}
+                      placeholder='Enter a Learning Objective'
+                      className={errors.sectionOutcome ? 'ud-form-group-error' : ''}
+                      {...field}
+                    />
+                  )}
                 />
+                {errors.sectionOutcome && <span className='ud-form-note'>{errors.sectionOutcome.message}</span>}
               </div>
 
               <div className='btnActionsContainer'>

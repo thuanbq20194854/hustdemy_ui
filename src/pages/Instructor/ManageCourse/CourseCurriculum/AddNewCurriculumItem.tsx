@@ -5,18 +5,21 @@ import { IoMdClose } from 'react-icons/io'
 
 import styles from './AddNewCurriculumItem.module.scss'
 import CustomInput from '../../components/CustomInput'
-import TextEditor from '../../../../components/TextEditor/TextEditor'
+import { ICreateQuiz } from '../../../../models/course'
+import AddQuizForm from './AddQuizForm'
 
-function AddNewCurriculumItem() {
-  const ADD_CURRICULUM_ITEM_MODE = {
-    NORMAL: 0,
-    SELECT_CURRICULUM_ITEM_TYPE: 1,
-    ADD_LECTURE: 2,
-    ADD_QUIZ: 3
-  }
+interface IProps {
+  handleAddQuiz: (quizData: ICreateQuiz) => void
+}
 
-  const customToolBar = [['bold', 'italic']]
+export const ADD_CURRICULUM_ITEM_MODE = {
+  NORMAL: 0,
+  SELECT_CURRICULUM_ITEM_TYPE: 1,
+  ADD_LECTURE: 2,
+  ADD_QUIZ: 3
+}
 
+function AddNewCurriculumItem({ handleAddQuiz }: IProps) {
   const [addCurriculumMode, setAddCurriculumMode] = useState(ADD_CURRICULUM_ITEM_MODE.ADD_LECTURE)
   return (
     <div className={styles.addCurriculumItemSectionWrapper}>
@@ -79,30 +82,7 @@ function AddNewCurriculumItem() {
           </div>
         )}
         {addCurriculumMode === ADD_CURRICULUM_ITEM_MODE.ADD_QUIZ && (
-          <div className='addLectureWrapper'>
-            <div className='labelWrapper'>
-              <span>New Quiz:</span>
-            </div>
-
-            <form className='formEdit'>
-              <CustomInput placeholder='Enter a title' maxLength={80} />
-
-              <TextEditor customToolBar={customToolBar} />
-
-              <div className='btnsContainer'>
-                <button
-                  className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-                  onClick={() => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)}
-                >
-                  <span>Cancle</span>
-                </button>
-
-                <div className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm'>
-                  <span>Add Lecture</span>
-                </div>
-              </div>
-            </form>
-          </div>
+          <AddQuizForm setAddCurriculumMode={setAddCurriculumMode} handleAddQuiz={handleAddQuiz} />
         )}
       </div>
     </div>

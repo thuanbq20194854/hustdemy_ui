@@ -15,7 +15,7 @@ import { ISection } from '../../../models/course'
 
 const initCurriculum: ISection[] = [
   {
-    id: '1',
+    id: 1,
 
     sectionTitle: 'Introduction',
 
@@ -23,44 +23,48 @@ const initCurriculum: ISection[] = [
 
     lectures: [
       {
-        id: '1',
+        sectionId: '1',
+        id: 1,
         type: 'lecture',
         title: 'Hello world with C#',
-        desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
-        videoURL: '/'
+        desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!'
       },
       {
-        id: '2',
+        sectionId: '1',
+
+        id: 2,
         type: 'quiz',
 
         title: 'Mini Test Quiz  Revision',
         desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
-
         questions: [
           {
-            id: '1',
+            lectureId: '2',
+            id: 1,
             desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aut qui amet, at harum assumenda repudiandae. Et vitae facilis rem.',
             title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, et.',
-
             question_text:
               ' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?',
             answers: [
               {
-                id: '1',
+                questionId: '1',
+                id: 1,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explaination:
                   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
               },
               {
-                id: '3',
+                questionId: '1',
+                id: 3,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explaination:
                   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
               },
               {
-                id: '2',
+                questionId: '1',
+                id: 2,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explaination:
@@ -130,7 +134,7 @@ function CourseManageLayout() {
       </div>
 
       <div className='appContainer'>
-        <CMSidebar courseId={courseId} handleTabChange={handleTabChange} />
+        <CMSidebar courseId={courseId ?? ''} handleTabChange={handleTabChange} />
         <div className='mainContentWrapper'>
           {renderedTab === 'goals' && <CourseGoals />}
 

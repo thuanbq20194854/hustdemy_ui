@@ -1,15 +1,17 @@
 import CustomModal from '../../../../components/CustomModal/CustomModal'
+import { ISection } from '../../../../models/course'
 
 interface IProps {
-  curriculumItemId: string
   open: boolean
   handleCommandModal: (cmd: boolean) => void
+  handleDeleteSection: (deletedId: number) => void
+
+  section: ISection
 }
 
-function DeleteSectionItemModal({ curriculumItemId, open, handleCommandModal }: IProps) {
-  const handleOkModal = (curriculumItemId: string) => {
-    console.log(curriculumItemId)
-
+function DeleteSectionItemModal({ section, open, handleCommandModal, handleDeleteSection }: IProps) {
+  const handleOkModal = (sectionId: number) => {
+    handleDeleteSection(sectionId)
     handleCommandModal(false)
   }
 
@@ -19,7 +21,7 @@ function DeleteSectionItemModal({ curriculumItemId, open, handleCommandModal }: 
       modalTitle='Please confirm'
       modalMessage='You are about to remove a curriculum item. Are you sure you want to continue?'
       open={open}
-      onOkModal={() => handleOkModal(curriculumItemId)}
+      onOkModal={() => handleOkModal(section.id)}
     />
   )
 }

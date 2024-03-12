@@ -1,0 +1,36 @@
+.addLectureWrapper {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+
+  border: 1px solid #6a6f73;
+  padding: 8px;
+
+  :global {
+    .labelWrapper {
+      font-weight: 400;
+      line-height: 1.4;
+      font-size: 1.6rem;
+      color: #2d2f31;
+
+      height: 34px;
+      display: flex;
+      align-items: center;
+    }
+
+    .formEdit {
+      flex: 1;
+
+      .textEditor {
+        margin-top: 16px;
+      }
+      .btnsContainer {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 16px;
+      }
+    }
+  }
+}

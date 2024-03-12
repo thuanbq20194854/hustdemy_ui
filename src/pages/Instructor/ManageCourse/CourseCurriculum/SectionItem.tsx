@@ -9,31 +9,26 @@ import DeleteSectionItemModal from './DeleteSectionItemModal'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
 import LectureItem from './LectureItem'
 import QuizItem from './QuizItem'
-import { ISection } from '../../../../models/course'
+import { ICreateQuiz, ISection, IUpdateSection } from '../../../../models/course'
 import EditSectionForm from './EditSectionForm'
 
-const fakeitems = [
-  {
-    id: 1
-  },
-  {
-    id: 2
-  }
-]
-
 interface IProps {
-  handleUpdateSection: () => void
+  handleEditSection: (formData: IUpdateSection) => void
+  handleDeleteSection: (deletedId: number) => void
+  handleAddQuiz: (quizData: ICreateQuiz) => void
   section: ISection
+
+  index: number
 }
 
-function SectionItem({ handleUpdateSection, section }: IProps) {
+function SectionItem({ handleEditSection, handleDeleteSection, handleAddQuiz, section, index }: IProps) {
   const [isOpenModal, handleCommandModal, handleOpenModal, handleCloseModal] = useBoolean()
   const SECTION_MODE = {
     NORMAL: 0,
     EDIT: 2
   }
 
-  const [sectionMode, setSectionMode] = useState<number>(2)
+  const [sectionMode, setSectionMode] = useState<number>(SECTION_MODE.NORMAL)
 
   const handleSetSectionModeNormal = () => {
     setSectionMode(SECTION_MODE.NORMAL)
@@ -41,13 +36,20 @@ function SectionItem({ handleUpdateSection, section }: IProps) {
 
   return (
     <div className={styles.sectionItemWrapper}>
-      <DeleteSectionItemModal handleCommandModal={handleCommandModal} open={isOpenModal} curriculumItemId='123123' />
+      <DeleteSectionItemModal
+        handleDeleteSection={handleDeleteSection}
+        handleCommandModal={handleCommandModal}
+        open={isOpenModal}
+        section={section}
+      />
 
       {/* Mode Normal */}
 
       {sectionMode !== SECTION_MODE.EDIT && (
         <div className='sectionHeader'>
-          <span className='label ud-text-bold'>{fakeitems.length > 0 ? 'Unpublished Section: ' : 'Section 1: '}</span>
+          <span className='label ud-text-bold'>
+            {section.lectures.length > 0 ? `Section ${index}: ` : 'Unpublished Section: '}
+          </span>
           <span className='title'>
             <div className='iconContainer'>
               <FaRegFile />
@@ -72,13 +74,20 @@ function SectionItem({ handleUpdateSection, section }: IProps) {
 
       {/* Mode Edit Section */}
 
-      {sectionMode === SECTION_MODE.EDIT && <EditSectionForm handleSetSectionModeNormal={handleSetSectionModeNormal} />}
+      {sectionMode === SECTION_MODE.EDIT && (
+        <EditSectionForm
+          section={section}
+          handleEditSection={handleEditSection}
+          handleSetSectionModeNormal={handleSetSectionModeNormal}
+          index={index}
+        />
+      )}
 
       {/* Map Lecturers (LectureItem / QuestionItem) */}
 
       {section.lectures.map((lectureItem) => {
         if (lectureItem.type === 'quiz') {
-          return <QuizItem key={lectureItem.id} questions={lectureItem.questions || []} />
+          return <QuizItem sectionId={section.id} key={lectureItem.id} questions={lectureItem.questions || []} />
         }
         if (lectureItem.type === 'lecture') {
           return <LectureItem key={lectureItem.id} />
@@ -86,7 +95,7 @@ function SectionItem({ handleUpdateSection, section }: IProps) {
       })}
 
       {/* Add New Section Item */}
-      <AddNewCurriculumItem />
+      <AddNewCurriculumItem handleAddQuiz={handleAddQuiz} />
     </div>
   )
 }

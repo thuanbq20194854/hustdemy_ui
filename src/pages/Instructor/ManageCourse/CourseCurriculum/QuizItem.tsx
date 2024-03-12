@@ -16,6 +16,7 @@ import QuestionItem from './QuestionItem'
 
 interface IProps {
   questions: IQuestion[]
+  sectionId: number
 }
 
 function QuizItem({ questions }: IProps) {
@@ -30,6 +31,13 @@ function QuizItem({ questions }: IProps) {
   const [quizItemMode, setQuizItemMode] = useState(QUIZ_ITEM_MODE.NORMAL)
 
   const [isOpen, setCommandModal, handleOpenModal] = useBoolean()
+
+  const [questionEdit, setQuestionEdit] = useState<IQuestion | null>()
+
+  const handleEditQuestion = (questionEdit: IQuestion) => {
+    setQuizItemMode(QUIZ_ITEM_MODE.ADD_QUESTION)
+    setQuestionEdit(questionEdit)
+  }
 
   const handleCloseAddQuestion = () => {
     if (questions.length === 0) {

@@ -56,6 +56,10 @@
 
         .formEdit {
           flex: 1;
+
+          .textEditor {
+            margin-top: 16px;
+          }
           .btnsContainer {
             margin-top: 16px;
             display: flex;

@@ -8,7 +8,7 @@ interface IProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLI
   className?: string
 }
 
-function CustomInput({ maxLength, placeholder, className, ...rest }: IProps) {
+function CustomInput({ maxLength, className, ...rest }: IProps) {
   const [inputValue, setInputValue] = useState('')
 
   const handleInputChange = (value: string) => {
@@ -26,7 +26,6 @@ function CustomInput({ maxLength, placeholder, className, ...rest }: IProps) {
         onChange={(e) => handleInputChange(e.target.value)}
         type='text'
         className='input'
-        placeholder={placeholder && placeholder}
         {...rest}
       />
       {maxLength && <span className='charLength'>{maxLength - inputValue.length}</span>}
