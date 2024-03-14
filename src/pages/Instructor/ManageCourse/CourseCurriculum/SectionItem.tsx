@@ -9,19 +9,29 @@ import DeleteSectionItemModal from './DeleteSectionItemModal'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
 import LectureItem from './LectureItem'
 import QuizItem from './QuizItem'
-import { ICreateQuiz, ISection, IUpdateSection } from '../../../../models/course'
+import { ICreateQuiz, IDeleteLecture, ISection, IUpdateQuiz, IUpdateSection } from '../../../../models/course'
 import EditSectionForm from './EditSectionForm'
 
 interface IProps {
   handleEditSection: (formData: IUpdateSection) => void
   handleDeleteSection: (deletedId: number) => void
   handleAddQuiz: (quizData: ICreateQuiz) => void
+  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
+  handleDeleteLecture: (lectureData: IDeleteLecture) => void
   section: ISection
 
   index: number
 }
 
-function SectionItem({ handleEditSection, handleDeleteSection, handleAddQuiz, section, index }: IProps) {
+function SectionItem({
+  handleEditSection,
+  handleDeleteSection,
+  handleAddQuiz,
+  handleUpdateQuiz,
+  handleDeleteLecture,
+  section,
+  index
+}: IProps) {
   const [isOpenModal, handleCommandModal, handleOpenModal, handleCloseModal] = useBoolean()
   const SECTION_MODE = {
     NORMAL: 0,
@@ -33,6 +43,10 @@ function SectionItem({ handleEditSection, handleDeleteSection, handleAddQuiz, se
   const handleSetSectionModeNormal = () => {
     setSectionMode(SECTION_MODE.NORMAL)
   }
+
+  let lectureCount = 0
+
+  let quizCount = 0
 
   return (
     <div className={styles.sectionItemWrapper}>
@@ -87,15 +101,29 @@ function SectionItem({ handleEditSection, handleDeleteSection, handleAddQuiz, se
 
       {section.lectures.map((lectureItem) => {
         if (lectureItem.type === 'quiz') {
-          return <QuizItem sectionId={section.id} key={lectureItem.id} questions={lectureItem.questions || []} />
+          quizCount++
+
+          return (
+            <QuizItem
+              quizItem={lectureItem}
+              index={quizCount}
+              sectionId={section.id}
+              key={lectureItem.id}
+              questions={lectureItem.questions || []}
+              handleUpdateQuiz={handleUpdateQuiz}
+              handleDeleteLecture={handleDeleteLecture}
+            />
+          )
         }
         if (lectureItem.type === 'lecture') {
+          lectureCount++
+
           return <LectureItem key={lectureItem.id} />
         }
       })}
 
       {/* Add New Section Item */}
-      <AddNewCurriculumItem handleAddQuiz={handleAddQuiz} />
+      <AddNewCurriculumItem sectionId={section.id} handleAddQuiz={handleAddQuiz} />
     </div>
   )
 }

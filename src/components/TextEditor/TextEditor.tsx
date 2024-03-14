@@ -25,9 +25,12 @@ interface IProps {
   customToolBar?: Array<any>
   placeholder?: string
   className?: string
+
+  defaultValue: string
+  handleHTMLChange?: (html: string) => void
 }
 
-function TextEditor({ customToolBar, placeholder, className }: IProps) {
+function TextEditor({ customToolBar, placeholder, className, handleHTMLChange, defaultValue }: IProps) {
   const { quill, quillRef } = useQuill({
     modules: {
       toolbar: customToolBar ? customToolBar : toolBarStandard
@@ -44,12 +47,17 @@ function TextEditor({ customToolBar, placeholder, className }: IProps) {
     // }
 
     if (quill) {
+      const delta = quill.clipboard.convert(defaultValue)
+      quill.setContents(delta)
       quill.on('text-change', (delta, oldDelta, source) => {
-        console.log('Text change!')
-        console.log('quill.getText(): ', quill.getText()) // Get text only
-        console.log('quill.getContents(): ', quill.getContents()) // Get delta contents
-        console.log('quill.root.innerHTML: ', quill.root.innerHTML) // Get innerHTML using quill
-        console.log('quillRef.current.firstChild.innerHTML: ', quillRef.current.firstChild.innerHTML) // Get innerHTML using quillRef
+        if (handleHTMLChange) {
+          handleHTMLChange(quill.root.innerHTML)
+        }
+        // console.log('Text change!')
+        // console.log('quill.getText(): ', quill.getText()) // Get text only
+        // console.log('quill.getContents(): ', quill.getContents()) // Get delta contents
+        // console.log('quill.root.innerHTML: ', quill.root.innerHTML) // Get innerHTML using quill
+        // console.log('quillRef.current.firstChild.innerHTML: ', quillRef.current.firstChild.innerHTML) // Get innerHTML using quillRef
       })
     }
   }, [quill])

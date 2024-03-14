@@ -3,12 +3,16 @@ import React from 'react'
 import styles from './AddQuestionForm.module.scss'
 import { MdDelete, MdOutlineClose } from 'react-icons/md'
 import TextEditor from '../../../../components/TextEditor/TextEditor'
-import { useForm } from 'react-hook-form'
 import { Radio } from 'antd'
 import CustomInput from '../../components/CustomInput'
+import { IQuestion } from '../../../../models/course'
 
 interface IProps {
   handleCloseAddQuestion: () => void
+  index: number
+  sectionId: number
+  lectureId: number
+  questionEdit: IQuestion | null
 }
 
 const FakeAnswerQuestion = {
@@ -108,7 +112,7 @@ function AddQuestionForm({ handleCloseAddQuestion }: IProps) {
       <form action='' className='formWrapper'>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Question</div>
-          <TextEditor className='textEditor' />
+          <TextEditor defaultValue='' className='textEditor' />
         </div>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Answer</div>
@@ -121,7 +125,12 @@ function AddQuestionForm({ handleCloseAddQuestion }: IProps) {
                 </div>
 
                 <div className='middle'>
-                  <TextEditor className='textEditor' placeholder='Add an answer' customToolBar={customToolBar} />
+                  <TextEditor
+                    defaultValue=''
+                    className='textEditor'
+                    placeholder='Add an answer'
+                    customToolBar={customToolBar}
+                  />
 
                   <CustomInput
                     className='customInput'

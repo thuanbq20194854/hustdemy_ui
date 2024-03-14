@@ -23,14 +23,14 @@ const initCurriculum: ISection[] = [
 
     lectures: [
       {
-        sectionId: '1',
+        sectionId: 1,
         id: 1,
         type: 'lecture',
         title: 'Hello world with C#',
         desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!'
       },
       {
-        sectionId: '1',
+        sectionId: 1,
 
         id: 2,
         type: 'quiz',
@@ -39,7 +39,7 @@ const initCurriculum: ISection[] = [
         desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
         questions: [
           {
-            lectureId: '2',
+            lectureId: 2,
             id: 1,
             desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aut qui amet, at harum assumenda repudiandae. Et vitae facilis rem.',
             title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, et.',

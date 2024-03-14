@@ -1,5 +1,12 @@
 import * as Yup from 'yup'
-import { ICreateSection, IDeleteSection, IUpdateSection, IntendedLearners } from '../models/course'
+import {
+  ICreateQuiz,
+  ICreateSection,
+  IDeleteSection,
+  IUpdateLecure,
+  IUpdateSection,
+  IntendedLearners
+} from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
 //   outcomes: Yup.array()
@@ -33,10 +40,48 @@ export const schemaCreateSection: Yup.ObjectSchema<ICreateSection> = Yup.object(
   sectionOutcome: Yup.string().required('This field may not be blank').max(200, 'Max length of this field is 200')
 })
 export const schemaUpdateSection: Yup.ObjectSchema<IUpdateSection> = Yup.object({
-  id: Yup.string().required('This field may not be blank'),
+  id: Yup.number().required('This field may not be blank'),
   sectionTitle: Yup.string().required('This field may not be blank').max(80, 'Max length of this field is 80'),
   sectionOutcome: Yup.string().required('This field may not be blank').max(200, 'Max length of this field is 200')
 })
 export const schemaDeleteSection: Yup.ObjectSchema<IDeleteSection> = Yup.object({
-  id: Yup.string().required('This field may not be blank')
+  id: Yup.number().required('This field may not be blank')
 })
+
+export const schemaCreateQuiz: Yup.ObjectSchema<ICreateQuiz> = Yup.object({
+  sectionId: Yup.number().required('This field may not be blank'),
+  type: Yup.string().required('This field may not be blank'),
+  title: Yup.string().required('This field may not be blank'),
+  desc: Yup.string().nullable()
+})
+export const schemaUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
+  id: Yup.number().required('This field may not be blank'),
+  sectionId: Yup.number().required('This field may not be blank'),
+  type: Yup.string().required('This field may not be blank'),
+  title: Yup.string().required('This field may not be blank'),
+  desc: Yup.string().nullable()
+})
+// export const schemaDeleteQuiz: Yup.ObjectSchema<IDeleteLecure> = Yup.object({
+//   id: Yup.number().required('This field may not be blank'),
+//   sectionId: Yup.number().required('This field may not be blank')
+// })
+
+// export interface ICreateQuiz {
+//   sectionId: number
+//   type: string
+//   title: string
+//   desc: string
+// }
+
+// export interface IUpdateQuiz {
+//   id: number
+//   sectionId: number
+//   type: string
+//   title: string
+//   desc: string
+// }
+
+// export interface IDeleteQuiz {
+//   id: number
+//   sectionId: string
+// }

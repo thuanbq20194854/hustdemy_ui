@@ -2,7 +2,14 @@ import React from 'react'
 
 import styles from './CourseCurriculum.module.scss'
 import SectionItem from './SectionItem'
-import { ICreateQuiz, ICreateSection, ISection, IUpdateSection } from '../../../../models/course'
+import {
+  ICreateQuiz,
+  ICreateSection,
+  IDeleteLecture,
+  ISection,
+  IUpdateQuiz,
+  IUpdateSection
+} from '../../../../models/course'
 import AddSectionForm from './AddSectionForm'
 import { randomNumber } from '../../../../utils/utils'
 
@@ -20,7 +27,6 @@ function CourseCurriculum({ sections, setSections }: IProps) {
       ...prev,
       {
         id: randomNumber(),
-
         sectionOutcome: data.sectionOutcome,
         lectures: [],
         sectionTitle: data.sectionTitle
@@ -60,12 +66,55 @@ function CourseCurriculum({ sections, setSections }: IProps) {
   const handleAddQuiz = (quizData: ICreateQuiz) => {
     const expectedSection = sections.find((sectionItem) => sectionItem.id === quizData.sectionId)
 
-    const updatedSections = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
       if (sectionItem.id === expectedSection?.id) {
         return {
           ...sectionItem,
 
-          lectures: [...sectionItem.lectures, { ...quizData, questions: [] }]
+          lectures: [...sectionItem.lectures, { ...quizData, id: randomNumber(), questions: [] }]
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleUpdateQuiz = (quizData: IUpdateQuiz) => {
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === quizData.sectionId) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === quizData.id) {
+            return {
+              ...lectureItem,
+              ...quizData
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleDeleteLecture = (lectureData: IDeleteLecture) => {
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === lectureData.sectionId) {
+        const updatedLectures = sectionItem.lectures.filter((lectureItem) => lectureItem.id != lectureData.id)
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
         }
       }
 
@@ -105,6 +154,8 @@ function CourseCurriculum({ sections, setSections }: IProps) {
               handleEditSection={handleEditSection}
               handleDeleteSection={handleDeleteSection}
               handleAddQuiz={handleAddQuiz}
+              handleUpdateQuiz={handleUpdateQuiz}
+              handleDeleteLecture={handleDeleteLecture}
               section={sectionItem}
             />
           ))}

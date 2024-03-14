@@ -1,31 +1,36 @@
+import React, { useEffect, useState } from 'react'
 import CustomInput from '../../components/CustomInput'
 import TextEditor from '../../../../components/TextEditor/TextEditor'
 import { ADD_CURRICULUM_ITEM_MODE } from './AddNewCurriculumItem'
-import { ICreateQuiz } from '../../../../models/course'
+import { IUpdateQuiz, ILecture } from '../../../../models/course'
 
 import styles from './AddQuizForm.module.scss'
 import { Controller, useForm } from 'react-hook-form'
+import { IoCheckmarkCircle } from 'react-icons/io5'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schemaCreateQuiz } from '../../../../validators/course'
+import { schemaUpdateQuiz } from '../../../../validators/course'
 
 interface IProps {
   sectionId: number
-  setAddCurriculumMode: React.Dispatch<React.SetStateAction<number>>
-  handleAddQuiz: (quizData: ICreateQuiz) => void
+
+  quizEdit: ILecture
+  index: number | null
+  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
   handleNormalMode: () => void
 }
 
-function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNormalMode }: IProps) {
+function EditQuizForm({ sectionId, quizEdit, index, handleUpdateQuiz, handleNormalMode }: IProps) {
   const customToolBar = [['bold', 'italic']]
 
-  const methods = useForm<ICreateQuiz>({
+  const methods = useForm<IUpdateQuiz>({
     defaultValues: {
-      desc: '',
+      id: quizEdit.id,
+      desc: quizEdit?.desc,
       sectionId: sectionId,
-      title: '',
+      title: quizEdit?.title,
       type: 'quiz'
     },
-    resolver: yupResolver(schemaCreateQuiz)
+    resolver: yupResolver(schemaUpdateQuiz)
   })
 
   const {
@@ -35,8 +40,16 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNor
     control
   } = methods
 
-  const handleSaveForm = (formData: ICreateQuiz) => {
-    handleAddQuiz(formData)
+  const [questionEditing, setQuestionEditing] = useState<ILecture | null>(quizEdit)
+
+  useEffect(() => {
+    return () => {
+      setQuestionEditing(null)
+    }
+  }, [])
+
+  const handleSaveForm = (formData: IUpdateQuiz) => {
+    handleUpdateQuiz(formData)
     handleNormalMode()
   }
 
@@ -46,9 +59,19 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNor
 
   return (
     <div className={styles.addLectureWrapper}>
-      <div className='labelWrapper'>
-        <span>New Quiz:</span>
-      </div>
+      {questionEditing ? (
+        <>
+          <div className='iconContainer'>
+            <IoCheckmarkCircle />
+          </div>
+
+          <div className='quizLabel'>Quiz {index}:</div>
+        </>
+      ) : (
+        <div className='labelWrapper'>
+          <span>New Quiz:</span>
+        </div>
+      )}
 
       <form className='formEdit' onSubmit={handleSubmit(handleSaveForm)}>
         <Controller
@@ -66,7 +89,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNor
         {errors.title && <span className='ud-form-note'>{errors.title.message}</span>}
 
         <TextEditor
-          defaultValue=''
+          defaultValue={quizEdit.desc ?? ''}
           className='textEditor'
           customToolBar={customToolBar}
           handleHTMLChange={handleHTMLChange}
@@ -75,13 +98,13 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNor
         <div className='btnsContainer'>
           <button
             className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-            onClick={() => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)}
+            // onClick={() => setAddCurriculumMode && setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)}
           >
             <span>Cancle</span>
           </button>
 
           <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm' type='submit'>
-            <span>Add Quiz</span>
+            <span>Save Quiz</span>
           </button>
         </div>
       </form>
@@ -89,4 +112,4 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNor
   )
 }
 
-export default AddQuizForm
+export default EditQuizForm

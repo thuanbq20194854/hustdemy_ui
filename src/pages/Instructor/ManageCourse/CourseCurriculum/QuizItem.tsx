@@ -8,35 +8,41 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useBoolean } from '../../../../hooks/useBoolean'
-import DeleteQuestionItemModal from './DeleteQuestionItemModal'
+import DeleteQuestionItemModal from './DeleteLectureItemModal'
 import { GrCircleQuestion } from 'react-icons/gr'
 import AddQuestionForm from './AddQuestionForm'
-import { IQuestion } from '../../../../models/course'
+import { IDeleteLecture, ILecture, IQuestion, IUpdateQuiz } from '../../../../models/course'
 import QuestionItem from './QuestionItem'
+import EditQuizForm from './EditQuizForm'
 
 interface IProps {
   questions: IQuestion[]
   sectionId: number
+  index: number
+  quizItem: ILecture
+  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
+  handleDeleteLecture: (lectureData: IDeleteLecture) => void
 }
 
-function QuizItem({ questions }: IProps) {
+function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: IProps) {
   const QUIZ_ITEM_MODE = {
     NORMAL: 0,
     SHOW: 2,
     EDIT: 3,
     SELECT_QUESTION_TYPE: 4,
-    ADD_QUESTION: 5
+    ADD_QUESTION: 5,
+    EDIT_QUESTION: 6
   }
 
   const [quizItemMode, setQuizItemMode] = useState(QUIZ_ITEM_MODE.NORMAL)
 
   const [isOpen, setCommandModal, handleOpenModal] = useBoolean()
 
-  const [questionEdit, setQuestionEdit] = useState<IQuestion | null>()
+  const [quizEdit, setQuizEdit] = useState<ILecture | null>()
 
-  const handleEditQuestion = (questionEdit: IQuestion) => {
-    setQuizItemMode(QUIZ_ITEM_MODE.ADD_QUESTION)
-    setQuestionEdit(questionEdit)
+  const handleOpenEditQuizForm = (quizEdit: ILecture) => {
+    setQuizItemMode(QUIZ_ITEM_MODE.EDIT)
+    setQuizEdit(quizEdit)
   }
 
   const handleCloseAddQuestion = () => {
@@ -46,64 +52,77 @@ function QuizItem({ questions }: IProps) {
       setQuizItemMode(QUIZ_ITEM_MODE.SHOW)
     }
   }
+
+  const handleNormalMode = () => {
+    setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)
+  }
+
   return (
     <div className={styles.quizItemWrapper}>
-      <DeleteQuestionItemModal isOpen={isOpen} setCommandModal={setCommandModal} />
-      <div className='normalWrapper'>
-        <div className='leftRegion'>
-          <div className='iconContainer'>
-            <IoCheckmarkCircle />
+      <DeleteQuestionItemModal
+        sectionId={sectionId}
+        lectureItem={quizItem}
+        isOpen={isOpen}
+        setCommandModal={setCommandModal}
+      />
+      {quizItemMode != QUIZ_ITEM_MODE.EDIT && (
+        <div className='normalWrapper'>
+          <div className='leftRegion'>
+            <div className='iconContainer'>
+              <IoCheckmarkCircle />
+            </div>
+
+            <div className='quizLabel'>Quiz {index}:</div>
+
+            <div className='iconContainer'>
+              <VscQuestion />
+            </div>
+
+            <div className='quizTitle'>{quizItem.title}</div>
+
+            <button className='editBtn' onClick={() => handleOpenEditQuizForm(quizItem)}>
+              <MdEdit size={16} />
+            </button>
+            <button className='deleteBtn'>
+              <MdDelete size={16} />
+            </button>
           </div>
 
-          <div className='quizLabel'>Quiz 1:</div>
-
-          <div className='iconContainer'>
-            <VscQuestion />
-          </div>
-
-          <div className='quizTitle'>Quiz Test Lecture HTML, CSS</div>
-
-          <button className='editBtn'>
-            <MdEdit size={16} />
-          </button>
-          <button className='deleteBtn'>
-            <MdDelete size={16} />
-          </button>
-        </div>
-
-        <div className='rightRegion'>
-          {questions.length > 0 ? (
-            quizItemMode === QUIZ_ITEM_MODE.NORMAL ? (
-              <button className='showBtn' onClick={() => setQuizItemMode(QUIZ_ITEM_MODE.SHOW)}>
-                <IoIosArrowDown size={16} />
-              </button>
+          <div className='rightRegion'>
+            {questions.length > 0 ? (
+              quizItemMode === QUIZ_ITEM_MODE.NORMAL ? (
+                <button className='showBtn' onClick={() => setQuizItemMode(QUIZ_ITEM_MODE.SHOW)}>
+                  <IoIosArrowDown size={16} />
+                </button>
+              ) : (
+                quizItemMode != QUIZ_ITEM_MODE.SELECT_QUESTION_TYPE &&
+                quizItemMode != QUIZ_ITEM_MODE.ADD_QUESTION && (
+                  <button className='showBtn' onClick={() => setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)}>
+                    <IoIosArrowUp size={16} />
+                  </button>
+                )
+              )
             ) : (
               quizItemMode != QUIZ_ITEM_MODE.SELECT_QUESTION_TYPE &&
               quizItemMode != QUIZ_ITEM_MODE.ADD_QUESTION && (
-                <button className='showBtn' onClick={() => setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)}>
-                  <IoIosArrowUp size={16} />
+                <button
+                  className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
+                  onClick={() => setQuizItemMode(QUIZ_ITEM_MODE.SELECT_QUESTION_TYPE)}
+                >
+                  <AiOutlinePlus size={16} className='plusIcon' />
+                  <span>Curriculum Item</span>
                 </button>
               )
-            )
-          ) : (
-            quizItemMode != QUIZ_ITEM_MODE.SELECT_QUESTION_TYPE &&
-            quizItemMode != QUIZ_ITEM_MODE.ADD_QUESTION && (
-              <button
-                className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
-                onClick={() => setQuizItemMode(QUIZ_ITEM_MODE.SELECT_QUESTION_TYPE)}
-              >
-                <AiOutlinePlus size={16} className='plusIcon' />
-                <span>Curriculum Item</span>
-              </button>
-            )
-          )}
+            )}
 
-          <button className='dragBtn'>
-            <FaBars size={16} />
-          </button>
+            <button className='dragBtn'>
+              <FaBars size={16} />
+            </button>
+          </div>
         </div>
-      </div>
-      {quizItemMode === QUIZ_ITEM_MODE.SHOW && (
+      )}
+
+      {quizItemMode != QUIZ_ITEM_MODE.EDIT && quizItemMode === QUIZ_ITEM_MODE.SHOW && (
         <div className='showModeWrapper'>
           <div className='headerWrapper--1'>
             <div className='headerLeft'>
@@ -156,8 +175,18 @@ function QuizItem({ questions }: IProps) {
         </div>
       )}
 
-      {quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION && (
-        <AddQuestionForm handleCloseAddQuestion={handleCloseAddQuestion} />
+      {(quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION || quizItemMode === QUIZ_ITEM_MODE.EDIT) && (
+        <AddQuestionForm index={index} handleCloseAddQuestion={handleCloseAddQuestion} sectionId={sectionId} />
+      )}
+
+      {quizItemMode === QUIZ_ITEM_MODE.EDIT && (
+        <EditQuizForm
+          index={index}
+          quizEdit={quizItem}
+          sectionId={sectionId}
+          handleUpdateQuiz={handleUpdateQuiz}
+          handleNormalMode={handleNormalMode}
+        />
       )}
     </div>
   )

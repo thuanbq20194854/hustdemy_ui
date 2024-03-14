@@ -9,6 +9,7 @@ import { ICreateQuiz } from '../../../../models/course'
 import AddQuizForm from './AddQuizForm'
 
 interface IProps {
+  sectionId: number
   handleAddQuiz: (quizData: ICreateQuiz) => void
 }
 
@@ -19,8 +20,10 @@ export const ADD_CURRICULUM_ITEM_MODE = {
   ADD_QUIZ: 3
 }
 
-function AddNewCurriculumItem({ handleAddQuiz }: IProps) {
+function AddNewCurriculumItem({ handleAddQuiz, sectionId }: IProps) {
   const [addCurriculumMode, setAddCurriculumMode] = useState(ADD_CURRICULUM_ITEM_MODE.ADD_LECTURE)
+
+  const handleNormalMode = () => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)
   return (
     <div className={styles.addCurriculumItemSectionWrapper}>
       <div className='addCurriculumItemBtnPart'>
@@ -82,7 +85,12 @@ function AddNewCurriculumItem({ handleAddQuiz }: IProps) {
           </div>
         )}
         {addCurriculumMode === ADD_CURRICULUM_ITEM_MODE.ADD_QUIZ && (
-          <AddQuizForm setAddCurriculumMode={setAddCurriculumMode} handleAddQuiz={handleAddQuiz} />
+          <AddQuizForm
+            sectionId={sectionId}
+            setAddCurriculumMode={setAddCurriculumMode}
+            handleAddQuiz={handleAddQuiz}
+            handleNormalMode={handleNormalMode}
+          />
         )}
       </div>
     </div>

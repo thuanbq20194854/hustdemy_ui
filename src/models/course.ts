@@ -23,9 +23,10 @@ export interface ILecture {
   id: number
   type: string
   title: string
-  desc: string
+  desc?: string | null
   questions?: IQuestion[]
-  // asset?: IAsset
+
+  // assets?: IAssets
 }
 
 // export interface IAsset {
@@ -33,11 +34,10 @@ export interface ILecture {
 // }
 
 export interface ICreateQuiz {
-  id: number
   sectionId: number
   type: string
   title: string
-  desc: string
+  desc?: string | null
 }
 
 export interface IUpdateQuiz {
@@ -45,12 +45,12 @@ export interface IUpdateQuiz {
   sectionId: number
   type: string
   title: string
-  desc: string
+  desc?: string | null
 }
 
-export interface IDeleteQuiz {
+export interface IDeleteLecture {
   id: number
-  sectionId: string
+  sectionId: number
 }
 
 export interface IQuestion {
@@ -58,17 +58,21 @@ export interface IQuestion {
   desc: string
   title: string
   question_text: string
-
-  lectureId: string
+  lectureId: number
   answers: IAnswer[]
 }
 
 export interface IAnswer {
-  questionId: string
   id: number
   answer_text: string
-  explaination: string
+  explain: string | null
+  is_correct: boolean
+  question_id: number
+  updated_at: string
+  created_at: string
 }
+
+export interface ICreateQuestion {}
 
 export interface ICreateLecure {
   id: number
@@ -78,12 +82,12 @@ export interface ICreateLecure {
 }
 export interface IUpdateLecure {
   id: number
-  sectionId: string
+  sectionId: number
   type: string
   title: string
 }
 
 export interface IDeleteLecure {
   id: number
-  sectionId: string
+  sectionId: number
 }
