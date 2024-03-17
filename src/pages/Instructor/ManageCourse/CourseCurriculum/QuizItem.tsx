@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import styles from './QuizItem.module.scss'
 import { IoCheckmarkCircle } from 'react-icons/io5'
@@ -10,10 +10,11 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { useBoolean } from '../../../../hooks/useBoolean'
 import DeleteQuestionItemModal from './DeleteLectureItemModal'
 import { GrCircleQuestion } from 'react-icons/gr'
-import AddQuestionForm from './AddQuestionForm'
 import { IDeleteLecture, ILecture, IQuestion, IUpdateQuiz } from '../../../../models/course'
 import QuestionItem from './QuestionItem'
 import EditQuizForm from './EditQuizForm'
+import AddQuestionForm from './AddQuestionForm'
+import LectureItem from './LectureItem'
 
 interface IProps {
   questions: IQuestion[]
@@ -40,12 +41,14 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
 
   const [quizEdit, setQuizEdit] = useState<ILecture | null>()
 
+  const [questionEdit, setQuestionEdit] = useState<IQuestion | null>(null)
+
   const handleOpenEditQuizForm = (quizEdit: ILecture) => {
     setQuizItemMode(QUIZ_ITEM_MODE.EDIT)
     setQuizEdit(quizEdit)
   }
 
-  const handleCloseAddQuestion = () => {
+  const handleBackToPreviousMode = () => {
     if (questions.length === 0) {
       setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)
     } else {
@@ -57,6 +60,9 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
     setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)
   }
 
+  const handleQuestionEdit = () => {
+    setQuestionEdit()
+  }
   return (
     <div className={styles.quizItemWrapper}>
       <DeleteQuestionItemModal
@@ -147,8 +153,9 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
               <QuestionItem
                 key={questionItem.id}
                 index={index + 1}
-                question={questionItem}
+                questionItem={questionItem}
                 handleOpenModal={handleOpenModal}
+                handleQuestionEdit={handleQuestionEdit}
               />
             ))}
           </div>
@@ -168,15 +175,20 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
 
           <div className='tabTitleContainer'>
             <span className='text ud-heading-sm'>Select question type</span>
-            <button className='iconBtn' onClick={handleCloseAddQuestion}>
+            <button className='iconBtn' onClick={handleBackToPreviousMode}>
               <MdOutlineClose />
             </button>
           </div>
         </div>
       )}
 
-      {(quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION || quizItemMode === QUIZ_ITEM_MODE.EDIT) && (
-        <AddQuestionForm index={index} handleCloseAddQuestion={handleCloseAddQuestion} sectionId={sectionId} />
+      {(quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION || quizItemMode === QUIZ_ITEM_MODE.EDIT_QUESTION) && (
+        <AddQuestionForm
+          handleBackToPreviousMode={handleBackToPreviousMode}
+          sectionId={sectionId}
+          lectureId={quizItem.id}
+          questionEdit={questionEdit}
+        />
       )}
 
       {quizItemMode === QUIZ_ITEM_MODE.EDIT && (

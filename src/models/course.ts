@@ -55,8 +55,6 @@ export interface IDeleteLecture {
 
 export interface IQuestion {
   id: number
-  desc: string
-  title: string
   question_text: string
   lectureId: number
   answers: IAnswer[]
@@ -65,14 +63,39 @@ export interface IQuestion {
 export interface IAnswer {
   id: number
   answer_text: string
-  explain: string | null
+  explain?: string
   is_correct: boolean
   question_id: number
-  updated_at: string
-  created_at: string
 }
 
-export interface ICreateQuestion {}
+export interface CreateQuestionForm {
+  sectionID: number
+  lectureID: number
+  question_text: string
+  indexOfCorrectAnswer: string
+  answers: CreateAnswerForm[]
+}
+
+export interface CreateAnswerForm {
+  id: number
+  answer_text: string
+  explain?: string
+}
+
+export interface UpdateQuestionForm {
+  id: number
+  question_text: string
+  lectureID: number
+  sectionID: number
+}
+export interface UpdateAnswerForm {
+  id: number
+  answer_text: string
+  is_correct: boolean
+  explain?: string
+  lectureID: number
+  sectionID: number
+}
 
 export interface ICreateLecure {
   id: number

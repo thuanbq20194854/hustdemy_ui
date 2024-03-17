@@ -7,17 +7,18 @@ import { IQuestion } from '../../../../models/course'
 
 interface IProps {
   handleOpenModal: () => void
+  handleQuestionEdit: () => void
 
-  question: IQuestion
+  questionItem: IQuestion
   index: number
 }
 
-function QuestionItem({ handleOpenModal, question, index }: IProps) {
+function QuestionItem({ handleOpenModal, questionItem, index }: IProps) {
   return (
     <div className={`${styles.questionItemWrapper} ud-text-sm`}>
       <div className='infoPart'>
         <div className='index ud-text-bold'>{index + '.'}</div>
-        <div className='questionName'>{question.title}</div>
+        <div className='questionName'>{questionItem.title}</div>
       </div>
 
       <div className='actionPart'>

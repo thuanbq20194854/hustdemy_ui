@@ -41,34 +41,35 @@ const initCurriculum: ISection[] = [
           {
             lectureId: 2,
             id: 1,
-            desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aut qui amet, at harum assumenda repudiandae. Et vitae facilis rem.',
-            title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, et.',
             question_text:
               ' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?',
             answers: [
               {
-                questionId: '1',
+                question_id: 1,
                 id: 1,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
-                explaination:
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
+                explain:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
+                is_correct: false
               },
               {
-                questionId: '1',
+                question_id: 1,
                 id: 3,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
-                explaination:
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
+                explain:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
+                is_correct: true
               },
               {
-                questionId: '1',
+                question_id: 1,
                 id: 2,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
-                explaination:
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!'
+                explain:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
+                is_correct: false
               }
             ]
           }

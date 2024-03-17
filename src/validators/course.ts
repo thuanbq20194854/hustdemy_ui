@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import {
+  CreateQuestionForm,
   ICreateQuiz,
   ICreateSection,
   IDeleteSection,
@@ -60,6 +61,22 @@ export const schemaUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
   type: Yup.string().required('This field may not be blank'),
   title: Yup.string().required('This field may not be blank'),
   desc: Yup.string().nullable()
+})
+
+export const schemaCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
+  sectionID: Yup.number().required('This field is required'),
+  lectureID: Yup.number().required('This field is required'),
+  question_text: Yup.string().required('This field is required'),
+  indexOfCorrectAnswer: Yup.string().required('This field is required'),
+  answers: Yup.array()
+    .required()
+    .of(
+      Yup.object().shape({
+        id: Yup.number().required('This field is required'),
+        answer_text: Yup.number().required('This field is required'),
+        explain: Yup.string().required('This field is required')
+      })
+    )
 })
 // export const schemaDeleteQuiz: Yup.ObjectSchema<IDeleteLecure> = Yup.object({
 //   id: Yup.number().required('This field may not be blank'),

@@ -3,9 +3,12 @@ import React from 'react'
 import styles from './CourseCurriculum.module.scss'
 import SectionItem from './SectionItem'
 import {
+  CreateQuestionForm,
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
+  ILecture,
+  IQuestion,
   ISection,
   IUpdateQuiz,
   IUpdateSection
@@ -111,6 +114,45 @@ function CourseCurriculum({ sections, setSections }: IProps) {
     const updatedSections: ISection[] = sections.map((sectionItem) => {
       if (sectionItem.id === lectureData.sectionId) {
         const updatedLectures = sectionItem.lectures.filter((lectureItem) => lectureItem.id != lectureData.id)
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  //   handleAddQuestion
+  // handleUpdateQuestion
+
+  const handleAddQuestion = (data: CreateQuestionForm) => {
+    /// id of question from API to pass and update state
+    const updatedSections: ISection[] = sections.map((sectionItem: ISection) => {
+      if (sectionItem.id === data.sectionID) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+          if (lectureItem.id === data.lectureID) {
+            const updatedQuestions = [
+              ...(lectureItem.questions as IQuestion[]),
+              {
+                id: randomNumber(),
+                question_text: data.question_text,
+                answers: data.answers,
+                lectureId: data.lectureID
+              }
+            ]
+
+            return {
+              ...lectureItem,
+              questions: updatedQuestions
+            }
+          }
+          return lectureItem
+        })
 
         return {
           ...sectionItem,
