@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomInput from '../../components/CustomInput'
 import TextEditor from '../../../../components/TextEditor/TextEditor'
-import { ADD_CURRICULUM_ITEM_MODE } from './AddNewCurriculumItem'
 import { IUpdateQuiz, ILecture } from '../../../../models/course'
 
 import styles from './AddQuizForm.module.scss'
@@ -9,17 +8,18 @@ import { Controller, useForm } from 'react-hook-form'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaUpdateQuiz } from '../../../../validators/course'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   sectionId: number
 
   quizEdit: ILecture
   index: number | null
-  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
   handleNormalMode: () => void
 }
 
-function EditQuizForm({ sectionId, quizEdit, index, handleUpdateQuiz, handleNormalMode }: IProps) {
+function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) {
+  const { handleUpdateQuiz } = useCourseManageContext()
   const customToolBar = [['bold', 'italic']]
 
   const methods = useForm<IUpdateQuiz>({

@@ -1,6 +1,7 @@
 import CustomModal from '../../../../components/CustomModal/CustomModal'
-import { IDeleteLecture, ILecture } from '../../../../models/course'
-import { useForm } from 'react-hook-form'
+import { ILecture } from '../../../../models/course'
+import { useCourseManageContext } from '../context/CourseMangeContext'
+import LectureItem from './LectureItem'
 
 interface IProps {
   isOpen: boolean
@@ -9,8 +10,11 @@ interface IProps {
   lectureItem: ILecture
 }
 
-function DeleteQuestionItemModal({ isOpen, setCommandModal, sectionId, lectureItem }: IProps) {
+function DeleteLectureItemModal({ isOpen, setCommandModal, lectureItem }: IProps) {
+  const { handleDeleteLecture } = useCourseManageContext()
+
   const handleSubmitForm = () => {
+    handleDeleteLecture(lectureItem)
     console.log('ssubmit')
   }
   return (
@@ -24,4 +28,4 @@ function DeleteQuestionItemModal({ isOpen, setCommandModal, sectionId, lectureIt
   )
 }
 
-export default DeleteQuestionItemModal
+export default DeleteLectureItemModal

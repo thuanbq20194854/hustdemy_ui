@@ -6,17 +6,20 @@ import { ISection, IUpdateSection } from '../../../../models/course'
 import { Controller, useForm } from 'react-hook-form'
 import { schemaUpdateSection } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   handleSetSectionModeNormal: () => void
-  handleEditSection: (formData: IUpdateSection) => void
+  // handleEditSection: (formData: IUpdateSection) => void
   isEditForm?: boolean
 
   section: ISection
   index: number
 }
 
-function EditSectionForm({ handleSetSectionModeNormal, handleEditSection, section, index }: IProps) {
+function EditSectionForm({ handleSetSectionModeNormal, section, index }: IProps) {
+  const { handleEditSection } = useCourseManageContext()
+
   const {
     handleSubmit,
     formState: { errors },

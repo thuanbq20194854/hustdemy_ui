@@ -38,8 +38,8 @@ function TextEditor({ customToolBar, placeholder, className, handleHTMLChange, d
     placeholder: placeholder
   })
 
-  console.log(quill) // undefined > Quill Object
-  console.log(quillRef) // { current: undefined } > { current: Quill Editor Reference }
+  // console.log(quill) // undefined > Quill Object
+  // console.log(quillRef) // { current: undefined } > { current: Quill Editor Reference }
 
   React.useEffect(() => {
     // if (quill) {

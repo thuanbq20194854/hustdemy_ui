@@ -1,15 +1,17 @@
 import CustomModal from '../../../../components/CustomModal/CustomModal'
 import { ISection } from '../../../../models/course'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   open: boolean
   handleCommandModal: (cmd: boolean) => void
-  handleDeleteSection: (deletedId: number) => void
 
   section: ISection
 }
 
-function DeleteSectionItemModal({ section, open, handleCommandModal, handleDeleteSection }: IProps) {
+function DeleteSectionItemModal({ section, open, handleCommandModal }: IProps) {
+  const { handleDeleteSection } = useCourseManageContext()
+
   const handleOkModal = (sectionId: number) => {
     handleDeleteSection(sectionId)
     handleCommandModal(false)

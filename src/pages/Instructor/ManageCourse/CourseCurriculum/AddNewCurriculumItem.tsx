@@ -10,7 +10,6 @@ import AddQuizForm from './AddQuizForm'
 
 interface IProps {
   sectionId: number
-  handleAddQuiz: (quizData: ICreateQuiz) => void
 }
 
 export const ADD_CURRICULUM_ITEM_MODE = {
@@ -20,7 +19,7 @@ export const ADD_CURRICULUM_ITEM_MODE = {
   ADD_QUIZ: 3
 }
 
-function AddNewCurriculumItem({ handleAddQuiz, sectionId }: IProps) {
+function AddNewCurriculumItem({ sectionId }: IProps) {
   const [addCurriculumMode, setAddCurriculumMode] = useState(ADD_CURRICULUM_ITEM_MODE.ADD_LECTURE)
 
   const handleNormalMode = () => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)
@@ -88,7 +87,6 @@ function AddNewCurriculumItem({ handleAddQuiz, sectionId }: IProps) {
           <AddQuizForm
             sectionId={sectionId}
             setAddCurriculumMode={setAddCurriculumMode}
-            handleAddQuiz={handleAddQuiz}
             handleNormalMode={handleNormalMode}
           />
         )}

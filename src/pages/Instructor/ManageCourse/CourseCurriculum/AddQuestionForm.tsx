@@ -9,54 +9,17 @@ import { useMemo } from 'react'
 import { schemaCreateQuestionForm } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
 import TextArea from 'antd/es/input/TextArea'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   handleBackToPreviousMode: () => void
   sectionId: number
   lectureId: number
   questionEdit: IQuestion | null
-
-  handleAddQuestion
-  handleUpdateQuestion
-}
-
-const FakeAnswerQuestion = {
-  is_correct: 2,
-  questionTitle: 'What it your name ???',
-  answers: [
-    {
-      id: '1',
-
-      answer:
-        '1Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis incidunt officiis eaque fuga ipsa voluptatibus soluta quae sint quasi aperiam!',
-
-      explaination: ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, labore!'
-    },
-    {
-      id: '2',
-      answer:
-        '2Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis incidunt officiis eaque fuga ipsa voluptatibus soluta quae sint quasi aperiam!',
-
-      explaination: ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, labore!'
-    },
-    {
-      id: '3',
-      answer:
-        '3Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis incidunt officiis eaque fuga ipsa voluptatibus soluta quae sint quasi aperiam!',
-
-      explaination: ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, labore!'
-    },
-    {
-      id: '4',
-      answer:
-        '4Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis incidunt officiis eaque fuga ipsa voluptatibus soluta quae sint quasi aperiam!',
-
-      explaination: ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, labore!'
-    }
-  ]
 }
 
 function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, questionEdit }: IProps) {
+  const { handleAddQuestion } = useCourseManageContext()
   const initAnswers = useMemo(() => {
     if (questionEdit != null) {
       return questionEdit.answers.map((answerItem) => ({
@@ -117,17 +80,14 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
 
   const customToolBar = [['bold', 'italic']]
 
-
   const handleSubmitForm = (data: CreateQuestionForm) => {
-    
-
     if (questionEdit) {
-
-
-    }
-    else {
-
-
+      console.log('edit case: ')
+      handleBackToPreviousMode()
+    } else {
+      console.log('add data', data)
+      handleAddQuestion(data)
+      handleBackToPreviousMode()
     }
   }
 
@@ -140,7 +100,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
         </button>
       </div>
 
-      <form action='' className='formWrapper' onSubmit={handleSubmit(handleSubmitForm)}>
+      <form className='formWrapper' onSubmit={handleSubmit(handleSubmitForm)}>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Question</div>
           <TextEditor defaultValue='' className='textEditor' />
@@ -152,10 +112,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
             {answersField.map((answerItem: CreateAnswerForm, index) => (
               <div className='answerItem' key={answerItem.id}>
                 <div className='left'>
-                  <Radio
-                    className='radioWrapper'
-                    value={index === +watch('indexOfCorrectAnswer') ? true : false}
-                  ></Radio>
+                  <Radio className='radioWrapper' value={index === +watch('indexOfCorrectAnswer') ? true : false} />
                 </div>
 
                 <div className='middle'>
@@ -194,6 +151,12 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
               </div>
             ))}
           </div>
+        </div>
+
+        <div className='saveBtnContainer'>
+          <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm' type='submit'>
+            Save
+          </button>
         </div>
       </form>
     </div>

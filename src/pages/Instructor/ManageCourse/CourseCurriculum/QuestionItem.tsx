@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaBars } from 'react-icons/fa'
 import { MdDelete, MdEdit } from 'react-icons/md'
 
@@ -18,7 +17,7 @@ function QuestionItem({ handleOpenModal, questionItem, index }: IProps) {
     <div className={`${styles.questionItemWrapper} ud-text-sm`}>
       <div className='infoPart'>
         <div className='index ud-text-bold'>{index + '.'}</div>
-        <div className='questionName'>{questionItem.title}</div>
+        <div className='questionName'>{questionItem.question_text}</div>
       </div>
 
       <div className='actionPart'>

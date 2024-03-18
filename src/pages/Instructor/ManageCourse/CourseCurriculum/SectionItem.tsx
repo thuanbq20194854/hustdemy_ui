@@ -9,29 +9,17 @@ import DeleteSectionItemModal from './DeleteSectionItemModal'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
 import LectureItem from './LectureItem'
 import QuizItem from './QuizItem'
-import { ICreateQuiz, IDeleteLecture, ISection, IUpdateQuiz, IUpdateSection } from '../../../../models/course'
+import { ISection } from '../../../../models/course'
 import EditSectionForm from './EditSectionForm'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
-  handleEditSection: (formData: IUpdateSection) => void
-  handleDeleteSection: (deletedId: number) => void
-  handleAddQuiz: (quizData: ICreateQuiz) => void
-  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
-  handleDeleteLecture: (lectureData: IDeleteLecture) => void
   section: ISection
 
   index: number
 }
 
-function SectionItem({
-  handleEditSection,
-  handleDeleteSection,
-  handleAddQuiz,
-  handleUpdateQuiz,
-  handleDeleteLecture,
-  section,
-  index
-}: IProps) {
+function SectionItem({ section, index }: IProps) {
   const [isOpenModal, handleCommandModal, handleOpenModal, handleCloseModal] = useBoolean()
   const SECTION_MODE = {
     NORMAL: 0,
@@ -50,12 +38,7 @@ function SectionItem({
 
   return (
     <div className={styles.sectionItemWrapper}>
-      <DeleteSectionItemModal
-        handleDeleteSection={handleDeleteSection}
-        handleCommandModal={handleCommandModal}
-        open={isOpenModal}
-        section={section}
-      />
+      <DeleteSectionItemModal handleCommandModal={handleCommandModal} open={isOpenModal} section={section} />
 
       {/* Mode Normal */}
 
@@ -69,7 +52,7 @@ function SectionItem({
               <FaRegFile />
             </div>
 
-            <span>Introduction</span>
+            <span>{section.sectionTitle}</span>
           </span>
 
           <div className='btnPart'>
@@ -89,12 +72,7 @@ function SectionItem({
       {/* Mode Edit Section */}
 
       {sectionMode === SECTION_MODE.EDIT && (
-        <EditSectionForm
-          section={section}
-          handleEditSection={handleEditSection}
-          handleSetSectionModeNormal={handleSetSectionModeNormal}
-          index={index}
-        />
+        <EditSectionForm section={section} handleSetSectionModeNormal={handleSetSectionModeNormal} index={index} />
       )}
 
       {/* Map Lecturers (LectureItem / QuestionItem) */}
@@ -110,8 +88,6 @@ function SectionItem({
               sectionId={section.id}
               key={lectureItem.id}
               questions={lectureItem.questions || []}
-              handleUpdateQuiz={handleUpdateQuiz}
-              handleDeleteLecture={handleDeleteLecture}
             />
           )
         }
@@ -123,7 +99,7 @@ function SectionItem({
       })}
 
       {/* Add New Section Item */}
-      <AddNewCurriculumItem sectionId={section.id} handleAddQuiz={handleAddQuiz} />
+      <AddNewCurriculumItem sectionId={section.id} />
     </div>
   )
 }

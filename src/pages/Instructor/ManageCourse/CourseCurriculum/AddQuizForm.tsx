@@ -7,15 +7,17 @@ import styles from './AddQuizForm.module.scss'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaCreateQuiz } from '../../../../validators/course'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   sectionId: number
   setAddCurriculumMode: React.Dispatch<React.SetStateAction<number>>
-  handleAddQuiz: (quizData: ICreateQuiz) => void
   handleNormalMode: () => void
 }
 
-function AddQuizForm({ setAddCurriculumMode, sectionId, handleAddQuiz, handleNormalMode }: IProps) {
+function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IProps) {
+  const { handleAddQuiz } = useCourseManageContext()
+
   const customToolBar = [['bold', 'italic']]
 
   const methods = useForm<ICreateQuiz>({

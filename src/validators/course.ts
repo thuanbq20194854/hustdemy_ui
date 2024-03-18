@@ -73,7 +73,22 @@ export const schemaCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
     .of(
       Yup.object().shape({
         id: Yup.number().required('This field is required'),
-        answer_text: Yup.number().required('This field is required'),
+        answer_text: Yup.string().required('This field is required'),
+        explain: Yup.string().required('This field is required')
+      })
+    )
+})
+export const schemaUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
+  sectionID: Yup.number().required('This field is required'),
+  lectureID: Yup.number().required('This field is required'),
+  question_text: Yup.string().required('This field is required'),
+  indexOfCorrectAnswer: Yup.string().required('This field is required'),
+  answers: Yup.array()
+    .required()
+    .of(
+      Yup.object().shape({
+        id: Yup.number().required('This field is required'),
+        answer_text: Yup.string().required('This field is required'),
         explain: Yup.string().required('This field is required')
       })
     )

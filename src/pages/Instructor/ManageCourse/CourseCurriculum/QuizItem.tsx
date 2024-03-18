@@ -8,24 +8,23 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useBoolean } from '../../../../hooks/useBoolean'
-import DeleteQuestionItemModal from './DeleteLectureItemModal'
+import DeleteLectureItemModal from './DeleteLectureItemModal'
 import { GrCircleQuestion } from 'react-icons/gr'
-import { IDeleteLecture, ILecture, IQuestion, IUpdateQuiz } from '../../../../models/course'
+import { ILecture, IQuestion } from '../../../../models/course'
 import QuestionItem from './QuestionItem'
 import EditQuizForm from './EditQuizForm'
 import AddQuestionForm from './AddQuestionForm'
-import LectureItem from './LectureItem'
 
 interface IProps {
   questions: IQuestion[]
   sectionId: number
   index: number
   quizItem: ILecture
-  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
-  handleDeleteLecture: (lectureData: IDeleteLecture) => void
+  // handleUpdateQuiz: (quizData: IUpdateQuiz) => void
+  // handleDeleteLecture: (lectureData: IDeleteLecture) => void
 }
 
-function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: IProps) {
+function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
   const QUIZ_ITEM_MODE = {
     NORMAL: 0,
     SHOW: 2,
@@ -60,12 +59,12 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
     setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)
   }
 
-  const handleQuestionEdit = () => {
-    setQuestionEdit()
+  const handleQuestionEdit = (questionEdit: IQuestion | null) => {
+    setQuestionEdit(questionEdit)
   }
   return (
     <div className={styles.quizItemWrapper}>
-      <DeleteQuestionItemModal
+      <DeleteLectureItemModal
         sectionId={sectionId}
         lectureItem={quizItem}
         isOpen={isOpen}
@@ -90,7 +89,7 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
               <MdEdit size={16} />
             </button>
             <button className='deleteBtn'>
-              <MdDelete size={16} />
+              <MdDelete size={16} onClick={handleOpenModal} />
             </button>
           </div>
 
@@ -155,7 +154,7 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
                 index={index + 1}
                 questionItem={questionItem}
                 handleOpenModal={handleOpenModal}
-                handleQuestionEdit={handleQuestionEdit}
+                handleQuestionEdit={() => handleQuestionEdit(questionItem)}
               />
             ))}
           </div>
@@ -192,13 +191,7 @@ function QuizItem({ questions, sectionId, index, quizItem, handleUpdateQuiz }: I
       )}
 
       {quizItemMode === QUIZ_ITEM_MODE.EDIT && (
-        <EditQuizForm
-          index={index}
-          quizEdit={quizItem}
-          sectionId={sectionId}
-          handleUpdateQuiz={handleUpdateQuiz}
-          handleNormalMode={handleNormalMode}
-        />
+        <EditQuizForm index={index} quizEdit={quizItem} sectionId={sectionId} handleNormalMode={handleNormalMode} />
       )}
     </div>
   )

@@ -11,7 +11,18 @@ import CoursePricing from './CoursePricing/CoursePricing'
 import CourseBasics from './CourseBasics/CourseBasics'
 import CMSidebar from './CMSidebar'
 import { tabPaths } from './constant/CourseManage'
-import { ISection } from '../../../models/course'
+import {
+  CreateQuestionForm,
+  ICreateQuiz,
+  ICreateSection,
+  IDeleteLecture,
+  ISection,
+  IUpdateQuiz,
+  IUpdateSection,
+  UpdateQuestionForm
+} from '../../../models/course'
+import { CourseManageContext, CourseManageProvider } from './context/CourseMangeContext'
+import { randomNumber } from '../../../utils/utils'
 
 const initCurriculum: ISection[] = [
   {
@@ -105,6 +116,156 @@ function CourseManageLayout() {
     }
   }, [])
 
+  const handleAddSection = (data: ICreateSection) => {
+    /// API first
+    /// Put response into this SET function
+
+    setSections((prev) => [
+      ...prev,
+      {
+        id: randomNumber(),
+        sectionOutcome: data.sectionOutcome,
+        lectures: [],
+        sectionTitle: data.sectionTitle
+      }
+    ])
+  }
+
+  const handleEditSection = (sectionEdited: IUpdateSection) => {
+    /// API first
+    /// Put response into this SET function
+
+    const updatedSection = sections.map((sectionItem) => {
+      if (sectionItem.id === sectionEdited.id) {
+        return {
+          ...sectionItem,
+          sectionOutcome: sectionEdited.sectionOutcome,
+          sectionTitle: sectionEdited.sectionTitle
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSection)
+  }
+
+  const handleDeleteSection = (deleteId: number) => {
+    /// loading
+    /// API first
+    /// finish loading
+    /// Put response into this SET function
+    /// toast
+    const updatedSections = sections.filter((sectionItem) => sectionItem.id != deleteId)
+    setSections(updatedSections)
+  }
+
+  const handleAddQuiz = (quizData: ICreateQuiz) => {
+    const expectedSection = sections.find((sectionItem) => sectionItem.id === quizData.sectionId)
+
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === expectedSection?.id) {
+        return {
+          ...sectionItem,
+
+          lectures: [...sectionItem.lectures, { ...quizData, id: randomNumber(), questions: [] }]
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleUpdateQuiz = (quizData: IUpdateQuiz) => {
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === quizData.sectionId) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === quizData.id) {
+            return {
+              ...lectureItem,
+              ...quizData
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleDeleteLecture = (lectureData: IDeleteLecture) => {
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === lectureData.sectionId) {
+        const updatedLectures = sectionItem.lectures.filter((lectureItem) => lectureItem.id != lectureData.id)
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleAddQuestion = (data: CreateQuestionForm) => {
+    /// id of question from API to pass and update state
+    const updatedSections: ISection[] = sections.map((sectionItem: ISection) => {
+      if (sectionItem.id === data.sectionID) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+          if (lectureItem.id === data.lectureID) {
+            const newQuestionId = randomNumber()
+            const updatedQuestions = [
+              ...(lectureItem.questions as IQuestion[]),
+              {
+                id: newQuestionId,
+                question_text: data.question_text,
+                answers: data.answers.map((answerItem, index) => ({
+                  id: randomNumber(),
+                  answer_text: answerItem.answer_text,
+                  explain: answerItem.explain,
+                  is_correct: index === +data.indexOfCorrectAnswer,
+                  question_id: newQuestionId
+                })),
+                lectureId: data.lectureID
+              }
+            ]
+
+            return {
+              ...lectureItem,
+              questions: updatedQuestions
+            }
+          }
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleUpdateQuestion = (data: UpdateQuestionForm) => {}
+
   return (
     <div className={styles.layoutWrapper}>
       <div className='headerWrapper'>
@@ -137,12 +298,25 @@ function CourseManageLayout() {
       <div className='appContainer'>
         <CMSidebar courseId={courseId ?? ''} handleTabChange={handleTabChange} />
         <div className='mainContentWrapper'>
-          {renderedTab === 'goals' && <CourseGoals />}
+          <CourseManageProvider
+            value={{
+              sections,
+              handleAddSection,
+              handleEditSection,
+              handleDeleteSection,
+              handleAddQuiz,
+              handleUpdateQuiz,
+              handleDeleteLecture,
+              handleAddQuestion
+            }}
+          >
+            {renderedTab === 'goals' && <CourseGoals />}
 
-          {renderedTab === 'curriculum' && <CourseCurriculum setSections={setSections} sections={sections} />}
-          {renderedTab === 'pricing' && <CoursePricing />}
+            {renderedTab === 'curriculum' && <CourseCurriculum setSections={setSections} sections={sections} />}
+            {renderedTab === 'pricing' && <CoursePricing />}
 
-          {renderedTab === 'basics' && <CourseBasics />}
+            {renderedTab === 'basics' && <CourseBasics />}
+          </CourseManageProvider>
         </div>
       </div>
       <Footer />

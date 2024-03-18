@@ -6,12 +6,10 @@ import { ICreateSection } from '../../../../models/course'
 import { Controller, useForm } from 'react-hook-form'
 import { schemaCreateSection } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
-interface IProps {
-  handleAddSection: (data: ICreateSection) => void
-}
-
-function AddSectionForm({ handleAddSection }: IProps) {
+function AddSectionForm() {
+  const { handleAddSection } = useCourseManageContext()
   const [openForm, setOpenForm] = useState(false)
 
   const handleCancle = () => {
@@ -37,8 +35,6 @@ function AddSectionForm({ handleAddSection }: IProps) {
   })
 
   const handleAddSectionSubmit = (addSectionData: ICreateSection) => {
-    console.log('addSectionData: ', addSectionData)
-
     handleAddSection(addSectionData)
     setOpenForm(false)
   }
