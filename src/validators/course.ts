@@ -66,8 +66,8 @@ export const schemaUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
 export const schemaCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
   sectionID: Yup.number().required('This field is required'),
   lectureID: Yup.number().required('This field is required'),
-  question_text: Yup.string().required('This field is required'),
-  indexOfCorrectAnswer: Yup.string().required('This field is required'),
+  question_text: Yup.string().required('Please write a question !'),
+  indexOfCorrectAnswer: Yup.string().required('Please choose the best answer !'),
   answers: Yup.array()
     .required()
     .of(

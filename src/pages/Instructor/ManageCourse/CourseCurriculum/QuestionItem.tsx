@@ -12,7 +12,7 @@ interface IProps {
   index: number
 }
 
-function QuestionItem({ handleOpenModal, questionItem, index }: IProps) {
+function QuestionItem({ handleOpenModal, questionItem, index, handleQuestionEdit }: IProps) {
   return (
     <div className={`${styles.questionItemWrapper} ud-text-sm`}>
       <div className='infoPart'>
@@ -21,7 +21,7 @@ function QuestionItem({ handleOpenModal, questionItem, index }: IProps) {
       </div>
 
       <div className='actionPart'>
-        <button className='btnContainer editBtn'>
+        <button className='btnContainer editBtn' onClick={handleQuestionEdit}>
           <MdEdit size={16} />
         </button>
         <button className='btnContainer deleteBtn' onClick={handleOpenModal}>

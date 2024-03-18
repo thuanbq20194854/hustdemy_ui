@@ -28,9 +28,17 @@ interface IProps {
 
   defaultValue: string
   handleHTMLChange?: (html: string) => void
+  handleTextOnlyChange?: (text: string) => void
 }
 
-function TextEditor({ customToolBar, placeholder, className, handleHTMLChange, defaultValue }: IProps) {
+function TextEditor({
+  customToolBar,
+  placeholder,
+  className,
+  handleHTMLChange,
+  defaultValue,
+  handleTextOnlyChange
+}: IProps) {
   const { quill, quillRef } = useQuill({
     modules: {
       toolbar: customToolBar ? customToolBar : toolBarStandard
@@ -53,7 +61,11 @@ function TextEditor({ customToolBar, placeholder, className, handleHTMLChange, d
         if (handleHTMLChange) {
           handleHTMLChange(quill.root.innerHTML)
         }
+        if (handleTextOnlyChange) {
+          handleTextOnlyChange(quill.getText())
+        }
         // console.log('Text change!')
+
         // console.log('quill.getText(): ', quill.getText()) // Get text only
         // console.log('quill.getContents(): ', quill.getContents()) // Get delta contents
         // console.log('quill.root.innerHTML: ', quill.root.innerHTML) // Get innerHTML using quill

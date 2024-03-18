@@ -72,7 +72,7 @@ export interface CreateQuestionForm {
   sectionID: number
   lectureID: number
   question_text: string
-  indexOfCorrectAnswer: string
+  indexOfCorrectAnswer?: string
   answers: CreateAnswerForm[]
 }
 

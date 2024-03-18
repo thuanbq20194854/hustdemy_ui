@@ -54,13 +54,11 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
     }
   }, [])
   const {
-    register,
     control,
     handleSubmit,
     watch,
     formState: { errors },
-    setValue,
-    reset
+    setValue
   } = useForm<CreateQuestionForm>({
     mode: 'onChange',
     defaultValues: {
@@ -78,11 +76,9 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
     name: 'answers'
   })
 
-  const customToolBar = [['bold', 'italic']]
-
   const handleSubmitForm = (data: CreateQuestionForm) => {
     if (questionEdit) {
-      console.log('edit case: ')
+      console.log('edit case: ', data)
       handleBackToPreviousMode()
     } else {
       console.log('add data', data)
@@ -90,6 +86,14 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
       handleBackToPreviousMode()
     }
   }
+
+  const handleEditorChange = (questionText: string) => {
+    setValue('question_text', questionText)
+  }
+
+  console.log('errors', errors)
+
+  console.log('form', watch())
 
   return (
     <div className={styles.addQuestionWrapper}>
@@ -103,7 +107,19 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
       <form className='formWrapper' onSubmit={handleSubmit(handleSubmitForm)}>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Question</div>
-          <TextEditor defaultValue='' className='textEditor' />
+          <Controller
+            control={control}
+            name='question_text'
+            render={({ ...fields }) => (
+              <TextEditor
+                handleTextOnlyChange={handleEditorChange}
+                defaultValue=''
+                className='textEditor'
+                {...fields}
+              />
+            )}
+          />
+          {errors.question_text && <span className='ud-form-note'>{errors.question_text.message}</span>}
         </div>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Answer</div>
@@ -112,7 +128,19 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
             {answersField.map((answerItem: CreateAnswerForm, index) => (
               <div className='answerItem' key={answerItem.id}>
                 <div className='left'>
-                  <Radio className='radioWrapper' value={index === +watch('indexOfCorrectAnswer') ? true : false} />
+                  <Radio
+                    className='radioWrapper'
+                    checked={
+                      watch('indexOfCorrectAnswer') === undefined
+                        ? false
+                        : index === +(watch('indexOfCorrectAnswer') as string)
+                    }
+                    onChange={(value) => {
+                      console.log(value)
+
+                      setValue('indexOfCorrectAnswer', String(index))
+                    }}
+                  />
                 </div>
 
                 <div className='middle'>
@@ -126,35 +154,43 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
                   <Controller
                     control={control}
                     name={`answers.${index}.answer_text`}
-                    render={({ ...fields }) => <TextArea className='antTA' {...fields}></TextArea>}
+                    render={({ field }) => <TextArea className='antTA' {...field}></TextArea>}
                   />
+                  {errors.answers && errors.answers[index]?.answer_text && (
+                    <span className='ud-form-note'>{errors.answers[index]?.answer_text?.message ?? ''}</span>
+                  )}
 
                   <Controller
                     control={control}
                     name={`answers.${index}.explain`}
-                    render={({ ...fields }) => (
+                    render={({ field }) => (
                       <CustomInput
                         className='customInput'
                         placeholder={`Explain why this is or isn't the best answer.`}
                         maxLength={60}
-                        {...fields}
+                        {...field}
                       />
                     )}
                   />
+                  {errors.answers && errors.answers[index]?.explain && (
+                    <span className='ud-form-note'>{errors.answers[index]?.explain?.message ?? ''}</span>
+                  )}
                 </div>
 
                 <div className='right'>
-                  <button className='deleteBtn'>
+                  <button type='submit' className='deleteBtn'>
                     <MdDelete />
                   </button>
                 </div>
               </div>
             ))}
           </div>
+
+          {errors.indexOfCorrectAnswer && <span className='ud-form-note'>{errors.indexOfCorrectAnswer.message}</span>}
         </div>
 
         <div className='saveBtnContainer'>
-          <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm' type='submit'>
+          <button type='submit' className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm'>
             Save
           </button>
         </div>

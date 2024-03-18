@@ -61,6 +61,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
 
   const handleQuestionEdit = (questionEdit: IQuestion | null) => {
     setQuestionEdit(questionEdit)
+    setQuizItemMode(QUIZ_ITEM_MODE.EDIT_QUESTION)
   }
   return (
     <div className={styles.quizItemWrapper}>

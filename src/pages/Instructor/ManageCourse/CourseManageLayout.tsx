@@ -264,7 +264,9 @@ function CourseManageLayout() {
     setSections(updatedSections)
   }
 
-  const handleUpdateQuestion = (data: UpdateQuestionForm) => {}
+  const handleUpdateQuestion = (data: UpdateQuestionForm) => {
+    
+  }
 
   return (
     <div className={styles.layoutWrapper}>
