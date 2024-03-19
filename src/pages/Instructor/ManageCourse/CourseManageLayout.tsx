@@ -16,9 +16,12 @@ import {
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
+  ILecture,
+  IQuestion,
   ISection,
   IUpdateQuiz,
   IUpdateSection,
+  UpdateAnswerForm,
   UpdateQuestionForm
 } from '../../../models/course'
 import { CourseManageContext, CourseManageProvider } from './context/CourseMangeContext'
@@ -52,8 +55,12 @@ const initCurriculum: ISection[] = [
           {
             lectureId: 2,
             id: 1,
-            question_text:
-              ' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?',
+            question_text: `
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.Quod ducimus qui molestiae saepe obcaecati excepturi dolor dignissimos laudantium unde ab?</p>
+            `,
             answers: [
               {
                 question_id: 1,
@@ -76,6 +83,15 @@ const initCurriculum: ISection[] = [
               {
                 question_id: 1,
                 id: 2,
+                answer_text:
+                  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
+                explain:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
+                is_correct: false
+              },
+              {
+                question_id: 1,
+                id: 4,
                 answer_text:
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explain:
@@ -237,7 +253,7 @@ function CourseManageLayout() {
                   id: randomNumber(),
                   answer_text: answerItem.answer_text,
                   explain: answerItem.explain,
-                  is_correct: index === +data.indexOfCorrectAnswer,
+                  is_correct: index === +(data.indexOfCorrectAnswer as string),
                   question_id: newQuestionId
                 })),
                 lectureId: data.lectureID
@@ -264,8 +280,67 @@ function CourseManageLayout() {
     setSections(updatedSections)
   }
 
-  const handleUpdateQuestion = (data: UpdateQuestionForm) => {
-    
+  const handleUpdateQuestion = (
+    updateQuestionFormData: UpdateQuestionForm,
+    updateAnswerArrayForm: UpdateAnswerForm[]
+  ) => {
+    const updatedSections: ISection[] = sections.map((sectionItem: ISection) => {
+      if (sectionItem.id === updateQuestionFormData.sectionID) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+          if (lectureItem.id === updateQuestionFormData.lectureID) {
+            const newQuestionId = randomNumber()
+            // const updatedQuestions = [
+            //   ...(lectureItem.questions as IQuestion[]),
+            //   {
+            //     id: newQuestionId,
+            //     question_text: updateQuestionFormData.question_text,
+            //     answers: data.answers.map((answerItem, index) => ({
+            //       id: randomNumber(),
+            //       answer_text: answerItem.answer_text,
+            //       explain: answerItem.explain,
+            //       is_correct: index === +data.indexOfCorrectAnswer,
+            //       question_id: newQuestionId
+            //     })),
+            //     lectureId: data.lectureID
+            //   }
+            // ]
+
+            const updatedQuestions = (lectureItem.questions ?? []).map((questionItem: IQuestion) => {
+              if (questionItem.id === updateQuestionFormData.id) {
+                return {
+                  id: updateQuestionFormData.id,
+                  question_text: updateQuestionFormData.question_text,
+                  answers: updateAnswerArrayForm.map((answerItem) => ({
+                    id: answerItem.id,
+                    answer_text: answerItem.answer_text,
+                    explain: answerItem.explain,
+                    is_correct: answerItem.is_correct,
+                    question_id: updateQuestionFormData.id
+                  })),
+                  lectureId: updateQuestionFormData.lectureID
+                }
+              }
+              return questionItem
+            })
+
+            return {
+              ...lectureItem,
+              questions: updatedQuestions
+            }
+          }
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
   }
 
   return (
@@ -309,7 +384,8 @@ function CourseManageLayout() {
               handleAddQuiz,
               handleUpdateQuiz,
               handleDeleteLecture,
-              handleAddQuestion
+              handleAddQuestion,
+              handleUpdateQuestion
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}

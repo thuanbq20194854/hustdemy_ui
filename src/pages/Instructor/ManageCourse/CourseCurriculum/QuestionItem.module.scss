@@ -1,14 +1,27 @@
 .questionItemWrapper {
   display: flex;
   align-items: center;
+
   :global {
     .infoPart {
       flex: 1;
       display: flex;
-      align-items: center;
+      align-items: start;
+      // flex-shrink: 0;
+      overflow: hidden;
       .index {
       }
       .questionName {
+        flex: 1;
+        // max-height: 2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        /* Limit content to one line */
+        -webkit-line-clamp: 1;
+        white-space: nowrap;
       }
     }
     .actionPart {

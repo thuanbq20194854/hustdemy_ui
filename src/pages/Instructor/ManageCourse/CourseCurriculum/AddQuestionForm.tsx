@@ -3,7 +3,13 @@ import { MdDelete, MdOutlineClose } from 'react-icons/md'
 import TextEditor from '../../../../components/TextEditor/TextEditor'
 import { Radio } from 'antd'
 import CustomInput from '../../components/CustomInput'
-import { CreateAnswerForm, CreateQuestionForm, IQuestion } from '../../../../models/course'
+import {
+  CreateAnswerForm,
+  CreateQuestionForm,
+  IQuestion,
+  UpdateAnswerForm,
+  UpdateQuestionForm
+} from '../../../../models/course'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { useMemo } from 'react'
 import { schemaCreateQuestionForm } from '../../../../validators/course'
@@ -18,8 +24,10 @@ interface IProps {
   questionEdit: IQuestion | null
 }
 
+const customToolBar = [['bold', 'italic']]
+
 function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, questionEdit }: IProps) {
-  const { handleAddQuestion } = useCourseManageContext()
+  const { handleAddQuestion, handleUpdateQuestion } = useCourseManageContext()
   const initAnswers = useMemo(() => {
     if (questionEdit != null) {
       return questionEdit.answers.map((answerItem) => ({
@@ -76,13 +84,33 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
     name: 'answers'
   })
 
-  const handleSubmitForm = (data: CreateQuestionForm) => {
+  const handleSubmitForm = (CreateQuestionFormData: CreateQuestionForm) => {
     if (questionEdit) {
-      console.log('edit case: ', data)
+      console.log('edit case: ', CreateQuestionFormData)
+
+      const updateQuestionForm: UpdateQuestionForm = {
+        id: questionEdit.id,
+        question_text: CreateQuestionFormData.question_text,
+        lectureID: lectureId,
+        sectionID: sectionId
+      }
+
+      const updateAnswerFormArray: UpdateAnswerForm[] = CreateQuestionFormData.answers.map(
+        (answerFormDataItem, index) => ({
+          id: answerFormDataItem.id,
+          answer_text: answerFormDataItem.answer_text,
+          is_correct: index === +(CreateQuestionFormData.indexOfCorrectAnswer ?? ''),
+          explain: answerFormDataItem.explain,
+          lectureID: lectureId,
+          sectionID: sectionId
+        })
+      )
+
+      handleUpdateQuestion(updateQuestionForm, updateAnswerFormArray)
       handleBackToPreviousMode()
     } else {
-      console.log('add data', data)
-      handleAddQuestion(data)
+      console.log('add data', CreateQuestionFormData)
+      handleAddQuestion(CreateQuestionFormData)
       handleBackToPreviousMode()
     }
   }
@@ -112,8 +140,9 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
             name='question_text'
             render={({ ...fields }) => (
               <TextEditor
-                handleTextOnlyChange={handleEditorChange}
-                defaultValue=''
+                customToolBar={customToolBar}
+                defaultValue={questionEdit ? questionEdit.question_text : ''}
+                handleHTMLChange={handleEditorChange}
                 className='textEditor'
                 {...fields}
               />

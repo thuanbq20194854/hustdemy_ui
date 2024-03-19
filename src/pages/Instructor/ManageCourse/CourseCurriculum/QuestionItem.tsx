@@ -17,7 +17,9 @@ function QuestionItem({ handleOpenModal, questionItem, index, handleQuestionEdit
     <div className={`${styles.questionItemWrapper} ud-text-sm`}>
       <div className='infoPart'>
         <div className='index ud-text-bold'>{index + '.'}</div>
-        <div className='questionName'>{questionItem.question_text}</div>
+        <div className='questionName' dangerouslySetInnerHTML={{ __html: questionItem.question_text }} />
+
+        <span>Multiple Choice</span>
       </div>
 
       <div className='actionPart'>

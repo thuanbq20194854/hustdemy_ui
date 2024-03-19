@@ -6,7 +6,9 @@ import {
   IDeleteLecture,
   ISection,
   IUpdateQuiz,
-  IUpdateSection
+  IUpdateSection,
+  UpdateAnswerForm,
+  UpdateQuestionForm
 } from '../../../../models/course'
 
 interface CourseManageContextProps {
@@ -18,6 +20,7 @@ interface CourseManageContextProps {
   handleUpdateQuiz: (quizData: IUpdateQuiz) => void
   handleDeleteLecture: (lectureData: IDeleteLecture) => void
   handleAddQuestion: (data: CreateQuestionForm) => void
+  handleUpdateQuestion: (updateQuestionFormData: UpdateQuestionForm, updateAnswerArrayForm: UpdateAnswerForm[]) => void
   sections: ISection[]
 }
 

@@ -86,12 +86,16 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
 
             <div className='quizTitle'>{quizItem.title}</div>
 
-            <button className='editBtn' onClick={() => handleOpenEditQuizForm(quizItem)}>
-              <MdEdit size={16} />
-            </button>
-            <button className='deleteBtn'>
-              <MdDelete size={16} onClick={handleOpenModal} />
-            </button>
+            {!(quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION) && !(quizItemMode === QUIZ_ITEM_MODE.EDIT_QUESTION) && (
+              <>
+                <button className='editBtn' onClick={() => handleOpenEditQuizForm(quizItem)}>
+                  <MdEdit size={16} />
+                </button>
+                <button className='deleteBtn'>
+                  <MdDelete size={16} onClick={handleOpenModal} />
+                </button>
+              </>
+            )}
           </div>
 
           <div className='rightRegion'>
@@ -121,9 +125,11 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
               )
             )}
 
-            <button className='dragBtn'>
-              <FaBars size={16} />
-            </button>
+            {!QUIZ_ITEM_MODE.ADD_QUESTION && !QUIZ_ITEM_MODE.EDIT_QUESTION && (
+              <button className='dragBtn'>
+                <FaBars size={16} />
+              </button>
+            )}
           </div>
         </div>
       )}
