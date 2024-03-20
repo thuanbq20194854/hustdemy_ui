@@ -3,18 +3,28 @@ import { MdDelete, MdEdit } from 'react-icons/md'
 
 import styles from './QuestionItem.module.scss'
 import { IQuestion } from '../../../../models/course'
+import DeleteQuestionItemModal from './DeleteQuestionItemModal'
+import { useState } from 'react'
+import { useBoolean } from '../../../../hooks/useBoolean'
 
 interface IProps {
-  handleOpenModal: () => void
   handleQuestionEdit: () => void
 
   questionItem: IQuestion
+  sectionId: number
   index: number
 }
 
-function QuestionItem({ handleOpenModal, questionItem, index, handleQuestionEdit }: IProps) {
+function QuestionItem({ questionItem, index, handleQuestionEdit, sectionId }: IProps) {
+  const [isOpen, handleCommandModal] = useBoolean(false)
   return (
     <div className={`${styles.questionItemWrapper} ud-text-sm`}>
+      <DeleteQuestionItemModal
+        isOpen={isOpen}
+        handleCommandModal={handleCommandModal}
+        questionItem={questionItem}
+        sectionId={sectionId}
+      />
       <div className='infoPart'>
         <div className='index ud-text-bold'>{index + '.'}</div>
         <div className='questionName' dangerouslySetInnerHTML={{ __html: questionItem.question_text }} />
@@ -26,7 +36,7 @@ function QuestionItem({ handleOpenModal, questionItem, index, handleQuestionEdit
         <button className='btnContainer editBtn' onClick={handleQuestionEdit}>
           <MdEdit size={16} />
         </button>
-        <button className='btnContainer deleteBtn' onClick={handleOpenModal}>
+        <button className='btnContainer deleteBtn' onClick={() => handleCommandModal(true)}>
           <MdDelete size={16} />
         </button>
         <button className='btnContainer dragBtn'>

@@ -11,7 +11,7 @@ import {
   UpdateQuestionForm
 } from '../../../../models/course'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { schemaCreateQuestionForm } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
 import TextArea from 'antd/es/input/TextArea'
@@ -22,11 +22,12 @@ interface IProps {
   sectionId: number
   lectureId: number
   questionEdit: IQuestion | null
+  setQuestionEdit: React.Dispatch<React.SetStateAction<IQuestion | null>>
 }
 
 const customToolBar = [['bold', 'italic']]
 
-function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, questionEdit }: IProps) {
+function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, questionEdit, setQuestionEdit }: IProps) {
   const { handleAddQuestion, handleUpdateQuestion } = useCourseManageContext()
   const initAnswers = useMemo(() => {
     if (questionEdit != null) {
@@ -118,6 +119,12 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
   const handleEditorChange = (questionText: string) => {
     setValue('question_text', questionText)
   }
+
+  useEffect(() => {
+    return () => {
+      setQuestionEdit(null)
+    }
+  }, [])
 
   console.log('errors', errors)
 

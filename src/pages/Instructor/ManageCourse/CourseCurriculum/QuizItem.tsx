@@ -160,7 +160,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
                 key={questionItem.id}
                 index={index + 1}
                 questionItem={questionItem}
-                handleOpenModal={handleOpenModal}
+                sectionId={quizItem.sectionId}
                 handleQuestionEdit={() => handleQuestionEdit(questionItem)}
               />
             ))}
@@ -194,6 +194,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
           sectionId={sectionId}
           lectureId={quizItem.id}
           questionEdit={questionEdit}
+          setQuestionEdit={setQuestionEdit}
         />
       )}
 

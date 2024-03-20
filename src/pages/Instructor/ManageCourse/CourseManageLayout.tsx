@@ -16,6 +16,7 @@ import {
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
+  IDeleteQuestion,
   ILecture,
   IQuestion,
   ISection,
@@ -343,6 +344,35 @@ function CourseManageLayout() {
     setSections(updatedSections)
   }
 
+  const handleDeleteQuestion = (questionItemData: IDeleteQuestion) => {
+    const updateSections = sections.map((sectionItem: ISection) => {
+      if (sectionItem.id === questionItemData.sectionID) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+          if (lectureItem.id === questionItemData.lectureID) {
+            const updatedQuestions = lectureItem.questions?.filter(
+              (questionItem: IQuestion) => questionItem.id != questionItemData.questionID
+            )
+
+            return {
+              ...lectureItem,
+              questions: updatedQuestions
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+      return sectionItem
+    })
+
+    setSections(updateSections)
+  }
+
   return (
     <div className={styles.layoutWrapper}>
       <div className='headerWrapper'>
@@ -385,7 +415,8 @@ function CourseManageLayout() {
               handleUpdateQuiz,
               handleDeleteLecture,
               handleAddQuestion,
-              handleUpdateQuestion
+              handleUpdateQuestion,
+              handleDeleteQuestion
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}

@@ -4,6 +4,8 @@ import {
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
+  IDeleteQuestion,
+  IQuestion,
   ISection,
   IUpdateQuiz,
   IUpdateSection,
@@ -21,6 +23,7 @@ interface CourseManageContextProps {
   handleDeleteLecture: (lectureData: IDeleteLecture) => void
   handleAddQuestion: (data: CreateQuestionForm) => void
   handleUpdateQuestion: (updateQuestionFormData: UpdateQuestionForm, updateAnswerArrayForm: UpdateAnswerForm[]) => void
+  handleDeleteQuestion: (questionItem: IDeleteQuestion) => void
   sections: ISection[]
 }
 

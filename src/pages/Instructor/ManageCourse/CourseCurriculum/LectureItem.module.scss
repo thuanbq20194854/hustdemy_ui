@@ -1,0 +1,24 @@
+.lectureItemWrapper {
+  margin: 0 0 24px 60px;
+  padding: 11px 8px;
+  border: 1px solid #6a6f73;
+
+  :global {
+    .normalWrapper {
+      display: flex;
+      align-items: center;
+      .leftRegion {
+        display: flex;
+        align-items: center;
+      }
+
+      .rightRegion {
+        .addBtn {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+      }
+    }
+  }
+}

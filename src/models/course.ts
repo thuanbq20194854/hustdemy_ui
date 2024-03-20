@@ -97,6 +97,12 @@ export interface UpdateAnswerForm {
   sectionID: number
 }
 
+export interface IDeleteQuestion {
+  sectionID: number
+  lectureID: number
+  questionID: number
+}
+
 export interface ICreateLecure {
   id: number
   sectionId: string
