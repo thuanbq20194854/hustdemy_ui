@@ -10,7 +10,8 @@ import {
   IUpdateQuiz,
   IUpdateSection,
   UpdateAnswerForm,
-  UpdateQuestionForm
+  UpdateQuestionForm,
+  UpdateVideoForm
 } from '../../../../models/course'
 
 interface CourseManageContextProps {
@@ -24,9 +25,10 @@ interface CourseManageContextProps {
   handleAddQuestion: (data: CreateQuestionForm) => void
   handleUpdateQuestion: (updateQuestionFormData: UpdateQuestionForm, updateAnswerArrayForm: UpdateAnswerForm[]) => void
   handleDeleteQuestion: (questionItem: IDeleteQuestion) => void
+  handleUpdateVideo: (data: UpdateVideoForm) => void
   sections: ISection[]
 }
-
+2
 const CourseManageContext = createContext<CourseManageContextProps>(undefined)
 
 interface CourseMangeProviderProps {

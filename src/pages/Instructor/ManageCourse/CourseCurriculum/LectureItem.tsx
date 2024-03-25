@@ -12,6 +12,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { HiOutlineFolderDownload } from 'react-icons/hi'
 import { GrCircleQuestion } from 'react-icons/gr'
 import { SlControlPlay } from 'react-icons/sl'
+import VideoUploadForm from './VideoUploadForm'
 
 const LECTURE_MODE = {
   NORMAL: 1,
@@ -25,13 +26,18 @@ const LECTURE_MODE = {
 }
 
 interface IProps {
-  lectureItem?: ILecture
+  lectureItem: ILecture
+  sectionId: number
 }
 
-function LectureItem({ lectureItem }: IProps) {
+function LectureItem({ lectureItem, sectionId }: IProps) {
   const [lectureMode, setLectureMode] = useState(LECTURE_MODE.NORMAL)
 
   const [open, setOpen] = useState(false)
+
+  const handleBackToNormal = () => {
+    setLectureMode(LECTURE_MODE.NORMAL)
+  }
 
   return (
     <div className={styles.lectureItemWrapper}>
@@ -96,7 +102,10 @@ function LectureItem({ lectureItem }: IProps) {
               <div className='lectureInfo'>
                 <div className='fileName ud-heading-md'>production_id_5120413 (1080p).mp4</div>
                 <div className='timeLength'>00:07</div>
-                <button className='editContentBtn ud-btn ud-btn-link ud-text-md'>
+                <button
+                  className='editContentBtn ud-btn ud-btn-link ud-text-md'
+                  onClick={() => setLectureMode(LECTURE_MODE.ADD_CONTENT)}
+                >
                   <MdEdit />
                   <span>Edit Content</span>
                 </button>
@@ -152,6 +161,10 @@ function LectureItem({ lectureItem }: IProps) {
             </button>
           </div>
         </div>
+      )}
+
+      {lectureMode === LECTURE_MODE.ADD_CONTENT && (
+        <VideoUploadForm handleBackToNormal={handleBackToNormal} sectionId={sectionId} lectureId={lectureItem.id} />
       )}
     </div>
   )

@@ -23,7 +23,8 @@ import {
   IUpdateQuiz,
   IUpdateSection,
   UpdateAnswerForm,
-  UpdateQuestionForm
+  UpdateQuestionForm,
+  UpdateVideoForm
 } from '../../../models/course'
 import { CourseManageContext, CourseManageProvider } from './context/CourseMangeContext'
 import { randomNumber } from '../../../utils/utils'
@@ -373,6 +374,10 @@ function CourseManageLayout() {
     setSections(updateSections)
   }
 
+  const handleUpdateVideo = (updateVideoForm: UpdateVideoForm) => {
+    console.log(updateVideoForm)
+  }
+
   return (
     <div className={styles.layoutWrapper}>
       <div className='headerWrapper'>
@@ -416,7 +421,8 @@ function CourseManageLayout() {
               handleDeleteLecture,
               handleAddQuestion,
               handleUpdateQuestion,
-              handleDeleteQuestion
+              handleDeleteQuestion,
+              handleUpdateVideo
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}

@@ -120,3 +120,9 @@ export interface IDeleteLecure {
   id: number
   sectionId: number
 }
+
+export interface UpdateVideoForm {
+  curriculum_id: number
+  lecture_id: number
+  video: FileList
+}

@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FaBars, FaRegFile } from 'react-icons/fa'
 
-import styles from './SectionItem.module.scss'
 import { MdDelete, MdEdit } from 'react-icons/md'
+import styles from './SectionItem.module.scss'
 
 import { useBoolean } from '../../../../hooks/useBoolean'
-import DeleteSectionItemModal from './DeleteSectionItemModal'
+import { ISection } from '../../../../models/course'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
+import DeleteSectionItemModal from './DeleteSectionItemModal'
+import EditSectionForm from './EditSectionForm'
 import LectureItem from './LectureItem'
 import QuizItem from './QuizItem'
-import { ISection } from '../../../../models/course'
-import EditSectionForm from './EditSectionForm'
-import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   section: ISection
@@ -94,7 +93,7 @@ function SectionItem({ section, index }: IProps) {
         if (lectureItem.type === 'lecture') {
           lectureCount++
 
-          return <LectureItem lectureItem={lectureItem} key={lectureItem.id} />
+          return <LectureItem sectionId={section.id} lectureItem={lectureItem} key={lectureItem.id} />
         }
       })}
 

@@ -17,10 +17,6 @@ import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
 import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
 import CourseManageLayout from './pages/Instructor/ManageCourse/CourseManageLayout'
-import CourseGoals from './pages/Instructor/ManageCourse/CourseGoals/CourseGoals'
-import CourseCurriculum from './pages/Instructor/ManageCourse/CourseCurriculum/CourseCurriculum'
-import CourseBasics from './pages/Instructor/ManageCourse/CourseBasics'
-import CoursePricing from './pages/Instructor/ManageCourse/CoursePricing'
 
 export const useRouteElements = () => {
   const isAuthed = false
