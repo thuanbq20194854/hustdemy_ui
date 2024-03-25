@@ -5,6 +5,7 @@ import { UpdateVideoForm, UpdateVideoWatch } from '../../../../models/course'
 import { MdOutlineClose } from 'react-icons/md'
 import { Button, Upload } from 'antd'
 import { useCourseManageContext } from '../context/CourseMangeContext'
+import { UploadChangeParam, UploadFile } from 'antd/es/upload'
 
 interface IProps {
   sectionId: number
@@ -32,7 +33,7 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal }: IProps) {
     console.log(file)
   }
 
-  const handleUploadChange = (info: any) => {
+  const handleUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
     console.log('info: ', info)
 
     const { file, fileList } = info
@@ -63,7 +64,7 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal }: IProps) {
               {...fields}
               action={'http://localhost:3000/'}
               customRequest={handleFileUpload}
-              onChange={handleUploadChange}
+              onChange={(e) => handleUploadChange(e)}
             >
               <Button>Click to upload video</Button>
             </Upload>

@@ -26,7 +26,20 @@ export interface ILecture {
   desc?: string | null
   questions?: IQuestion[]
 
-  // assets?: IAssets
+  assets?: IAsset[]
+}
+
+export interface IAsset {
+  id: number
+  bunnyID: string
+  url: string
+  type: number
+  duration: number
+  name?: string
+  size: number
+  lecture_id: number
+  updated_at: string
+  created_at: string
 }
 
 // export interface IAsset {

@@ -26,7 +26,7 @@ import {
   UpdateQuestionForm,
   UpdateVideoForm
 } from '../../../models/course'
-import { CourseManageContext, CourseManageProvider } from './context/CourseMangeContext'
+import { CourseManageProvider } from './context/CourseMangeContext'
 import { randomNumber } from '../../../utils/utils'
 
 const initCurriculum: ISection[] = [
