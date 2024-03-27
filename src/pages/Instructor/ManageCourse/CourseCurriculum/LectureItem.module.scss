@@ -289,5 +289,47 @@
         }
       }
     }
+
+    .addContentWrapper {
+      padding: 8px;
+      border: 1px solid #6a6f73;
+      border-top: 0;
+
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+
+      .formAntd {
+        width: 100%;
+
+        .ant-btn {
+          border-radius: 0px;
+          border: 1px solid #6a6f73;
+        }
+      }
+
+      .tabTitleContainer {
+        position: absolute;
+        bottom: 100%;
+        right: 3.2rem;
+        max-width: 90%;
+        border: 1px solid #6a6f73;
+        border-bottom: 1px solid white;
+
+        padding: 0.8rem;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .iconBtn {
+          font-size: 20px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

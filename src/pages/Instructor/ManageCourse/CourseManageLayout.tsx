@@ -374,7 +374,7 @@ function CourseManageLayout() {
     setSections(updateSections)
   }
 
-  const handleUpdateVideo = (updateVideoForm: UpdateVideoForm) => {
+  const handleUpdateLectureVideo = (updateVideoForm: UpdateVideoForm) => {
     console.log(updateVideoForm)
   }
 
@@ -422,7 +422,7 @@ function CourseManageLayout() {
               handleAddQuestion,
               handleUpdateQuestion,
               handleDeleteQuestion,
-              handleUpdateVideo
+              handleUpdateLectureVideo
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}

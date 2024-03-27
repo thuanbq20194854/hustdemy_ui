@@ -135,7 +135,7 @@ export interface IDeleteLecure {
 }
 
 export interface UpdateVideoForm {
-  curriculum_id: number
+  section_id: number
   lecture_id: number
   video: FileList
 }

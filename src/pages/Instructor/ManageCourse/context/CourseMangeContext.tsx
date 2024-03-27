@@ -25,7 +25,7 @@ interface CourseManageContextProps {
   handleAddQuestion: (data: CreateQuestionForm) => void
   handleUpdateQuestion: (updateQuestionFormData: UpdateQuestionForm, updateAnswerArrayForm: UpdateAnswerForm[]) => void
   handleDeleteQuestion: (questionItem: IDeleteQuestion) => void
-  handleUpdateVideo: (data: UpdateVideoForm) => void
+  handleUpdateLectureVideo: (data: UpdateVideoForm) => void
   sections: ISection[]
 }
 2

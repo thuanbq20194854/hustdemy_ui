@@ -1,17 +1,16 @@
-import React, { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 // 1. Normal 2 Show 3. Add/Select/Loading Recourse 4. Add/Select/Loading Content
 
-import styles from './LectureItem.module.scss'
-import { ILecture } from '../../../../models/course'
-import { IoCheckmarkCircle } from 'react-icons/io5'
-import { GoFile } from 'react-icons/go'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { MdDelete, MdDeleteOutline, MdEdit, MdOutlineClose } from 'react-icons/md'
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { GoFile } from 'react-icons/go'
 import { HiOutlineFolderDownload } from 'react-icons/hi'
-import { GrCircleQuestion } from 'react-icons/gr'
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { IoCheckmarkCircle } from 'react-icons/io5'
+import { MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md'
 import { SlControlPlay } from 'react-icons/sl'
+import { ILecture } from '../../../../models/course'
+import styles from './LectureItem.module.scss'
 import VideoUploadForm from './VideoUploadForm'
 
 const LECTURE_MODE = {
@@ -38,6 +37,8 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
   const handleBackToNormal = () => {
     setLectureMode(LECTURE_MODE.NORMAL)
   }
+
+  const videoWatch = lectureItem.assets?.find((item) => item.type === 1)
 
   return (
     <div className={styles.lectureItemWrapper}>
@@ -164,7 +165,12 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
       )}
 
       {lectureMode === LECTURE_MODE.ADD_CONTENT && (
-        <VideoUploadForm handleBackToNormal={handleBackToNormal} sectionId={sectionId} lectureId={lectureItem.id} />
+        <VideoUploadForm
+          lectureVideo={videoWatch}
+          handleBackToNormal={handleBackToNormal}
+          sectionId={sectionId}
+          lectureId={lectureItem.id}
+        />
       )}
     </div>
   )
