@@ -1,30 +1,27 @@
 import { Button, Form, Upload } from 'antd'
 import { useForm } from 'antd/es/form/Form'
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { MdOutlineClose } from 'react-icons/md'
 import { IAsset, UpdateVideoForm } from '../../../../models/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 
-import styles from './VideoUploadForm.module.scss'
 import { BsUpload } from 'react-icons/bs'
-import axios from 'axios'
 
 interface IProps {
   sectionId: number
   lectureId: number
   handleBackToNormal: () => void
-  lectureVideo: IAsset | undefined
+  lectureVideoWatch: IAsset | undefined
 }
 
 const MAX_FILE_SIZE = 2000000000
 
-function VideoUploadForm({ sectionId, lectureId, handleBackToNormal }: IProps) {
-  const [fileList, setFileList] = useState<any>([])
+function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVideoWatch }: IProps) {
   const { handleUpdateLectureVideo } = useCourseManageContext()
 
   const [form] = useForm()
 
-  const handleFileUpload = (info) => {
+  const handleFileUpload = (info: any) => {
     // setFileList([info.file])
     // console.log(info)
     // const { file } = info
@@ -33,35 +30,31 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal }: IProps) {
     // console.log('zzzzz: ', percent)
 
     console.log(info)
-  }
 
-  const handleOnChange = (info) => {
-    // setShowupload(true)
-    const { status } = info.file
-    // if (status !== 'uploading') {
-    //   console.log(info.file, info.fileList)
-    // }
-    // if (status === 'done') {
-    //   message.success(`${info.file.name} file uploaded successfully.`)
-    //   setShowupload(false)
-    // } else if (status === 'error') {
-    //   message.error(`${info.file.name} file upload failed.`)
-    //   setShowupload(false)
-    // }
+    form.setFieldValue('fileList', info.fileList)
 
-    console.log('status: ', status)
+    console.log(info)
   }
 
   const handleSubmit = () => {
+    console.log(form.getFieldsValue())
     // console.log('hehe')
     const formData: UpdateVideoForm = {
       lecture_id: lectureId,
       section_id: sectionId,
-      video: fileList[0]
+      video: form.getFieldValue('fileList')
     }
 
     handleUpdateLectureVideo(formData)
   }
+
+  useEffect(() => {
+    if (lectureVideoWatch) {
+      form.setFieldValue('fileList', lectureVideoWatch)
+    }
+  }, [])
+
+  console.log(form.getFieldsError())
 
   console.log('form.getFieldsValue(): ', form.getFieldsValue())
 
@@ -72,59 +65,57 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal }: IProps) {
 
         <Form.Item
           style={{ marginTop: '16px' }}
-          name='videoFile'
-          valuePropName='fileList222'
-          getValueFromEvent={(event) => {
-            return event?.fileList
-          }}
+          name='fileList'
+          // valuePropName='fileList222'
+          // getValueFromEvent={(event) => {
+          //   return event?.fileList
+          // }}
           // initialValue={lectureVideo}
-          rules={[
-            {
-              required: true,
-              message: 'Please upload your lecture video'
-            },
-            {
-              validator(_, fileList) {
-                console.log('run validate')
-                return new Promise((resolve, reject) => {
-                  if (fileList && fileList[0].size > MAX_FILE_SIZE) {
-                    reject(`File size exceeded ${MAX_FILE_SIZE}`)
-                  } else {
-                    resolve('Success')
-                  }
-                })
-              }
-            }
-          ]}
+          shouldUpdate={true}
+          rules={
+            [
+              // {
+              //   required: true,
+              //   message: 'Please upload your lecture video'
+              // },
+              // {
+              //   validator(_, fileList) {
+              //     console.log('run validate')
+              //     return new Promise((resolve, reject) => {
+              //       if (fileList && fileList[0].size > MAX_FILE_SIZE) {
+              //         reject(`File size exceeded ${MAX_FILE_SIZE}`)
+              //       } else {
+              //         resolve('Success')
+              //       }
+              //     })
+              //   }
+              // }
+            ]
+          }
         >
           <Upload
             maxCount={1}
-            beforeUpload={(file) => {
-              return new Promise((resolve, reject) => {
-                if (file.size > MAX_FILE_SIZE) {
-                  reject(`File size exceeded ${MAX_FILE_SIZE}`)
-                } else {
-                  resolve('Success')
-                }
-              })
-            }}
+            // beforeUpload={(file) => {
+            //   return new Promise((resolve, reject) => {
+            //     if (file.size > MAX_FILE_SIZE) {
+            //       reject(`File size exceeded ${MAX_FILE_SIZE}`)
+            //     } else {
+            //       resolve('Success')
+            //     }
+            //   })
+            // }}
             showUploadList={false}
             customRequest={handleFileUpload}
-            onChange={handleOnChange}
-            // progress={{
-            //   format: (pervent) {
-
-            //     console.log(pervent)
-            //   }
-            // }}
           >
             <Button icon={<BsUpload />}>Click to upload video</Button>
 
-            <span style={{ marginLeft: '16px' }}>{fileList[0]?.name}</span>
+            <span style={{ marginLeft: '16px' }}>{form.getFieldValue('fileList')?.name ?? ''}</span>
           </Upload>
         </Form.Item>
 
-        <Button onClick={handleSubmit}>Upload</Button>
+        <Button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm uploadBtn' onClick={handleSubmit}>
+          {lectureVideoWatch ? 'Replace' : 'Upload'}
+        </Button>
         <div className='tabTitleContainer'>
           <span className='text ud-heading-sm'>Add Content</span>
           <button className='iconBtn' onClick={handleBackToNormal}>

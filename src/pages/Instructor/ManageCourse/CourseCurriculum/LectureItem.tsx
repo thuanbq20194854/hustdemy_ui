@@ -38,7 +38,7 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
     setLectureMode(LECTURE_MODE.NORMAL)
   }
 
-  const videoWatch = lectureItem.assets?.find((item) => item.type === 1)
+  const lectureVideoWatch = lectureItem.assets?.find((item) => item.type === 1)
 
   return (
     <div className={styles.lectureItemWrapper}>
@@ -166,7 +166,7 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
 
       {lectureMode === LECTURE_MODE.ADD_CONTENT && (
         <VideoUploadForm
-          lectureVideo={videoWatch}
+          lectureVideoWatch={lectureVideoWatch}
           handleBackToNormal={handleBackToNormal}
           sectionId={sectionId}
           lectureId={lectureItem.id}
