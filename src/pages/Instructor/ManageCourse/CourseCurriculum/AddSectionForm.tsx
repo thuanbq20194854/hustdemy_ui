@@ -1,12 +1,12 @@
-import { AiOutlinePlus } from 'react-icons/ai'
-import styles from './AddSectionForm.module.scss'
-import { useState } from 'react'
-import CustomInput from '../../components/CustomInput'
-import { ICreateSection } from '../../../../models/course'
-import { Controller, useForm } from 'react-hook-form'
-import { schemaCreateSection } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { AiOutlinePlus } from 'react-icons/ai'
+import { ICreateSection } from '../../../../models/course'
+import { schemaCreateSection } from '../../../../validators/course'
+import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
+import styles from './AddSectionForm.module.scss'
 
 function AddSectionForm() {
   const { handleAddSection } = useCourseManageContext()

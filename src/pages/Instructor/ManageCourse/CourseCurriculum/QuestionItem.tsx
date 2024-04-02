@@ -1,11 +1,10 @@
 import { FaBars } from 'react-icons/fa'
 import { MdDelete, MdEdit } from 'react-icons/md'
 
-import styles from './QuestionItem.module.scss'
+import { useBoolean } from '../../../../hooks/useBoolean'
 import { IQuestion } from '../../../../models/course'
 import DeleteQuestionItemModal from './DeleteQuestionItemModal'
-import { useState } from 'react'
-import { useBoolean } from '../../../../hooks/useBoolean'
+import styles from './QuestionItem.module.scss'
 
 interface IProps {
   handleQuestionEdit: () => void

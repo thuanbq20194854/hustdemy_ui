@@ -1,12 +1,10 @@
-import React from 'react'
-
-import styles from './EditSectionForm.module.scss'
-import CustomInput from '../../components/CustomInput'
-import { ISection, IUpdateSection } from '../../../../models/course'
-import { Controller, useForm } from 'react-hook-form'
-import { schemaUpdateSection } from '../../../../validators/course'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Controller, useForm } from 'react-hook-form'
+import { ISection, IUpdateSection } from '../../../../models/course'
+import { schemaUpdateSection } from '../../../../validators/course'
+import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
+import styles from './EditSectionForm.module.scss'
 
 interface IProps {
   handleSetSectionModeNormal: () => void

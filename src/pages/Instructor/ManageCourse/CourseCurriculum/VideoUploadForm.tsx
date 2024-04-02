@@ -1,6 +1,5 @@
 import { Button, Form, Upload } from 'antd'
-import { useForm } from 'antd/es/form/Form'
-import { useEffect } from 'react'
+import { useForm, useWatch } from 'antd/es/form/Form'
 import { MdOutlineClose } from 'react-icons/md'
 import { IAsset, UpdateVideoForm } from '../../../../models/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
@@ -14,49 +13,47 @@ interface IProps {
   lectureVideoWatch: IAsset | undefined
 }
 
-const MAX_FILE_SIZE = 2000000000
+interface IForm {
+  videoUpload: IUpload
+}
+
+interface IUpload {
+  file: File
+  fileList: FileList
+}
+
+const MAX_FILE_SIZE = 200000000000000
 
 function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVideoWatch }: IProps) {
-  const { handleUpdateLectureVideo } = useCourseManageContext()
+  const { handleUploadLectureVideo, handleReplaceLectureVideo } = useCourseManageContext()
 
-  const [form] = useForm()
+  const [form] = useForm<IForm>()
 
-  const handleFileUpload = (info: any) => {
-    // setFileList([info.file])
-    // console.log(info)
-    // const { file } = info
-    // const percent = Math.round((file?.percent || 0) * 100)
-    // console.log(info)
-    // console.log('zzzzz: ', percent)
+  const formWatch = useWatch([], form) ?? {}
 
-    console.log(info)
+  console.log('formWatch: ', formWatch)
 
-    form.setFieldValue('fileList', info.fileList)
+  console.log('form.getFieldsValue(): ', form.getFieldsValue())
 
-    console.log(info)
+  const handleFileUpload = () => {
+    return
   }
 
   const handleSubmit = () => {
-    console.log(form.getFieldsValue())
-    // console.log('hehe')
     const formData: UpdateVideoForm = {
       lecture_id: lectureId,
       section_id: sectionId,
-      video: form.getFieldValue('fileList')
+      video: form.getFieldValue('videoUpload').fileList
     }
 
-    handleUpdateLectureVideo(formData)
-  }
+    console.log('formData: ', formData)
 
-  useEffect(() => {
     if (lectureVideoWatch) {
-      form.setFieldValue('fileList', lectureVideoWatch)
+      handleReplaceLectureVideo(formData)
+    } else {
+      handleUploadLectureVideo(formData)
     }
-  }, [])
-
-  console.log(form.getFieldsError())
-
-  console.log('form.getFieldsValue(): ', form.getFieldsValue())
+  }
 
   return (
     <div className={'addContentWrapper'}>
@@ -65,51 +62,34 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
 
         <Form.Item
           style={{ marginTop: '16px' }}
-          name='fileList'
-          // valuePropName='fileList222'
-          // getValueFromEvent={(event) => {
-          //   return event?.fileList
-          // }}
-          // initialValue={lectureVideo}
+          name='videoUpload'
           shouldUpdate={true}
-          rules={
-            [
-              // {
-              //   required: true,
-              //   message: 'Please upload your lecture video'
-              // },
-              // {
-              //   validator(_, fileList) {
-              //     console.log('run validate')
-              //     return new Promise((resolve, reject) => {
-              //       if (fileList && fileList[0].size > MAX_FILE_SIZE) {
-              //         reject(`File size exceeded ${MAX_FILE_SIZE}`)
-              //       } else {
-              //         resolve('Success')
-              //       }
-              //     })
-              //   }
-              // }
-            ]
-          }
+          rules={[
+            {
+              required: true,
+              message: 'Please upload your lecture video'
+            },
+            {
+              validator(_, value) {
+                console.log('value: ', value)
+                return new Promise((resolve, reject) => {
+                  if (value && value.file.size > MAX_FILE_SIZE) {
+                    reject(`File size exceeded ${MAX_FILE_SIZE}`)
+                  } else {
+                    resolve('')
+                  }
+                })
+              }
+            }
+          ]}
+          help={form.getFieldError('videoUpload').length > 0 ? form.getFieldError('videoUpload') : undefined}
         >
-          <Upload
-            maxCount={1}
-            // beforeUpload={(file) => {
-            //   return new Promise((resolve, reject) => {
-            //     if (file.size > MAX_FILE_SIZE) {
-            //       reject(`File size exceeded ${MAX_FILE_SIZE}`)
-            //     } else {
-            //       resolve('Success')
-            //     }
-            //   })
-            // }}
-            showUploadList={false}
-            customRequest={handleFileUpload}
-          >
+          <Upload maxCount={1} showUploadList={false} customRequest={handleFileUpload}>
             <Button icon={<BsUpload />}>Click to upload video</Button>
 
-            <span style={{ marginLeft: '16px' }}>{form.getFieldValue('fileList')?.name ?? ''}</span>
+            <span style={{ marginLeft: '16px' }}>
+              {formWatch.videoUpload ? formWatch.videoUpload.fileList[0].name : ''}
+            </span>
           </Upload>
         </Form.Item>
 

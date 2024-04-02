@@ -1,7 +1,6 @@
 import CustomModal from '../../../../components/CustomModal/CustomModal'
 import { ILecture } from '../../../../models/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
-import LectureItem from './LectureItem'
 
 interface IProps {
   isOpen: boolean

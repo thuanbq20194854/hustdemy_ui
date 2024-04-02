@@ -1,8 +1,10 @@
-import styles from './AddQuestionForm.module.scss'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Radio } from 'antd'
+import TextArea from 'antd/es/input/TextArea'
+import { useEffect, useMemo } from 'react'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { MdDelete, MdOutlineClose } from 'react-icons/md'
 import TextEditor from '../../../../components/TextEditor/TextEditor'
-import { Radio } from 'antd'
-import CustomInput from '../../components/CustomInput'
 import {
   CreateAnswerForm,
   CreateQuestionForm,
@@ -10,12 +12,10 @@ import {
   UpdateAnswerForm,
   UpdateQuestionForm
 } from '../../../../models/course'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { useEffect, useMemo } from 'react'
 import { schemaCreateQuestionForm } from '../../../../validators/course'
-import { yupResolver } from '@hookform/resolvers/yup'
-import TextArea from 'antd/es/input/TextArea'
+import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
+import styles from './AddQuestionForm.module.scss'
 
 interface IProps {
   handleBackToPreviousMode: () => void

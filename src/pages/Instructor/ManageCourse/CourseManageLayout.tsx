@@ -1,18 +1,13 @@
-import React, { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import styles from './CourseManageLayout.module.scss'
 import { IoSettingsOutline } from 'react-icons/io5'
 import Footer from '../../../layouts/components/Footer'
-import CourseGoals from './CourseGoals/CourseGoals'
-import CourseCurriculum from './CourseCurriculum/CourseCurriculum'
-import CoursePricing from './CoursePricing/CoursePricing'
-import CourseBasics from './CourseBasics/CourseBasics'
-import CMSidebar from './CMSidebar'
-import { tabPaths } from './constant/CourseManage'
 import {
   CreateQuestionForm,
+  EAssetType,
+  ELectureType,
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
@@ -26,8 +21,15 @@ import {
   UpdateQuestionForm,
   UpdateVideoForm
 } from '../../../models/course'
-import { CourseManageProvider } from './context/CourseMangeContext'
 import { randomNumber } from '../../../utils/utils'
+import CMSidebar from './CMSidebar'
+import CourseBasics from './CourseBasics/CourseBasics'
+import CourseCurriculum from './CourseCurriculum/CourseCurriculum'
+import CourseGoals from './CourseGoals/CourseGoals'
+import styles from './CourseManageLayout.module.scss'
+import CoursePricing from './CoursePricing/CoursePricing'
+import { tabPaths } from './constant/CourseManage'
+import { CourseManageProvider } from './context/CourseMangeContext'
 
 const initCurriculum: ISection[] = [
   {
@@ -41,16 +43,14 @@ const initCurriculum: ISection[] = [
       {
         sectionId: 1,
         id: 1,
-        type: 'lecture',
+        type: ELectureType.Lecture,
         title: 'Hello world with C#',
         desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!'
       },
       {
         sectionId: 1,
-
         id: 2,
-        type: 'quiz',
-
+        type: ELectureType.Quiz,
         title: 'Mini Test Quiz  Revision',
         desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
         questions: [
@@ -374,8 +374,89 @@ function CourseManageLayout() {
     setSections(updateSections)
   }
 
-  const handleUpdateLectureVideo = (updateVideoForm: UpdateVideoForm) => {
-    console.log(updateVideoForm)
+  const handleUploadLectureVideo = (updateVideoForm: UpdateVideoForm) => {
+    // API then receiver all info for updated Asset
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === updateVideoForm.section_id) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === updateVideoForm.lecture_id) {
+            return {
+              ...lectureItem,
+              assets: [
+                ...(lectureItem.assets ?? []),
+                {
+                  id: Math.random(),
+                  bunnyID: Math.random() + 1 + '',
+                  url: '',
+                  type: EAssetType.VideoWatch,
+                  duration: 5,
+                  name: updateVideoForm.video[0].name,
+                  size: updateVideoForm.video[0].size,
+                  lecture_id: updateVideoForm.lecture_id,
+                  updated_at: new Date().toISOString(),
+                  created_at: new Date().toISOString()
+                }
+              ]
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleReplaceLectureVideo = (updateVideoForm: UpdateVideoForm) => {
+    // API then receiver all info for updated Asset
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === updateVideoForm.section_id) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === updateVideoForm.lecture_id) {
+            return {
+              ...lectureItem,
+              assets: (lectureItem.assets ?? []).map((assetItem) => {
+                if (assetItem.type === EAssetType.Resource) {
+                  return {
+                    id: Math.random(),
+                    bunnyID: Math.random() + 1 + '',
+                    url: '',
+                    type: EAssetType.Resource,
+                    duration: 5,
+                    name: updateVideoForm.video[0].name,
+                    size: updateVideoForm.video[0].size,
+                    lecture_id: updateVideoForm.lecture_id,
+                    updated_at: new Date().toISOString(),
+                    created_at: new Date().toISOString()
+                  }
+                }
+
+                return assetItem
+              })
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
   }
 
   return (
@@ -422,7 +503,8 @@ function CourseManageLayout() {
               handleAddQuestion,
               handleUpdateQuestion,
               handleDeleteQuestion,
-              handleUpdateLectureVideo
+              handleUploadLectureVideo,
+              handleReplaceLectureVideo
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}

@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoMdClose } from 'react-icons/io'
 
-import styles from './AddNewCurriculumItem.module.scss'
 import CustomInput from '../../components/CustomInput'
-import { ICreateQuiz } from '../../../../models/course'
+import styles from './AddNewCurriculumItem.module.scss'
 import AddQuizForm from './AddQuizForm'
 
 interface IProps {

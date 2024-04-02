@@ -5,7 +5,7 @@ import { MdDelete, MdEdit } from 'react-icons/md'
 import styles from './SectionItem.module.scss'
 
 import { useBoolean } from '../../../../hooks/useBoolean'
-import { ISection } from '../../../../models/course'
+import { ELectureType, ISection } from '../../../../models/course'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
 import DeleteSectionItemModal from './DeleteSectionItemModal'
 import EditSectionForm from './EditSectionForm'
@@ -19,7 +19,7 @@ interface IProps {
 }
 
 function SectionItem({ section, index }: IProps) {
-  const [isOpenModal, handleCommandModal, handleOpenModal, handleCloseModal] = useBoolean()
+  const [isOpenModal, handleCommandModal, handleOpenModal] = useBoolean()
   const SECTION_MODE = {
     NORMAL: 0,
     EDIT: 2
@@ -77,7 +77,7 @@ function SectionItem({ section, index }: IProps) {
       {/* Map Lecturers (LectureItem / QuestionItem) */}
 
       {section.lectures.map((lectureItem) => {
-        if (lectureItem.type === 'quiz') {
+        if (lectureItem.type === ELectureType.Quiz) {
           quizCount++
 
           return (
@@ -90,7 +90,7 @@ function SectionItem({ section, index }: IProps) {
             />
           )
         }
-        if (lectureItem.type === 'lecture') {
+        if (lectureItem.type === ELectureType.Lecture) {
           lectureCount++
 
           return <LectureItem sectionId={section.id} lectureItem={lectureItem} key={lectureItem.id} />

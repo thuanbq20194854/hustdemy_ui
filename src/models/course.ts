@@ -21,7 +21,7 @@ export interface IDeleteSection {
 export interface ILecture {
   sectionId: number
   id: number
-  type: string
+  type: number
   title: string
   desc?: string | null
   questions?: IQuestion[]
@@ -48,7 +48,7 @@ export interface IAsset {
 
 export interface ICreateQuiz {
   sectionId: number
-  type: string
+  type: number
   title: string
   desc?: string | null
 }
@@ -56,7 +56,7 @@ export interface ICreateQuiz {
 export interface IUpdateQuiz {
   id: number
   sectionId: number
-  type: string
+  type: number
   title: string
   desc?: string | null
 }
@@ -119,13 +119,13 @@ export interface IDeleteQuestion {
 export interface ICreateLecure {
   id: number
   sectionId: string
-  type: string
+  type: number
   title: string
 }
 export interface IUpdateLecure {
   id: number
   sectionId: number
-  type: string
+  type: number
   title: string
 }
 
@@ -138,4 +138,20 @@ export interface UpdateVideoForm {
   section_id: number
   lecture_id: number
   video: FileList
+}
+
+export interface UpdateResource {
+  curriculum_id: number
+  lecture_id: number
+  resource: FileList
+}
+
+export enum ELectureType {
+  Quiz = 1,
+  Lecture = 2
+}
+
+export enum EAssetType {
+  VideoWatch = 1,
+  Resource = 2
 }

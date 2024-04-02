@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import CustomInput from '../../components/CustomInput'
+import { useEffect, useState } from 'react'
 import TextEditor from '../../../../components/TextEditor/TextEditor'
-import { IUpdateQuiz, ILecture } from '../../../../models/course'
+import { ELectureType, ILecture, IUpdateQuiz } from '../../../../models/course'
+import CustomInput from '../../components/CustomInput'
 
-import styles from './AddQuizForm.module.scss'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { IoCheckmarkCircle } from 'react-icons/io5'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaUpdateQuiz } from '../../../../validators/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
+import styles from './AddQuizForm.module.scss'
 
 interface IProps {
   sectionId: number
@@ -28,7 +28,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
       desc: quizEdit?.desc,
       sectionId: sectionId,
       title: quizEdit?.title,
-      type: 'quiz'
+      type: ELectureType.Quiz
     },
     resolver: yupResolver(schemaUpdateQuiz)
   })
