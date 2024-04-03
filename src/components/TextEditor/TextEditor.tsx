@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useQuill } from 'react-quilljs'
 // or const { useQuill } = require('react-quilljs');
 
 import 'quill/dist/quill.snow.css' // Add css for snow theme
-// or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
+// import 'quill/dist/quill.bubble.css' // Add css for bubble theme
 
 import styles from './TextEditor.module.scss'
 
@@ -14,12 +14,12 @@ const toolBarStandard = [
   [{ list: 'ordered' }, { list: 'bullet' }]
 ]
 
-const toolBarImage = [
-  [{ header: [1, 2, 3, 4, false] }],
-  ['bold', 'italic', 'underline'],
-  [{ list: 'ordered' }, { list: 'bullet' }],
-  ['link', 'image']
-]
+// const toolBarImage = [
+//   [{ header: [1, 2, 3, 4, false] }],
+//   ['bold', 'italic', 'underline'],
+//   [{ list: 'ordered' }, { list: 'bullet' }],
+//   ['link', 'image']
+// ]
 
 interface IProps {
   customToolBar?: Array<any>
@@ -27,7 +27,7 @@ interface IProps {
   className?: string
 
   defaultValue: string
-  handleHTMLChange?: (html: string) => void
+  handleHTMLChange?: (html: string, textOnly?: string) => void
   handleTextOnlyChange?: (text: string) => void
 }
 
@@ -49,13 +49,11 @@ function TextEditor({
   // console.log(quill) // undefined > Quill Object
   // console.log(quillRef) // { current: undefined } > { current: Quill Editor Reference }
 
-  React.useEffect(() => {
-    // if (quill) {
-    //   quill.clipboard.dangerouslyPasteHTML('<h1>React Hook for Quill!</h1>')
-    // }
-
+  useEffect(() => {
     if (quill) {
       const delta = quill.clipboard.convert(defaultValue)
+
+      // console.log(delta)
       quill.setContents(delta)
       quill.on('text-change', (delta, oldDelta, source) => {
         if (handleHTMLChange) {
@@ -64,6 +62,7 @@ function TextEditor({
         if (handleTextOnlyChange) {
           handleTextOnlyChange(quill.getText())
         }
+
         // console.log('Text change!')
 
         // console.log('quill.getText(): ', quill.getText()) // Get text only
@@ -76,7 +75,7 @@ function TextEditor({
 
   return (
     <div className={`${styles.textEditorWrapper} ${className}`}>
-      <div ref={quillRef} />
+      <div ref={quillRef} style={{ fontSize: '16px' }} />
     </div>
   )
 }

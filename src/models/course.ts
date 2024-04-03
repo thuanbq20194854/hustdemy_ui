@@ -155,3 +155,9 @@ export enum EAssetType {
   VideoWatch = 1,
   Resource = 2
 }
+
+export interface UpdateLectureDesc {
+  section_id: number
+  lecture_id: number
+  description?: string
+}

@@ -9,6 +9,7 @@ import {
   IUpdateQuiz,
   IUpdateSection,
   UpdateAnswerForm,
+  UpdateLectureDesc,
   UpdateQuestionForm,
   UpdateVideoForm
 } from '../../../../models/course'
@@ -26,6 +27,7 @@ interface CourseManageContextProps {
   handleDeleteQuestion: (questionItem: IDeleteQuestion) => void
   handleUploadLectureVideo: (data: UpdateVideoForm) => void
   handleReplaceLectureVideo: (data: UpdateVideoForm) => void
+  handleUpdateLectureDesc: (formData: UpdateLectureDesc) => void
   sections: ISection[]
 }
 2

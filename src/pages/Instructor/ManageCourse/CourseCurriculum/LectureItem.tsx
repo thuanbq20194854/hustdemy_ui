@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 // 1. Normal 2 Show 3. Add/Select/Loading Recourse 4. Add/Select/Loading Content
 
@@ -9,7 +9,8 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md'
 import { SlControlPlay } from 'react-icons/sl'
-import { ILecture } from '../../../../models/course'
+import { EAssetType, ILecture } from '../../../../models/course'
+import LectureDescriptionForm from './LectureDescriptionForm'
 import styles from './LectureItem.module.scss'
 import VideoUploadForm from './VideoUploadForm'
 
@@ -34,11 +35,15 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
 
   const [open, setOpen] = useState(false)
 
+  const lectureDescFormRef = useRef(null)
+
   const handleBackToNormal = () => {
     setLectureMode(LECTURE_MODE.NORMAL)
   }
 
-  const lectureVideoWatch = lectureItem.assets?.find((item) => item.type === 1)
+  const lectureVideoWatch = lectureItem.assets?.find((item) => item.type === EAssetType.VideoWatch)
+
+  console.log('lectureVideoWatch: ', lectureVideoWatch)
 
   return (
     <div className={styles.lectureItemWrapper}>
@@ -92,32 +97,36 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
       {lectureMode === LECTURE_MODE.NORMAL && open && (
         <div className='showWrapper'>
           <div className='contentContainer'>
-            <div className='lectureHeader'>
-              <div className='imgContainer'>
-                <img
-                  src='<img lazy="load" src="https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" srcset="https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=150&amp;lazy=load 150w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=300&amp;lazy=load 300w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400&amp;lazy=load 400w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=600&amp;lazy=load 600w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;lazy=load 800w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200&amp;lazy=load 1200w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load 1600w" sizes="(max-width: 650px) calc((100vw - 45px) / 2), (max-width: 900px) calc((100vw - 45px) / 2), (max-width: 1440px) calc((100vw - 100px) / 3), (max-width: 1600px) calc((100vw - 200px) / 3), calc((1600px - 200px) / 3)" alt="Miễn phí Thanh Thản Ảnh lưu trữ" class="spacing_noMargin__Q_PsJ MediaCard_image__ljFAl">'
-                  alt=''
-                />
-              </div>
+            {lectureVideoWatch && (
+              <div className='lectureHeader'>
+                <div className='imgContainer'>
+                  <img
+                    src='<img lazy="load" src="https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" srcset="https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=150&amp;lazy=load 150w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=300&amp;lazy=load 300w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400&amp;lazy=load 400w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=600&amp;lazy=load 600w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;lazy=load 800w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200&amp;lazy=load 1200w, https://images.pexels.com/photos/20451076/pexels-photo-20451076/free-photo-of-thanh-th-n.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load 1600w" sizes="(max-width: 650px) calc((100vw - 45px) / 2), (max-width: 900px) calc((100vw - 45px) / 2), (max-width: 1440px) calc((100vw - 100px) / 3), (max-width: 1600px) calc((100vw - 200px) / 3), calc((1600px - 200px) / 3)" alt="Miễn phí Thanh Thản Ảnh lưu trữ" class="spacing_noMargin__Q_PsJ MediaCard_image__ljFAl">'
+                    alt=''
+                  />
+                </div>
 
-              <div className='lectureInfo'>
-                <div className='fileName ud-heading-md'>production_id_5120413 (1080p).mp4</div>
-                <div className='timeLength'>00:07</div>
-                <button
-                  className='editContentBtn ud-btn ud-btn-link ud-text-md'
-                  onClick={() => setLectureMode(LECTURE_MODE.ADD_CONTENT)}
-                >
-                  <MdEdit />
-                  <span>Edit Content</span>
-                </button>
+                <div className='lectureInfo'>
+                  <div className='fileName ud-heading-md'>{lectureVideoWatch.name}</div>
+                  <div className='timeLength'>{lectureVideoWatch.duration}</div>
+                  <button
+                    className='editContentBtn ud-btn ud-btn-link ud-text-md'
+                    onClick={() => setLectureMode(LECTURE_MODE.ADD_CONTENT)}
+                  >
+                    <MdEdit />
+                    <span>Edit Content</span>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className='lectureSetting'></div>
           </div>
-          <div className='descContainer'>
-            <div className='descInner'>Description DescriptionDescriptionDescriptionDescription</div>
-          </div>
+
+          {lectureItem.desc && (
+            <LectureDescriptionForm ref={lectureDescFormRef} lectureItem={lectureItem} sectionId={sectionId} />
+          )}
+
           <div className='materialContainer'>
             <div className='materialTitle ud-heading-sm'>Downloadable materials</div>
             <div className='materialItem'>
@@ -132,10 +141,12 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
           </div>
 
           <div className='btnRegion'>
-            <button className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'>
-              <AiOutlinePlus size={16} className='plusIcon' />
-              <span>Description</span>
-            </button>
+            {!lectureItem.desc && (
+              <button className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'>
+                <AiOutlinePlus size={16} className='plusIcon' />
+                <span>Description</span>
+              </button>
+            )}
             <button className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'>
               <AiOutlinePlus size={16} className='plusIcon' />
               <span>Resources</span>

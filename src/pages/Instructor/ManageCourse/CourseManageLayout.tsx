@@ -18,6 +18,7 @@ import {
   IUpdateQuiz,
   IUpdateSection,
   UpdateAnswerForm,
+  UpdateLectureDesc,
   UpdateQuestionForm,
   UpdateVideoForm
 } from '../../../models/course'
@@ -45,14 +46,14 @@ const initCurriculum: ISection[] = [
         id: 1,
         type: ELectureType.Lecture,
         title: 'Hello world with C#',
-        desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!'
+        desc: '<p>Description test 123123123123123232</p> '
       },
       {
         sectionId: 1,
         id: 2,
         type: ELectureType.Quiz,
         title: 'Mini Test Quiz  Revision',
-        desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, commodi!',
+        desc: '<h2>Description test 123123123123123232</h2> ',
         questions: [
           {
             lectureId: 2,
@@ -291,21 +292,6 @@ function CourseManageLayout() {
         const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
           if (lectureItem.id === updateQuestionFormData.lectureID) {
             const newQuestionId = randomNumber()
-            // const updatedQuestions = [
-            //   ...(lectureItem.questions as IQuestion[]),
-            //   {
-            //     id: newQuestionId,
-            //     question_text: updateQuestionFormData.question_text,
-            //     answers: data.answers.map((answerItem, index) => ({
-            //       id: randomNumber(),
-            //       answer_text: answerItem.answer_text,
-            //       explain: answerItem.explain,
-            //       is_correct: index === +data.indexOfCorrectAnswer,
-            //       question_id: newQuestionId
-            //     })),
-            //     lectureId: data.lectureID
-            //   }
-            // ]
 
             const updatedQuestions = (lectureItem.questions ?? []).map((questionItem: IQuestion) => {
               if (questionItem.id === updateQuestionFormData.id) {
@@ -424,12 +410,12 @@ function CourseManageLayout() {
             return {
               ...lectureItem,
               assets: (lectureItem.assets ?? []).map((assetItem) => {
-                if (assetItem.type === EAssetType.Resource) {
+                if (assetItem.type === EAssetType.VideoWatch) {
                   return {
                     id: Math.random(),
                     bunnyID: Math.random() + 1 + '',
                     url: '',
-                    type: EAssetType.Resource,
+                    type: EAssetType.VideoWatch,
                     duration: 5,
                     name: updateVideoForm.video[0].name,
                     size: updateVideoForm.video[0].size,
@@ -441,6 +427,34 @@ function CourseManageLayout() {
 
                 return assetItem
               })
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  const handleUpdateLectureDesc = (formData: UpdateLectureDesc) => {
+    /// API
+
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === formData.section_id) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === formData.lecture_id) {
+            return {
+              ...lectureItem,
+              desc: formData.description
             }
           }
 
@@ -504,7 +518,8 @@ function CourseManageLayout() {
               handleUpdateQuestion,
               handleDeleteQuestion,
               handleUploadLectureVideo,
-              handleReplaceLectureVideo
+              handleReplaceLectureVideo,
+              handleUpdateLectureDesc
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}
