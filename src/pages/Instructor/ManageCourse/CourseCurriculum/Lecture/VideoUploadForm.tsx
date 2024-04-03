@@ -1,8 +1,8 @@
 import { Button, Form, Upload } from 'antd'
 import { useForm, useWatch } from 'antd/es/form/Form'
 import { MdOutlineClose } from 'react-icons/md'
-import { IAsset, UpdateVideoForm } from '../../../../models/course'
-import { useCourseManageContext } from '../context/CourseMangeContext'
+import { IAsset, UpdateVideoForm } from '../../../../../models/course'
+import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 import { BsUpload } from 'react-icons/bs'
 
@@ -53,6 +53,8 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
     } else {
       handleUploadLectureVideo(formData)
     }
+
+    handleBackToNormal()
   }
 
   return (
@@ -84,7 +86,7 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
           ]}
           help={form.getFieldError('videoUpload').length > 0 ? form.getFieldError('videoUpload') : undefined}
         >
-          <Upload maxCount={1} showUploadList={false} customRequest={handleFileUpload}>
+          <Upload className='uploadBtnAntd' maxCount={1} showUploadList={false} customRequest={handleFileUpload}>
             <Button icon={<BsUpload />}>Click to upload video</Button>
 
             <span style={{ marginLeft: '16px' }}>
@@ -93,7 +95,7 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
           </Upload>
         </Form.Item>
 
-        <Button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm uploadBtn' onClick={handleSubmit}>
+        <Button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm submitBtn' onClick={handleSubmit}>
           {lectureVideoWatch ? 'Replace' : 'Upload'}
         </Button>
         <div className='tabTitleContainer'>

@@ -141,7 +141,7 @@ export interface UpdateVideoForm {
 }
 
 export interface UpdateResource {
-  curriculum_id: number
+  section_id: number
   lecture_id: number
   resource: FileList
 }
@@ -160,4 +160,10 @@ export interface UpdateLectureDesc {
   section_id: number
   lecture_id: number
   description?: string
+}
+
+export interface IDeleteResource {
+  section_id: number
+  lecture_id: number
+  resource_id: number
 }

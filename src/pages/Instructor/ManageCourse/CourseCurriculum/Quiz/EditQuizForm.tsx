@@ -1,33 +1,36 @@
-import TextEditor from '../../../../components/TextEditor/TextEditor'
-import { ELectureType, ICreateQuiz } from '../../../../models/course'
-import CustomInput from '../../components/CustomInput'
-import { ADD_CURRICULUM_ITEM_MODE } from './AddNewCurriculumItem'
+import { useEffect, useState } from 'react'
+import TextEditor from '../../../../../components/TextEditor/TextEditor'
+import { ELectureType, ILecture, IUpdateQuiz } from '../../../../../models/course'
+import CustomInput from '../../../components/CustomInput'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
-import { schemaCreateQuiz } from '../../../../validators/course'
-import { useCourseManageContext } from '../context/CourseMangeContext'
+import { IoCheckmarkCircle } from 'react-icons/io5'
+import { schemaUpdateQuiz } from '../../../../../validators/course'
+import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuizForm.module.scss'
 
 interface IProps {
   sectionId: number
-  setAddCurriculumMode: React.Dispatch<React.SetStateAction<number>>
+
+  quizEdit: ILecture
+  index: number | null
   handleNormalMode: () => void
 }
 
-function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IProps) {
-  const { handleAddQuiz } = useCourseManageContext()
-
+function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) {
+  const { handleUpdateQuiz } = useCourseManageContext()
   const customToolBar = [['bold', 'italic']]
 
-  const methods = useForm<ICreateQuiz>({
+  const methods = useForm<IUpdateQuiz>({
     defaultValues: {
-      desc: '',
+      id: quizEdit.id,
+      desc: quizEdit?.desc,
       sectionId: sectionId,
-      title: '',
+      title: quizEdit?.title,
       type: ELectureType.Quiz
     },
-    resolver: yupResolver(schemaCreateQuiz)
+    resolver: yupResolver(schemaUpdateQuiz)
   })
 
   const {
@@ -37,8 +40,16 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
     control
   } = methods
 
-  const handleSaveForm = (formData: ICreateQuiz) => {
-    handleAddQuiz(formData)
+  const [questionEditing, setQuestionEditing] = useState<ILecture | null>(quizEdit)
+
+  useEffect(() => {
+    return () => {
+      setQuestionEditing(null)
+    }
+  }, [])
+
+  const handleSaveForm = (formData: IUpdateQuiz) => {
+    handleUpdateQuiz(formData)
     handleNormalMode()
   }
 
@@ -48,9 +59,19 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
 
   return (
     <div className={styles.addLectureWrapper}>
-      <div className='labelWrapper'>
-        <span>New Quiz:</span>
-      </div>
+      {questionEditing ? (
+        <>
+          <div className='iconContainer'>
+            <IoCheckmarkCircle />
+          </div>
+
+          <div className='quizLabel'>Quiz {index}:</div>
+        </>
+      ) : (
+        <div className='labelWrapper'>
+          <span>New Quiz:</span>
+        </div>
+      )}
 
       <form className='formEdit' onSubmit={handleSubmit(handleSaveForm)}>
         <Controller
@@ -68,7 +89,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
         {errors.title && <span className='ud-form-note'>{errors.title.message}</span>}
 
         <TextEditor
-          defaultValue=''
+          defaultValue={quizEdit.desc ?? ''}
           className='textEditor'
           customToolBar={customToolBar}
           handleHTMLChange={handleHTMLChange}
@@ -77,13 +98,13 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
         <div className='btnsContainer'>
           <button
             className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-            onClick={() => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)}
+            // onClick={() => setAddCurriculumMode && setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)}
           >
             <span>Cancle</span>
           </button>
 
           <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm' type='submit'>
-            <span>Add Quiz</span>
+            <span>Save Quiz</span>
           </button>
         </div>
       </form>
@@ -91,4 +112,4 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
   )
 }
 
-export default AddQuizForm
+export default EditQuizForm

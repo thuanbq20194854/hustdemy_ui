@@ -1,6 +1,6 @@
-import CustomModal from '../../../../components/CustomModal/CustomModal'
-import { IDeleteQuestion, IQuestion } from '../../../../models/course'
-import { useCourseManageContext } from '../context/CourseMangeContext'
+import CustomModal from '../../../../../components/CustomModal/CustomModal'
+import { IDeleteQuestion, IQuestion } from '../../../../../models/course'
+import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
   questionItem: IQuestion

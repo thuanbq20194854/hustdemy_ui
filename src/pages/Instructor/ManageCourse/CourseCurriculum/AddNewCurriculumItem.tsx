@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io'
 
 import CustomInput from '../../components/CustomInput'
 import styles from './AddNewCurriculumItem.module.scss'
-import AddQuizForm from './AddQuizForm'
+import AddQuizForm from './Quiz/AddQuizForm'
 
 interface IProps {
   sectionId: number

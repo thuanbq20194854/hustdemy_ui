@@ -9,8 +9,8 @@ import { ELectureType, ISection } from '../../../../models/course'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
 import DeleteSectionItemModal from './DeleteSectionItemModal'
 import EditSectionForm from './EditSectionForm'
-import LectureItem from './LectureItem'
-import QuizItem from './QuizItem'
+import LectureItem from './Lecture/LectureItem'
+import QuizItem from './Quiz/QuizItem'
 
 interface IProps {
   section: ISection

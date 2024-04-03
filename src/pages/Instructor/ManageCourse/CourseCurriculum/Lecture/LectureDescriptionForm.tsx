@@ -1,12 +1,13 @@
-import { forwardRef, useImperativeHandle, useState } from 'react'
-import TextEditor from '../../../../components/TextEditor/TextEditor'
-import { ILecture, UpdateLectureDesc } from '../../../../models/course'
-import { UseFormWatch, useForm } from 'react-hook-form'
-import { useCourseManageContext } from '../context/CourseMangeContext'
+import { useForm } from 'react-hook-form'
+import { MdOutlineClose } from 'react-icons/md'
+import TextEditor from '../../../../../components/TextEditor/TextEditor'
+import { ILecture, UpdateLectureDesc } from '../../../../../models/course'
+import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
   lectureItem: ILecture
   sectionId: number
+  handleBackToNormal: () => void
 }
 
 const customToolbar = [
@@ -15,13 +16,7 @@ const customToolbar = [
   [{ list: 'ordered' }, { list: 'bullet' }]
 ]
 
-interface ILectureDescriptionFormRef {
-  watch: UseFormWatch<UpdateLectureDesc>
-}
-
-const LectureDescriptionForm = ({ lectureItem, sectionId }: IProps, ref: React.Ref<ILectureDescriptionFormRef>) => {
-  const [editingDesc, setEditingDesc] = useState<boolean>(false)
-
+const LectureDescriptionForm = ({ lectureItem, sectionId, handleBackToNormal }: IProps) => {
   const { handleUpdateLectureDesc } = useCourseManageContext()
 
   const {
@@ -40,6 +35,7 @@ const LectureDescriptionForm = ({ lectureItem, sectionId }: IProps, ref: React.R
   const handleSaveDescription = (formData: UpdateLectureDesc) => {
     console.log('formData :', formData)
     handleUpdateLectureDesc(formData)
+    handleBackToNormal()
   }
 
   const handleOnChangeDescription = (htmlString: string) => {
@@ -52,30 +48,10 @@ const LectureDescriptionForm = ({ lectureItem, sectionId }: IProps, ref: React.R
     setValue('description', htmlString)
   }
 
-  useImperativeHandle(ref, () => {
-    return {
-      watch: watch
-    }
-  })
-
   return (
-    <form onSubmit={handleSubmit(handleSaveDescription)}>
-      <div className='descContainer'>
-        {lectureItem.desc && (
-          <div className='ud-heading-sm' style={{ paddingBottom: '8px' }}>
-            Lecture Description
-          </div>
-        )}
-        {!editingDesc && (
-          <div
-            aria-hidden='true'
-            onClick={() => setEditingDesc(true)}
-            className='desc-text'
-            dangerouslySetInnerHTML={{ __html: watch('description') ?? '' }}
-          />
-        )}
-
-        <div className='textEdtiorContainer ' style={{ display: editingDesc ? '' : 'none' }}>
+    <div className='lectureDescFormWrapper'>
+      <form onSubmit={handleSubmit(handleSaveDescription)}>
+        <div className='descContainer'>
           <TextEditor
             customToolBar={customToolbar}
             defaultValue={watch('description') ?? ''}
@@ -84,7 +60,7 @@ const LectureDescriptionForm = ({ lectureItem, sectionId }: IProps, ref: React.R
           <div className='buttonContainer' style={{ marginTop: '16px' }}>
             <button
               className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-              onClick={() => setEditingDesc(false)}
+              onClick={handleBackToNormal}
             >
               Cancle
             </button>
@@ -93,9 +69,16 @@ const LectureDescriptionForm = ({ lectureItem, sectionId }: IProps, ref: React.R
             </button>
           </div>
         </div>
+      </form>
+
+      <div className='tabTitleContainer'>
+        <span className='text ud-heading-sm'>Type Lecture Description</span>
+        <button className='iconBtn' onClick={handleBackToNormal}>
+          <MdOutlineClose />
+        </button>
       </div>
-    </form>
+    </div>
   )
 }
 
-export default forwardRef(LectureDescriptionForm)
+export default LectureDescriptionForm

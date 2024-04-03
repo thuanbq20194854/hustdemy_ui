@@ -207,6 +207,107 @@
         }
       }
     }
+
+    .lectureDescFormWrapper {
+      padding: 8px;
+      border: 1px solid #6a6f73;
+      border-top: 0;
+
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+
+      form {
+        width: 100%;
+
+        .descContainer {
+        }
+      }
+
+      .tabTitleContainer {
+        position: absolute;
+        bottom: 100%;
+        right: 3.2rem;
+        max-width: 90%;
+        border: 1px solid #6a6f73;
+        border-bottom: 1px solid white;
+
+        padding: 0.8rem;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .iconBtn {
+          font-size: 20px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .lectureResourceFormWrapper {
+      padding: 8px;
+      border: 1px solid #6a6f73;
+      border-top: 0;
+
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+
+      form {
+        width: 100%;
+
+        .uploadBtnAntd {
+          .ant-btn {
+            border-radius: 0px;
+          }
+          .ant-btn:hover {
+            color: var(--color-purple-300);
+            border-color: var(--color-purple-300);
+            background: #ffffff;
+          }
+        }
+
+        .submitBtn {
+          border-radius: 0px;
+
+          color: white;
+          background-color: black;
+        }
+
+        .submitBtn:hover {
+          background-color: var(--color-gray-400);
+          color: var(--color-white);
+        }
+      }
+
+      .tabTitleContainer {
+        position: absolute;
+        bottom: 100%;
+        right: 3.2rem;
+        max-width: 90%;
+        border: 1px solid #6a6f73;
+        border-bottom: 1px solid white;
+
+        padding: 0.8rem;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .iconBtn {
+          font-size: 20px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+    }
+
     .selectContentTypeWrapper {
       padding: 8px;
       border: 1px solid #6a6f73;
@@ -303,12 +404,25 @@
       .formAntd {
         width: 100%;
 
-        .ant-btn {
-          border-radius: 0px;
-          border: 1px solid #6a6f73;
+        .uploadBtnAntd {
+          .ant-btn {
+            border-radius: 0px;
+          }
+          .ant-btn:hover {
+            color: var(--color-purple-300);
+            border-color: var(--color-purple-300);
+            background: #ffffff;
+          }
         }
 
-        .uploadBtn:hover {
+        .submitBtn {
+          border-radius: 0px;
+
+          color: white;
+          background-color: black;
+        }
+
+        .submitBtn:hover {
           background-color: var(--color-gray-400);
           color: var(--color-white);
         }

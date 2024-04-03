@@ -1,17 +1,18 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 // 1. Normal 2 Show 3. Add/Select/Loading Recourse 4. Add/Select/Loading Content
 
 import { AiOutlinePlus } from 'react-icons/ai'
 import { GoFile } from 'react-icons/go'
-import { HiOutlineFolderDownload } from 'react-icons/hi'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md'
 import { SlControlPlay } from 'react-icons/sl'
-import { EAssetType, ILecture } from '../../../../models/course'
+import { EAssetType, IAsset, ILecture } from '../../../../../models/course'
 import LectureDescriptionForm from './LectureDescriptionForm'
 import styles from './LectureItem.module.scss'
+import LectureResourceForm from './LectureResourceForm'
+import ResourceItem from './ResourceItem'
 import VideoUploadForm from './VideoUploadForm'
 
 const LECTURE_MODE = {
@@ -22,7 +23,9 @@ const LECTURE_MODE = {
   SELECT_CONTENT_TYPE: 5,
   ADD_RESOURCE: 6,
   UPLOAD_RESOURCE: 7,
-  SELECT_RESOURCE_TYPE: 8
+  SELECT_RESOURCE_TYPE: 8,
+  OPEN_DESC: 9,
+  OPEN_RESOURCE: 10
 }
 
 interface IProps {
@@ -35,15 +38,13 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
 
   const [open, setOpen] = useState(false)
 
-  const lectureDescFormRef = useRef(null)
-
   const handleBackToNormal = () => {
     setLectureMode(LECTURE_MODE.NORMAL)
   }
 
   const lectureVideoWatch = lectureItem.assets?.find((item) => item.type === EAssetType.VideoWatch)
 
-  console.log('lectureVideoWatch: ', lectureVideoWatch)
+  // console.log('lectureVideoWatch: ', lectureVideoWatch)
 
   return (
     <div className={styles.lectureItemWrapper}>
@@ -124,35 +125,67 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
           </div>
 
           {lectureItem.desc && (
-            <LectureDescriptionForm ref={lectureDescFormRef} lectureItem={lectureItem} sectionId={sectionId} />
+            <div className='descContainer'>
+              <div className='ud-heading-sm' style={{ paddingBottom: '8px' }}>
+                Lecture Description
+              </div>
+              <div
+                aria-hidden='true'
+                onClick={() => setLectureMode(LECTURE_MODE.OPEN_DESC)}
+                className='desc-text'
+                dangerouslySetInnerHTML={{ __html: lectureItem.desc ?? '' }}
+              />
+            </div>
           )}
 
-          <div className='materialContainer'>
-            <div className='materialTitle ud-heading-sm'>Downloadable materials</div>
-            <div className='materialItem'>
-              <div className='iconContainer'>
-                <HiOutlineFolderDownload />
-              </div>
-              <div className='materialItem--fileName'>Screenshot 2024-03-05 001222.png {`12.4kB`}</div>
-              <button className='iconContainer deleteContainer'>
-                <MdDelete />
-              </button>
+          {(lectureItem.assets ?? []).length > 0 && (
+            <div className='materialContainer'>
+              <div className='materialTitle ud-heading-sm'>Downloadable materials</div>
+
+              {lectureItem.assets
+                ?.filter((item) => (item.type = EAssetType.Resource))
+                .map((resourceItem: IAsset) => (
+                  <ResourceItem
+                    key={resourceItem.id}
+                    resourceItem={resourceItem}
+                    sectionId={sectionId}
+                    lectureId={lectureItem.id}
+                  />
+                ))}
             </div>
-          </div>
+          )}
 
           <div className='btnRegion'>
             {!lectureItem.desc && (
-              <button className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'>
+              <button
+                className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
+                onClick={() => setLectureMode(LECTURE_MODE.OPEN_DESC)}
+              >
                 <AiOutlinePlus size={16} className='plusIcon' />
                 <span>Description</span>
               </button>
             )}
-            <button className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'>
+            <button
+              className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
+              onClick={() => setLectureMode(LECTURE_MODE.OPEN_RESOURCE)}
+            >
               <AiOutlinePlus size={16} className='plusIcon' />
               <span>Resources</span>
             </button>
           </div>
         </div>
+      )}
+
+      {lectureMode === LECTURE_MODE.OPEN_DESC && (
+        <LectureDescriptionForm
+          handleBackToNormal={handleBackToNormal}
+          sectionId={sectionId}
+          lectureItem={lectureItem}
+        />
+      )}
+
+      {lectureMode === LECTURE_MODE.OPEN_RESOURCE && (
+        <LectureResourceForm sectionId={sectionId} lectureId={lectureItem.id} handleBackToNormal={handleBackToNormal} />
       )}
 
       {lectureMode === LECTURE_MODE.SELECT_CONTENT_TYPE && (

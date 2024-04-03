@@ -5,12 +5,14 @@ import {
   ICreateSection,
   IDeleteLecture,
   IDeleteQuestion,
+  IDeleteResource,
   ISection,
   IUpdateQuiz,
   IUpdateSection,
   UpdateAnswerForm,
   UpdateLectureDesc,
   UpdateQuestionForm,
+  UpdateResource,
   UpdateVideoForm
 } from '../../../../models/course'
 
@@ -28,6 +30,9 @@ interface CourseManageContextProps {
   handleUploadLectureVideo: (data: UpdateVideoForm) => void
   handleReplaceLectureVideo: (data: UpdateVideoForm) => void
   handleUpdateLectureDesc: (formData: UpdateLectureDesc) => void
+  handleAddLectureResource: (updateResourceFormData: UpdateResource) => void
+  handleDeleteResource: (deleteResourceFormData: IDeleteResource) => void
+
   sections: ISection[]
 }
 2

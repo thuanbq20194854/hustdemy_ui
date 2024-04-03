@@ -1,8 +1,8 @@
 import { FaBars } from 'react-icons/fa'
 import { MdDelete, MdEdit } from 'react-icons/md'
 
-import { useBoolean } from '../../../../hooks/useBoolean'
-import { IQuestion } from '../../../../models/course'
+import { useBoolean } from '../../../../../hooks/useBoolean'
+import { IQuestion } from '../../../../../models/course'
 import DeleteQuestionItemModal from './DeleteQuestionItemModal'
 import styles from './QuestionItem.module.scss'
 

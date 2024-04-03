@@ -4,17 +4,17 @@ import TextArea from 'antd/es/input/TextArea'
 import { useEffect, useMemo } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { MdDelete, MdOutlineClose } from 'react-icons/md'
-import TextEditor from '../../../../components/TextEditor/TextEditor'
+import TextEditor from '../../../../../components/TextEditor/TextEditor'
 import {
   CreateAnswerForm,
   CreateQuestionForm,
   IQuestion,
   UpdateAnswerForm,
   UpdateQuestionForm
-} from '../../../../models/course'
-import { schemaCreateQuestionForm } from '../../../../validators/course'
-import CustomInput from '../../components/CustomInput'
-import { useCourseManageContext } from '../context/CourseMangeContext'
+} from '../../../../../models/course'
+import { schemaCreateQuestionForm } from '../../../../../validators/course'
+import CustomInput from '../../../components/CustomInput'
+import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuestionForm.module.scss'
 
 interface IProps {

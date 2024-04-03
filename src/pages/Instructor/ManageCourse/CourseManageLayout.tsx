@@ -12,6 +12,7 @@ import {
   ICreateSection,
   IDeleteLecture,
   IDeleteQuestion,
+  IDeleteResource,
   ILecture,
   IQuestion,
   ISection,
@@ -20,6 +21,7 @@ import {
   UpdateAnswerForm,
   UpdateLectureDesc,
   UpdateQuestionForm,
+  UpdateResource,
   UpdateVideoForm
 } from '../../../models/course'
 import { randomNumber } from '../../../utils/utils'
@@ -46,7 +48,22 @@ const initCurriculum: ISection[] = [
         id: 1,
         type: ELectureType.Lecture,
         title: 'Hello world with C#',
-        desc: '<p>Description test 123123123123123232</p> '
+        desc: '<p>Description test 123123123123123232</p> ',
+
+        assets: [
+          {
+            id: Math.random(),
+            bunnyID: Math.random() + 1 + '',
+            url: '',
+            type: EAssetType.Resource,
+            duration: 5,
+            name: 'Screenshot 2024-03-05 001222.png',
+            size: 7000,
+            lecture_id: 1,
+            updated_at: new Date().toISOString(),
+            created_at: new Date().toISOString()
+          }
+        ]
       },
       {
         sectionId: 1,
@@ -473,6 +490,75 @@ function CourseManageLayout() {
     setSections(updatedSections)
   }
 
+  const handleAddLectureResource = (updateResourceFormData: UpdateResource) => {
+    // API then receiver all info for updated Asset
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === updateResourceFormData.section_id) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === updateResourceFormData.lecture_id) {
+            return {
+              ...lectureItem,
+              assets: [
+                ...(lectureItem.assets ?? []),
+                {
+                  id: Math.random(),
+                  bunnyID: Math.random() + 1 + '',
+                  url: '',
+                  type: EAssetType.VideoWatch,
+                  duration: 5,
+                  name: updateResourceFormData.resource[0].name,
+                  size: updateResourceFormData.resource[0].size,
+                  lecture_id: updateResourceFormData.lecture_id,
+                  updated_at: new Date().toISOString(),
+                  created_at: new Date().toISOString()
+                }
+              ]
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+  const handleDeleteResource = (deleteResourceFormData: IDeleteResource) => {
+    // API then receiver all info for updated Asset
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === deleteResourceFormData.section_id) {
+        const updatedLectures = sectionItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === deleteResourceFormData.lecture_id) {
+            return {
+              ...lectureItem,
+              assets: [...(lectureItem.assets ?? []).filter((item) => item.id !== deleteResourceFormData.resource_id)]
+            }
+          }
+
+          return lectureItem
+        })
+
+        return {
+          ...sectionItem,
+          lectures: updatedLectures
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
+  console.log(sections)
+
   return (
     <div className={styles.layoutWrapper}>
       <div className='headerWrapper'>
@@ -519,7 +605,9 @@ function CourseManageLayout() {
               handleDeleteQuestion,
               handleUploadLectureVideo,
               handleReplaceLectureVideo,
-              handleUpdateLectureDesc
+              handleUpdateLectureDesc,
+              handleAddLectureResource,
+              handleDeleteResource
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}
