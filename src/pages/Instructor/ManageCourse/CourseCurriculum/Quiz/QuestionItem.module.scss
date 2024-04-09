@@ -1,6 +1,13 @@
 .questionItemWrapper {
   display: flex;
   align-items: center;
+  &:hover {
+    :global {
+      .actionPart {
+        opacity: 1;
+      }
+    }
+  }
 
   :global {
     .infoPart {
@@ -28,6 +35,9 @@
       display: flex;
       align-items: center;
       gap: 4px;
+
+      opacity: 0;
+
       .btnContainer {
         height: 28px;
         width: 28px;

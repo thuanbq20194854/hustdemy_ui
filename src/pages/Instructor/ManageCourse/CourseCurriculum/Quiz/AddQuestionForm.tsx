@@ -155,7 +155,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
               />
             )}
           />
-          {errors.question_text && <span className='ud-form-note'>{errors.question_text.message}</span>}
+          {errors.question_text && <span className='ud-form-note-14'>{errors.question_text.message}</span>}
         </div>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Answer</div>
@@ -171,29 +171,28 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
                         ? false
                         : index === +(watch('indexOfCorrectAnswer') as string)
                     }
-                    onChange={(value) => {
-                      console.log(value)
-
+                    onChange={() => {
                       setValue('indexOfCorrectAnswer', String(index))
                     }}
                   />
                 </div>
 
                 <div className='middle'>
-                  {/* <TextEditor
-                    defaultValue=''
-                    className='textEditor'
-                    placeholder='Add an answer'
-                    customToolBar={customToolBar}
-                  /> */}
-
                   <Controller
                     control={control}
                     name={`answers.${index}.answer_text`}
-                    render={({ field }) => <TextArea className='antTA' {...field}></TextArea>}
+                    render={({ field }) => (
+                      <TextArea
+                        spellCheck={false}
+                        autoSize={true}
+                        className='antTA'
+                        {...field}
+                        placeholder='Add an answer'
+                      />
+                    )}
                   />
                   {errors.answers && errors.answers[index]?.answer_text && (
-                    <span className='ud-form-note'>{errors.answers[index]?.answer_text?.message ?? ''}</span>
+                    <span className='ud-form-note-14'>{errors.answers[index]?.answer_text?.message ?? ''}</span>
                   )}
 
                   <Controller
@@ -209,12 +208,14 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
                     )}
                   />
                   {errors.answers && errors.answers[index]?.explain && (
-                    <span className='ud-form-note'>{errors.answers[index]?.explain?.message ?? ''}</span>
+                    <span className='ud-form-note-14 explain-error'>
+                      {errors.answers[index]?.explain?.message ?? ''}
+                    </span>
                   )}
                 </div>
 
                 <div className='right'>
-                  <button type='submit' className='deleteBtn'>
+                  <button className='deleteBtn'>
                     <MdDelete />
                   </button>
                 </div>
@@ -222,7 +223,9 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
             ))}
           </div>
 
-          {errors.indexOfCorrectAnswer && <span className='ud-form-note'>{errors.indexOfCorrectAnswer.message}</span>}
+          {errors.indexOfCorrectAnswer && (
+            <span className='ud-form-note-14'>{errors.indexOfCorrectAnswer.message}</span>
+          )}
         </div>
 
         <div className='saveBtnContainer'>

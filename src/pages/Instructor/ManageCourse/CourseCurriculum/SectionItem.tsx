@@ -93,7 +93,9 @@ function SectionItem({ section, index }: IProps) {
         if (lectureItem.type === ELectureType.Lecture) {
           lectureCount++
 
-          return <LectureItem sectionId={section.id} lectureItem={lectureItem} key={lectureItem.id} />
+          return (
+            <LectureItem sectionId={section.id} index={lectureCount} lectureItem={lectureItem} key={lectureItem.id} />
+          )
         }
       })}
 

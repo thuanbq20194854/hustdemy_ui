@@ -65,7 +65,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
             />
           )}
         />
-        {errors.title && <span className='ud-form-note'>{errors.title.message}</span>}
+        {errors.title && <span className='ud-form-note-14'>{errors.title.message}</span>}
 
         <TextEditor
           defaultValue=''

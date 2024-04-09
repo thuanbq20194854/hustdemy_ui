@@ -21,11 +21,11 @@ function CourseCurriculum({ sections }: IProps) {
         <div className='alertContainer'>
           <p>
             Start putting together your course by creating sections, lectures and practice activities (
-            <span className='ud-link-underline' color='#5624d0'>
+            <span className='ud-link-underline' style={{ color: '#5624d0' }}>
               quizzes, coding exercises and assignments
             </span>
             ). Use your
-            <span className='ud-link-underline' color='#5624d0'>
+            <span className='ud-link-underline' style={{ color: '#5624d0', marginLeft: '6px', marginRight: '6px' }}>
               course outline
             </span>
             to structure your content and label your sections and lectures clearly. If you’re intending to offer your

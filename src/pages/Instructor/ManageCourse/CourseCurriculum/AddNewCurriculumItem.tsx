@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoMdClose } from 'react-icons/io'
 
-import CustomInput from '../../components/CustomInput'
+import AddLectureForm from './AddLectureForm'
 import styles from './AddNewCurriculumItem.module.scss'
 import AddQuizForm from './Quiz/AddQuizForm'
 
@@ -59,28 +59,7 @@ function AddNewCurriculumItem({ sectionId }: IProps) {
         )}
 
         {addCurriculumMode === ADD_CURRICULUM_ITEM_MODE.ADD_LECTURE && (
-          <div className='addLectureWrapper'>
-            <div className='labelWrapper'>
-              <span>New Lecture:</span>
-            </div>
-
-            <form className='formEdit'>
-              <CustomInput placeholder='Enter a title' maxLength={80} />
-
-              <div className='btnsContainer'>
-                <button
-                  className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-                  onClick={() => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)}
-                >
-                  <span>Cancle</span>
-                </button>
-
-                <div className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm'>
-                  <span>Add Lecture</span>
-                </div>
-              </div>
-            </form>
-          </div>
+          <AddLectureForm handleNormalMode={handleNormalMode} sectionId={sectionId} />
         )}
         {addCurriculumMode === ADD_CURRICULUM_ITEM_MODE.ADD_QUIZ && (
           <AddQuizForm

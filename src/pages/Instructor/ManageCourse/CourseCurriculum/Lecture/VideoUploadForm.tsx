@@ -31,10 +31,6 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
 
   const formWatch = useWatch([], form) ?? {}
 
-  console.log('formWatch: ', formWatch)
-
-  console.log('form.getFieldsValue(): ', form.getFieldsValue())
-
   const handleFileUpload = () => {
     return
   }
@@ -57,9 +53,17 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
     handleBackToNormal()
   }
 
+  // const handleBeforeUpload = (file: RcFile) => {
+  //   const isZip = file.type === 'application/zip'
+  //   if (!isZip) {
+  //     message.error('You can only upload ZIP file!')
+  //   }
+  //   return isZip
+  // }
+
   return (
     <div className={'addContentWrapper'}>
-      <Form form={form} className='formAntd'>
+      <Form form={form} onFinish={handleSubmit} className='formAntd'>
         <div className='title ud-heading-md'>Upload Video</div>
 
         <Form.Item
@@ -71,9 +75,21 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
               required: true,
               message: 'Please upload your lecture video'
             },
+
             {
               validator(_, value) {
-                console.log('value: ', value)
+                const isVideo = value.file.type.startsWith('video/mp4')
+                return new Promise((resolve, reject) => {
+                  if (!isVideo) {
+                    reject(`You can only upload .mp4 file`)
+                  } else {
+                    resolve('')
+                  }
+                })
+              }
+            },
+            {
+              validator(_, value) {
                 return new Promise((resolve, reject) => {
                   if (value && value.file.size > MAX_FILE_SIZE) {
                     reject(`File size exceeded ${MAX_FILE_SIZE}`)
@@ -86,7 +102,13 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
           ]}
           help={form.getFieldError('videoUpload').length > 0 ? form.getFieldError('videoUpload') : undefined}
         >
-          <Upload className='uploadBtnAntd' maxCount={1} showUploadList={false} customRequest={handleFileUpload}>
+          <Upload
+            className='uploadBtnAntd'
+            maxCount={1}
+            showUploadList={false}
+            customRequest={handleFileUpload}
+            // beforeUpload={handleBeforeUpload}
+          >
             <Button icon={<BsUpload />}>Click to upload video</Button>
 
             <span style={{ marginLeft: '16px' }}>
@@ -95,7 +117,7 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
           </Upload>
         </Form.Item>
 
-        <Button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm submitBtn' onClick={handleSubmit}>
+        <Button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm submitBtn' onClick={() => form.submit()}>
           {lectureVideoWatch ? 'Replace' : 'Upload'}
         </Button>
         <div className='tabTitleContainer'>

@@ -148,8 +148,6 @@ ol {
   font-size: 1.6rem;
 }
 
-
-
 /*  */
 .ud-heading-xs {
   font-weight: 700;
@@ -158,8 +156,6 @@ ol {
   font-size: 1.2rem;
   letter-spacing: 0.02rem;
 }
-
-
 
 .ud-heading-sm {
   font-weight: 700;
@@ -292,7 +288,6 @@ ol {
 
 /* color: #101011; */
 
-
 .ud-btn-ghost:hover,
 .ud-btn-ghost:active {
   color: #401b9c;
@@ -323,7 +318,6 @@ ol {
 .ud-link-neutral:hover {
   color: #101011;
 }
-
 
 .ud-btn-xsmall {
   min-width: 8rem;
@@ -410,17 +404,23 @@ a.resetNavlink:hover {
   height: 4.8rem;
 }
 
-
-
 .ud-form-group-error {
   border-color: #fcbca0;
   box-shadow: 0 0 0 2px #fcbca0;
 }
 
 .ud-form-note {
-  color: #b32d0f;
+  color: #ff4d4f;
 
   font-weight: 400;
   line-height: 1.4;
   font-size: 1.2rem;
+}
+
+.ud-form-note-14 {
+  color: #ff4d4f;
+
+  font-weight: 400;
+  line-height: 1.4;
+  font-size: 1.4rem;
 }

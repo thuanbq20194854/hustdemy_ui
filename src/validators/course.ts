@@ -1,12 +1,12 @@
 import * as Yup from 'yup'
 import {
+  CreateLectureForm,
   CreateQuestionForm,
   ICreateQuiz,
   ICreateSection,
   IDeleteSection,
   IUpdateLecure,
-  IUpdateSection,
-  IntendedLearners
+  IUpdateSection
 } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
@@ -92,6 +92,11 @@ export const schemaUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
         explain: Yup.string().required('This field is required')
       })
     )
+})
+export const schemaAddLectureForm: Yup.ObjectSchema<CreateLectureForm> = Yup.object({
+  sectionId: Yup.number().required('This field is required'),
+  title: Yup.string().required('This field is required'),
+  type: Yup.number().required('This field is required')
 })
 // export const schemaDeleteQuiz: Yup.ObjectSchema<IDeleteLecure> = Yup.object({
 //   id: Yup.number().required('This field may not be blank'),

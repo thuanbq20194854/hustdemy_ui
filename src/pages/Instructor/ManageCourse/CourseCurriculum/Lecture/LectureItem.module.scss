@@ -71,13 +71,13 @@
       border: 1px solid #6a6f73;
       border-top: 0;
 
-      & > *:not(:first-child) {
-        border-top: 1px solid #d1d7dc;
-        margin-top: 0.8rem;
-        padding-top: 0.8rem;
-      }
-
       .contentContainer {
+        & > * {
+          border-bottom: 1px solid #d1d7dc;
+          margin-bottom: 0.8rem;
+          padding-bottom: 0.8rem;
+        }
+
         .lectureHeader {
           display: flex;
           align-items: start;
@@ -124,39 +124,40 @@
 
         .lectureSetting {
         }
-      }
-      .descContainer {
-        .desc-text {
-          border: 1px solid transparent;
-          cursor: pointer;
 
-          &:hover {
-            border-color: #d1d7dc;
+        .descContainer {
+          .desc-text {
+            border: 1px solid transparent;
+            cursor: pointer;
+
+            &:hover {
+              border-color: #d1d7dc;
+            }
           }
         }
-      }
 
-      .materialContainer {
-        & > .materialItem {
-          margin-top: 4px;
-        }
-        .materialTitle {
-        }
+        .materialContainer {
+          & > .materialItem {
+            margin-top: 4px;
+          }
+          .materialTitle {
+          }
 
-        .materialItem {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-
-          .iconContainer {
+          .materialItem {
             display: flex;
             align-items: center;
-            justify-content: center;
-          }
+            gap: 8px;
 
-          .deleteContainer {
-            cursor: pointer;
-            margin-left: auto;
+            .iconContainer {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .deleteContainer {
+              cursor: pointer;
+              margin-left: auto;
+            }
           }
         }
       }

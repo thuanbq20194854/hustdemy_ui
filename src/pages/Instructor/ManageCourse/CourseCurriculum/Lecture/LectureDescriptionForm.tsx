@@ -72,7 +72,7 @@ const LectureDescriptionForm = ({ lectureItem, sectionId, handleBackToNormal }: 
       </form>
 
       <div className='tabTitleContainer'>
-        <span className='text ud-heading-sm'>Type Lecture Description</span>
+        <span className='text ud-heading-sm'>Add Lecture Description</span>
         <button className='iconBtn' onClick={handleBackToNormal}>
           <MdOutlineClose />
         </button>

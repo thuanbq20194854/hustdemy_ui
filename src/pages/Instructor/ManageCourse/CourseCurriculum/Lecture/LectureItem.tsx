@@ -31,9 +31,10 @@ const LECTURE_MODE = {
 interface IProps {
   lectureItem: ILecture
   sectionId: number
+  index: number
 }
 
-function LectureItem({ lectureItem, sectionId }: IProps) {
+function LectureItem({ lectureItem, sectionId, index }: IProps) {
   const [lectureMode, setLectureMode] = useState(LECTURE_MODE.NORMAL)
 
   const [open, setOpen] = useState(false)
@@ -54,13 +55,13 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
             <IoCheckmarkCircle />
           </div>
 
-          <div className='quizLabel'>Lecture 5</div>
+          <div className='quizLabel'>Lecture {index}</div>
 
           <div className='iconContainer'>
             <GoFile />
           </div>
 
-          <div className='quizTitle'>How React Work Behind</div>
+          <div className='quizTitle'>{lectureItem.title}</div>
 
           <>
             <button className='editBtn'>
@@ -74,13 +75,15 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
 
         {lectureMode === LECTURE_MODE.NORMAL && (
           <div className='rightRegion'>
-            <button
-              className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
-              onClick={() => setLectureMode(LECTURE_MODE.SELECT_CONTENT_TYPE)}
-            >
-              <AiOutlinePlus size={16} className='plusIcon' />
-              <span>Content</span>
-            </button>
+            {(lectureItem.assets ?? []).filter((item) => item.type === EAssetType.VideoWatch).length === 0 && (
+              <button
+                className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
+                onClick={() => setLectureMode(LECTURE_MODE.SELECT_CONTENT_TYPE)}
+              >
+                <AiOutlinePlus size={16} className='plusIcon' />
+                <span>Content</span>
+              </button>
+            )}
 
             {!open ? (
               <button className='showBtn' onClick={() => setOpen(true)}>
@@ -120,40 +123,37 @@ function LectureItem({ lectureItem, sectionId }: IProps) {
                 </div>
               </div>
             )}
-
-            <div className='lectureSetting'></div>
-          </div>
-
-          {lectureItem.desc && (
-            <div className='descContainer'>
-              <div className='ud-heading-sm' style={{ paddingBottom: '8px' }}>
-                Lecture Description
+            {lectureItem.desc && (
+              <div className='descContainer'>
+                <div className='ud-heading-sm' style={{ paddingBottom: '8px' }}>
+                  Lecture Description
+                </div>
+                <div
+                  aria-hidden='true'
+                  onClick={() => setLectureMode(LECTURE_MODE.OPEN_DESC)}
+                  className='desc-text'
+                  dangerouslySetInnerHTML={{ __html: lectureItem.desc ?? '' }}
+                />
               </div>
-              <div
-                aria-hidden='true'
-                onClick={() => setLectureMode(LECTURE_MODE.OPEN_DESC)}
-                className='desc-text'
-                dangerouslySetInnerHTML={{ __html: lectureItem.desc ?? '' }}
-              />
-            </div>
-          )}
+            )}
 
-          {(lectureItem.assets ?? []).length > 0 && (
-            <div className='materialContainer'>
-              <div className='materialTitle ud-heading-sm'>Downloadable materials</div>
+            {(lectureItem.assets?.filter((item) => item.type === EAssetType.Resource) ?? []).length > 0 && (
+              <div className='materialContainer'>
+                <div className='materialTitle ud-heading-sm'>Downloadable materials</div>
 
-              {lectureItem.assets
-                ?.filter((item) => (item.type = EAssetType.Resource))
-                .map((resourceItem: IAsset) => (
-                  <ResourceItem
-                    key={resourceItem.id}
-                    resourceItem={resourceItem}
-                    sectionId={sectionId}
-                    lectureId={lectureItem.id}
-                  />
-                ))}
-            </div>
-          )}
+                {lectureItem.assets
+                  ?.filter((item) => item.type === EAssetType.Resource)
+                  .map((resourceItem: IAsset) => (
+                    <ResourceItem
+                      key={resourceItem.id}
+                      resourceItem={resourceItem}
+                      sectionId={sectionId}
+                      lectureId={lectureItem.id}
+                    />
+                  ))}
+              </div>
+            )}
+          </div>
 
           <div className='btnRegion'>
             {!lectureItem.desc && (

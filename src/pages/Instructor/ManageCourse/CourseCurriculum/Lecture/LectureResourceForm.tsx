@@ -1,9 +1,10 @@
-import { Button, Form, Upload } from 'antd'
+import { Button, Form, Upload, message } from 'antd'
 import { useForm, useWatch } from 'antd/es/form/Form'
 import { MdOutlineClose } from 'react-icons/md'
 import { UpdateResource } from '../../../../../models/course'
 import { BsUpload } from 'react-icons/bs'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
+import { RcFile } from 'antd/es/upload'
 
 interface IProps {
   sectionId: number
@@ -33,7 +34,7 @@ function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProp
     return
   }
 
-  const handleSubmit = () => {
+  const handleSubmitForm = () => {
     const formData: UpdateResource = {
       lecture_id: lectureId,
       section_id: sectionId,
@@ -44,11 +45,20 @@ function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProp
     handleBackToNormal()
   }
 
+  const beforeUpload = (file: RcFile) => {
+    const isZip = file.type === 'application/zip'
+
+    if (!isZip) {
+      message.error('ZIPPPPPPPPPPPP')
+    }
+    return isZip
+  }
+
   return (
     // <div className={styles.lectureResourceFormWrapper}>
     <div className='lectureResourceFormWrapper'>
-      <Form form={form} className='formAntd'>
-        <div className='title ud-heading-md'>Upload File</div>
+      <Form form={form} className='formAntd' onFinish={handleSubmitForm}>
+        <div className='title ud-heading-md'>Upload Resource</div>
 
         <Form.Item
           style={{ marginTop: '16px' }}
@@ -58,6 +68,20 @@ function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProp
             {
               required: true,
               message: 'Please upload your lecture video'
+            },
+            {
+              validator(_, value) {
+                console.log('value: ', value)
+                return new Promise((resolve, reject) => {
+                  const isZip = value.file.type === 'application/zip'
+
+                  if (!isZip) {
+                    reject(`You can only upload ZIP file!`)
+                  } else {
+                    resolve('')
+                  }
+                })
+              }
             },
             {
               validator(_, value) {
@@ -74,19 +98,36 @@ function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProp
           ]}
           help={form.getFieldError('resource').length > 0 ? form.getFieldError('resource') : undefined}
         >
-          <Upload className='uploadBtnAntd' maxCount={1} showUploadList={false} customRequest={handleFileUpload}>
+          <Upload
+            className='uploadBtnAntd'
+            maxCount={1}
+            multiple={false}
+            showUploadList={false}
+            customRequest={handleFileUpload}
+            beforeUpload={beforeUpload}
+          >
             <Button icon={<BsUpload />}>Click to upload file</Button>
 
             <span style={{ marginLeft: '16px' }}>{formWatch.resource ? formWatch.resource.fileList[0].name : ''}</span>
           </Upload>
         </Form.Item>
 
-        <Button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm submitBtn' onClick={handleSubmit}>
-          Upload Resource
+        <Button
+          className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm submitBtn'
+          onClick={() => {
+            form.submit()
+          }}
+        >
+          Upload
         </Button>
         <div className='tabTitleContainer'>
           <span className='text ud-heading-sm'>Add Resource</span>
-          <button className='iconBtn' onClick={handleBackToNormal}>
+          <button
+            className='iconBtn'
+            onClick={() => {
+              handleBackToNormal()
+            }}
+          >
             <MdOutlineClose />
           </button>
         </div>

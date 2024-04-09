@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext } from 'react'
 import {
+  CreateLectureForm,
   CreateQuestionForm,
   ICreateQuiz,
   ICreateSection,
@@ -32,11 +33,28 @@ interface CourseManageContextProps {
   handleUpdateLectureDesc: (formData: UpdateLectureDesc) => void
   handleAddLectureResource: (updateResourceFormData: UpdateResource) => void
   handleDeleteResource: (deleteResourceFormData: IDeleteResource) => void
+  handleAddLecture: (addLectureForm: CreateLectureForm) => void
 
   sections: ISection[]
 }
-2
-const CourseManageContext = createContext<CourseManageContextProps>(undefined)
+const CourseManageContext = createContext<CourseManageContextProps>({
+  handleAddSection: () => {},
+  handleEditSection: () => {},
+  handleDeleteSection: () => {},
+  handleAddQuiz: () => {},
+  handleUpdateQuiz: () => {},
+  handleDeleteLecture: () => {},
+  handleAddQuestion: () => {},
+  handleUpdateQuestion: () => {},
+  handleDeleteQuestion: () => {},
+  handleUploadLectureVideo: () => {},
+  handleReplaceLectureVideo: () => {},
+  handleUpdateLectureDesc: () => {},
+  handleAddLectureResource: () => {},
+  handleDeleteResource: () => {},
+  handleAddLecture: () => {},
+  sections: []
+})
 
 interface CourseMangeProviderProps {
   children: ReactNode

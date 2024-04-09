@@ -116,9 +116,9 @@ export interface IDeleteQuestion {
   questionID: number
 }
 
-export interface ICreateLecure {
-  id: number
-  sectionId: string
+export interface CreateLectureForm {
+  // id: number
+  sectionId: number
   type: number
   title: string
 }

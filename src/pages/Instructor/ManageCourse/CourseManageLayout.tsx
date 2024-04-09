@@ -8,6 +8,7 @@ import {
   CreateQuestionForm,
   EAssetType,
   ELectureType,
+  CreateLectureForm,
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
@@ -204,7 +205,10 @@ function CourseManageLayout() {
         return {
           ...sectionItem,
 
-          lectures: [...sectionItem.lectures, { ...quizData, id: randomNumber(), questions: [] }]
+          lectures: [
+            ...sectionItem.lectures,
+            { ...quizData, id: randomNumber(), questions: [], type: ELectureType.Quiz }
+          ]
         }
       }
 
@@ -308,7 +312,8 @@ function CourseManageLayout() {
       if (sectionItem.id === updateQuestionFormData.sectionID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
           if (lectureItem.id === updateQuestionFormData.lectureID) {
-            const newQuestionId = randomNumber()
+            // id from API Add, Update return
+            // const newQuestionId = randomNumber()
 
             const updatedQuestions = (lectureItem.questions ?? []).map((questionItem: IQuestion) => {
               if (questionItem.id === updateQuestionFormData.id) {
@@ -377,6 +382,22 @@ function CourseManageLayout() {
     setSections(updateSections)
   }
 
+  const handleAddLecture = (addLectureForm: CreateLectureForm) => {
+    const updatedSections: ISection[] = sections.map((sectionItem) => {
+      if (sectionItem.id === addLectureForm.sectionId) {
+        return {
+          ...sectionItem,
+
+          lectures: [...sectionItem.lectures, { ...addLectureForm, id: randomNumber() }]
+        }
+      }
+
+      return sectionItem
+    })
+
+    setSections(updatedSections)
+  }
+
   const handleUploadLectureVideo = (updateVideoForm: UpdateVideoForm) => {
     // API then receiver all info for updated Asset
     const updatedSections: ISection[] = sections.map((sectionItem) => {
@@ -429,8 +450,8 @@ function CourseManageLayout() {
               assets: (lectureItem.assets ?? []).map((assetItem) => {
                 if (assetItem.type === EAssetType.VideoWatch) {
                   return {
-                    id: Math.random(),
-                    bunnyID: Math.random() + 1 + '',
+                    id: randomNumber(),
+                    bunnyID: randomNumber() + '',
                     url: '',
                     type: EAssetType.VideoWatch,
                     duration: 5,
@@ -504,7 +525,7 @@ function CourseManageLayout() {
                   id: Math.random(),
                   bunnyID: Math.random() + 1 + '',
                   url: '',
-                  type: EAssetType.VideoWatch,
+                  type: EAssetType.Resource,
                   duration: 5,
                   name: updateResourceFormData.resource[0].name,
                   size: updateResourceFormData.resource[0].size,
@@ -607,7 +628,8 @@ function CourseManageLayout() {
               handleReplaceLectureVideo,
               handleUpdateLectureDesc,
               handleAddLectureResource,
-              handleDeleteResource
+              handleDeleteResource,
+              handleAddLecture
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}

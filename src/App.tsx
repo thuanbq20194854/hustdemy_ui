@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useLoading } from './hooks/useLoading'
 import { useRouteElements } from './useRouteElements'
 import { useBoolean } from './hooks/useBoolean'
@@ -15,6 +15,7 @@ function App() {
       closeLoading()
     }, 2000)
   }
+
   return (
     <>
       {/* <button onClick={callAPi}>API</button>

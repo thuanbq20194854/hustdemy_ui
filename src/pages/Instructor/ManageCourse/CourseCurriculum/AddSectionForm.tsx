@@ -16,14 +16,9 @@ function AddSectionForm() {
     setOpenForm(false)
   }
 
-  const handleSave = () => {
-    console.log(watch('sectionTitle'))
-  }
-
   const {
     handleSubmit,
     formState: { errors },
-    watch,
     control
   } = useForm<ICreateSection>({
     // mode: 'onSubmit',
@@ -99,7 +94,7 @@ function AddSectionForm() {
                   <span>Cancle</span>
                 </button>
 
-                <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm' onClick={handleSave}>
+                <button className='ud-btn ud-btn-small ud-btn-primary ud-heading-sm' type='submit'>
                   <span>Save Section</span>
                 </button>
               </div>
