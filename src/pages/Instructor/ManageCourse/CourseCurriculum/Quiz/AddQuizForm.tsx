@@ -42,8 +42,12 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
     handleNormalMode()
   }
 
-  const handleHTMLChange = (html: string) => {
-    setValue('desc', html)
+  const handleHTMLChange = (html: string, text: string | undefined) => {
+    if (text && text.trim().length === 0) {
+      setValue('desc', '')
+    } else {
+      setValue('desc', html)
+    }
   }
 
   return (
@@ -65,7 +69,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
             />
           )}
         />
-        {errors.title && <span className='ud-form-note-14'>{errors.title.message}</span>}
+        {errors.title && <span className='ud-form-note-validate-14'>{errors.title.message}</span>}
 
         <TextEditor
           defaultValue=''

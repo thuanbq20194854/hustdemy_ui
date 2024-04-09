@@ -41,7 +41,7 @@ function AddLectureForm({ handleNormalMode, sectionId }: IProps) {
           control={control}
           render={({ field }) => <CustomInput placeholder='Enter a title' maxLength={80} {...field} />}
         />
-        {errors.title && <span className='ud-form-note-14'>{errors.title.message}</span>}
+        {errors.title && <span className='ud-form-note-validate-14'>{errors.title.message}</span>}
 
         <div className='btnsContainer'>
           <button className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral' onClick={handleNormalMode}>

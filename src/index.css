@@ -409,7 +409,7 @@ a.resetNavlink:hover {
   box-shadow: 0 0 0 2px #fcbca0;
 }
 
-.ud-form-note {
+.ud-form-note-validate {
   color: #ff4d4f;
 
   font-weight: 400;
@@ -417,10 +417,17 @@ a.resetNavlink:hover {
   font-size: 1.2rem;
 }
 
-.ud-form-note-14 {
+.ud-form-note-validate-14 {
   color: #ff4d4f;
 
   font-weight: 400;
   line-height: 1.4;
   font-size: 1.4rem;
+}
+
+
+.ud-form-note {
+  display: flex;
+  align-items: center;
+  padding-top: .8rem;
 }

@@ -116,8 +116,12 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
     }
   }
 
-  const handleEditorChange = (questionText: string) => {
-    setValue('question_text', questionText)
+  const handleEditorChange = (questionHTML: string, textOnly: string | undefined) => {
+    if (textOnly && textOnly.trim().length === 0) {
+      setValue('question_text', '')
+    } else {
+      setValue('question_text', questionHTML)
+    }
   }
 
   useEffect(() => {
@@ -125,10 +129,6 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
       setQuestionEdit(null)
     }
   }, [])
-
-  console.log('errors', errors)
-
-  console.log('form', watch())
 
   return (
     <div className={styles.addQuestionWrapper}>
@@ -155,11 +155,13 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
               />
             )}
           />
-          {errors.question_text && <span className='ud-form-note-14'>{errors.question_text.message}</span>}
+          {errors.question_text && <span className='ud-form-note-validate-14'>{errors.question_text.message}</span>}
         </div>
         <div className='formItem'>
           <div className='formLabel ud-heading-sm'>Answer</div>
-
+          {errors.indexOfCorrectAnswer && (
+            <span className='ud-form-note-validate-14'>{errors.indexOfCorrectAnswer.message}</span>
+          )}
           <div className='answerListWrapper'>
             {answersField.map((answerItem: CreateAnswerForm, index) => (
               <div className='answerItem' key={answerItem.id}>
@@ -192,7 +194,9 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
                     )}
                   />
                   {errors.answers && errors.answers[index]?.answer_text && (
-                    <span className='ud-form-note-14'>{errors.answers[index]?.answer_text?.message ?? ''}</span>
+                    <span className='ud-form-note-validate-14'>
+                      {errors.answers[index]?.answer_text?.message ?? ''}
+                    </span>
                   )}
 
                   <Controller
@@ -208,7 +212,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
                     )}
                   />
                   {errors.answers && errors.answers[index]?.explain && (
-                    <span className='ud-form-note-14 explain-error'>
+                    <span className='ud-form-note-validate-14 explain-error'>
                       {errors.answers[index]?.explain?.message ?? ''}
                     </span>
                   )}
@@ -222,10 +226,6 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
               </div>
             ))}
           </div>
-
-          {errors.indexOfCorrectAnswer && (
-            <span className='ud-form-note-14'>{errors.indexOfCorrectAnswer.message}</span>
-          )}
         </div>
 
         <div className='saveBtnContainer'>

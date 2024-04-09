@@ -57,7 +57,7 @@ function TextEditor({
       quill.setContents(delta)
       quill.on('text-change', (delta, oldDelta, source) => {
         if (handleHTMLChange) {
-          handleHTMLChange(quill.root.innerHTML)
+          handleHTMLChange(quill.root.innerHTML, quill.getText())
         }
         if (handleTextOnlyChange) {
           handleTextOnlyChange(quill.getText())

@@ -53,8 +53,12 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
     handleNormalMode()
   }
 
-  const handleHTMLChange = (html: string) => {
-    setValue('desc', html)
+  const handleHTMLChange = (html: string, text: string | undefined) => {
+    if (text && text.trim().length === 0) {
+      setValue('desc', '')
+    } else {
+      setValue('desc', html)
+    }
   }
 
   return (
@@ -86,7 +90,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
             />
           )}
         />
-        {errors.title && <span className='ud-form-note'>{errors.title.message}</span>}
+        {errors.title && <span className='ud-form-note-validate'>{errors.title.message}</span>}
 
         <TextEditor
           defaultValue={quizEdit.desc ?? ''}

@@ -38,14 +38,12 @@ const LectureDescriptionForm = ({ lectureItem, sectionId, handleBackToNormal }: 
     handleBackToNormal()
   }
 
-  const handleOnChangeDescription = (htmlString: string) => {
-    console.log('11' + htmlString + '11')
-    if (htmlString === '<p><br></p>') {
-      console.log('hehe')
+  const handleOnChangeDescription = (htmlString: string, text: string | undefined) => {
+    if (text && text.trim().length === 0) {
       setValue('description', undefined)
-      return
+    } else {
+      setValue('description', htmlString)
     }
-    setValue('description', htmlString)
   }
 
   return (

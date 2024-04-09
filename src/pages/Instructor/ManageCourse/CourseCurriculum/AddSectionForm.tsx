@@ -65,7 +65,7 @@ function AddSectionForm() {
                   )}
                 />
 
-                {errors.sectionTitle && <span className='ud-form-note'>{errors.sectionTitle.message}</span>}
+                {errors.sectionTitle && <span className='ud-form-note-validate'>{errors.sectionTitle.message}</span>}
               </div>
 
               <div className='formItem'>
@@ -83,7 +83,9 @@ function AddSectionForm() {
                     />
                   )}
                 />
-                {errors.sectionOutcome && <span className='ud-form-note'>{errors.sectionOutcome.message}</span>}
+                {errors.sectionOutcome && (
+                  <span className='ud-form-note-validate'>{errors.sectionOutcome.message}</span>
+                )}
               </div>
 
               <div className='btnActionsContainer'>

@@ -1,0 +1,38 @@
+.courseBasicPage {
+  :global {
+    .subHeaderWrapper {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2.4rem;
+      padding: 2.4rem 4.8rem;
+      border-bottom: 1px solid #d1d7dc;
+
+      display: flex;
+      align-items: center;
+
+      .headerContent {
+      }
+    }
+
+    .mainContent {
+      padding: 48px;
+
+      position: relative;
+
+      .saveBtn {
+        display: block;
+        margin-left: auto;
+
+        &.disabledBtn {
+          color: black;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
+
+      .alertContainer {
+        margin-bottom: 48px;
+      }
+    }
+  }
+}

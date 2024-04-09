@@ -58,7 +58,7 @@ function EditSectionForm({ handleSetSectionModeNormal, section, index }: IProps)
                 />
               )}
             />
-            {errors.sectionTitle && <span className='ud-form-note'>{errors.sectionTitle.message}</span>}
+            {errors.sectionTitle && <span className='ud-form-note-validate'>{errors.sectionTitle.message}</span>}
           </div>
 
           <div className='formItem'>
@@ -75,7 +75,7 @@ function EditSectionForm({ handleSetSectionModeNormal, section, index }: IProps)
                 />
               )}
             />
-            {errors.sectionOutcome && <span className='ud-form-note'>{errors.sectionOutcome.message}</span>}
+            {errors.sectionOutcome && <span className='ud-form-note-validate'>{errors.sectionOutcome.message}</span>}
           </div>
 
           <div className='btnActionsContainer'>
