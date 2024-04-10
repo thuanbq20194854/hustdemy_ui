@@ -6,7 +6,8 @@ import {
   ICreateSection,
   IDeleteSection,
   IUpdateLecure,
-  IUpdateSection
+  IUpdateSection,
+  UpdateCourseLandingPageForm
 } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
@@ -94,6 +95,11 @@ export const schemaUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
     )
 })
 export const schemaAddLectureForm: Yup.ObjectSchema<CreateLectureForm> = Yup.object({
+  sectionId: Yup.number().required('This field is required'),
+  title: Yup.string().required('This field is required'),
+  type: Yup.number().required('This field is required')
+})
+export const schemeUpdateCourseLanding: Yup.ObjectSchema<UpdateCourseLandingPageForm> = Yup.object({
   sectionId: Yup.number().required('This field is required'),
   title: Yup.string().required('This field is required'),
   type: Yup.number().required('This field is required')

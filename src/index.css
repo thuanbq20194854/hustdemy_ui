@@ -390,7 +390,74 @@ a.resetNavlink:hover {
   max-width: none;
 }
 
-/*  */
+/* Select */
+
+.ud-select-container {
+  position: relative;
+}
+
+.ud-select-container-large .ud-select {
+  height: 4.8rem;
+}
+
+.ud-select {
+  background: var(--color-white);
+  border: 1px solid #2d2f31;
+  border-radius: 0;
+  cursor: pointer;
+  display: block;
+  padding: 0 4rem 0 1.2rem;
+  width: 100%;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  outline: none;
+}
+
+.ud-select:hover {
+  background-color: rgba(23, 57, 83, 0.12);
+}
+
+.ud-select:focus {
+  border: 1px solid #2d2f31;
+  border-radius: 0;
+}
+
+.ud-select option {
+  background: var(--color-white);
+}
+
+.ud-select-container-large .ud-select-icon-container {
+  width: 4rem;
+}
+.ud-select-icon-right {
+  right: 0;
+}
+.ud-select-icon-container {
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  padding: 0 0.8rem;
+}
+
+.ud-icon-color-neutral {
+  color: #2d2f31;
+}
+.ud-icon-small {
+  width: 2rem;
+  height: 2rem;
+}
+.ud-icon {
+  fill: currentColor;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Form and Validate */
 
 .ud-form-label {
   display: flex;
@@ -398,10 +465,6 @@ a.resetNavlink:hover {
   margin: 0;
   padding-bottom: 0.8rem;
   min-height: 2.8rem;
-}
-
-.ud-select-container-large .ud-select {
-  height: 4.8rem;
 }
 
 .ud-form-group-error {
@@ -425,9 +488,23 @@ a.resetNavlink:hover {
   font-size: 1.4rem;
 }
 
-
 .ud-form-note {
   display: flex;
   align-items: center;
-  padding-top: .8rem;
+  padding-top: 0.8rem;
+}
+
+/* ============================= */
+
+.ud-text-input-large {
+  height: 4.8rem;
+}
+
+.ud-text-input {
+  border: 1px solid #2d2f31;
+  border-radius: 0;
+  -webkit-appearance: none;
+  display: block;
+  padding: 0 1.6rem;
+  width: 100%;
 }

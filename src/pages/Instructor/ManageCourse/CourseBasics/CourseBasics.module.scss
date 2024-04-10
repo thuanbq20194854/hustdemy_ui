@@ -33,6 +33,35 @@
       .alertContainer {
         margin-bottom: 48px;
       }
+
+      .ud-form-note {
+        color: #6a6f73;
+      }
+
+      .formItem {
+        margin-top: 2.4rem;
+
+        .selectionGroup {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.6rem;
+
+          .ud-select-container {
+            flex: 1;
+            min-width: 22rem;
+            align-self: flex-start;
+          }
+
+          .categorySelections {
+            flex: 1;
+            min-width: 22rem;
+          }
+
+          .mt-16 {
+            margin-top: 1.6rem;
+          }
+        }
+      }
     }
   }
 }

@@ -129,30 +129,45 @@ const initCurriculum: ISection[] = [
 ]
 
 const initCourseData: Course = {
-  // id: 1,
-  // out_comes: [""]
-  // intended_for: string[] | null
-  // requirements: string[] | null
-  // product_id_stripe: string
-  // level_id: number | null
-  // category_id: number
-  // sub_category_id: number
-  // title: string
-  // review_status: number
-  // welcome_message: string | null
-  // congratulations_message: string | null
-  // subtitle: string | null
-  // primarily_teach: string | null
-  // description: string | null
-  // status: number
-  // language_id: number | null
-  // price_id: number | null
-  // user_id: number | null
-  // promotional_video: string | null
-  // image: string | null
-  // curriculums: ISection[]
-  // updated_at: string
-  // created_at: string
+  id: 1,
+  out_comes: [
+    'Learn how to install and use Docker on any system (macOS, Windows, Linux)',
+    'Learn what Docker and Kubernetes are and why you might want to use them',
+    'Learn how to create and use Images & Containers with Docker',
+    'Learn about Container Networking with Docker Networks and DNS Service Discovery'
+  ],
+  intended_for: [
+    'Everyone who has NOT worked with Docker or Kubernetes at all',
+    'Everyone who is struggling with understanding what exactly Docker is (and why you might want to use it)',
+    'Web) developers who want to explore modern DevOps and Docker'
+  ],
+  requirements: [
+    'NO prior Docker or Kubernetes experience is required!',
+    "Basic (web) development knowledge is required - you don't need to know a specific language though",
+    'AWS (used in a couple of deployment examples, ~4 hours of the course) requires a credit card - you can also follow along passively though'
+  ],
+  product_id_stripe: 'random1233213122312',
+  level_id: 1,
+  category_id: 1,
+  sub_category_id: 1,
+  title: 'Docker & Kubernetes: The Practical Guide [2024 Edition]',
+  review_status: 1,
+  welcome_message: null,
+  congratulations_message: null,
+  subtitle:
+    'Learn Docker, Docker Compose, Multi-Container Projects, Deployment and all about Kubernetes from the ground up!',
+  primarily_teach: null,
+  description: '<p>KEKE</p>',
+  status: 1,
+  language_id: 1,
+  price_id: 1200,
+  user_id: 1,
+  promotional_video: null,
+  image:
+    'https://images.pexels.com/photos/18536697/pexels-photo-18536697/free-photo-of-woman-in-a-dress-dancing-on-a-desert.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load',
+  curriculums: initCurriculum,
+  updated_at: '',
+  created_at: ''
 }
 
 function CourseManageLayout() {
@@ -665,7 +680,7 @@ function CourseManageLayout() {
             {renderedTab === 'curriculum' && <CourseCurriculum setSections={setSections} sections={sections} />}
             {renderedTab === 'pricing' && <CoursePricing />}
 
-            {renderedTab === 'basics' && <CourseBasics />}
+            {renderedTab === 'basics' && <CourseBasics courseData={initCourseData} />}
           </CourseManageProvider>
         </div>
       </div>
