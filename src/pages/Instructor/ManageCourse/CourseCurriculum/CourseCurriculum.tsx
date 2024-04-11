@@ -1,16 +1,10 @@
-import React from 'react'
-
+import { useCourseManageContext } from '../context/CourseMangeContext'
+import AddSectionForm from './AddSectionForm'
 import styles from './CourseCurriculum.module.scss'
 import SectionItem from './SectionItem'
-import { ISection } from '../../../../models/course'
-import AddSectionForm from './AddSectionForm'
 
-interface IProps {
-  sections: ISection[]
-  setSections: React.Dispatch<React.SetStateAction<ISection[]>>
-}
-
-function CourseCurriculum({ sections }: IProps) {
+function CourseCurriculum() {
+  const { course } = useCourseManageContext()
   return (
     <div className={styles.courseCurriculumPage}>
       <div className='subHeaderWrapper'>
@@ -34,7 +28,7 @@ function CourseCurriculum({ sections }: IProps) {
         </div>
 
         <div className='curriculumPart'>
-          {sections.map((sectionItem, index) => (
+          {(course.curriculums ?? []).map((sectionItem, index) => (
             <SectionItem index={index + 1} key={sectionItem.id} section={sectionItem} />
           ))}
 

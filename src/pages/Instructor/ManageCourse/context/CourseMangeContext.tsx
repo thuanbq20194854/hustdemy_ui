@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext } from 'react'
 import {
+  Course,
   CreateLectureForm,
   CreateQuestionForm,
   ICreateQuiz,
@@ -7,10 +8,11 @@ import {
   IDeleteLecture,
   IDeleteQuestion,
   IDeleteResource,
-  ISection,
   IUpdateQuiz,
   IUpdateSection,
   UpdateAnswerForm,
+  UpdateCourseLandingPageForm,
+  UpdateCoursePrice,
   UpdateLectureDesc,
   UpdateQuestionForm,
   UpdateResource,
@@ -34,8 +36,9 @@ interface CourseManageContextProps {
   handleAddLectureResource: (updateResourceFormData: UpdateResource) => void
   handleDeleteResource: (deleteResourceFormData: IDeleteResource) => void
   handleAddLecture: (addLectureForm: CreateLectureForm) => void
-
-  sections: ISection[]
+  handleUpdateCourseLandingPage: (updateCourseLandingPage: UpdateCourseLandingPageForm, courseImage?: File) => void
+  handleUpdateCoursePrice: (formData: UpdateCoursePrice, courseId: number) => void
+  course: Course
 }
 const CourseManageContext = createContext<CourseManageContextProps>({
   handleAddSection: () => {},
@@ -53,7 +56,9 @@ const CourseManageContext = createContext<CourseManageContextProps>({
   handleAddLectureResource: () => {},
   handleDeleteResource: () => {},
   handleAddLecture: () => {},
-  sections: []
+  handleUpdateCourseLandingPage: () => {},
+  handleUpdateCoursePrice: () => {},
+  course: {}
 })
 
 interface CourseMangeProviderProps {

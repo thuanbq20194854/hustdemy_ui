@@ -1,10 +1,10 @@
-import { Button, Form, Upload, message } from 'antd'
+import { Button, Form, Upload } from 'antd'
 import { useForm, useWatch } from 'antd/es/form/Form'
+import { RcFile } from 'antd/es/upload'
+import { BsUpload } from 'react-icons/bs'
 import { MdOutlineClose } from 'react-icons/md'
 import { UpdateResource } from '../../../../../models/course'
-import { BsUpload } from 'react-icons/bs'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
-import { RcFile } from 'antd/es/upload'
 
 interface IProps {
   sectionId: number
@@ -48,9 +48,10 @@ function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProp
   const beforeUpload = (file: RcFile) => {
     const isZip = file.type === 'application/zip'
 
-    if (!isZip) {
-      message.error('ZIPPPPPPPPPPPP')
-    }
+    // if (!isZip) {
+    //   // message.error('ZIPPPPPPPPPPPP')
+    //   return
+    // }
     return isZip
   }
 

@@ -1,0 +1,124 @@
+.coursePricing {
+  :global {
+    .subHeaderWrapper {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2.4rem;
+      padding: 2.4rem 4.8rem;
+      border-bottom: 1px solid #d1d7dc;
+
+      display: flex;
+      align-items: center;
+
+      .headerContent {
+      }
+    }
+
+    .mainContent {
+      padding: 48px;
+
+      position: relative;
+
+      .saveBtn {
+        display: block;
+        margin-top: 16px;
+
+        &.disabledBtn {
+          color: black;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
+
+      .alertContainer {
+        margin-bottom: 48px;
+      }
+
+      .ud-form-note {
+        color: #6a6f73;
+      }
+
+      .formItem {
+        margin-top: 2.4rem;
+
+        .selectionGroup {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.6rem;
+
+          .ud-select-container {
+            flex: 1;
+            min-width: 22rem;
+            align-self: flex-start;
+          }
+
+          .categorySelections {
+            flex: 1;
+            min-width: 22rem;
+          }
+
+          .mt-16 {
+            margin-top: 1.6rem;
+          }
+        }
+
+        .contentContainer {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 1.6rem;
+          align-items: start;
+
+          .imgContainer {
+            flex: 1;
+            min-width: 22rem;
+
+            object-fit: cover;
+            overflow: hidden;
+
+            border: 1px solid #d1d7dc;
+
+            img {
+              width: 100%;
+
+              // max-height: 42.2rem;
+              height: auto;
+            }
+          }
+
+          .fileInputContainer {
+            flex: 1;
+            min-width: 22rem;
+
+            .inputFile {
+              display: block;
+              width: 1px;
+              height: 1px;
+            }
+
+            .ant-btn {
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+
+      .flexContainer {
+        display: flex;
+        gap: 1.6rem;
+        flex-wrap: wrap;
+
+        .formItem {
+          flex: 1;
+          min-width: 22rem;
+        }
+
+        .spacer {
+          flex: 1;
+          min-width: 22rem;
+        }
+      }
+    }
+  }
+}

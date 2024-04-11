@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 import styles from './CustomInput.module.scss'
 
@@ -8,19 +8,27 @@ interface IProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLI
   className?: string
 }
 
-function CustomInput({ className, ...rest }: IProps) {
-  const [inputContent, setInputContent] = useState<string>('')
+function CustomInput({ maxLength, className, ...rest }: IProps) {
+  const [inputValue, setInputValue] = useState('')
+
+  const handleInputChange = (value: string) => {
+    if (maxLength && value.length > maxLength) {
+      return
+    }
+
+    setInputValue(value)
+  }
+
   return (
     <div className={`${styles.inputWrapper} ${className}`}>
       <input
+        value={inputValue}
+        onChange={(e) => handleInputChange(e.target.value)}
         type='text'
-        className={`input`}
+        className='input'
         {...rest}
-        onChange={(e) => {
-          setInputContent(e.target.value)
-        }}
       />
-      {/* {maxLength && <span className='charLength'>{maxLength - inputRef.current.value.length}</span>} */}
+      {maxLength && <span className='charLength'>{maxLength - inputValue.length}</span>}
     </div>
   )
 }

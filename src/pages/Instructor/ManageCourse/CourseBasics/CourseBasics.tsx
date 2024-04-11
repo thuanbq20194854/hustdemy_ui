@@ -1,16 +1,17 @@
-import { Input, Form, Select } from 'antd'
-import styles from './CourseBasics.module.scss'
-import CustomInput from '../../components/CustomInput'
-import { Controller, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Course, UpdateCourseLandingPageForm } from '../../../../models/course'
-import TextEditor from '../../../../components/TextEditor/TextEditor'
+import { useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { IoIosArrowDown } from 'react-icons/io'
-import CustomSelect from '../../../../components/CustomSelect/CustomSelect'
+import TextEditor from '../../../../components/TextEditor/TextEditor'
+import { Course, UpdateCourseImage, UpdateCourseLandingPageForm } from '../../../../models/course'
+import styles from './CourseBasics.module.scss'
+import { schemeUpdateImage } from '../../../../validators/auth'
+import { ValidationError } from 'yup'
 
-interface IProps {
-  courseData: Course
-}
+import { Button } from 'antd'
+import { MdDelete, MdOutlineFileUpload } from 'react-icons/md'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schemeUpdateCourseLanding } from '../../../../validators/course'
+import { useCourseManageContext } from '../context/CourseMangeContext'
 
 const customToolBar = [
   ['bold', 'italic'],
@@ -36,8 +37,21 @@ const fakeOptions = [
   }
 ]
 
-function CourseBasics({ courseData: course }: IProps) {
-  const { handleSubmit, register, watch, setValue } = useForm<UpdateCourseLandingPageForm>({
+function CourseBasics() {
+  const { handleUpdateCourseLandingPage, course } = useCourseManageContext()
+  const inputRef = useRef<any | undefined>(undefined)
+
+  const [courseImagePreview, setCourseImagePreview] = useState<string>('')
+  const [courseImageFile, setCourseImageFile] = useState<File | undefined>(undefined)
+  const [courseImageError, setCourseImageError] = useState<string>('')
+
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    formState: { errors }
+  } = useForm<UpdateCourseLandingPageForm>({
     defaultValues: {
       category_id: course.category_id,
       title: course.title,
@@ -47,19 +61,78 @@ function CourseBasics({ courseData: course }: IProps) {
       sub_category_id: course.sub_category_id,
       level_id: course.level_id ?? undefined,
       language_id: course.language_id ?? undefined
-      //   courseImage: course.image ?? undefined
-    }
+    },
 
-    // resolver: yupResolver(schemeUpdateCourseLanding)
+    resolver: yupResolver(schemeUpdateCourseLanding)
   })
 
   console.log('watch: ', watch())
 
-  const handleSubmitForm = (formData: UpdateCourseLandingPageForm) => {}
+  const handleSubmitForm = (formData: UpdateCourseLandingPageForm) => {
+    handleUpdateCourseLandingPage(formData, courseImageFile)
+
+    console.log('kiki')
+  }
 
   const handleEditorChange = (html: string) => {
     setValue('description', html)
   }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const data: UpdateCourseImage = {
+        image: e.target.files ? e.target.files[0] : undefined
+      }
+
+      const dataValidate = await schemeUpdateImage.validate(data)
+
+      const newFile = dataValidate.image
+
+      if (newFile) {
+        const blob = URL.createObjectURL(newFile)
+        setCourseImageFile(newFile)
+        setCourseImageError('')
+        setCourseImagePreview(blob)
+        console.log('blob: ', blob)
+      }
+
+      console.log('okkkkk')
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        console.log('if')
+
+        setCourseImageError(e.message)
+        setCourseImagePreview('')
+      } else {
+        console.log('else')
+        console.log(e)
+      }
+    }
+  }
+
+  const removeCoursImageSelection = () => {
+    setCourseImageFile(undefined)
+    setCourseImageError('')
+    setCourseImagePreview('')
+    console.log('lick')
+  }
+
+  const handleSelectFile = () => {
+    inputRef.current?.click()
+  }
+
+  /// on Category Change => set Subcateory
+
+  /// useEffect - init Data for Selection + Image
+
+  useEffect(() => {
+    if (course.image) {
+      setCourseImagePreview(course.image)
+    }
+  }, [])
+
+  console.log('course : ', course)
+
   return (
     <div className={styles.courseBasicPage}>
       <div className='subHeaderWrapper'>
@@ -101,6 +174,7 @@ function CourseBasics({ courseData: course }: IProps) {
             <p className='ud-form-note ud-text-xs'>
               Your title should be a mix of attention-grabbing, informative, and optimized for search (60 characters)
             </p>
+            <p className='ud-form-note-validate-14'>{errors.title?.message ?? ''}</p>
           </div>
 
           <div className='formItem'>
@@ -118,6 +192,7 @@ function CourseBasics({ courseData: course }: IProps) {
               Use 1 or 2 related keywords, and mention 3-4 of the most important areas that you've covered during your
               course. (120 characters)
             </p>
+            <p className='ud-form-note-validate-14'>{errors.subtitle?.message ?? ''}</p>
           </div>
 
           <div className='formItem'>
@@ -130,6 +205,7 @@ function CourseBasics({ courseData: course }: IProps) {
               handleHTMLChange={handleEditorChange}
             />
             <p className='ud-form-note ud-text-xs'>Description should have minimum 200 words.</p>
+            <p className='ud-form-note-validate-14'>{errors.description?.message ?? ''}</p>
           </div>
 
           <div className='formItem'>
@@ -163,6 +239,8 @@ function CourseBasics({ courseData: course }: IProps) {
                     className='ud-icon ud-icon-small ud-icon-color-neutral'
                   />
                 </div>
+
+                <p className='ud-form-note-validate-14'>{errors.language_id?.message ?? ''}</p>
               </div>
 
               <div className='ud-select-container ud-select-container-large'>
@@ -190,6 +268,8 @@ function CourseBasics({ courseData: course }: IProps) {
                     className='ud-icon ud-icon-small ud-icon-color-neutral'
                   />
                 </div>
+
+                <p className='ud-form-note-validate-14'>{errors.level_id?.message ?? ''}</p>
               </div>
 
               <div className='categorySelections'>
@@ -219,6 +299,8 @@ function CourseBasics({ courseData: course }: IProps) {
                     />
                   </div>
                 </div>
+                <p className='ud-form-note-validate-14'>{errors.category_id?.message ?? ''}</p>
+
                 <div className='ud-select-container ud-select-container-large mt-16'>
                   <select
                     required
@@ -245,25 +327,69 @@ function CourseBasics({ courseData: course }: IProps) {
                     />
                   </div>
                 </div>
+                <p className='ud-form-note-validate-14'>{errors.sub_category_id?.message ?? ''}</p>
               </div>
             </div>
           </div>
 
+          <div className='flexContainer'>
+            <div className='formItem'>
+              <label htmlFor='primarily_teach' className='ud-form-label ud-heading-md'>
+                What is primarily taught in your course?
+              </label>
+              <input
+                id='primarily_teach'
+                placeholder='e.g Landscape Photography'
+                className='ud-text-input-large ud-text-md ud-text-input'
+                maxLength={120}
+                {...register('primarily_teach')}
+              />
+            </div>
+            <p className='ud-form-note-validate-14'>{errors.primarily_teach?.message ?? ''}</p>
+
+            <div className='spacer'></div>
+          </div>
+
           <div className='formItem'>
-            <label htmlFor='subtitle' className='ud-form-label ud-heading-md'>
-              What is primarily taught in your course?
+            <label htmlFor='courseImage' className='ud-form-label ud-heading-md'>
+              Course Image
             </label>
-            <input
-              id='subtitle'
-              placeholder='Insert your course title'
-              className='ud-text-input-large ud-text-md ud-text-input'
-              maxLength={120}
-              {...register('subtitle')}
-            />
-            <p className='ud-form-note ud-text-xs'>
-              Use 1 or 2 related keywords, and mention 3-4 of the most important areas that you've covered during your
-              course. (120 characters)
-            </p>
+
+            <div className='contentContainer'>
+              <div className='imgContainer'>
+                <img
+                  src={
+                    courseImagePreview ? courseImagePreview : '	https://s.udemycdn.com/course/750x422/placeholder.jpg'
+                  }
+                  alt=''
+                />
+              </div>
+
+              <div className='fileInputContainer'>
+                <Button
+                  style={{
+                    marginBottom: '16px'
+                  }}
+                  icon={<MdDelete style={{ fontSize: '20px' }} />}
+                  onClick={removeCoursImageSelection}
+                >
+                  Remove image
+                </Button>
+                <input
+                  type='file'
+                  accept='.png,.jpg,.jpeg'
+                  onChange={handleFileChange}
+                  ref={inputRef}
+                  className='inputFile'
+                />
+
+                <Button icon={<MdOutlineFileUpload style={{ fontSize: '20px' }} />} onClick={handleSelectFile}>
+                  Upload Image
+                </Button>
+                <p>{courseImageFile ? courseImageFile.name : ''}</p>
+                <p className='ud-form-note-validate-14'>{courseImageError}</p>
+              </div>
+            </div>
           </div>
         </form>
       </div>

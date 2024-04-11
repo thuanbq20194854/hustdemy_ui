@@ -24,7 +24,9 @@ import {
   UpdateQuestionForm,
   UpdateResource,
   UpdateVideoForm,
-  Course
+  Course,
+  UpdateCourseLandingPageForm,
+  UpdateCoursePrice
 } from '../../../models/course'
 import { randomNumber } from '../../../utils/utils'
 import CMSidebar from './CMSidebar'
@@ -174,9 +176,9 @@ function CourseManageLayout() {
   const { courseId, content } = useParams()
 
   const navigate = useNavigate()
-  const [course, setCourse] = useState<any>()
+  const [course, setCourse] = useState<Course>(initCourseData)
 
-  const [sections, setSections] = useState<ISection[]>(initCurriculum)
+  // const [course.curriculums, setSections] = useState<ISection[]>(initCurriculum)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -200,22 +202,38 @@ function CourseManageLayout() {
     /// API first
     /// Put response into this SET function
 
-    setSections((prev) => [
-      ...prev,
+    const updatedSections = [
+      ...(course.curriculums ?? []),
       {
         id: randomNumber(),
         sectionOutcome: data.sectionOutcome,
         lectures: [],
         sectionTitle: data.sectionTitle
       }
-    ])
+    ]
+
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
+
+    // setSections((prev) => [
+    //   ...prev,
+    //   {
+    //     id: randomNumber(),
+    //     sectionOutcome: data.sectionOutcome,
+    //     lectures: [],
+    //     sectionTitle: data.sectionTitle
+    //   }
+    // ])
   }
 
   const handleEditSection = (sectionEdited: IUpdateSection) => {
     /// API first
     /// Put response into this SET function
 
-    const updatedSection = sections.map((sectionItem) => {
+    const updatedSections = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === sectionEdited.id) {
         return {
           ...sectionItem,
@@ -227,7 +245,11 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSection)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleDeleteSection = (deleteId: number) => {
@@ -236,14 +258,18 @@ function CourseManageLayout() {
     /// finish loading
     /// Put response into this SET function
     /// toast
-    const updatedSections = sections.filter((sectionItem) => sectionItem.id != deleteId)
-    setSections(updatedSections)
+    const updatedSections = (course.curriculums ?? []).filter((sectionItem) => sectionItem.id != deleteId)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleAddQuiz = (quizData: ICreateQuiz) => {
-    const expectedSection = sections.find((sectionItem) => sectionItem.id === quizData.sectionId)
+    const expectedSection = (course.curriculums ?? []).find((sectionItem) => sectionItem.id === quizData.sectionId)
 
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === expectedSection?.id) {
         return {
           ...sectionItem,
@@ -258,17 +284,22 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleUpdateQuiz = (quizData: IUpdateQuiz) => {
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === quizData.sectionId) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === quizData.id) {
             return {
               ...lectureItem,
-              ...quizData
+              title: quizData.title,
+              desc: quizData.desc
             }
           }
 
@@ -284,11 +315,15 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleDeleteLecture = (lectureData: IDeleteLecture) => {
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === lectureData.sectionId) {
         const updatedLectures = sectionItem.lectures.filter((lectureItem) => lectureItem.id != lectureData.id)
 
@@ -301,12 +336,16 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleAddQuestion = (data: CreateQuestionForm) => {
     /// id of question from API to pass and update state
-    const updatedSections: ISection[] = sections.map((sectionItem: ISection) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem: ISection) => {
       if (sectionItem.id === data.sectionID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
           if (lectureItem.id === data.lectureID) {
@@ -344,14 +383,18 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleUpdateQuestion = (
     updateQuestionFormData: UpdateQuestionForm,
     updateAnswerArrayForm: UpdateAnswerForm[]
   ) => {
-    const updatedSections: ISection[] = sections.map((sectionItem: ISection) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem: ISection) => {
       if (sectionItem.id === updateQuestionFormData.sectionID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
           if (lectureItem.id === updateQuestionFormData.lectureID) {
@@ -393,11 +436,15 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleDeleteQuestion = (questionItemData: IDeleteQuestion) => {
-    const updateSections = sections.map((sectionItem: ISection) => {
+    const updatedSections = (course.curriculums ?? []).map((sectionItem: ISection) => {
       if (sectionItem.id === questionItemData.sectionID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
           if (lectureItem.id === questionItemData.lectureID) {
@@ -422,11 +469,15 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updateSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleAddLecture = (addLectureForm: CreateLectureForm) => {
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === addLectureForm.sectionId) {
         return {
           ...sectionItem,
@@ -438,12 +489,16 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleUploadLectureVideo = (updateVideoForm: UpdateVideoForm) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === updateVideoForm.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === updateVideoForm.lecture_id) {
@@ -479,12 +534,16 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleReplaceLectureVideo = (updateVideoForm: UpdateVideoForm) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === updateVideoForm.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === updateVideoForm.lecture_id) {
@@ -523,13 +582,17 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleUpdateLectureDesc = (formData: UpdateLectureDesc) => {
     /// API
 
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === formData.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === formData.lecture_id) {
@@ -551,12 +614,16 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
   const handleAddLectureResource = (updateResourceFormData: UpdateResource) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === updateResourceFormData.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === updateResourceFormData.lecture_id) {
@@ -592,11 +659,15 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
   const handleDeleteResource = (deleteResourceFormData: IDeleteResource) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = sections.map((sectionItem) => {
+    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === deleteResourceFormData.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === deleteResourceFormData.lecture_id) {
@@ -618,10 +689,38 @@ function CourseManageLayout() {
       return sectionItem
     })
 
-    setSections(updatedSections)
+    setCourse((prev) => ({
+      ...prev,
+
+      curriculums: updatedSections
+    }))
   }
 
-  console.log(sections)
+  const handleUpdateCourseLandingPage = (updateCourseLandingPage: UpdateCourseLandingPageForm, courseImage?: File) => {
+    const updatedCourse: Course = {
+      ...course,
+      ...updateCourseLandingPage,
+
+      /// URL Image from API return
+      image: courseImage ? '' : null
+    }
+
+    setCourse({
+      ...updatedCourse
+    })
+  }
+
+  const handleUpdateCoursePrice = (formData: UpdateCoursePrice, courseId: number) => {
+    const updatedCourse: Course = {
+      ...course,
+      price_id: formData.tier
+    }
+
+    setCourse({
+      ...updatedCourse
+    })
+  }
+  console.log(course.curriculums)
 
   return (
     <div className={styles.layoutWrapper}>
@@ -657,7 +756,7 @@ function CourseManageLayout() {
         <div className='mainContentWrapper'>
           <CourseManageProvider
             value={{
-              sections,
+              course: course,
               handleAddSection,
               handleEditSection,
               handleDeleteSection,
@@ -672,15 +771,17 @@ function CourseManageLayout() {
               handleUpdateLectureDesc,
               handleAddLectureResource,
               handleDeleteResource,
-              handleAddLecture
+              handleAddLecture,
+              handleUpdateCourseLandingPage,
+              handleUpdateCoursePrice
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}
 
-            {renderedTab === 'curriculum' && <CourseCurriculum setSections={setSections} sections={sections} />}
+            {renderedTab === 'curriculum' && <CourseCurriculum />}
             {renderedTab === 'pricing' && <CoursePricing />}
 
-            {renderedTab === 'basics' && <CourseBasics courseData={initCourseData} />}
+            {renderedTab === 'basics' && <CourseBasics />}
           </CourseManageProvider>
         </div>
       </div>

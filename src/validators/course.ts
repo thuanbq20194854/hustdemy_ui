@@ -7,7 +7,8 @@ import {
   IDeleteSection,
   IUpdateLecure,
   IUpdateSection,
-  UpdateCourseLandingPageForm
+  UpdateCourseLandingPageForm,
+  UpdateCoursePrice
 } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
@@ -100,9 +101,23 @@ export const schemaAddLectureForm: Yup.ObjectSchema<CreateLectureForm> = Yup.obj
   type: Yup.number().required('This field is required')
 })
 export const schemeUpdateCourseLanding: Yup.ObjectSchema<UpdateCourseLandingPageForm> = Yup.object({
-  sectionId: Yup.number().required('This field is required'),
-  title: Yup.string().required('This field is required'),
-  type: Yup.number().required('This field is required')
+  title: Yup.string().required('Title is required').max(60, 'Title is longer than 60 character'),
+  subtitle: Yup.string().max(120, 'Subtitle is longer than 120 character'),
+  description: Yup.string(),
+  primarily_teach: Yup.string(),
+  category_id: Yup.number()
+    .required('Category is required')
+    .test('require', 'Category is required', (data) => data != -1),
+  sub_category_id: Yup.number()
+    .required('Subcategory is required')
+    .test('require', 'Subcategory is required', (data) => data != -1),
+
+  level_id: Yup.number(),
+  language_id: Yup.number()
+})
+export const schemaUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.object({
+  id: Yup.number().required('Id is required'),
+  tier: Yup.number().required('Price tier is required')
 })
 // export const schemaDeleteQuiz: Yup.ObjectSchema<IDeleteLecure> = Yup.object({
 //   id: Yup.number().required('This field may not be blank'),
