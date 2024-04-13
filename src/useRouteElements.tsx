@@ -17,6 +17,7 @@ import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
 import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
 import CourseManageLayout from './pages/Instructor/ManageCourse/CourseManageLayout'
+import { ROUTER_PATH } from './contants/router'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -123,7 +124,7 @@ export const useRouteElements = () => {
       ]
     },
     {
-      path: '/instructor/course/:courseId/manage/:content',
+      path: ROUTER_PATH.InstructorCourseManage,
       element: <CourseManageLayout />
     },
     {

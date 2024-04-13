@@ -10,6 +10,7 @@ import {
   IDeleteResource,
   IUpdateQuiz,
   IUpdateSection,
+  IntendedLearnForm,
   UpdateAnswerForm,
   UpdateCourseLandingPageForm,
   UpdateCoursePrice,
@@ -38,6 +39,7 @@ interface CourseManageContextProps {
   handleAddLecture: (addLectureForm: CreateLectureForm) => void
   handleUpdateCourseLandingPage: (updateCourseLandingPage: UpdateCourseLandingPageForm, courseImage?: File) => void
   handleUpdateCoursePrice: (formData: UpdateCoursePrice, courseId: number) => void
+  handleUpdateIntendedLearner: (formData: IntendedLearnForm, courseId: number) => void
   course: Course
 }
 const CourseManageContext = createContext<CourseManageContextProps>({
@@ -58,6 +60,7 @@ const CourseManageContext = createContext<CourseManageContextProps>({
   handleAddLecture: () => {},
   handleUpdateCourseLandingPage: () => {},
   handleUpdateCoursePrice: () => {},
+  handleUpdateIntendedLearner: () => {},
   course: {}
 })
 

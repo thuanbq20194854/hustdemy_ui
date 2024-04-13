@@ -83,6 +83,10 @@ function CMSidebar({ courseId, handleTabChange }: IProps) {
           </ul>
         </li> */}
       </ul>
+
+      <div className='submitBtnContainer'>
+        <button className='ud-btn ud-btn-large ud-btn-brand ud-heading-md submitBtn'>Submit For Review</button>
+      </div>
     </div>
   )
 }

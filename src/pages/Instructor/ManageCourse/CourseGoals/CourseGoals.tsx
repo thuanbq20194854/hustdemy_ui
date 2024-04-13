@@ -1,32 +1,63 @@
-import React from 'react'
-
-import styles from './CourseGoals.module.scss'
 import { Input } from 'antd'
-import { MdDelete } from 'react-icons/md'
-import { FaBars } from 'react-icons/fa'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import { FaBars } from 'react-icons/fa'
 import { LuPlus } from 'react-icons/lu'
+import { MdDelete } from 'react-icons/md'
+import styles from './CourseGoals.module.scss'
 
-import { IntendedLearners } from '../../../../models/course'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schemeUdpateIntendedLearner } from '../../../../validators/course'
 import { BiSolidErrorAlt } from 'react-icons/bi'
-const defaultFormValue = {
-  outcomes: [{ value: '' }, { value: '' }, { value: '' }, { value: '' }],
-  prerequisites: [{ value: '' }],
-  intendFor: [{ value: '' }]
-}
+import { IntendedLearnForm } from '../../../../models/course'
+import { schemeUdpateIntendedLearner } from '../../../../validators/course'
+import { useCourseManageContext } from '../context/CourseMangeContext'
+import { useMemo } from 'react'
+// const defaultFormValue = {
+//   out_comes: [{  '' }, {  '' }, {  '' }, {  '' }],
+//   prerequisites: [{  '' }],
+//   intendFor: [{  '' }]
+// }
 
 function CourseGoals() {
+  const { course, handleUpdateIntendedLearner } = useCourseManageContext()
+
+  const initOutcomes = useMemo(() => {
+    if (course.out_comes) {
+      return course.out_comes.map((item) => ({
+        value: item
+      }))
+    }
+    return []
+  }, [])
+  const initIntendedFor = useMemo(() => {
+    if (course.intended_for) {
+      return course.intended_for.map((item) => ({
+        value: item
+      }))
+    }
+    return []
+  }, [])
+  const initRequirement = useMemo(() => {
+    if (course.requirements) {
+      return course.requirements.map((item) => ({
+        value: item
+      }))
+    }
+    return []
+  }, [])
+
   const {
     handleSubmit,
     control,
     watch,
     register,
     formState: { errors }
-  } = useForm<IntendedLearners>({
-    defaultValues: defaultFormValue,
+  } = useForm<IntendedLearnForm>({
+    defaultValues: {
+      out_comes: initOutcomes,
+      intended_for: initIntendedFor,
+      requirements: initRequirement
+    },
     resolver: yupResolver(schemeUdpateIntendedLearner)
   })
 
@@ -38,7 +69,7 @@ function CourseGoals() {
     swap: swapOutcome
   } = useFieldArray({
     control,
-    name: 'outcomes'
+    name: 'out_comes'
   })
   const {
     fields: requirementsField,
@@ -60,13 +91,11 @@ function CourseGoals() {
     name: 'intended_for'
   })
 
-  const onSubmit = (data: IntendedLearners) => {
-    console.log('DAta: ', data)
+  const handleSubmitForm = (formData: IntendedLearnForm) => {
+    handleUpdateIntendedLearner(formData, course.id as number)
   }
-
   /*
   1. FOrm Diry => Có thể click Save (check form có thực sự khác biệt, để render notificaiton modal)
-
 
   2. Input.length > 0 + Hover => hiện button Delete + Move
 
@@ -77,7 +106,7 @@ function CourseGoals() {
 
   const handleAppendOutComes = () => {
     // console.log('watch ', watch('objectives'))
-    if (watch('outcomes').every((item) => item.value.trim().length > 0)) {
+    if (watch('out_comes').every((item) => item.value.trim().length > 0)) {
       appendOutcome({
         value: ''
       })
@@ -147,7 +176,7 @@ function CourseGoals() {
         </div>
       </div>
       <div className='mainContentWrapper'>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleSubmitForm)}>
           <div className='questionsContainer'>
             <p className='questionLabel ud-heading-md'>
               <span>What will students learn in your course?</span>
@@ -155,42 +184,61 @@ function CourseGoals() {
 
             <p className='ud-text-md'>
               <span>
-                You must enter at least 4 learning objectives or outcomes that learners can expect to achieve after
+                You must enter at least 4 learning objectives or out_comes that learners can expect to achieve after
                 completing your course.
               </span>
             </p>
 
             <DragDropContext onDragEnd={handleOnDragEndOutcome}>
-              <Droppable droppableId='outcomes'>
+              <Droppable droppableId='out_comes'>
                 {(provided) => (
                   <ul className='fieldArrayListContainer' {...provided.droppableProps} ref={provided.innerRef}>
                     {objectivesOutcomes.map(({ id }, index) => (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
-                          <Controller
-                            control={control}
-                            {...register(`outcomes.${index}.value`)}
-                            render={({ field }) => (
-                              <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
-                                <div className='inputContainer'>
-                                  <Input
-                                    {...field}
-                                    className='antInput ud-text-md'
-                                    placeholder='Example: Define the roles and responsibilities of a project manager'
-                                  />
-                                  <span className='counter'>160</span>
-                                </div>
-                                <span className={`btnWrapper ${!canOutcomesItemBeDeleted && 'prevent'}`}>
-                                  <button className={`btnContainer`} onClick={() => handleRemoveOutcome(index)}>
-                                    <MdDelete />
-                                  </button>
-                                </span>
-                                <button className='btnContainer' {...provided.dragHandleProps}>
-                                  <FaBars />
-                                </button>
-                              </div>
-                            )}
-                          />
+                          <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
+                            <div className='inputContainer'>
+                              <input
+                                className='antInput ud-text-md'
+                                placeholder='Example: Define the roles and responsibilities of a project manager'
+                                maxLength={160}
+                                {...register(`out_comes.${index}.value`)}
+                              />
+                              <span className='counter'>160</span>
+                            </div>
+                            <span className={`btnWrapper ${!canOutcomesItemBeDeleted && 'prevent'}`}>
+                              <button className={`btnContainer`} onClick={() => handleRemoveOutcome(index)}>
+                                <MdDelete />
+                              </button>
+                            </span>
+                            <button className='btnContainer' {...provided.dragHandleProps}>
+                              <FaBars />
+                            </button>
+                          </div>
+                          // <Controller
+                          //   control={control}
+                          //   {...register(`out_comes.${index}.value`)}
+                          //   render={({ field }) => (
+                          //     <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
+                          //       <div className='inputContainer'>
+                          //         <input
+                          //           className='antInput ud-text-md'
+                          //           placeholder='Example: Define the roles and responsibilities of a project manager'
+                          //           {...field}
+                          //         />
+                          //         <span className='counter'>160</span>
+                          //       </div>
+                          //       <span className={`btnWrapper ${!canOutcomesItemBeDeleted && 'prevent'}`}>
+                          //         <button className={`btnContainer`} onClick={() => handleRemoveOutcome(index)}>
+                          //           <MdDelete />
+                          //         </button>
+                          //       </span>
+                          //       <button className='btnContainer' {...provided.dragHandleProps}>
+                          //         <FaBars />
+                          //       </button>
+                          //     </div>
+                          //   )}
+                          // />
                         )}
                       </Draggable>
                     ))}
@@ -234,28 +282,45 @@ function CourseGoals() {
                     {requirementsField.map(({ id }, index) => (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
-                          <Controller
-                            control={control}
-                            {...register(`requirements.${index}.value`)}
-                            render={({ field }) => (
-                              <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
-                                <div className='inputContainer'>
-                                  <Input
-                                    {...field}
-                                    className='antInput ud-text-md'
-                                    placeholder='Example: Define the roles and responsibilities of a project manager'
-                                  />
-                                  <span className='counter'>160</span>
-                                </div>
-                                <button className='btnContainer' onClick={() => removeRequirements(index)}>
-                                  <MdDelete />
-                                </button>
-                                <button className='btnContainer' {...provided.dragHandleProps}>
-                                  <FaBars />
-                                </button>
-                              </div>
-                            )}
-                          />
+                          <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
+                            <div className='inputContainer'>
+                              <input
+                                className='antInput ud-text-md'
+                                placeholder='Example: Define the roles and responsibilities of a project manager'
+                                maxLength={160}
+                                {...register(`requirements.${index}.value`)}
+                              />
+                              <span className='counter'>160</span>
+                            </div>
+                            <button className='btnContainer' onClick={() => removeRequirements(index)}>
+                              <MdDelete />
+                            </button>
+                            <button className='btnContainer' {...provided.dragHandleProps}>
+                              <FaBars />
+                            </button>
+                          </div>
+                          // <Controller
+                          //   control={control}
+                          //   {...register(`requirements.${index}.value`)}
+                          //   render={({ field }) => (
+                          //     <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
+                          //       <div className='inputContainer'>
+                          //         <Input
+                          //           {...field}
+                          //           className='antInput ud-text-md'
+                          //           placeholder='Example: Define the roles and responsibilities of a project manager'
+                          //         />
+                          //         <span className='counter'>160</span>
+                          //       </div>
+                          //       <button className='btnContainer' onClick={() => removeRequirements(index)}>
+                          //         <MdDelete />
+                          //       </button>
+                          //       <button className='btnContainer' {...provided.dragHandleProps}>
+                          //         <FaBars />
+                          //       </button>
+                          //     </div>
+                          //   )}
+                          // />
                         )}
                       </Draggable>
                     ))}
@@ -293,28 +358,45 @@ function CourseGoals() {
                     {intendedForField.map(({ id }, index) => (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
-                          <Controller
-                            control={control}
-                            {...register(`intended_for.${index}.value`)}
-                            render={({ field }) => (
-                              <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
-                                <div className='inputContainer'>
-                                  <Input
-                                    {...field}
-                                    className='antInput ud-text-md'
-                                    placeholder='Example: Define the roles and responsibilities of a project manager'
-                                  />
-                                  <span className='counter'>160</span>
-                                </div>
-                                <button className='btnContainer' onClick={() => removeIntendedFor(index)}>
-                                  <MdDelete />
-                                </button>
-                                <button className='btnContainer' {...provided.dragHandleProps}>
-                                  <FaBars />
-                                </button>
-                              </div>
-                            )}
-                          />
+                          <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
+                            <div className='inputContainer'>
+                              <input
+                                className='antInput ud-text-md'
+                                placeholder='Example: Define the roles and responsibilities of a project manager'
+                                maxLength={160}
+                                {...register(`intended_for.${index}.value`)}
+                              />
+                              <span className='counter'>160</span>
+                            </div>
+                            <button className='btnContainer' onClick={() => removeIntendedFor(index)}>
+                              <MdDelete />
+                            </button>
+                            <button className='btnContainer' {...provided.dragHandleProps}>
+                              <FaBars />
+                            </button>
+                          </div>
+                          // <Controller
+                          //   control={control}
+                          //   {...register(`intended_for.${index}.value`)}
+                          //   render={({ field }) => (
+                          //     <div className='inputFlexWrapper' ref={provided.innerRef} {...provided.draggableProps}>
+                          //       <div className='inputContainer'>
+                          //         <Input
+                          //           {...field}
+                          //           className='antInput ud-text-md'
+                          //           placeholder='Example: Define the roles and responsibilities of a project manager'
+                          //         />
+                          //         <span className='counter'>160</span>
+                          //       </div>
+                          //       <button className='btnContainer' onClick={() => removeIntendedFor(index)}>
+                          //         <MdDelete />
+                          //       </button>
+                          //       <button className='btnContainer' {...provided.dragHandleProps}>
+                          //         <FaBars />
+                          //       </button>
+                          //     </div>
+                          //   )}
+                          // />
                         )}
                       </Draggable>
                     ))}

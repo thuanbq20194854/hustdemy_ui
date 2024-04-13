@@ -5,6 +5,7 @@ import { IoIosSearch } from 'react-icons/io'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import CustomTooltip from '../../../components/CustomTooltip/CustomTooltip'
 import { NavLink } from 'react-router-dom'
+import { ROUTER_PATH } from '../../../contants/router'
 
 function InstructorCourses() {
   const renderSortMenu = () => (
@@ -77,7 +78,7 @@ function InstructorCourses() {
 
             <div className='mainContent'>
               <div className='editNavLinkOverlay'>
-                <NavLink to='/' className='editNav ud-heading-lg'>
+                <NavLink to={ROUTER_PATH.InstructorCourseManage} className='editNav ud-heading-lg'>
                   <span>Edit / Manage Course</span>
                 </NavLink>
               </div>

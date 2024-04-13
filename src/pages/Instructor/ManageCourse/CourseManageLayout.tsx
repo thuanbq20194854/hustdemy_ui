@@ -1,14 +1,15 @@
 import { useLayoutEffect, useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 
 import { IoSettingsOutline } from 'react-icons/io5'
 import Footer from '../../../layouts/components/Footer'
 import {
+  Course,
+  CreateLectureForm,
   CreateQuestionForm,
   EAssetType,
   ELectureType,
-  CreateLectureForm,
   ICreateQuiz,
   ICreateSection,
   IDeleteLecture,
@@ -19,14 +20,14 @@ import {
   ISection,
   IUpdateQuiz,
   IUpdateSection,
+  IntendedLearnForm,
   UpdateAnswerForm,
+  UpdateCourseLandingPageForm,
+  UpdateCoursePrice,
   UpdateLectureDesc,
   UpdateQuestionForm,
   UpdateResource,
-  UpdateVideoForm,
-  Course,
-  UpdateCourseLandingPageForm,
-  UpdateCoursePrice
+  UpdateVideoForm
 } from '../../../models/course'
 import { randomNumber } from '../../../utils/utils'
 import CMSidebar from './CMSidebar'
@@ -720,17 +721,32 @@ function CourseManageLayout() {
       ...updatedCourse
     })
   }
+
+  const handleUpdateIntendedLearner = (formData: IntendedLearnForm, courseId: number) => {
+    const updatedCourse: Course = {
+      ...course,
+      out_comes: formData.out_comes.map((item) => item.value),
+      intended_for: formData.intended_for?.map((item) => item.value),
+      requirements: formData.requirements?.map((item) => item.value)
+    }
+
+    setCourse({
+      ...updatedCourse
+    })
+  }
   console.log(course.curriculums)
 
   return (
     <div className={styles.layoutWrapper}>
       <div className='headerWrapper'>
-        <div className='backBtn ud-btn ud-btn-small ud-btn-ghost ud-text-md'>
-          <div className='iconContainer'>
-            <IoIosArrowBack />
+        <NavLink to='/instructor/courses'>
+          <div className='backBtn ud-btn ud-btn-small ud-btn-ghost ud-text-md'>
+            <div className='iconContainer'>
+              <IoIosArrowBack />
+            </div>
+            <span>Back to courses</span>
           </div>
-          <span>Back to courses</span>
-        </div>
+        </NavLink>
 
         <div className='restPart'>
           <div className='infoPart'>
@@ -773,7 +789,8 @@ function CourseManageLayout() {
               handleDeleteResource,
               handleAddLecture,
               handleUpdateCourseLandingPage,
-              handleUpdateCoursePrice
+              handleUpdateCoursePrice,
+              handleUpdateIntendedLearner
             }}
           >
             {renderedTab === 'goals' && <CourseGoals />}
