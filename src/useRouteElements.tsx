@@ -1,23 +1,25 @@
 import { Outlet, useRoutes } from 'react-router-dom'
 
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
-import Payment from './pages/Payment/Payment'
+import InstructorLayout from './layouts/InstructorLayout/InstructorLayout'
 import MainLayout from './layouts/MainLayout/MainLayout'
-import Cart from './pages/Cart/Cart'
-import CourseDetail from './pages/Course/CourseDetail/CourseDetail'
-import MyCourses from './pages/MyCourses/MyCourses'
-import NotAuthHome from './pages/Home/NotAuthHome'
-import AuthHome from './pages/Home/AuthHome'
 import Login from './pages/Auth/Login/Login'
 import Register from './pages/Auth/Register/Register'
+import Cart from './pages/Cart/Cart'
+import CourseDetail from './pages/Course/CourseDetail/CourseDetail'
+import LectureLearning from './pages/Course/LectureLearning/LectureLearning'
 import CourseSearch from './pages/Courses/CourseSearch/CourseSearch'
-import LectureDetail from './pages/Course/LectureDetail/LectureDetail'
-import InstructorLayout from './layouts/InstructorLayout/InstructorLayout'
-import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
+import AuthHome from './pages/Home/AuthHome'
+import NotAuthHome from './pages/Home/NotAuthHome'
 import InstructorCommunication from './pages/Instructor/Communication/InstructorCommunication'
-import CourseCreate from './pages/Course/CourseCreate/CourseCreate'
+import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import CourseManageLayout from './pages/Instructor/ManageCourse/CourseManageLayout'
-import { ROUTER_PATH } from './contants/router'
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
+import Payment from './pages/Payment/Payment'
+import MyCourses from './pages/MyCourses/MyCourses'
+import SettingsLayout from './layouts/SettingsLayout/SettingsLayout'
+import EditAccount from './pages/User/EditAccount/EditAccount'
+import EditAvatar from './pages/User/EditAvatar/EditAvatar'
+import EditProfile from './pages/User/EditProfile/EditProfile'
 
 export const useRouteElements = () => {
   const isAuthed = false
@@ -32,10 +34,12 @@ export const useRouteElements = () => {
           element: isAuthed ? <AuthHome /> : <NotAuthHome />,
           index: true
         },
+
         {
           path: '/login',
           element: <Login />
         },
+
         {
           path: '/register',
           element: <Register />
@@ -44,6 +48,11 @@ export const useRouteElements = () => {
         {
           path: '/cart',
           element: <Cart />
+        },
+
+        {
+          path: '/payment',
+          element: <Payment />
         },
 
         {
@@ -68,6 +77,7 @@ export const useRouteElements = () => {
             }
           ]
         },
+
         {
           path: '/course',
           element: <Outlet />,
@@ -76,37 +86,30 @@ export const useRouteElements = () => {
             {
               path: '/course/:courseId',
               element: <CourseDetail />
-            },
-
-            {
-              path: '/course/:courseId/learn/lecture/:lectureId',
-              element: <LectureDetail />
             }
           ]
         },
-
         {
-          path: '/home/my-course/learning',
-          element: <Outlet />,
-          children: [
-            {
-              index: true,
-              path: '/home/my-course/learning',
-              element: <MyCourses />
-            }
-          ]
-        },
-
-        {
-          path: '/payment',
-          element: <Payment />
+          path: '/my-courses/:type',
+          element: <MyCourses />
         }
       ]
     },
 
     {
-      path: '/course/create',
-      element: <CourseCreate />
+      path: '/user',
+      element: <SettingsLayout />,
+
+      children: [
+        { path: 'edit-account', element: <EditAccount /> },
+        { path: 'edit-profile', element: <EditProfile /> },
+        { path: 'edit-avatar', element: <EditAvatar /> }
+      ]
+    },
+
+    {
+      path: '/course/:courseId/learn/lecture/:lectureId',
+      element: <LectureLearning />
     },
 
     {
@@ -123,10 +126,12 @@ export const useRouteElements = () => {
         }
       ]
     },
+
     {
-      path: ROUTER_PATH.InstructorCourseManage,
+      path: '/instructor/course/:courseId/manage/:content',
       element: <CourseManageLayout />
     },
+
     {
       path: '*',
       element: <NotFoundPage />

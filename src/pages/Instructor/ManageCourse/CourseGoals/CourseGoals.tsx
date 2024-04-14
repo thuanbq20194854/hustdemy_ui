@@ -1,17 +1,16 @@
-import { Input } from 'antd'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { FaBars } from 'react-icons/fa'
 import { LuPlus } from 'react-icons/lu'
 import { MdDelete } from 'react-icons/md'
 import styles from './CourseGoals.module.scss'
 
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMemo } from 'react'
 import { BiSolidErrorAlt } from 'react-icons/bi'
 import { IntendedLearnForm } from '../../../../models/course'
 import { schemeUdpateIntendedLearner } from '../../../../validators/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
-import { useMemo } from 'react'
 // const defaultFormValue = {
 //   out_comes: [{  '' }, {  '' }, {  '' }, {  '' }],
 //   prerequisites: [{  '' }],

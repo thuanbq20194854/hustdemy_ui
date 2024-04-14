@@ -1,0 +1,72 @@
+.layoutWrapper {
+  display: flex;
+  max-width: 116.4rem;
+  padding: 2.4rem 2.4rem 4.8rem;
+
+  margin: 0 auto;
+
+  :global {
+    .sidebar {
+      border: 1px solid #d1d7dc;
+      border-right: 0;
+      width: 21.6rem;
+
+      .avatarContaner {
+        display: flex;
+        justify-content: center;
+        padding: 1.6rem;
+
+        .ud-avatar {
+          font-size: 3.2rem !important;
+          width: 12rem !important;
+          height: 12rem !important;
+
+          overflow: hidden;
+          object-fit: cover;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      .userTitle {
+        text-align: center;
+      }
+
+      .sideNavMenu {
+        padding: 2.4rem 0;
+
+        li {
+          cursor: pointer;
+
+          a {
+            padding: 4px 16px;
+
+            color: #2d2f31;
+            display: block;
+
+            transition: color 0s;
+          }
+
+          a:hover {
+            background: #6a6f73;
+            color: #fff;
+          }
+
+          .active {
+            background: #6a6f73;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    .mainContent {
+      border: 1px solid #d1d7dc;
+      flex: 1;
+      min-width: 1px;
+    }
+  }
+}
