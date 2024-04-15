@@ -72,6 +72,8 @@
   --color-white: #fff;
 }
 
+/* Reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -119,6 +121,8 @@ ol {
   list-style: none;
 }
 
+/* Text */
+
 .ud-text-bold {
   font-weight: 700;
 }
@@ -148,7 +152,7 @@ ol {
   font-size: 1.6rem;
 }
 
-/*  */
+/* Heading */
 .ud-heading-xs {
   font-weight: 700;
   line-height: 1.2;
@@ -239,7 +243,7 @@ ol {
   max-width: 36em;
 }
 
-/*  */
+/* Badge */
 
 .ud-badge {
   display: inline-block;
@@ -247,7 +251,7 @@ ol {
   white-space: nowrap;
 }
 
-/*  */
+/* Button */
 .ud-btn {
   position: relative;
   align-items: center;
@@ -310,15 +314,6 @@ ol {
   background-color: rgba(23, 57, 83, 0.12);
 }
 
-.ud-link-neutral {
-  color: #2d2f31;
-}
-
-.ud-link-neutral:active,
-.ud-link-neutral:hover {
-  color: #101011;
-}
-
 .ud-btn-xsmall {
   min-width: 8rem;
   padding: 0 0.8rem;
@@ -356,14 +351,22 @@ ol {
   min-width: auto;
 }
 
-/*  */
+/* a nav link  */
+
+.ud-link-neutral {
+  color: #2d2f31;
+}
+
+.ud-link-neutral:active,
+.ud-link-neutral:hover {
+  color: #101011;
+}
+
 .ud-link-underline {
   text-decoration: underline;
   text-underline-offset: 0.4rem;
   text-decoration-color: #8072e6;
 }
-
-/*  */
 
 a.navLink:hover {
   cursor: pointer;
@@ -382,7 +385,7 @@ a.resetNavlink:hover {
   color: inherit;
 }
 
-/*  */
+/* ud List */
 .ud-unstyled-list {
   list-style: none;
   margin: 0;
@@ -457,7 +460,7 @@ a.resetNavlink:hover {
   flex-shrink: 0;
 }
 
-/* Form and Validate */
+/* Form and validate */
 
 .ud-form-label {
   display: flex;
@@ -517,6 +520,30 @@ a.resetNavlink:hover {
   width: 100%;
 }
 
+.ud-text-input-container {
+  .text-input-with-counter-module--counter {
+    color: #6a6f73;
+    margin: 0 1.6rem;
+  }
+  .ud-text-input-box {
+    border: 1px solid #2d2f31;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+
+    /* background-color: red; */
+  }
+  .ud-text-input {
+    border-right: 0;
+    padding-right: 0;
+    box-shadow: none !important;
+    flex: 1;
+  }
+}
+
 /*  Avatar */
 
 .ud-avatar {
@@ -535,4 +562,16 @@ a.resetNavlink:hover {
   border-top: 1px solid #d1d7dc;
   padding-top: 2.4rem;
   margin-top: 2.4rem;
+}
+
+/* Form Group */
+
+.ud-form-group + .ud-form-group {
+  margin-top: 1.6rem;
+}
+
+/* Footer Btns */
+
+.ud-footer-btns {
+  margin-top: 3.2rem;
 }

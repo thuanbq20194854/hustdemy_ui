@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import TextEditor from '../../../components/TextEditor/TextEditor'
 import styles from './EditProfile.module.scss'
+import { UpdateProfileForm } from '../../../models/auth'
 
 const toolBarCustom = [['bold', 'italic']]
 
@@ -25,11 +26,22 @@ const languagesOptions = [
 ]
 
 function EditProfile() {
-  const {} = useForm({
-    defaultValues: {}
+  const { handleSubmit, register } = useForm<UpdateProfileForm>({
+    defaultValues: {
+      name: string,
+      headline: string,
+      biography: string,
+      twitter_url: string,
+      facebook_url: string,
+      linkedin_url: string,
+      youtube_url: string,
+      website_url: string
+    }
 
     // resolver : yupResolver()
   })
+
+  const handleSubmitForm
   return (
     <div className={styles.editProfileWrapper}>
       <div className='contentHeader'>
@@ -41,21 +53,29 @@ function EditProfile() {
       </div>
 
       <div className='contentBody'>
-        <form action=''>
+        <form action='' onSubmit={handleSubmit(handleSubmitForm)}>
           <div className='formInnerContainer'>
             <div className='um-section'>
               <div className='ud-form-group'>
                 <legend className='ud-form-label ud-heading-sm'>Basics:</legend>
 
                 <div className='ud-form-group'>
-                  <input type='text' className='ud-text-input ud-text-input-large ud-text-md' />
+                  <input
+                    type='text'
+                    className='ud-text-input ud-text-input-large ud-text-md'
+                    placeholder='First Name'
+                  />
                 </div>
                 <div className='ud-form-group'>
-                  <input type='text' className='ud-text-input ud-text-input-large ud-text-md' />
+                  <input type='text' className='ud-text-input ud-text-input-large ud-text-md' placeholder='Last Name' />
                 </div>
                 <div className='ud-form-group'>
                   <div className='ud-text-input-container'>
-                    <input type='text' className='ud-text-input ud-text-input-large ud-text-md' />
+                    <input
+                      type='text'
+                      className='ud-text-input ud-text-input-large ud-text-md'
+                      placeholder='Headline'
+                    />
 
                     <div className='text-input-with-counter-module--counter'>60</div>
                     <div className='ud-text-input-box'></div>
@@ -94,19 +114,83 @@ function EditProfile() {
             <div className='um-section'>
               <legend className='ud-form-label ud-heading-sm'>Links:</legend>
               <div className='ud-form-group'>
-                <input type='text' className='ud-text-input ud-text-input-large ud-text-md' />
+                <input
+                  type='text'
+                  className='ud-text-input ud-text-input-large ud-text-md'
+                  placeholder='Website (http(s)://..)'
+                />
               </div>
 
               <div className='ud-form-group'>
                 <div className='text-input-with-addons--with-addons'>
                   <div className='ud-text-input-container'>
                     <div className='text-input-with-addons--addon'>http://twitter.com/</div>
-                    <input type='text' className='ud-text-input ud-text-input-large ud-text-md' />
+                    <input
+                      type='text'
+                      className='ud-text-input ud-text-input-large ud-text-md'
+                      placeholder='Twitter Profile'
+                    />
 
                     <div className='ud-text-input-box'></div>
                   </div>
                 </div>
+
+                <div className='ud-form-note ud-text-xs'>Add your Twitter username (e.g. johnsmith).</div>
               </div>
+              <div className='ud-form-group'>
+                <div className='text-input-with-addons--with-addons'>
+                  <div className='ud-text-input-container'>
+                    <div className='text-input-with-addons--addon'>http://www.facebook.com/</div>
+                    <input
+                      type='text'
+                      className='ud-text-input ud-text-input-large ud-text-md'
+                      placeholder='Facebook Profile'
+                    />
+
+                    <div className='ud-text-input-box'></div>
+                  </div>
+                </div>
+
+                <div className='ud-form-note ud-text-xs'>Input your Facebook username (e.g. johnsmith).</div>
+              </div>
+              <div className='ud-form-group'>
+                <div className='text-input-with-addons--with-addons'>
+                  <div className='ud-text-input-container'>
+                    <div className='text-input-with-addons--addon'>http://www.linkedin.com/</div>
+                    <input
+                      type='text'
+                      className='ud-text-input ud-text-input-large ud-text-md'
+                      placeholder='LinkedIn Profile'
+                    />
+
+                    <div className='ud-text-input-box'></div>
+                  </div>
+                </div>
+
+                <div className='ud-form-note ud-text-xs'>Input your LinkedIn resource id (e.g. in/johnsmith).</div>
+              </div>
+              <div className='ud-form-group'>
+                <div className='text-input-with-addons--with-addons'>
+                  <div className='ud-text-input-container'>
+                    <div className='text-input-with-addons--addon'>http://www.youtube.com/</div>
+                    <input
+                      type='text'
+                      className='ud-text-input ud-text-input-large ud-text-md'
+                      placeholder='Youtube Profile'
+                    />
+
+                    <div className='ud-text-input-box'></div>
+                  </div>
+                </div>
+
+                <div className='ud-form-note ud-text-xs'>Input your Youtube username (e.g. johnsmith).</div>
+              </div>
+            </div>
+
+            <div className='ud-footer-btns' style={{ textAlign: 'left' }}>
+              <button type='submit' className='ud-btn ud-btn-large ud-btn-primary ud-heading-md'>
+                Save
+              </button>
             </div>
           </div>
         </form>

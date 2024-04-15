@@ -15,7 +15,7 @@ import InstructorCourses from './pages/Instructor/Courses/InstructorCourses'
 import CourseManageLayout from './pages/Instructor/ManageCourse/CourseManageLayout'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import Payment from './pages/Payment/Payment'
-import MyCourses from './pages/MyCourses/MyCourses'
+import MyLearning from './pages/MyLearning/MyLearning'
 import SettingsLayout from './layouts/SettingsLayout/SettingsLayout'
 import EditAccount from './pages/User/EditAccount/EditAccount'
 import EditAvatar from './pages/User/EditAvatar/EditAvatar'
@@ -91,7 +91,7 @@ export const useRouteElements = () => {
         },
         {
           path: '/my-courses/:type',
-          element: <MyCourses />
+          element: <MyLearning />
         }
       ]
     },
