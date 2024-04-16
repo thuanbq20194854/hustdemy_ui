@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import TextEditor from '../../../components/TextEditor/TextEditor'
-import styles from './EditProfile.module.scss'
 import { UpdateProfileForm } from '../../../models/auth'
-import { useSelector } from 'react-redux'
-import { useAppSelector } from '../../../services/state/redux/store'
+import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
+import styles from './EditProfile.module.scss'
+import { schemaUpdateProfile } from '../../../validators/auth'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect } from 'react'
 
 const toolBarCustom = [['bold', 'italic']]
 
@@ -30,8 +32,15 @@ const languagesOptions = [
 function EditProfile() {
   const { user } = useAppSelector((state) => state.auth)
 
-  console.log(zzz)
-  const { handleSubmit, register } = useForm<UpdateProfileForm>({
+  const dispatch = useAppDispatch()
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    getValues,
+    setValue
+  } = useForm<UpdateProfileForm>({
     defaultValues: {
       name: user?.name ?? '',
       headline: user?.headline ?? '',
@@ -42,12 +51,20 @@ function EditProfile() {
       youtube_url: user?.twitter_url ?? '',
       website_url: user?.twitter_url ?? ''
     },
-    resolver: yupResolver()
+    resolver: yupResolver(schemaUpdateProfile)
   })
 
+  const handleHTMLChange = (html: string) => {
+    setValue('biography', html)
+  }
   const handleSubmitForm = (formData: UpdateProfileForm) => {
     console.log('formData:', formData)
+
+    // API Call
+
+    // Set Slice User with return API
   }
+
   return (
     <div className={styles.editProfileWrapper}>
       <div className='contentHeader'>
@@ -69,18 +86,21 @@ function EditProfile() {
                   <input
                     type='text'
                     className='ud-text-input ud-text-input-large ud-text-md'
-                    placeholder='First Name'
+                    placeholder='Name'
+                    {...register('name')}
                   />
+                  {<div className='ud-form-note-validate-14'>{errors.name ? errors.name.message : ''}</div>}
                 </div>
-                <div className='ud-form-group'>
+                {/* <div className='ud-form-group'>
                   <input type='text' className='ud-text-input ud-text-input-large ud-text-md' placeholder='Last Name' />
-                </div>
+                </div> */}
                 <div className='ud-form-group'>
                   <div className='ud-text-input-container'>
                     <input
                       type='text'
                       className='ud-text-input ud-text-input-large ud-text-md'
                       placeholder='Headline'
+                      {...register('headline')}
                     />
 
                     <div className='text-input-with-counter-module--counter'>60</div>
@@ -90,14 +110,21 @@ function EditProfile() {
                   <div className='ud-form-note ud-text-xs'>
                     Add a professional headline like, "Instructor at Udemy" or "Architect."
                   </div>
+
+                  {<div className='ud-form-note-validate-14'>{errors.headline ? errors.headline.message : ''}</div>}
                 </div>
                 <div className='ud-form-group'>
-                  <TextEditor customToolBar={toolBarCustom} defaultValue='' />
+                  <TextEditor
+                    customToolBar={toolBarCustom}
+                    defaultValue={getValues('biography') ?? ''}
+                    handleHTMLChange={handleHTMLChange}
+                  />
                   <div className='ud-form-note ud-text-xs'>
                     Links and coupon codes are not permitted in this section.
                   </div>
+                  {<div className='ud-form-note-validate-14'>{errors.biography ? errors.biography.message : ''}</div>}
                 </div>
-                <div className='ud-form-group'>
+                {/* <div className='ud-form-group'>
                   <div className='ud-select-container ud-select-container-large'>
                     <select name='' id='' className='ud-select ud-text-md' defaultValue={-1}>
                       <option value={-1} key={-1}>
@@ -113,7 +140,8 @@ function EditProfile() {
 
                     <MdKeyboardArrowDown className='ud-select-icon-container ud-select-icon-right' />
                   </div>
-                </div>
+                  {<div className='ud-form-note-validate-14'>{errors.l ? errors.l.message : ''}</div>}
+                </div> */}
               </div>
             </div>
 
@@ -124,7 +152,9 @@ function EditProfile() {
                   type='text'
                   className='ud-text-input ud-text-input-large ud-text-md'
                   placeholder='Website (http(s)://..)'
+                  {...register('website_url')}
                 />
+                {<div className='ud-form-note-validate-14'>{errors.website_url ? errors.website_url.message : ''}</div>}
               </div>
 
               <div className='ud-form-group'>
@@ -135,6 +165,7 @@ function EditProfile() {
                       type='text'
                       className='ud-text-input ud-text-input-large ud-text-md'
                       placeholder='Twitter Profile'
+                      {...register('twitter_url')}
                     />
 
                     <div className='ud-text-input-box'></div>
@@ -142,6 +173,7 @@ function EditProfile() {
                 </div>
 
                 <div className='ud-form-note ud-text-xs'>Add your Twitter username (e.g. johnsmith).</div>
+                {<div className='ud-form-note-validate-14'>{errors.twitter_url ? errors.twitter_url.message : ''}</div>}
               </div>
               <div className='ud-form-group'>
                 <div className='text-input-with-addons--with-addons'>
@@ -151,6 +183,7 @@ function EditProfile() {
                       type='text'
                       className='ud-text-input ud-text-input-large ud-text-md'
                       placeholder='Facebook Profile'
+                      {...register('facebook_url')}
                     />
 
                     <div className='ud-text-input-box'></div>
@@ -158,6 +191,7 @@ function EditProfile() {
                 </div>
 
                 <div className='ud-form-note ud-text-xs'>Input your Facebook username (e.g. johnsmith).</div>
+                <div className='ud-form-note-validate-14'>{errors.facebook_url ? errors.facebook_url.message : ''}</div>
               </div>
               <div className='ud-form-group'>
                 <div className='text-input-with-addons--with-addons'>
@@ -167,6 +201,7 @@ function EditProfile() {
                       type='text'
                       className='ud-text-input ud-text-input-large ud-text-md'
                       placeholder='LinkedIn Profile'
+                      {...register('linkedin_url')}
                     />
 
                     <div className='ud-text-input-box'></div>
@@ -174,6 +209,7 @@ function EditProfile() {
                 </div>
 
                 <div className='ud-form-note ud-text-xs'>Input your LinkedIn resource id (e.g. in/johnsmith).</div>
+                <div className='ud-form-note-validate-14'>{errors.linkedin_url ? errors.linkedin_url.message : ''}</div>
               </div>
               <div className='ud-form-group'>
                 <div className='text-input-with-addons--with-addons'>
@@ -183,6 +219,7 @@ function EditProfile() {
                       type='text'
                       className='ud-text-input ud-text-input-large ud-text-md'
                       placeholder='Youtube Profile'
+                      {...register('youtube_url')}
                     />
 
                     <div className='ud-text-input-box'></div>
@@ -190,6 +227,7 @@ function EditProfile() {
                 </div>
 
                 <div className='ud-form-note ud-text-xs'>Input your Youtube username (e.g. johnsmith).</div>
+                <div className='ud-form-note-validate-14'>{errors.youtube_url ? errors.youtube_url.message : ''}</div>
               </div>
             </div>
 

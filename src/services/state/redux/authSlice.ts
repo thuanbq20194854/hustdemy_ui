@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { User } from '../../../models/auth'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { ResponseUpdateUserProfile, User } from '../../../models/auth'
 
 export interface AuthState {
   isLoggedIn: boolean
@@ -22,6 +22,10 @@ export const authSlice = createSlice({
 
     logoutSuccess(state) {
       state.isLoggedIn = false
+    },
+
+    updateUserProfile(state, action: PayloadAction<ResponseUpdateUserProfile>) {
+      state.user = action.payload.user
     }
   }
 })
