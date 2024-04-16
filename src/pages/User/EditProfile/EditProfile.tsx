@@ -3,6 +3,8 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import TextEditor from '../../../components/TextEditor/TextEditor'
 import styles from './EditProfile.module.scss'
 import { UpdateProfileForm } from '../../../models/auth'
+import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../../services/state/redux/store'
 
 const toolBarCustom = [['bold', 'italic']]
 
@@ -26,22 +28,26 @@ const languagesOptions = [
 ]
 
 function EditProfile() {
+  const { user } = useAppSelector((state) => state.auth)
+
+  console.log(zzz)
   const { handleSubmit, register } = useForm<UpdateProfileForm>({
     defaultValues: {
-      name: string,
-      headline: string,
-      biography: string,
-      twitter_url: string,
-      facebook_url: string,
-      linkedin_url: string,
-      youtube_url: string,
-      website_url: string
-    }
-
-    // resolver : yupResolver()
+      name: user?.name ?? '',
+      headline: user?.headline ?? '',
+      biography: user?.biography ?? '',
+      twitter_url: user?.twitter_url ?? '',
+      facebook_url: user?.twitter_url ?? '',
+      linkedin_url: user?.twitter_url ?? '',
+      youtube_url: user?.twitter_url ?? '',
+      website_url: user?.twitter_url ?? ''
+    },
+    resolver: yupResolver()
   })
 
-  const handleSubmitForm
+  const handleSubmitForm = (formData: UpdateProfileForm) => {
+    console.log('formData:', formData)
+  }
   return (
     <div className={styles.editProfileWrapper}>
       <div className='contentHeader'>
