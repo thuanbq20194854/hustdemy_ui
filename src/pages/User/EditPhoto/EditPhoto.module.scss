@@ -1,0 +1,44 @@
+.editAvatarWrapper {
+  :global {
+    .contentHeader {
+      border-bottom: 1px solid #d1d7dc;
+      padding: 1.6rem 0;
+
+      .inner {
+        margin: 0 auto;
+        max-width: 64.8rem;
+        padding: 0 2.4rem;
+
+        text-align: center;
+
+        .mt-8px {
+          margin-top: 8px;
+        }
+      }
+    }
+
+    .contentBody {
+      min-height: 60rem;
+      padding: 2.4rem 0;
+
+      form {
+        .udlite-in-udheavy {
+          .image-upload-preview-with-crop--preview-wrapper {
+            border: 1px solid #2d2f31;
+            padding: 1.6rem;
+            margin-bottom: 1.6rem;
+
+            .image-upload-preview-with-crop--image-wrapper {
+              background: #f7f9fa;
+            }
+          }
+
+          .inputFile {
+            width: 1px;
+            height: 1px;
+          }
+        }
+      }
+    }
+  }
+}

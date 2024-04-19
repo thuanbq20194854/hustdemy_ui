@@ -60,9 +60,9 @@ function EditProfile() {
   const handleSubmitForm = (formData: UpdateProfileForm) => {
     console.log('formData:', formData)
 
-    // API Call
+    // 1. API Call
 
-    // Set Slice User with return API
+    // 2. Set Slice User with  API response
   }
 
   return (

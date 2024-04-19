@@ -564,6 +564,13 @@ a.resetNavlink:hover {
   margin-top: 2.4rem;
 }
 
+.um-container,
+.um-minimal-container {
+  margin: 0 auto;
+  max-width: 64.8rem;
+  padding: 0 2.4rem;
+}
+
 /* Form Group */
 
 .ud-form-group + .ud-form-group {

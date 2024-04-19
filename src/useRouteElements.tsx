@@ -18,7 +18,7 @@ import Payment from './pages/Payment/Payment'
 import MyLearning from './pages/MyLearning/MyLearning'
 import SettingsLayout from './layouts/SettingsLayout/SettingsLayout'
 import EditAccount from './pages/User/EditAccount/EditAccount'
-import EditAvatar from './pages/User/EditAvatar/EditAvatar'
+import EditPhoto from './pages/User/EditPhoto/EditPhoto'
 import EditProfile from './pages/User/EditProfile/EditProfile'
 
 export const useRouteElements = () => {
@@ -103,7 +103,7 @@ export const useRouteElements = () => {
       children: [
         { path: 'edit-account', element: <EditAccount /> },
         { path: 'edit-profile', element: <EditProfile /> },
-        { path: 'edit-avatar', element: <EditAvatar /> }
+        { path: 'edit-photo', element: <EditPhoto /> }
       ]
     },
 
