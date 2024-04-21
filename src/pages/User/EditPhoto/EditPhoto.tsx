@@ -8,6 +8,7 @@ import styles from './EditPhoto.module.scss'
 import 'react-image-crop/dist/ReactCrop.css'
 import { setCanvasPreview } from './setCanvasPreview'
 import { useDebounceEffect } from '../../../hooks/useDebounceEffect'
+import { NULL } from 'sass'
 
 const EEditPhotoMode = {
   Normal: 1,
@@ -50,14 +51,26 @@ function EditPhoto() {
 
     const newFile = evt.target.files ? evt.target.files[0] : undefined
 
+    console.log('newFile: ', newFile)
+
+    console.log('file change')
+
     if (newFile) {
       setImagePreview(URL.createObjectURL(newFile))
+      setImageFile(newFile)
+      setEditPhotoMode(EEditPhotoMode.Crop)
     }
 
-    setEditPhotoMode(EEditPhotoMode.Crop)
+    //reset input value for the same File be selected again
+    evt.target.value = ''
   }
 
-  console.log('editPhotoMode: ', editPhotoMode)
+  useEffect(() => {
+    if (editPhotoMode !== EEditPhotoMode.Crop) {
+      setCrop(undefined)
+      setCompletedCrop(undefined)
+    }
+  }, [editPhotoMode])
 
   useDebounceEffect(
     async () => {
@@ -73,10 +86,18 @@ function EditPhoto() {
   const handleClickCropButton = () => {
     if (imageFile) {
       previewCanvasRef.current?.toBlob((blob) => {
-        const imageURL = URL.createObjectURL(blob)
+        if (blob) {
+          const imageURL = URL.createObjectURL(blob)
+          setImagePreview(imageURL)
 
-        setImagePreview(imageURL)
-      })
+          const newFile = new File([blob], imageFile.name, {
+            type: imageFile.type
+          })
+          setImageFile(newFile)
+        }
+
+        setEditPhotoMode(EEditPhotoMode.CompletedCrop)
+      }, imageFile.type)
     }
   }
 
@@ -106,8 +127,7 @@ function EditPhoto() {
                         onChange={(_, percent) => {
                           setCrop(percent)
                         }}
-                        // aspect={ASPECT_RATIO}
-                        // minWidth={MIN_DIMENSION}
+                        onComplete={(c) => setCompletedCrop(c)}
                       >
                         <img ref={imgRef} src={imagePreview} alt='' style={{ maxWidth: '100%' }} />
                       </ReactCrop>
@@ -129,6 +149,8 @@ function EditPhoto() {
                       ref={previewCanvasRef}
                       style={{
                         // objectFit: 'contain',
+
+                        display: 'none',
                         width: completedCrop.width,
                         height: completedCrop.height
                       }}
@@ -152,7 +174,11 @@ function EditPhoto() {
                       </button>
                     )}
                     {editPhotoMode === EEditPhotoMode.CompletedCrop && (
-                      <button type='button' className='ud-btn ud-btn-large ud-btn-secondary ud-heading-md'>
+                      <button
+                        type='button'
+                        className='ud-btn ud-btn-large ud-btn-secondary ud-heading-md'
+                        onClick={handleClickUploadImage}
+                      >
                         <span>Change Image</span>
                       </button>
                     )}
