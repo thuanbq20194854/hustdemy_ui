@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { CreateLectureForm, ELectureType } from '../../../../models/course'
-import { schemaAddLectureForm } from '../../../../validators/course'
+import { schemeAddLectureForm } from '../../../../validators/course'
 import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 
@@ -22,7 +22,7 @@ function AddLectureForm({ handleNormalMode, sectionId }: IProps) {
       title: '',
       type: ELectureType.Lecture
     },
-    resolver: yupResolver(schemaAddLectureForm)
+    resolver: yupResolver(schemeAddLectureForm)
   })
 
   const handleSubmitForm = (formData: CreateLectureForm) => {

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { ISection, IUpdateSection } from '../../../../models/course'
-import { schemaUpdateSection } from '../../../../validators/course'
+import { schemeUpdateSection } from '../../../../validators/course'
 import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 import styles from './EditSectionForm.module.scss'
@@ -29,7 +29,7 @@ function EditSectionForm({ handleSetSectionModeNormal, section, index }: IProps)
       sectionTitle: section.sectionTitle,
       sectionOutcome: section.sectionOutcome
     },
-    resolver: yupResolver(schemaUpdateSection)
+    resolver: yupResolver(schemeUpdateSection)
   })
 
   const handleSubmitForm = (formData: IUpdateSection) => {

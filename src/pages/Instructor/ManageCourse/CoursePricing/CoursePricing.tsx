@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { IoIosArrowDown } from 'react-icons/io'
 import { UpdateCoursePrice } from '../../../../models/course'
-import { schemaUpdateCoursePrice } from '../../../../validators/course'
+import { schemeUpdateCoursePrice } from '../../../../validators/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 import styles from './CoursePricing.module.scss'
 
@@ -37,7 +37,7 @@ function CoursePricing() {
       tier: course.price_id ? course.price_id : -1
     },
 
-    resolver: yupResolver(schemaUpdateCoursePrice)
+    resolver: yupResolver(schemeUpdateCoursePrice)
   })
 
   const handleSubmitForm = (formData: UpdateCoursePrice) => {

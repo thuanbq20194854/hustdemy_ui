@@ -5,7 +5,7 @@ import { ADD_CURRICULUM_ITEM_MODE } from '../AddNewCurriculumItem'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
-import { schemaCreateQuiz } from '../../../../../validators/course'
+import { schemeCreateQuiz } from '../../../../../validators/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuizForm.module.scss'
 
@@ -27,7 +27,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
       title: '',
       type: ELectureType.Quiz
     },
-    resolver: yupResolver(schemaCreateQuiz)
+    resolver: yupResolver(schemeCreateQuiz)
   })
 
   const {

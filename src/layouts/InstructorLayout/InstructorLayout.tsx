@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import styles from './InstructorLayout.module.scss'
-import Footer from '../components/Footer'
+import Footer from '../components/Footer/Footer'
 import { GoBell } from 'react-icons/go'
 import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
 import { MdOutlineOndemandVideo } from 'react-icons/md'

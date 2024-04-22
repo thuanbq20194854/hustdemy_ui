@@ -4,7 +4,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { authSliceActions } from '../../../services/state/redux/authSlice'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { RegisterSchema, registerSchema } from '../../../validators/auth'
+import { SignUp } from '../../../models/auth'
+import { schemeSignUp } from '../../../validators/auth'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -26,11 +27,11 @@ export default function Register() {
     formState: { errors },
     register,
     handleSubmit
-  } = useForm<RegisterSchema>({
-    resolver: yupResolver(registerSchema)
+  } = useForm<SignUp>({
+    resolver: yupResolver(schemeSignUp)
   })
 
-  const onSubmit = (data: RegisterSchema) => {
+  const onSubmit = (data: SignUp) => {
     console.log(data)
 
     // API

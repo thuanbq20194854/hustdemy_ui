@@ -6,7 +6,7 @@ import CustomInput from '../../../components/CustomInput'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { IoCheckmarkCircle } from 'react-icons/io5'
-import { schemaUpdateQuiz } from '../../../../../validators/course'
+import { schemeUpdateQuiz } from '../../../../../validators/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuizForm.module.scss'
 
@@ -30,7 +30,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
       title: quizEdit?.title,
       type: ELectureType.Quiz
     },
-    resolver: yupResolver(schemaUpdateQuiz)
+    resolver: yupResolver(schemeUpdateQuiz)
   })
 
   const {

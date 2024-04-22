@@ -3,11 +3,11 @@ import styles from './Header.module.scss'
 import { IoMdHeartEmpty } from 'react-icons/io'
 import { GoBell } from 'react-icons/go'
 import { useState } from 'react'
-import CustomTooltip from '../../components/CustomTooltip/CustomTooltip'
+import CustomTooltip from '../../../components/CustomTooltip/CustomTooltip'
 import CourseList from './CourseList'
 import { NavLink } from 'react-router-dom'
 import { GrLanguage } from 'react-icons/gr'
-import { useAppSelector } from '../../services/state/redux/store'
+import { useAppSelector } from '../../../services/state/redux/store'
 
 const fakesCategories = [
   'Development',
@@ -521,14 +521,6 @@ function Header() {
             </button>
           </>
         )}
-      </div>
-
-      <div className='bottomRegion'>
-        {fakesCategories.map((cateItem, index) => (
-          <div key={index}>
-            <button className='btn-wrapper'>{cateItem}</button>
-          </div>
-        ))}
       </div>
     </div>
   )

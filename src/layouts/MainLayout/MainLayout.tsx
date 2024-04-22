@@ -2,8 +2,8 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 import styles from './MainLayout.module.scss'
-import Header from './Header'
-import Footer from '../components/Footer'
+import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 
 interface IProps {
   children?: React.ReactNode
@@ -19,9 +19,7 @@ function MainLayout(props: IProps) {
 
       {children}
 
-      <div className={styles.contentWrapper}>
-        <Outlet />
-      </div>
+      <Outlet />
 
       {/* Footer */}
       <Footer />

@@ -1,14 +1,16 @@
-import ReactCrop, { Crop, PixelCrop } from 'react-image-crop'
-import { UpdateProfileForm } from '../../../models/auth'
-import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
-import { schemaUpdateProfile } from '../../../validators/auth'
 import { FormEvent, useEffect, useRef, useState } from 'react'
+import ReactCrop, { Crop, PixelCrop } from 'react-image-crop'
+import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
 
-import styles from './EditPhoto.module.scss'
 import 'react-image-crop/dist/ReactCrop.css'
-import { setCanvasPreview } from './setCanvasPreview'
 import { useDebounceEffect } from '../../../hooks/useDebounceEffect'
-import { NULL } from 'sass'
+import styles from './EditPhoto.module.scss'
+import { setCanvasPreview } from './setCanvasPreview'
+import { schemeUpdateImage } from '../../../validators/auth'
+import { UpdateAvatar, User } from '../../../models/auth'
+
+import { ValidationError } from 'yup'
+import { authSliceActions } from '../../../services/state/redux/authSlice'
 
 const EEditPhotoMode = {
   Normal: 1,
@@ -28,41 +30,68 @@ function EditPhoto() {
 
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
-  const [imagePreview, setImagePreview] = useState(user?.avatar ? user?.avatar : '')
+  const [imagePreview, setImagePreview] = useState(
+    user?.avatar ? user?.avatar : 'https://img-c.udemycdn.com/user/200_H/anonymous_3.png'
+  )
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     console.log(e)
+
+    e.preventDefault()
 
     //Form Data
 
     // API Call
 
     // Set Slice User with return API
+
+    dispatch(
+      authSliceActions.updateUserProfile({
+        user: {
+          ...(user as User),
+          avatar: imagePreview
+        }
+      })
+    )
+
+    setEditPhotoMode(EEditPhotoMode.Normal)
+
+    console.log('imagePreview: ', imagePreview)
   }
 
   const handleClickUploadImage = () => {
     inputRef.current?.click()
   }
 
-  const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    // Validate
+  const handleFileChange = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      // Validate
 
-    const newFile = evt.target.files ? evt.target.files[0] : undefined
+      const formData: UpdateAvatar = {
+        image: evt.target.files ? evt.target.files[0] : undefined
+      }
 
-    console.log('newFile: ', newFile)
+      const resultValdidate = await schemeUpdateImage.validate(formData)
 
-    console.log('file change')
+      const newFile = resultValdidate.image
 
-    if (newFile) {
-      setImagePreview(URL.createObjectURL(newFile))
-      setImageFile(newFile)
-      setEditPhotoMode(EEditPhotoMode.Crop)
+      if (newFile) {
+        setImagePreview(URL.createObjectURL(newFile))
+        setImageFile(newFile)
+        setEditPhotoMode(EEditPhotoMode.Crop)
+      }
+
+      setError('')
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        setError(e.message)
+      }
+    } finally {
+      //reset input value for the same File be selected again
+      evt.target.value = ''
     }
-
-    //reset input value for the same File be selected again
-    evt.target.value = ''
   }
 
   useEffect(() => {
@@ -159,6 +188,8 @@ function EditPhoto() {
 
                   <canvas></canvas>
                 </div>
+
+                {<p className='ud-form-note-validate-14'>{error}</p>}
                 <div className='ud-image-upload-form-wrapper'>
                   <div className='ud-form-group'>
                     <label htmlFor='form-group--3' className='ud-form-label ud-heading-sm'>
@@ -188,7 +219,7 @@ function EditPhoto() {
                         className='ud-btn ud-btn-large ud-btn-secondary ud-heading-md'
                         onClick={handleClickCropButton}
                       >
-                        <span>Crop</span>
+                        <span>Crop Image</span>
                       </button>
                     )}
                   </div>

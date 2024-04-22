@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { ICreateSection } from '../../../../models/course'
-import { schemaCreateSection } from '../../../../validators/course'
+import { schemeCreateSection } from '../../../../validators/course'
 import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 import styles from './AddSectionForm.module.scss'
@@ -26,7 +26,7 @@ function AddSectionForm() {
       sectionTitle: '',
       sectionOutcome: ''
     },
-    resolver: yupResolver(schemaCreateSection)
+    resolver: yupResolver(schemeCreateSection)
   })
 
   const handleAddSectionSubmit = (addSectionData: ICreateSection) => {

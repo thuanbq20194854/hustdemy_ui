@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import TextEditor from '../../../components/TextEditor/TextEditor'
-import { UpdateProfileForm } from '../../../models/auth'
+import { UpdateProfile } from '../../../models/auth'
 import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
 import styles from './EditProfile.module.scss'
-import { schemaUpdateProfile } from '../../../validators/auth'
+import { schemeUpdateProfile } from '../../../validators/auth'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 
@@ -40,7 +40,7 @@ function EditProfile() {
     formState: { errors },
     getValues,
     setValue
-  } = useForm<UpdateProfileForm>({
+  } = useForm<UpdateProfile>({
     defaultValues: {
       name: user?.name ?? '',
       headline: user?.headline ?? '',
@@ -51,13 +51,13 @@ function EditProfile() {
       youtube_url: user?.twitter_url ?? '',
       website_url: user?.twitter_url ?? ''
     },
-    resolver: yupResolver(schemaUpdateProfile)
+    resolver: yupResolver(schemeUpdateProfile)
   })
 
   const handleHTMLChange = (html: string) => {
     setValue('biography', html)
   }
-  const handleSubmitForm = (formData: UpdateProfileForm) => {
+  const handleSubmitForm = (formData: UpdateProfile) => {
     console.log('formData:', formData)
 
     // 1. API Call

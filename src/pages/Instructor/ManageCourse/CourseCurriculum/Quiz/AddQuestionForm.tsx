@@ -12,7 +12,7 @@ import {
   UpdateAnswerForm,
   UpdateQuestionForm
 } from '../../../../../models/course'
-import { schemaCreateQuestionForm } from '../../../../../validators/course'
+import { schemeCreateQuestionForm } from '../../../../../validators/course'
 import CustomInput from '../../../components/CustomInput'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuestionForm.module.scss'
@@ -77,7 +77,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
       sectionID: sectionId,
       question_text: questionEdit ? questionEdit.question_text : ''
     },
-    resolver: yupResolver(schemaCreateQuestionForm)
+    resolver: yupResolver(schemeCreateQuestionForm)
   })
 
   const { fields: answersField } = useFieldArray({

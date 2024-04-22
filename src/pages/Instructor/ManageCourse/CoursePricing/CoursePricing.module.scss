@@ -73,7 +73,6 @@
             flex: 1;
             min-width: 22rem;
 
-            object-fit: cover;
             overflow: hidden;
 
             border: 1px solid #d1d7dc;
@@ -83,6 +82,7 @@
 
               // max-height: 42.2rem;
               height: auto;
+              object-fit: cover;
             }
           }
 

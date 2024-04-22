@@ -1,37 +1,52 @@
 import * as Yup from 'yup'
-import { UpdateAvatar, UpdateProfileForm } from '../models/auth'
+import {
+  ChangePassword,
+  ForgotPassword,
+  ResetPassword,
+  SignIn,
+  SignUp,
+  UpdateAvatar,
+  UpdateProfile
+} from '../models/auth'
 
-export const registerSchema = Yup.object({
-  name: Yup.string().required('Name is required').min(6, 'Length from 6 - 160').max(160, 'Length from 6 - 160'),
-  email: Yup.string()
-    .required('Email is required')
-    .email('Email không đúng định dạng')
-    .min(6, 'Length from 6 - 160')
-    .max(160, 'Length from 6 - 160'),
-  password: Yup.string().required('Password is required').min(6, 'Length from 6 - 160').max(160, 'Length from 6 - 160')
+export const schemeSignUp: Yup.ObjectSchema<SignUp> = Yup.object({
+  name: Yup.string()
+    .required('Tên đầy đủ là bắt buộc')
+    .min(2, 'Tên đầy đủ nhỏ hơn 2 ký tự')
+    .max(30, 'Tên đầy đủ lớn hơn 30 ký tự'),
+  email: Yup.string().required('Email là bắt buộc').email('Email không hợp lệ'),
+  password: Yup.string()
+    .required('Mật khẩu là bắt buộc')
+    .min(8, 'Mật khẩu nhỏ hơn 8 ký tự')
+    .max(30, 'Mật khẩu lớn hơn 30 ký tự')
 })
-export const loginSchema = Yup.object({
-  email: Yup.string()
-    .required('Email is required')
-    .email('Email không đúng định dạng')
-    .min(6, 'Length from 6 - 160')
-    .max(160, 'Length from 6 - 160'),
-  password: Yup.string().required('Password is required').min(6, 'Length from 6 - 160').max(160, 'Length from 6 - 160')
+
+export const schemeSignIn: Yup.ObjectSchema<SignIn> = Yup.object({
+  email: Yup.string().required('Email là bắt buộc').email('Email không hợp lệ'),
+  password: Yup.string()
+    .required('Mật khẩu là bắt buộc')
+    .min(8, 'Mật khẩu nhỏ hơn 8 ký tự')
+    .max(30, 'Mật khẩu lớn hơn 30 ký tự')
 })
 
-// parse and assert validity
-// const user = await userSchema.validate(await fetchUser())
+export const schemeForgotPassword: Yup.ObjectSchema<ForgotPassword> = Yup.object({
+  email: Yup.string().required('Email là bắt buộc').email('Email không hợp lệ')
+})
 
-export type RegisterSchema = Yup.InferType<typeof registerSchema>
-export type LoginSchema = Yup.InferType<typeof loginSchema>
-/* {
-    name: string;
-    age: number;
-    email?: string | undefined
-    website?: string | null | undefined
-    createdOn: Date
-  }
-  */
+export const schemeResetPassword: Yup.ObjectSchema<ResetPassword> = Yup.object({
+  password: Yup.string().required('Mật khẩu là bắt buộc').min(8, 'Mật khẩu nhỏ hơn 8 ký tự'),
+  confirmPassword: Yup.string()
+    .required('Mật khẩu xác thực là bắt buộc')
+    .oneOf([Yup.ref('password')], 'Mật khẩu phải khớp')
+})
+
+export const schemeChangePassword: Yup.ObjectSchema<ChangePassword> = Yup.object({
+  currentPassword: Yup.string().required('Mật khẩu hiển tại là bắt buộc').min(8, 'Mật khẩu hiển tại nhỏ hơn 8 ký tự'),
+  newPassword: Yup.string().required('New password is required').min(8, 'New password is less than 8 characters'),
+  confirmPassword: Yup.string()
+    .required('Confirm new password is required')
+    .oneOf([Yup.ref('newPassword')], 'New password must match')
+})
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5 //5MB
 
@@ -57,7 +72,7 @@ export const schemeUpdateImage: Yup.ObjectSchema<UpdateAvatar> = Yup.object({
     )
 })
 
-export const schemaUpdateProfile: Yup.ObjectSchema<UpdateProfileForm> = Yup.object({
+export const schemeUpdateProfile: Yup.ObjectSchema<UpdateProfile> = Yup.object({
   name: Yup.string()
     .required('Name is required')
     .min(2, 'Name is less than 2 characters')

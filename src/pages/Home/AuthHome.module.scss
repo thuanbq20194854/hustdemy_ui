@@ -1,8 +1,31 @@
-.homePage {
-  max-width: 1340px;
-  margin: 0 auto;
-
+.authHomePage {
   :global {
+    .navLinkSection {
+      display: flex;
+      align-items: center;
+
+      justify-content: center;
+
+      position: relative;
+      border-top: 1px solid #d1d7dc;
+      background: #fff;
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+      z-index: 1009;
+      .btn-wrapper {
+        height: 4.8rem;
+        color: #2d2f31;
+        font-size: 1.4rem;
+        padding: 8px 16px;
+
+        cursor: pointer;
+
+        &:hover {
+          color: var(--purple);
+        }
+      }
+    }
     .carousel {
       position: relative;
 

@@ -359,7 +359,7 @@ function CourseBasics() {
               <div className='imgContainer'>
                 <img
                   src={
-                    courseImagePreview ? courseImagePreview : '	https://s.udemycdn.com/course/750x422/placeholder.jpg'
+                    courseImagePreview ? courseImagePreview : 'https://s.udemycdn.com/course/750x422/placeholder.jpg'
                   }
                   alt=''
                 />

@@ -22,7 +22,7 @@ import EditPhoto from './pages/User/EditPhoto/EditPhoto'
 import EditProfile from './pages/User/EditProfile/EditProfile'
 
 export const useRouteElements = () => {
-  const isAuthed = false
+  const isAuthed = true
   const routeElements = useRoutes([
     {
       path: '/',

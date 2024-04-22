@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { LoginSchema, loginSchema } from '../../../validators/auth'
 
 import styles from './Login.module.scss'
 
@@ -9,6 +8,8 @@ import { NavLink } from 'react-router-dom'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useAppDispatch } from '../../../services/state/redux/store'
 import { authSliceActions } from '../../../services/state/redux/authSlice'
+import { SignIn } from '../../../models/auth'
+import { schemeSignIn } from '../../../validators/auth'
 
 function Login() {
   const dispatch = useAppDispatch()
@@ -27,11 +28,15 @@ function Login() {
     handleSubmit,
 
     formState: { errors }
-  } = useForm({
-    resolver: yupResolver<LoginSchema>(loginSchema)
+  } = useForm<SignIn>({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    resolver: yupResolver(schemeSignIn)
   })
 
-  const onSubmit = (data: LoginSchema) => {
+  const onSubmit = (data: SignIn) => {
     console.log(data)
   }
   return (

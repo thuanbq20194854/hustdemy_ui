@@ -38,26 +38,26 @@ export const schemeUdpateIntendedLearner: Yup.ObjectSchema<IntendedLearners> = Y
   intended_for: Yup.array().required()
 })
 
-export const schemaCreateSection: Yup.ObjectSchema<ICreateSection> = Yup.object({
+export const schemeCreateSection: Yup.ObjectSchema<ICreateSection> = Yup.object({
   sectionTitle: Yup.string().required('This field may not be blank').max(80, 'Max length of this field is 80'),
   sectionOutcome: Yup.string().required('This field may not be blank').max(200, 'Max length of this field is 200')
 })
-export const schemaUpdateSection: Yup.ObjectSchema<IUpdateSection> = Yup.object({
+export const schemeUpdateSection: Yup.ObjectSchema<IUpdateSection> = Yup.object({
   id: Yup.number().required('This field may not be blank'),
   sectionTitle: Yup.string().required('This field may not be blank').max(80, 'Max length of this field is 80'),
   sectionOutcome: Yup.string().required('This field may not be blank').max(200, 'Max length of this field is 200')
 })
-export const schemaDeleteSection: Yup.ObjectSchema<IDeleteSection> = Yup.object({
+export const schemeDeleteSection: Yup.ObjectSchema<IDeleteSection> = Yup.object({
   id: Yup.number().required('This field may not be blank')
 })
 
-export const schemaCreateQuiz: Yup.ObjectSchema<ICreateQuiz> = Yup.object({
+export const schemeCreateQuiz: Yup.ObjectSchema<ICreateQuiz> = Yup.object({
   sectionId: Yup.number().required('This field may not be blank'),
   type: Yup.string().required('This field may not be blank'),
   title: Yup.string().required('This field may not be blank'),
   desc: Yup.string().nullable()
 })
-export const schemaUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
+export const schemeUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
   id: Yup.number().required('This field may not be blank'),
   sectionId: Yup.number().required('This field may not be blank'),
   type: Yup.string().required('This field may not be blank'),
@@ -65,7 +65,7 @@ export const schemaUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
   desc: Yup.string().nullable()
 })
 
-export const schemaCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
+export const schemeCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
   sectionID: Yup.number().required('This field is required'),
   lectureID: Yup.number().required('This field is required'),
   question_text: Yup.string().required('Please write a question and not a blank '),
@@ -80,7 +80,7 @@ export const schemaCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
       })
     )
 })
-export const schemaUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
+export const schemeUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
   sectionID: Yup.number().required('This field is required'),
   lectureID: Yup.number().required('This field is required'),
   question_text: Yup.string().required('This field is required'),
@@ -95,7 +95,7 @@ export const schemaUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
       })
     )
 })
-export const schemaAddLectureForm: Yup.ObjectSchema<CreateLectureForm> = Yup.object({
+export const schemeAddLectureForm: Yup.ObjectSchema<CreateLectureForm> = Yup.object({
   sectionId: Yup.number().required('This field is required'),
   title: Yup.string().required('This field is required'),
   type: Yup.number().required('This field is required')
@@ -115,11 +115,11 @@ export const schemeUpdateCourseLanding: Yup.ObjectSchema<UpdateCourseLandingPage
   level_id: Yup.number(),
   language_id: Yup.number()
 })
-export const schemaUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.object({
+export const schemeUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.object({
   id: Yup.number().required('Id is required'),
   tier: Yup.number().required('Price tier is required')
 })
-// export const schemaDeleteQuiz: Yup.ObjectSchema<IDeleteLecure> = Yup.object({
+// export const schemeDeleteQuiz: Yup.ObjectSchema<IDeleteLecure> = Yup.object({
 //   id: Yup.number().required('This field may not be blank'),
 //   sectionId: Yup.number().required('This field may not be blank')
 // })

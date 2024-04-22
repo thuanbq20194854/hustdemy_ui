@@ -3,7 +3,7 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 
 import { IoSettingsOutline } from 'react-icons/io5'
-import Footer from '../../../layouts/components/Footer'
+import Footer from '../../../layouts/components/Footer/Footer'
 import {
   Course,
   CreateLectureForm,
