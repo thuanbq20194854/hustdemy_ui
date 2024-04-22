@@ -12,7 +12,7 @@ import {
 export const schemeSignUp: Yup.ObjectSchema<SignUp> = Yup.object({
   name: Yup.string()
     .required('Tên đầy đủ là bắt buộc')
-    .min(2, 'Tên đầy đủ nhỏ hơn 2 ký tự')
+    .min(8, 'Tên đầy đủ nhỏ hơn 8 ký tự')
     .max(30, 'Tên đầy đủ lớn hơn 30 ký tự'),
   email: Yup.string().required('Email là bắt buộc').email('Email không hợp lệ'),
   password: Yup.string()

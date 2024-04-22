@@ -4,8 +4,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { authSliceActions } from '../../../services/state/redux/authSlice'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SignUp } from '../../../models/auth'
+import { ResponseSignUp, SignUp } from '../../../models/auth'
 import { schemeSignUp } from '../../../validators/auth'
+import { userServiceApi } from '../../../services/api/userServiceApi'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -13,26 +16,47 @@ export default function Register() {
 
   const dispatch = useAppDispatch()
 
-  if (userState.isLoggedIn) {
-    navigate('/')
-  } else {
-    console.log('isAuth: ', userState.isLoggedIn)
-  }
-
-  const handleClick = () => {
-    dispatch(authSliceActions.loginSuccess())
-  }
+  // if (userState.isLoggedIn) {
+  //   navigate('/')
+  // } else {
+  //   console.log('isAuth: ', userState.isLoggedIn)
+  // }
 
   const {
     formState: { errors },
     register,
-    handleSubmit
+    handleSubmit,
+
+    reset
   } = useForm<SignUp>({
     resolver: yupResolver(schemeSignUp)
   })
 
-  const onSubmit = (data: SignUp) => {
-    console.log(data)
+  const onSubmit = async (formData: SignUp) => {
+    try {
+      const data = await userServiceApi.register(formData)
+
+      const responseData: ResponseSignUp = {
+        token: data.token,
+        user: data.user
+      }
+      dispatch(authSliceActions.signUp(responseData))
+
+      localStorage.setItem('accessToken', responseData.token)
+
+      reset()
+
+      toast.success('Register Successfully!')
+
+      navigate('/')
+    } catch (e: any) {
+      console.log(e)
+      if (e.response.status === 422) {
+        toast.error(e.response.data.message)
+      } else {
+        toast.error('Something went wrong ')
+      }
+    }
 
     // API
   }

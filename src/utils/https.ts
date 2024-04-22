@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { clearTokenLS, getAccessTokenLS, getRefreshTokenLS, setAccessTokenLS } from './utils'
+import { toast } from 'react-toastify'
 
 class Http {
   instance: AxiosInstance
@@ -15,7 +16,7 @@ class Http {
       (this.refreshToken = getRefreshTokenLS()),
       (this.refreshTokenRequest = null),
       (this.instance = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: 'http://127.0.0.1:3000/api',
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json',
@@ -51,6 +52,7 @@ class Http {
       (error: AxiosError) => {
         const config = error.response?.config || { url: '', headers: {} }
         // 1 Toast Error not 422 and 401
+        // toast.error()
 
         // If Authentication Erorr
         if (error.response?.status === 401) {
@@ -81,7 +83,7 @@ class Http {
           clearTokenLS()
         }
 
-        Promise.reject(error)
+        return Promise.reject(error)
       }
     )
   }
