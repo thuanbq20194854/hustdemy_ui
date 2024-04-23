@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ResponseSignUp, SignUp } from '../../../models/auth'
 import { schemeSignUp } from '../../../validators/auth'
-import { userServiceApi } from '../../../services/api/userServiceApi'
+import { userServiceApi } from '../../../services/apis/userServiceApi'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 

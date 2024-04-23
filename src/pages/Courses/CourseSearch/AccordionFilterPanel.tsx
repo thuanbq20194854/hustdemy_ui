@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { ReactNode, useContext, useState } from 'react'
 
 import { IoIosArrowDown } from 'react-icons/io'
 import RatingContainer from '../../../components/RatingContainer/RatingContainer'
@@ -7,13 +7,14 @@ import { Checkbox, Form, Radio } from 'antd'
 import useFormInstance from 'antd/es/form/hooks/useFormInstance'
 import { LoadingContext } from '../../../contexts/loading.context'
 interface IProps {
-  filterType: string
+  // filterType: string
   filterTitle: string
+
+  children: ReactNode
+  className?: string
 }
 
-function AccordionFilterPanel({ filterType, filterTitle }: IProps) {
-  const { showLoading, closeLoading } = useContext(LoadingContext)
-  const { setFieldValue, getFieldsValue } = useFormInstance()
+function AccordionFilterPanel({ children, filterTitle, className }: IProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleFilterContent = (e) => {
@@ -21,35 +22,9 @@ function AccordionFilterPanel({ filterType, filterTitle }: IProps) {
     setIsOpen((prev) => !prev)
   }
 
-  const handleRadioChange = (value: any) => {
-    setFieldValue('radion', value)
-    // Loading Modal ngăn tạo thêm filter + Call API
-
-    showLoading()
-
-    setTimeout(() => {
-      closeLoading()
-    }, 2000)
-
-    console.log('form: ', getFieldsValue())
-  }
-
-  const handleCheckboxChange = (value: any) => {
-    setFieldValue('checkbox', value)
-    // Loading Modal ngăn tạo thêm filter + Call API
-
-    showLoading()
-
-    setTimeout(() => {
-      closeLoading()
-    }, 2000)
-
-    console.log('form: ', getFieldsValue())
-  }
-
   const renderRadio = () => (
     <Form.Item name='rating'>
-      <Radio.Group defaultValue={1} onChange={(e) => handleRadioChange(e.target.value)}>
+      <Radio.Group defaultValue={1}>
         <div className='optionItem'>
           <Radio value={1}>
             <div className='radioContent'>
@@ -75,7 +50,7 @@ function AccordionFilterPanel({ filterType, filterTitle }: IProps) {
 
   const renderCheckbox = () => (
     <Form.Item name={'language'}>
-      <Checkbox.Group onChange={(value) => handleCheckboxChange(value)}>
+      <Checkbox.Group>
         <div className='optionItem'>
           <Checkbox value={1}>
             <div className='checkboxContent'>
@@ -96,15 +71,17 @@ function AccordionFilterPanel({ filterType, filterTitle }: IProps) {
     </Form.Item>
   )
   return (
-    <div className='accordionPanel'>
+    <div className={`accordionPanel ${className}`}>
       <button className='panelToggler ud-btn ud-btn-large ud-btn-link ud-heading-lg' onClick={toggleFilterContent}>
         <span>{filterTitle}</span>
         <IoIosArrowDown className={`arrowIcon ${isOpen && 'rotate'}`} />
       </button>
 
       <div className={`content`} style={{ display: isOpen ? '' : 'none' }}>
-        {filterType === 'radio' && renderRadio()}
-        {filterType === 'checkbox' && renderCheckbox()}
+        {/* {filterType === 'radio' && renderRadio()}
+        {filterType === 'checkbox' && renderCheckbox()} */}
+
+        {children}
       </div>
     </div>
   )

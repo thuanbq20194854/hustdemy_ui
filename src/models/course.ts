@@ -1,3 +1,4 @@
+//Course Management
 export interface Course {
   id?: number
   out_comes?: string[] | null
@@ -231,4 +232,43 @@ export interface PriceLearning {
 export interface UpdateCoursePrice {
   id: number
   tier: number
+}
+
+// Course Search
+export interface CategoryCourse {
+  id: number
+  level: LevelLearning
+  category_id: number
+  sub_category_id: number
+  title: string
+  out_comes: string[] | null
+  subtitle: string | null
+  price: PriceLearning
+  review_status: number
+  is_purchased: boolean
+  user: UserShow
+  image: string | null
+  average_rating: number
+  total_review: number
+  duration: number
+  total_lecture: number
+  updated_at: string
+  created_at: string
+}
+
+interface LevelLearning {
+  id: number
+  name: string
+}
+
+interface UserShow {
+  id: number
+  name: string
+}
+
+export interface FilterCoursesCategory {
+  rating: string | null
+  sort: string | null
+  duration: string[] | boolean
+  level: string[] | boolean
 }

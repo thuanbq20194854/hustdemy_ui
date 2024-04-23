@@ -51,6 +51,7 @@
       align-items: start;
       .filterSidebar {
         width: 311px;
+
         .accordionPanel {
           border-top: 1px solid #d1d7dc;
 
@@ -127,6 +128,39 @@
                 }
               }
             }
+          }
+        }
+
+        .accordionFilterPanel {
+          .inputContainer {
+            padding: 8px 0;
+            display: flex;
+
+            input[type='checkbox'] {
+              width: 16px;
+              height: 16px;
+
+              flex-shrink: 0;
+
+              border-radius: 0px;
+            }
+
+            label {
+              margin-left: 0.8rem;
+
+              line-height: 1.3;
+            }
+
+            .count {
+              margin-left: 0.8rem;
+              color: #6a6f73;
+
+              line-height: 1.3;
+            }
+          }
+
+          .radioType > *:not(:first-child) {
+            margin-left: 8px;
           }
         }
       }
@@ -326,6 +360,46 @@
           .addWishlist {
             font-size: 40px;
           }
+        }
+      }
+    }
+  }
+}
+
+.rootCollapse {
+  :global {
+    .ant-collapse-item.ant-collapse-item-active {
+      .ant-collapse-header {
+        font-family: var(--font-stack-heading);
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: 0;
+        font-size: 1.9rem;
+      }
+      .inputCheckboxContainer {
+        padding: 8px 0;
+        display: flex;
+
+        input[type='checkbox'] {
+          width: 16px;
+          height: 16px;
+
+          flex-shrink: 0;
+
+          border-radius: 0px;
+        }
+
+        label {
+          margin-left: 0.8rem;
+
+          line-height: 1.3;
+        }
+
+        .count {
+          margin-left: 0.8rem;
+          color: #6a6f73;
+
+          line-height: 1.3;
         }
       }
     }
