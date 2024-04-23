@@ -5,9 +5,10 @@ import { GoBell } from 'react-icons/go'
 import { useState } from 'react'
 import CustomTooltip from '../../../components/CustomTooltip/CustomTooltip'
 import CourseList from './CourseList'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { GrLanguage } from 'react-icons/gr'
 import { useAppSelector } from '../../../services/state/redux/store'
+import { clearAuthTokenLS } from '../../../utils/utils'
 
 const fakesCategories = [
   'Development',
@@ -390,12 +391,20 @@ function Header() {
           <NavLink to='/'>
             <div className='menuItem ud-text-sm'>Help</div>
           </NavLink>
-          <NavLink to='/'>
+          <button onClick={handleLogout}>
             <div className='menuItem ud-text-sm'>Logout</div>
-          </NavLink>
+          </button>
         </div>
       </div>
     )
+  }
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    clearAuthTokenLS()
+    localStorage.clear()
+    navigate('/login')
   }
 
   return (

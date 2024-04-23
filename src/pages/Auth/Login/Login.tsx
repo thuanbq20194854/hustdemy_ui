@@ -4,18 +4,26 @@ import { useForm } from 'react-hook-form'
 import styles from './Login.module.scss'
 
 import { FcGoogle } from 'react-icons/fc'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useAppDispatch } from '../../../services/state/redux/store'
 import { authSliceActions } from '../../../services/state/redux/authSlice'
-import { SignIn } from '../../../models/auth'
+import { ResponseLogin, SignIn } from '../../../models/auth'
 import { schemeSignIn } from '../../../validators/auth'
+import { userServiceApi } from '../../../services/apis/userServiceApi'
+import { MdNavigateBefore } from 'react-icons/md'
+import { useState } from 'react'
+import { AxiosError } from 'axios'
+import { toast } from 'react-toastify'
+import { setAuthTokenLS } from '../../../utils/utils'
 
 function Login() {
   const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
   const loginGoogle = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      dispatch(authSliceActions.loginSuccess())
+      // dispatch(authSliceActions.loginSuccess())
       console.log(tokenResponse)
     },
     onError: (err) => {
@@ -26,6 +34,7 @@ function Login() {
   const {
     register,
     handleSubmit,
+    reset,
 
     formState: { errors }
   } = useForm<SignIn>({
@@ -36,8 +45,32 @@ function Login() {
     resolver: yupResolver(schemeSignIn)
   })
 
-  const onSubmit = (data: SignIn) => {
-    console.log(data)
+  const [error, setError] = useState('')
+
+  const onSubmit = async (formData: SignIn) => {
+    try {
+      console.log('try')
+      dispatch(authSliceActions.startLogin())
+      const responseData: ResponseLogin = await userServiceApi.login(formData)
+      dispatch(authSliceActions.loginSuccess(responseData))
+
+      console.log(responseData)
+
+      setAuthTokenLS(responseData.token)
+
+      reset()
+      navigate('/')
+
+      toast.success('Login Sucessfully!')
+    } catch (e: any) {
+      if (e.response.status === 204) {
+        setError('This account has been blocked!')
+      } else if (e.response.status === 422) {
+        setError('Email or pass is wrong')
+      } else {
+        console.log(error)
+      }
+    }
   }
   return (
     <div className={styles.authPage}>

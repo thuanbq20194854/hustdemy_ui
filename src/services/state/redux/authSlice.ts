@@ -1,4 +1,4 @@
-import { ResponseSignUp } from './../../../models/auth'
+import { ResponseLogin, ResponseSignUp } from './../../../models/auth'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { ResponseUpdateProfile, User } from '../../../models/auth'
 
@@ -20,12 +20,20 @@ export const authSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginSuccess(state) {
+    startLogin(state) {
+      state.isLoading = true
+    },
+    loginSuccess(state, action: PayloadAction<ResponseLogin>) {
       state.isLoggedIn = true
+      state.user = action.payload.user
+      state.token = action.payload.token
+      state.isLoading = false
     },
 
     logoutSuccess(state) {
       state.isLoggedIn = false
+      state.user = undefined
+      state.token = ''
     },
 
     updateUserProfile(state, action: PayloadAction<ResponseUpdateProfile>) {

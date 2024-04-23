@@ -36,6 +36,8 @@ export default function Register() {
     try {
       const data = await userServiceApi.register(formData)
 
+      console.log('data: ', data)
+
       const responseData: ResponseSignUp = {
         token: data.token,
         user: data.user
