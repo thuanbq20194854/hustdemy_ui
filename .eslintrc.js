@@ -21,14 +21,14 @@ module.exports = {
     react: {
       // Nói eslint-plugin-react tự động biết version của React.
       version: 'detect'
-    },
-    // Nói ESLint cách xử lý các import
-    'import/resolver': {
-      node: {
-        paths: [path.resolve(__dirname, '')],
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
-      }
     }
+    // Nói ESLint cách xử lý các import
+    // 'import/resolver': {
+    //   node: {
+    //     paths: [path.resolve(__dirname, '')],
+    //     extensions: ['.js', '.jsx', '.ts', '.tsx']
+    //   }
+    // }
   },
   env: {
     node: true

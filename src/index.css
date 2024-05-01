@@ -290,6 +290,55 @@ ol {
   padding: 0;
 }
 
+.ud-btn-white-outline,
+.ud-btn-white-outline.ud-btn-disabled {
+  background-color: transparent;
+  border: 1px solid var(--color-white);
+}
+
+.ud-btn-primary,
+.ud-btn-white-outline,
+.ud-btn-brand {
+  color: var(--color-white);
+}
+
+.ud-btn-white-outline:active,
+.ud-btn-white-outline:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.ud-btn-primary:hover,
+.ud-btn-white-outline:hover,
+.ud-btn-brand:hover,
+.ud-btn-primary:focus,
+.ud-btn-white-outline:focus,
+.ud-btn-brand:focus {
+  color: var(--color-white);
+}
+
+.ud-btn-white-outline,
+.ud-btn-white-outline.ud-btn-disabled {
+  background-color: transparent;
+  border: 1px solid var(--color-white);
+}
+
+.ud-btn-primary,
+.ud-btn-white-outline,
+.ud-btn-brand {
+  color: var(--color-white);
+}
+
+.ud-btn-ghost,
+.ud-btn-ghost.ud-btn-disabled,
+.ud-btn-link,
+.ud-btn-link.ud-btn-disabled,
+.ud-btn-link-underline,
+.ud-btn-link-underline.ud-btn-disabled {
+  color: #5624d0;
+  background-color: transparent;
+  min-width: auto;
+  padding: 0;
+}
 /* color: #101011; */
 
 .ud-btn-ghost:hover,
@@ -360,6 +409,14 @@ ol {
 .ud-link-neutral:active,
 .ud-link-neutral:hover {
   color: #101011;
+}
+
+.ud-btn-link,
+.ud-btn-link-underline {
+  height: auto;
+  text-align: left;
+  vertical-align: baseline;
+  white-space: normal;
 }
 
 .ud-link-underline {
@@ -678,4 +735,35 @@ a.resetNavlink:hover {
 .ud-compact-form-control-container {
   border: 1px solid #2d2f31;
   position: relative;
+}
+
+/* Toggle Input Container */
+.ud-toggle-input-container {
+  cursor: pointer;
+  display: flex;
+  padding: 0.8rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+  min-width: 18rem;
+  max-width: 60rem;
+}
+
+/* ellipse 2 row */
+
+.ellipse-1-row {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.ellipse-2-rows {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }

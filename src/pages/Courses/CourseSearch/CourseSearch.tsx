@@ -1,16 +1,15 @@
+import { Pagination, SelectProps, Spin } from 'antd'
+import { useLayoutEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { IoIosHeartEmpty } from 'react-icons/io'
+import { IoCheckmark } from 'react-icons/io5'
+import { MdKeyboardArrowDown } from 'react-icons/md'
+import { NavLink, useSearchParams } from 'react-router-dom'
+import CustomTooltip from '@/components/CustomTooltip/CustomTooltip'
+import RatingContainer from '../../../components/RatingContainer/RatingContainer'
+import { CategoryCourse, FilterCoursesCategory } from '../../../models/course'
 import AccordionFilterPanel from './AccordionFilterPanel'
 import styles from './CourseSearch.module.scss'
-import { Collapse, CollapseProps, Form, Pagination, Select, SelectProps, Spin } from 'antd'
-import RatingContainer from '../../../components/RatingContainer/RatingContainer'
-import { NavLink, useSearchParams } from 'react-router-dom'
-import CustomTooltip from '../../../components/CustomTooltip/CustomTooltip'
-import { IoCheckmark } from 'react-icons/io5'
-import { IoIosHeartEmpty } from 'react-icons/io'
-import { useLayoutEffect, useState } from 'react'
-import { MdKeyboardArrowDown } from 'react-icons/md'
-import { useForm } from 'react-hook-form'
-import { CategoryCourse, FilterCoursesCategory } from '../../../models/course'
-import { LuPanelBottom } from 'react-icons/lu'
 
 const options: SelectProps['options'] = []
 
@@ -194,7 +193,7 @@ function CourseSearch() {
 
         <div className='filterRegion'>
           <div className='filterSidebar'>
-            <AccordionFilterPanel filterTitle='Rating' className='accordionFilterPanel'>
+            <AccordionFilterPanel title='Rating' className='accordionFilterPanel'>
               {ratingOptions.map((item, index) => (
                 <div className='inputContainer radioType' key={item.value}>
                   <input type='radio' id={item.value + ''} />
@@ -205,7 +204,7 @@ function CourseSearch() {
               ))}
             </AccordionFilterPanel>
 
-            <AccordionFilterPanel filterTitle='Duration' className='accordionFilterPanel'>
+            <AccordionFilterPanel title='Duration' className='accordionFilterPanel'>
               {durationOptions.map((item, index) => (
                 <div className='inputContainer' key={item.value}>
                   <input type='checkbox' id={item.value + ''} />
@@ -214,7 +213,7 @@ function CourseSearch() {
                 </div>
               ))}
             </AccordionFilterPanel>
-            <AccordionFilterPanel filterTitle='Level' className='accordionFilterPanel'>
+            <AccordionFilterPanel title='Level' className='accordionFilterPanel'>
               {levelOptions.map((item, index) => (
                 <div className='inputContainer' key={item.value}>
                   <input type='checkbox' id={item.value + ''} />

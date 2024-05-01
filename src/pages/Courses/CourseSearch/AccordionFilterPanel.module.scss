@@ -1,0 +1,29 @@
+.accordionPanel {
+  border-top: 1px solid #d1d7dc;
+
+  color: #222;
+
+  :global {
+    .panelToggler {
+      width: 100%;
+      padding: 1.6rem 0rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .arrowIcon {
+        transition: transform 150ms linear;
+      }
+
+      .arrowIcon.rotate {
+        transform: rotate(180deg);
+      }
+    }
+
+    .content {
+      padding: 8px 0 16px;
+      padding: 4px 0;
+    }
+  }
+}

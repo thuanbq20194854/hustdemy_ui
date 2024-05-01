@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-import styles from './AccordionFilterPanel.module.scss'
+import styles from './AccordionPanel.module.scss'
 
 interface IProps {
   // filterType: string
@@ -21,10 +21,17 @@ function AccordionFilterPanel({ children, title, className }: IProps) {
 
   return (
     <div className={`${styles.accordionPanel} ${className}`}>
-      <button className='panelToggler ud-btn ud-btn-large ud-btn-link ud-heading-lg' onClick={toggleFilterContent}>
-        <span className='ellipse-2-rows'>{title}</span>
-        <IoIosArrowDown className={`arrowIcon ${isOpen && 'rotate'}`} />
-      </button>
+      <div className='panelHeader' onClick={toggleFilterContent}>
+        <button className='ud-btn ud-btn-large ud-btn-link ud-heading-md'>
+          <div className='flex'>
+            <p className='title'>{title}</p>
+            <IoIosArrowDown size={20} className={`arrowIcon ${isOpen && 'rotate'}`} />
+          </div>
+        </button>
+        <div className='ud-text-xs section--progress'>
+          <span>1 / 3 | 3min</span>
+        </div>
+      </div>
 
       <div className={`content`} style={{ display: isOpen ? '' : 'none' }}>
         {children}

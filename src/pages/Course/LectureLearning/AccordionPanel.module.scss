@@ -1,0 +1,44 @@
+.accordionPanel {
+  border-top: 1px solid #d1d7dc;
+
+  color: #222;
+
+  :global {
+    .panelHeader {
+      width: 100%;
+      padding: 1.6rem;
+
+      .flex {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+
+        .title {
+          color: #2d2f31;
+          display: block;
+          text-align: left;
+          white-space: normal;
+          width: 100%;
+        }
+
+        .arrowIcon {
+          color: #2d2f31;
+          transition: transform 150ms linear;
+        }
+
+        .arrowIcon.rotate {
+          transform: rotate(180deg);
+        }
+      }
+
+      .section--progress {
+        margin-top: 8px;
+      }
+    }
+
+    .content {
+      padding: 8px 0 16px;
+      padding: 4px 0;
+    }
+  }
+}

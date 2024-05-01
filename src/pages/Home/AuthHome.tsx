@@ -1,6 +1,6 @@
 import styles from './AuthHome.module.scss'
 
-import BannerImage from 'src/assets/images/banner.png'
+import BannerImage from '@/assets/images/banner.png'
 
 // import Swiper core and required modules
 // Import Swiper styles

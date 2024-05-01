@@ -342,6 +342,12 @@
     }
 
     .menuBlock {
+      & > * {
+        cursor: pointer;
+        &:hover {
+          color: #5624d0;
+        }
+      }
       .menuItem {
         padding: 8px 16px;
       }

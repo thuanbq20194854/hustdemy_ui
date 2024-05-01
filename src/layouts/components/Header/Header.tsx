@@ -347,10 +347,10 @@ function Header() {
         </div>
 
         <div className='menuBlock'>
-          <NavLink to='/'>
+          <NavLink to='/user/edit-account'>
             <div className='menuItem ud-text-sm'>Account Settings</div>
           </NavLink>
-          <NavLink to='/'>
+          {/* <NavLink to='/'>
             <div className='menuItem ud-text-sm'>Payment Method</div>
           </NavLink>
           <NavLink to='/'>
@@ -364,10 +364,10 @@ function Header() {
           </NavLink>
           <NavLink to='/'>
             <div className='menuItem ud-text-sm'>Puschase History</div>
-          </NavLink>
+          </NavLink> */}
         </div>
 
-        <div className='menuBlock'>
+        {/* <div className='menuBlock'>
           <NavLink to='/'>
             <div className='menuItem languageItem'>
               <div className='languageValueContainer'>
@@ -377,13 +377,13 @@ function Header() {
               <GrLanguage />
             </div>
           </NavLink>
-        </div>
+        </div> */}
 
         <div className='menuBlock'>
           <NavLink to='/'>
             <div className='menuItem ud-text-sm'>Public Profile</div>
           </NavLink>
-          <NavLink to='/'>
+          <NavLink to='/user/edit-profile'>
             <div className='menuItem ud-text-sm'>Edit Profile</div>
           </NavLink>
         </div>
@@ -391,7 +391,7 @@ function Header() {
           <NavLink to='/'>
             <div className='menuItem ud-text-sm'>Help</div>
           </NavLink>
-          <button onClick={handleLogout}>
+          <button onClick={handleLogout} className='menuItemButton'>
             <div className='menuItem ud-text-sm'>Logout</div>
           </button>
         </div>
@@ -518,16 +518,16 @@ function Header() {
           </>
         ) : (
           <>
-            <button className='ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm ud-btn-icon ud-btn-icon-medium auth-btn'>
-              <NavLink to='/login' className='resetNavlink'>
+            <NavLink to='/login' className='resetNavlink'>
+              <button className='ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm ud-btn-icon ud-btn-icon-medium auth-btn'>
                 Log in
-              </NavLink>
-            </button>
-            <button className='ud-btn ud-btn-medium ud-btn-primary ud-heading-sm ud-btn-icon ud-btn-icon-medium auth-btn'>
-              <NavLink to='/register' className='resetNavlink'>
+              </button>
+            </NavLink>
+            <NavLink to='/register' className='resetNavlink'>
+              <button className='ud-btn ud-btn-medium ud-btn-primary ud-heading-sm ud-btn-icon ud-btn-icon-medium auth-btn'>
                 Sign up
-              </NavLink>
-            </button>
+              </button>
+            </NavLink>
           </>
         )}
       </div>
