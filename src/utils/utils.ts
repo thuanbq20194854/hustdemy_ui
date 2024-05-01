@@ -1,3 +1,5 @@
+import { User } from '../models/auth'
+
 export function getAuthTokenLS() {
   return localStorage.getItem('token') || ''
 }

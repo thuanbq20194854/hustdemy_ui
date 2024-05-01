@@ -8,11 +8,12 @@ import {
   IUpdateLecure,
   IUpdateSection,
   UpdateCourseLandingPageForm,
-  UpdateCoursePrice
+  UpdateCoursePrice,
+  IntendedLearners
 } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
-//   outcomes: Yup.array()
+//   out_comes: Yup.array()
 //     .required()
 //     .of(
 //       Yup.object().shape({
@@ -25,7 +26,7 @@ import {
 // })
 
 export const schemeUdpateIntendedLearner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
-  outcomes: Yup.array()
+  out_comes: Yup.array()
     .required()
     .of(
       Yup.object().shape({
@@ -53,14 +54,14 @@ export const schemeDeleteSection: Yup.ObjectSchema<IDeleteSection> = Yup.object(
 
 export const schemeCreateQuiz: Yup.ObjectSchema<ICreateQuiz> = Yup.object({
   sectionId: Yup.number().required('This field may not be blank'),
-  type: Yup.string().required('This field may not be blank'),
+  type: Yup.number().required('This field may not be blank'),
   title: Yup.string().required('This field may not be blank'),
   desc: Yup.string().nullable()
 })
 export const schemeUpdateQuiz: Yup.ObjectSchema<IUpdateLecure> = Yup.object({
   id: Yup.number().required('This field may not be blank'),
   sectionId: Yup.number().required('This field may not be blank'),
-  type: Yup.string().required('This field may not be blank'),
+  type: Yup.number().required('This field may not be blank'),
   title: Yup.string().required('This field may not be blank'),
   desc: Yup.string().nullable()
 })

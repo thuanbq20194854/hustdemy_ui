@@ -8,7 +8,7 @@ import styles from './CourseGoals.module.scss'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMemo } from 'react'
 import { BiSolidErrorAlt } from 'react-icons/bi'
-import { IntendedLearnForm } from '../../../../models/course'
+import { IntendedLearners } from '../../../../models/course'
 import { schemeUdpateIntendedLearner } from '../../../../validators/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 // const defaultFormValue = {
@@ -51,7 +51,7 @@ function CourseGoals() {
     watch,
     register,
     formState: { errors }
-  } = useForm<IntendedLearnForm>({
+  } = useForm<IntendedLearners>({
     defaultValues: {
       out_comes: initOutcomes,
       intended_for: initIntendedFor,
@@ -90,7 +90,7 @@ function CourseGoals() {
     name: 'intended_for'
   })
 
-  const handleSubmitForm = (formData: IntendedLearnForm) => {
+  const handleSubmitForm = (formData: IntendedLearners) => {
     handleUpdateIntendedLearner(formData, course.id as number)
   }
   /*

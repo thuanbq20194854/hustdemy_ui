@@ -11,14 +11,17 @@ import {
 
 export const schemeSignUp: Yup.ObjectSchema<SignUp> = Yup.object({
   name: Yup.string()
-    .required('Tên đầy đủ là bắt buộc')
-    .min(8, 'Tên đầy đủ nhỏ hơn 8 ký tự')
-    .max(30, 'Tên đầy đủ lớn hơn 30 ký tự'),
-  email: Yup.string().required('Email là bắt buộc').email('Email không hợp lệ'),
+    .required('Name is required')
+    .min(8, 'Name is less than 8 characters')
+    .max(32, 'Name is more than 32 characters'),
+  email: Yup.string()
+    .required('Email is required')
+    .email('Email is not valid')
+    .max(40, 'Password is more than 40 characters'),
   password: Yup.string()
-    .required('Mật khẩu là bắt buộc')
-    .min(8, 'Mật khẩu nhỏ hơn 8 ký tự')
-    .max(30, 'Mật khẩu lớn hơn 30 ký tự')
+    .required('Password is required')
+    .min(8, 'Password is less than 8 characters')
+    .max(32, 'Password is more than 32 characters')
 })
 
 export const schemeSignIn: Yup.ObjectSchema<SignIn> = Yup.object({

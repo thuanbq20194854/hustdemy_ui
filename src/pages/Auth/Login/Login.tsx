@@ -3,28 +3,47 @@ import { useForm } from 'react-hook-form'
 
 import styles from './Login.module.scss'
 
+import { useGoogleLogin } from '@react-oauth/google'
+import { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useGoogleLogin } from '@react-oauth/google'
-import { useAppDispatch } from '../../../services/state/redux/store'
-import { authSliceActions } from '../../../services/state/redux/authSlice'
-import { ResponseLogin, SignIn } from '../../../models/auth'
-import { schemeSignIn } from '../../../validators/auth'
-import { userServiceApi } from '../../../services/apis/userServiceApi'
-import { MdNavigateBefore } from 'react-icons/md'
-import { useState } from 'react'
-import { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
+import { ResponseLogin, SignIn, SignInByGoogle } from '../../../models/auth'
+import { userServiceApi } from '../../../services/apis/userServiceApi'
+import { authSliceActions } from '../../../services/state/redux/authSlice'
+import { useAppDispatch } from '../../../services/state/redux/store'
 import { setAuthTokenLS } from '../../../utils/utils'
+import { schemeSignIn } from '../../../validators/auth'
 
 function Login() {
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
   const loginGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
+    onSuccess: async (tokenResponse) => {
       // dispatch(authSliceActions.loginSuccess())
       console.log(tokenResponse)
+
+      dispatch(authSliceActions.startLogin())
+
+      const data: SignInByGoogle = {
+        token: tokenResponse.access_token
+      }
+      const result = await userServiceApi.loginByGoogle(data)
+      setAuthTokenLS(result.token)
+
+      const payloadLogin: ResponseLogin = {
+        token: result.token,
+        user: result.user
+      }
+      dispatch(authSliceActions.loginSuccess(payloadLogin))
+      navigate('/')
+
+      toast('Login Sucessfully!', {
+        autoClose: 500,
+        draggable: false,
+        type: 'success'
+      })
     },
     onError: (err) => {
       console.log(err)
@@ -49,26 +68,32 @@ function Login() {
 
   const onSubmit = async (formData: SignIn) => {
     try {
-      console.log('try')
       dispatch(authSliceActions.startLogin())
-      const responseData: ResponseLogin = await userServiceApi.login(formData)
-      dispatch(authSliceActions.loginSuccess(responseData))
 
+      const returnData = await userServiceApi.login(formData)
+
+      const responseData: ResponseLogin = returnData.data
       console.log(responseData)
-
       setAuthTokenLS(responseData.token)
 
+      dispatch(authSliceActions.loginSuccess(responseData))
+
       reset()
+
       navigate('/')
 
-      toast.success('Login Sucessfully!')
-    } catch (e: any) {
-      if (e.response.status === 204) {
+      toast('Login Sucessfully!', {
+        autoClose: 500,
+        draggable: false,
+        type: 'success'
+      })
+    } catch (err: any) {
+      if (err.response.status === 204) {
         setError('This account has been blocked!')
-      } else if (e.response.status === 422) {
-        setError('Email or pass is wrong')
+      } else if (err.response.data.message.includes('Unauthorized')) {
+        setError('Email or password is not correct!')
       } else {
-        console.log(error)
+        setError('Something went wrong on Server !')
       }
     }
   }
@@ -96,6 +121,11 @@ function Login() {
             </div>
             {errors.password?.message ? <span className='errorMessage'>{errors.password?.message}</span> : <></>}
           </div>
+          {error && (
+            <div className='ud-form-note-validate-14' style={{ marginBottom: '8px' }}>
+              {error}
+            </div>
+          )}
 
           <button className='signUpBtn ud-btn ud-btn-large ud-btn-brand ud-heading-md' type='submit'>
             <span>Login</span>

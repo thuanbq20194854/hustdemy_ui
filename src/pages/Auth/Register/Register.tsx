@@ -1,14 +1,14 @@
-import styles from './Register.module.scss'
-import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { authSliceActions } from '../../../services/state/redux/authSlice'
-import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ResponseSignUp, SignUp } from '../../../models/auth'
-import { schemeSignUp } from '../../../validators/auth'
-import { userServiceApi } from '../../../services/apis/userServiceApi'
+import { useForm } from 'react-hook-form'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { AxiosError } from 'axios'
+import { ResponseSignUp, SignUp } from '../../../models/auth'
+import { userServiceApi } from '../../../services/apis/userServiceApi'
+import { authSliceActions } from '../../../services/state/redux/authSlice'
+import { useAppDispatch, useAppSelector } from '../../../services/state/redux/store'
+import { schemeSignUp } from '../../../validators/auth'
+import styles from './Register.module.scss'
+import { useState } from 'react'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -29,38 +29,42 @@ export default function Register() {
 
     reset
   } = useForm<SignUp>({
-    resolver: yupResolver(schemeSignUp)
+    resolver: yupResolver(schemeSignUp),
+    defaultValues: {
+      email: '',
+      name: '',
+      password: ''
+    }
   })
+
+  const [error, setError] = useState('')
 
   const onSubmit = async (formData: SignUp) => {
     try {
       const data = await userServiceApi.register(formData)
-
-      console.log('data: ', data)
 
       const responseData: ResponseSignUp = {
         token: data.token,
         user: data.user
       }
       dispatch(authSliceActions.signUp(responseData))
-
-      localStorage.setItem('accessToken', responseData.token)
+      localStorage.setItem('token', responseData.token)
 
       reset()
 
-      toast.success('Register Successfully!')
+      toast('Register Successfully!', {
+        autoClose: 500,
+        type: 'success'
+      })
 
       navigate('/')
-    } catch (e: any) {
-      console.log(e)
-      if (e.response.status === 422) {
-        toast.error(e.response.data.message)
+    } catch (err: any) {
+      if (err.response.status === 422 && err.response.data.message.includes('Email already exists')) {
+        setError('Email already exists')
       } else {
-        toast.error('Something went wrong ')
+        setError('Something went wrong on Server !')
       }
     }
-
-    // API
   }
 
   return (
@@ -92,6 +96,12 @@ export default function Register() {
             </div>
             {errors.password?.message ? <span className='errorMessage'>{errors.password?.message}</span> : <></>}
           </div>
+
+          {error && (
+            <div className='ud-form-note-validate-14' style={{ marginBottom: '8px' }}>
+              {error}
+            </div>
+          )}
 
           <button className='signUpBtn ud-btn ud-btn-large ud-btn-brand ud-heading-md' type='submit'>
             <span>Sign up</span>

@@ -28,10 +28,10 @@ https.interceptors.response.use(
   },
 
   (error) => {
-    if (error.response.status === 401 && error.response.config.url != '/login') {
+    // if (error.response.status === 401 && error.response.config.url != '/login') {
+    if (error.response.status === 401 && error.response.config.url != '/auth/login') {
       clearAuthTokenLS()
       localStorage.clear()
-
       window.location.href = 'login'
     }
     return Promise.reject(error)

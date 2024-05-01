@@ -26,7 +26,7 @@ export interface Course {
   created_at?: string
 }
 
-export interface IntendedLearnForm {
+export interface IntendedLearners {
   out_comes: {
     value: string
   }[]
