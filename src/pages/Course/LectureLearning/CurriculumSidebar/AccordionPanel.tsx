@@ -14,8 +14,8 @@ interface IProps {
 function AccordionFilterPanel({ children, title, className }: IProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const toggleFilterContent = (e) => {
-    e.preventDefault()
+  const toggleFilterContent = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    evt.preventDefault()
     setIsOpen((prev) => !prev)
   }
 

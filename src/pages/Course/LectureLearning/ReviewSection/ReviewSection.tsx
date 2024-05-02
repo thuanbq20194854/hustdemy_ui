@@ -1,13 +1,10 @@
 import RatingContainer from '@/components/RatingContainer/RatingContainer'
-import { useBoolean } from '@/hooks/useBoolean'
 import React, { useState } from 'react'
-import { BiDislike, BiLike } from 'react-icons/bi'
-import { BsDot } from 'react-icons/bs'
-import { IoClose, IoStar } from 'react-icons/io5'
-import { RiMore2Fill } from 'react-icons/ri'
+import { IoClose } from 'react-icons/io5'
 
-import styles from './LectureLearning.module.scss'
 import { IoIosArrowDown, IoIosSearch } from 'react-icons/io'
+import styles from '../LectureLearning.module.scss'
+import ReviewItem from './ReviewItem'
 
 const fakeFilters = [
   {
@@ -144,35 +141,14 @@ function ReviewSection() {
             {Array(10)
               .fill(0)
               .map((item, index) => (
-                <div className='reviewContainer' key={index}>
-                  <div className='heading'>
-                    <div className='imgContainer'>
-                      <img src='https://img-c.udemycdn.com/user/200_H/31334738_a13c_3.jpg' alt='' />
-                    </div>
-
-                    <div className='name-and-rating'>
-                      <div className='name ud-heading-md'>Akshay K.</div>
-                      <div className='rating'>
-                        <RatingContainer averageReview={4.5} />
-                        <span className='ud-heading-xs'>2 weeks ago</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='content'>
-                    I really liked the build first approach in this course, you basically build a mini project for every
-                    section you learn. Some sections are little outdated but Angela is adding constant updates.
-                  </div>
-
-                  <div className='feedback'>
-                    <BiLike />
-                    <BiDislike />
-
-                    <button className='ud-btn ud-btn-medium ud-btn-ghost ud-heading-sm ud-text-sm review-report-abuse'>
-                      <span>Report</span>
-                    </button>
-                  </div>
-                </div>
+                <ReviewItem key={index} />
               ))}
+          </div>
+
+          <div className='reviewShowMore'>
+            <button className='ud-btn ud-btn-medium ud-btn-secondary ud-heading-sm'>
+              <span>See more reviews</span>
+            </button>
           </div>
         </div>
       </div>

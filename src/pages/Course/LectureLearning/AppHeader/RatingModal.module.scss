@@ -1,0 +1,45 @@
+.reportCourseSection {
+  margin-bottom: 3.2rem;
+  border-top: 1px solid #d1d7dc;
+  padding: 1.6rem 0;
+
+  :global {
+    .reportBtn {
+      width: 100%;
+    }
+  }
+}
+
+.rootClassReportModal {
+  :global {
+    .ant-modal {
+      width: 600px !important;
+
+      .ant-modal-footer {
+        display: none;
+      }
+      .ant-modal-content {
+        width: 600px !important;
+        padding: 24px;
+        margin: 10vh 0;
+        border-radius: 0px;
+
+        .contentContainer {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          align-items: center;
+
+          .ud-text-area {
+            height: auto;
+            padding: 1.3rem 1.6rem;
+          }
+
+          .ud-text-area:focus-visible {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}

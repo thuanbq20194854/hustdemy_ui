@@ -601,6 +601,15 @@ a.resetNavlink:hover {
   }
 }
 
+.ud-text-input {
+  border: 1px solid #2d2f31;
+  border-radius: 0;
+  -webkit-appearance: none;
+  display: block;
+  padding: 0 1.6rem;
+  width: 100%;
+}
+
 /*  Avatar */
 
 .ud-avatar {
@@ -643,6 +652,15 @@ a.resetNavlink:hover {
 
 .ud-footer-btns {
   margin-top: 3.2rem;
+}
+
+.ud-footer-btns .ud-btn-ghost,
+.ud-footer-btns .ud-btn-ghost:focus {
+  color: #2d2f31;
+}
+
+.ud-footer-btns .ud-btn + .ud-btn {
+  margin-left: 1.6rem;
 }
 
 /* Container  */

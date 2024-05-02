@@ -99,7 +99,6 @@
 
         .curriculumSiderbar {
           top: 56px;
-          height: calc(100% - 56px);
           right: 0;
           position: fixed;
           width: 25%;
@@ -379,9 +378,9 @@
           .reviewContainer {
             border-top: 1px solid #d1d7dc;
             padding: 2.4rem 0 3.2rem;
-            // width: calc(50% - 1.6rem);
+
             & > :not(:last-child) {
-              margin-bottom: 16px;
+              margin-bottom: 8px;
             }
             .heading {
               display: flex;
@@ -426,6 +425,12 @@
               white-space: normal;
             }
 
+            .feedbackTitle {
+              font-size: 1.2rem;
+              font-weight: 400;
+              max-width: 60rem;
+            }
+
             .feedback {
               display: flex;
               align-items: center;
@@ -444,8 +449,30 @@
 
                 font-weight: normal;
               }
+
+              .btnContainer {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                border-radius: 50%;
+                border: 1px solid #2d2f31;
+
+                &:hover {
+                  color: var(--color-gray-500);
+                  background-color: rgba(23, 57, 83, 0.12);
+                }
+              }
             }
           }
+        }
+
+        .reviewShowMore {
+          display: flex;
+          flex-direction: column;
+          margin-top: 2.5rem;
         }
       }
     }
@@ -454,4 +481,15 @@
 
 .rootSpin {
   margin-left: 50%;
+}
+
+.pageHeader_rootTooltip {
+  :global {
+    .ant-tooltip-content {
+      .ant-tooltip-inner {
+        padding: 24px;
+        width: 320px;
+      }
+    }
+  }
 }
