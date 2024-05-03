@@ -8,7 +8,7 @@ import { IoCheckmarkCircle } from 'react-icons/io5'
 import { MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md'
 import { VscQuestion } from 'react-icons/vsc'
 import { useBoolean } from '../../../../../hooks/useBoolean'
-import { ILecture, IQuestion } from '../../../../../models/course'
+import { Lecture, Question } from '../../../../../models/course'
 import AddQuestionForm from './AddQuestionForm'
 import DeleteLectureItemModal from '../DeleteLectureItemModal'
 import EditQuizForm from './EditQuizForm'
@@ -16,12 +16,12 @@ import QuestionItem from './QuestionItem'
 import styles from './QuizItem.module.scss'
 
 interface IProps {
-  questions: IQuestion[]
+  questions: Question[]
   sectionId: number
   index: number
-  quizItem: ILecture
-  // handleUpdateQuiz: (quizData: IUpdateQuiz) => void
-  // handleDeleteLecture: (lectureData: IDeleteLecture) => void
+  quizItem: Lecture
+  // handleUpdateQuiz: (quizData: UpdateQuiz) => void
+  // handleDeleteLecture: (lectureData: DeleteLecture) => void
 }
 
 function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
@@ -38,11 +38,11 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
 
   const [isOpen, setCommandModal, handleOpenModal] = useBoolean()
 
-  const [quizEdit, setQuizEdit] = useState<ILecture | null>()
+  const [quizEdit, setQuizEdit] = useState<Lecture | null>()
 
-  const [questionEdit, setQuestionEdit] = useState<IQuestion | null>(null)
+  const [questionEdit, setQuestionEdit] = useState<Question | null>(null)
 
-  const handleOpenEditQuizForm = (quizEdit: ILecture) => {
+  const handleOpenEditQuizForm = (quizEdit: Lecture) => {
     setQuizItemMode(QUIZ_ITEM_MODE.EDIT)
     setQuizEdit(quizEdit)
   }
@@ -59,7 +59,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
     setQuizItemMode(QUIZ_ITEM_MODE.NORMAL)
   }
 
-  const handleQuestionEdit = (questionEdit: IQuestion | null) => {
+  const handleQuestionEdit = (questionEdit: Question | null) => {
     setQuestionEdit(questionEdit)
     setQuizItemMode(QUIZ_ITEM_MODE.EDIT_QUESTION)
   }

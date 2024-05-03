@@ -8,7 +8,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md'
 import { SlControlPlay } from 'react-icons/sl'
-import { EAssetType, IAsset, ILecture } from '../../../../../models/course'
+import { EAssetType, Asset, Lecture } from '../../../../../models/course'
 import LectureDescriptionForm from './LectureDescriptionForm'
 import styles from './LectureItem.module.scss'
 import LectureResourceForm from './LectureResourceForm'
@@ -29,7 +29,7 @@ const LECTURE_MODE = {
 }
 
 interface IProps {
-  lectureItem: ILecture
+  lectureItem: Lecture
   sectionId: number
   index: number
 }
@@ -143,7 +143,7 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
 
                 {lectureItem.assets
                   ?.filter((item) => item.type === EAssetType.Resource)
-                  .map((resourceItem: IAsset) => (
+                  .map((resourceItem: Asset) => (
                     <ResourceItem
                       key={resourceItem.id}
                       resourceItem={resourceItem}

@@ -39,7 +39,7 @@ function AppHeader() {
         <button className='ud-btn ud-btn-large ud-btn-ghost ud-text-sm ud-block-list-item ud-block-list-item-small ud-block-list-item-neutral resouceButton'>
           <MdEdit size={16} className='downloadIcon' />
 
-          <span className='ud-block-list-item-content ellipse-1-row'>Ediy your rating</span>
+          <span className='ud-block-list-item-content ellipse-1-row'>Edit your rating</span>
         </button>
       )
     }

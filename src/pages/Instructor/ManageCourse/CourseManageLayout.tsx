@@ -10,17 +10,17 @@ import {
   CreateQuestionForm,
   EAssetType,
   ELectureType,
-  ICreateQuiz,
-  ICreateSection,
-  IDeleteLecture,
+  CreateQuiz,
+  CreateSection,
+  DeleteLecture,
   IDeleteQuestion,
   IDeleteResource,
-  ILecture,
-  IQuestion,
-  ISection,
-  IUpdateQuiz,
-  IUpdateSection,
-  IntendedLearnForm,
+  Lecture,
+  Question,
+  Curriculum,
+  UpdateQuiz,
+  UpdateSection,
+  IntendedLearners,
   UpdateAnswerForm,
   UpdateCourseLandingPageForm,
   UpdateCoursePrice,
@@ -39,13 +39,17 @@ import CoursePricing from './CoursePricing/CoursePricing'
 import { tabPaths } from './constant/CourseManage'
 import { CourseManageProvider } from './context/CourseMangeContext'
 
-const initCurriculum: ISection[] = [
+const initCurriculum: Curriculum[] = [
   {
     id: 1,
 
-    sectionTitle: 'Introduction',
+    course_id: 1,
 
-    sectionOutcome: 'Get the first 10 grade',
+    title: 'Introduction',
+
+    description: 'Get the first 10 grade',
+    updated_at: new Date().toISOString(),
+    created_at: new Date().toISOString(),
 
     lectures: [
       {
@@ -94,7 +98,9 @@ const initCurriculum: ISection[] = [
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explain:
                   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
-                is_correct: false
+                is_correct: false,
+                updated_at: '05 October 2011 14:48 UTC',
+                created_at: '05 October 2011 14:48 UTC'
               },
               {
                 question_id: 1,
@@ -103,7 +109,9 @@ const initCurriculum: ISection[] = [
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explain:
                   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
-                is_correct: true
+                is_correct: true,
+                updated_at: '05 October 2011 14:48 UTC',
+                created_at: '05 October 2011 14:48 UTC'
               },
               {
                 question_id: 1,
@@ -112,7 +120,9 @@ const initCurriculum: ISection[] = [
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explain:
                   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
-                is_correct: false
+                is_correct: false,
+                updated_at: '05 October 2011 14:48 UTC',
+                created_at: '05 October 2011 14:48 UTC'
               },
               {
                 question_id: 1,
@@ -121,7 +131,9 @@ const initCurriculum: ISection[] = [
                   'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe iusto beatae nihil odit laboriosam itaque.',
                 explain:
                   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad sint labore cum asperiores voluptatum!',
-                is_correct: false
+                is_correct: false,
+                updated_at: '05 October 2011 14:48 UTC',
+                created_at: '05 October 2011 14:48 UTC'
               }
             ]
           }
@@ -179,7 +191,7 @@ function CourseManageLayout() {
   const navigate = useNavigate()
   const [course, setCourse] = useState<Course>(initCourseData)
 
-  // const [course.curriculums, setSections] = useState<ISection[]>(initCurriculum)
+  // const [course.curriculums, setSections] = useState<Curriculum[]>(initCurriculum)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -199,7 +211,7 @@ function CourseManageLayout() {
     }
   }, [])
 
-  const handleAddSection = (data: ICreateSection) => {
+  const handleAddSection = (data: CreateSection) => {
     /// API first
     /// Put response into this SET function
 
@@ -207,9 +219,12 @@ function CourseManageLayout() {
       ...(course.curriculums ?? []),
       {
         id: randomNumber(),
-        sectionOutcome: data.sectionOutcome,
+        description: data.description,
         lectures: [],
-        sectionTitle: data.sectionTitle
+        title: data.title,
+        course_id: course.id as number,
+        updated_at: '',
+        created_at: ''
       }
     ]
 
@@ -223,14 +238,14 @@ function CourseManageLayout() {
     //   ...prev,
     //   {
     //     id: randomNumber(),
-    //     sectionOutcome: data.sectionOutcome,
+    //     description: data.description,
     //     lectures: [],
-    //     sectionTitle: data.sectionTitle
+    //     title: data.title
     //   }
     // ])
   }
 
-  const handleEditSection = (sectionEdited: IUpdateSection) => {
+  const handleEditSection = (sectionEdited: UpdateSection) => {
     /// API first
     /// Put response into this SET function
 
@@ -238,8 +253,8 @@ function CourseManageLayout() {
       if (sectionItem.id === sectionEdited.id) {
         return {
           ...sectionItem,
-          sectionOutcome: sectionEdited.sectionOutcome,
-          sectionTitle: sectionEdited.sectionTitle
+          description: sectionEdited.description,
+          title: sectionEdited.title
         }
       }
 
@@ -267,10 +282,10 @@ function CourseManageLayout() {
     }))
   }
 
-  const handleAddQuiz = (quizData: ICreateQuiz) => {
+  const handleAddQuiz = (quizData: CreateQuiz) => {
     const expectedSection = (course.curriculums ?? []).find((sectionItem) => sectionItem.id === quizData.sectionId)
 
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === expectedSection?.id) {
         return {
           ...sectionItem,
@@ -292,8 +307,8 @@ function CourseManageLayout() {
     }))
   }
 
-  const handleUpdateQuiz = (quizData: IUpdateQuiz) => {
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+  const handleUpdateQuiz = (quizData: UpdateQuiz) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === quizData.sectionId) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === quizData.id) {
@@ -323,8 +338,8 @@ function CourseManageLayout() {
     }))
   }
 
-  const handleDeleteLecture = (lectureData: IDeleteLecture) => {
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+  const handleDeleteLecture = (lectureData: DeleteLecture) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === lectureData.sectionId) {
         const updatedLectures = sectionItem.lectures.filter((lectureItem) => lectureItem.id != lectureData.id)
 
@@ -346,13 +361,13 @@ function CourseManageLayout() {
 
   const handleAddQuestion = (data: CreateQuestionForm) => {
     /// id of question from API to pass and update state
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem: ISection) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem: Curriculum) => {
       if (sectionItem.id === data.sectionID) {
-        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: Lecture) => {
           if (lectureItem.id === data.lectureID) {
             const newQuestionId = randomNumber()
             const updatedQuestions = [
-              ...(lectureItem.questions as IQuestion[]),
+              ...(lectureItem.questions as Question[]),
               {
                 id: newQuestionId,
                 question_text: data.question_text,
@@ -361,7 +376,9 @@ function CourseManageLayout() {
                   answer_text: answerItem.answer_text,
                   explain: answerItem.explain,
                   is_correct: index === +(data.indexOfCorrectAnswer as string),
-                  question_id: newQuestionId
+                  question_id: newQuestionId,
+                  updated_at: '',
+                  created_at: ''
                 })),
                 lectureId: data.lectureID
               }
@@ -395,14 +412,14 @@ function CourseManageLayout() {
     updateQuestionFormData: UpdateQuestionForm,
     updateAnswerArrayForm: UpdateAnswerForm[]
   ) => {
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem: ISection) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem: Curriculum) => {
       if (sectionItem.id === updateQuestionFormData.sectionID) {
-        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: Lecture) => {
           if (lectureItem.id === updateQuestionFormData.lectureID) {
             // id from API Add, Update return
             // const newQuestionId = randomNumber()
 
-            const updatedQuestions = (lectureItem.questions ?? []).map((questionItem: IQuestion) => {
+            const updatedQuestions: Question[] = (lectureItem.questions ?? []).map((questionItem: Question) => {
               if (questionItem.id === updateQuestionFormData.id) {
                 return {
                   id: updateQuestionFormData.id,
@@ -412,7 +429,9 @@ function CourseManageLayout() {
                     answer_text: answerItem.answer_text,
                     explain: answerItem.explain,
                     is_correct: answerItem.is_correct,
-                    question_id: updateQuestionFormData.id
+                    question_id: updateQuestionFormData.id,
+                    updated_at: '',
+                    created_at: ''
                   })),
                   lectureId: updateQuestionFormData.lectureID
                 }
@@ -445,12 +464,12 @@ function CourseManageLayout() {
   }
 
   const handleDeleteQuestion = (questionItemData: IDeleteQuestion) => {
-    const updatedSections = (course.curriculums ?? []).map((sectionItem: ISection) => {
+    const updatedSections = (course.curriculums ?? []).map((sectionItem: Curriculum) => {
       if (sectionItem.id === questionItemData.sectionID) {
-        const updatedLectures = sectionItem.lectures.map((lectureItem: ILecture) => {
+        const updatedLectures = sectionItem.lectures.map((lectureItem: Lecture) => {
           if (lectureItem.id === questionItemData.lectureID) {
             const updatedQuestions = lectureItem.questions?.filter(
-              (questionItem: IQuestion) => questionItem.id != questionItemData.questionID
+              (questionItem: Question) => questionItem.id != questionItemData.questionID
             )
 
             return {
@@ -478,7 +497,7 @@ function CourseManageLayout() {
   }
 
   const handleAddLecture = (addLectureForm: CreateLectureForm) => {
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === addLectureForm.sectionId) {
         return {
           ...sectionItem,
@@ -499,7 +518,7 @@ function CourseManageLayout() {
 
   const handleUploadLectureVideo = (updateVideoForm: UpdateVideoForm) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === updateVideoForm.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === updateVideoForm.lecture_id) {
@@ -544,7 +563,7 @@ function CourseManageLayout() {
 
   const handleReplaceLectureVideo = (updateVideoForm: UpdateVideoForm) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === updateVideoForm.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === updateVideoForm.lecture_id) {
@@ -593,7 +612,7 @@ function CourseManageLayout() {
   const handleUpdateLectureDesc = (formData: UpdateLectureDesc) => {
     /// API
 
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === formData.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === formData.lecture_id) {
@@ -624,7 +643,7 @@ function CourseManageLayout() {
 
   const handleAddLectureResource = (updateResourceFormData: UpdateResource) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === updateResourceFormData.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === updateResourceFormData.lecture_id) {
@@ -668,7 +687,7 @@ function CourseManageLayout() {
   }
   const handleDeleteResource = (deleteResourceFormData: IDeleteResource) => {
     // API then receiver all info for updated Asset
-    const updatedSections: ISection[] = (course.curriculums ?? []).map((sectionItem) => {
+    const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === deleteResourceFormData.section_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === deleteResourceFormData.lecture_id) {
@@ -722,12 +741,12 @@ function CourseManageLayout() {
     })
   }
 
-  const handleUpdateIntendedLearner = (formData: IntendedLearnForm, courseId: number) => {
+  const handleUpdateIntendedLearner = (formData: IntendedLearners, courseId: number) => {
     const updatedCourse: Course = {
       ...course,
       out_comes: formData.out_comes.map((item) => item.value),
-      intended_for: formData.intended_for?.map((item) => item.value),
-      requirements: formData.requirements?.map((item) => item.value)
+      intended_for: formData.intended_for?.map((item) => item.value) ?? null,
+      requirements: formData.requirements?.map((item) => item.value) ?? null
     }
 
     setCourse({

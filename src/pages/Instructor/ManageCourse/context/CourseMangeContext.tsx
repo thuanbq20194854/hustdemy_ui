@@ -3,14 +3,14 @@ import {
   Course,
   CreateLectureForm,
   CreateQuestionForm,
-  ICreateQuiz,
-  ICreateSection,
-  IDeleteLecture,
+  CreateQuiz,
+  CreateSection,
+  DeleteLecture,
   IDeleteQuestion,
   IDeleteResource,
-  IUpdateQuiz,
-  IUpdateSection,
-  IntendedLearnForm,
+  UpdateQuiz,
+  UpdateSection,
+  IntendedLearners,
   UpdateAnswerForm,
   UpdateCourseLandingPageForm,
   UpdateCoursePrice,
@@ -21,13 +21,13 @@ import {
 } from '../../../../models/course'
 
 interface CourseManageContextProps {
-  handleAddSection: (data: ICreateSection) => void
-  handleEditSection: (formData: IUpdateSection) => void
+  handleAddSection: (data: CreateSection) => void
+  handleEditSection: (formData: UpdateSection) => void
 
   handleDeleteSection: (deletedId: number) => void
-  handleAddQuiz: (quizData: ICreateQuiz) => void
-  handleUpdateQuiz: (quizData: IUpdateQuiz) => void
-  handleDeleteLecture: (lectureData: IDeleteLecture) => void
+  handleAddQuiz: (quizData: CreateQuiz) => void
+  handleUpdateQuiz: (quizData: UpdateQuiz) => void
+  handleDeleteLecture: (lectureData: DeleteLecture) => void
   handleAddQuestion: (data: CreateQuestionForm) => void
   handleUpdateQuestion: (updateQuestionFormData: UpdateQuestionForm, updateAnswerArrayForm: UpdateAnswerForm[]) => void
   handleDeleteQuestion: (questionItem: IDeleteQuestion) => void
@@ -39,8 +39,8 @@ interface CourseManageContextProps {
   handleAddLecture: (addLectureForm: CreateLectureForm) => void
   handleUpdateCourseLandingPage: (updateCourseLandingPage: UpdateCourseLandingPageForm, courseImage?: File) => void
   handleUpdateCoursePrice: (formData: UpdateCoursePrice, courseId: number) => void
-  handleUpdateIntendedLearner: (formData: IntendedLearnForm, courseId: number) => void
-  course: Course
+  handleUpdateIntendedLearner: (formData: IntendedLearners, courseId: number) => void
+  course: Course | null
 }
 const CourseManageContext = createContext<CourseManageContextProps>({
   handleAddSection: () => {},
@@ -61,7 +61,7 @@ const CourseManageContext = createContext<CourseManageContextProps>({
   handleUpdateCourseLandingPage: () => {},
   handleUpdateCoursePrice: () => {},
   handleUpdateIntendedLearner: () => {},
-  course: {}
+  course: null
 })
 
 interface CourseMangeProviderProps {

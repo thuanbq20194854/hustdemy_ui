@@ -1,12 +1,12 @@
 import CustomModal from '../../../../components/CustomModal/CustomModal'
-import { ILecture } from '../../../../models/course'
+import { Lecture } from '../../../../models/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   isOpen: boolean
   setCommandModal: (cmd: boolean) => void
   sectionId: number
-  lectureItem: ILecture
+  lectureItem: Lecture
 }
 
 function DeleteLectureItemModal({ isOpen, setCommandModal, lectureItem }: IProps) {

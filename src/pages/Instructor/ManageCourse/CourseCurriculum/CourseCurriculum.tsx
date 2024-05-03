@@ -28,7 +28,7 @@ function CourseCurriculum() {
         </div>
 
         <div className='curriculumPart'>
-          {(course.curriculums ?? []).map((sectionItem, index) => (
+          {(course?.curriculums ?? []).map((sectionItem, index) => (
             <SectionItem index={index + 1} key={sectionItem.id} section={sectionItem} />
           ))}
 

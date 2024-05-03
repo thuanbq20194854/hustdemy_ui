@@ -8,7 +8,7 @@ import TextEditor from '../../../../../components/TextEditor/TextEditor'
 import {
   CreateAnswerForm,
   CreateQuestionForm,
-  IQuestion,
+  Question,
   UpdateAnswerForm,
   UpdateQuestionForm
 } from '../../../../../models/course'
@@ -21,8 +21,8 @@ interface IProps {
   handleBackToPreviousMode: () => void
   sectionId: number
   lectureId: number
-  questionEdit: IQuestion | null
-  setQuestionEdit: React.Dispatch<React.SetStateAction<IQuestion | null>>
+  questionEdit: Question | null
+  setQuestionEdit: React.Dispatch<React.SetStateAction<Question | null>>
 }
 
 const customToolBar = [['bold', 'italic']]

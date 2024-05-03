@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import TextEditor from '../../../../../components/TextEditor/TextEditor'
-import { ELectureType, ILecture, IUpdateQuiz } from '../../../../../models/course'
+import { ELectureType, Lecture, UpdateQuiz } from '../../../../../models/course'
 import CustomInput from '../../../components/CustomInput'
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,7 +13,7 @@ import styles from './AddQuizForm.module.scss'
 interface IProps {
   sectionId: number
 
-  quizEdit: ILecture
+  quizEdit: Lecture
   index: number | null
   handleNormalMode: () => void
 }
@@ -22,7 +22,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
   const { handleUpdateQuiz } = useCourseManageContext()
   const customToolBar = [['bold', 'italic']]
 
-  const methods = useForm<IUpdateQuiz>({
+  const methods = useForm<UpdateQuiz>({
     defaultValues: {
       id: quizEdit.id,
       desc: quizEdit?.desc,
@@ -40,7 +40,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
     control
   } = methods
 
-  const [questionEditing, setQuestionEditing] = useState<ILecture | null>(quizEdit)
+  const [questionEditing, setQuestionEditing] = useState<Lecture | null>(quizEdit)
 
   useEffect(() => {
     return () => {
@@ -48,7 +48,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
     }
   }, [])
 
-  const handleSaveForm = (formData: IUpdateQuiz) => {
+  const handleSaveForm = (formData: UpdateQuiz) => {
     handleUpdateQuiz(formData)
     handleNormalMode()
   }

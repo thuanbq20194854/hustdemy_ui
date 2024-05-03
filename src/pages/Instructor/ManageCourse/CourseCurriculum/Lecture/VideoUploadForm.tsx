@@ -1,7 +1,7 @@
 import { Button, Form, Upload } from 'antd'
 import { useForm, useWatch } from 'antd/es/form/Form'
 import { MdOutlineClose } from 'react-icons/md'
-import { IAsset, UpdateVideoForm } from '../../../../../models/course'
+import { Asset, UpdateVideoForm } from '../../../../../models/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 import { BsUpload } from 'react-icons/bs'
@@ -10,7 +10,7 @@ interface IProps {
   sectionId: number
   lectureId: number
   handleBackToNormal: () => void
-  lectureVideoWatch: IAsset | undefined
+  lectureVideoWatch: Asset | undefined
 }
 
 interface IForm {

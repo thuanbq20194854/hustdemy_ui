@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { MdOutlineClose } from 'react-icons/md'
 import TextEditor from '../../../../../components/TextEditor/TextEditor'
-import { ILecture, UpdateLectureDesc } from '../../../../../models/course'
+import { Lecture, UpdateLectureDesc } from '../../../../../models/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
-  lectureItem: ILecture
+  lectureItem: Lecture
   sectionId: number
   handleBackToNormal: () => void
 }

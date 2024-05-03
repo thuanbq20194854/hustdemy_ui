@@ -1,5 +1,5 @@
 import TextEditor from '../../../../../components/TextEditor/TextEditor'
-import { ELectureType, ICreateQuiz } from '../../../../../models/course'
+import { ELectureType, CreateQuiz } from '../../../../../models/course'
 import CustomInput from '../../../components/CustomInput'
 import { ADD_CURRICULUM_ITEM_MODE } from '../AddNewCurriculumItem'
 
@@ -20,7 +20,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
 
   const customToolBar = [['bold', 'italic']]
 
-  const methods = useForm<ICreateQuiz>({
+  const methods = useForm<CreateQuiz>({
     defaultValues: {
       desc: '',
       sectionId: sectionId,
@@ -37,7 +37,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
     control
   } = methods
 
-  const handleSaveForm = (formData: ICreateQuiz) => {
+  const handleSaveForm = (formData: CreateQuiz) => {
     handleAddQuiz(formData)
     handleNormalMode()
   }

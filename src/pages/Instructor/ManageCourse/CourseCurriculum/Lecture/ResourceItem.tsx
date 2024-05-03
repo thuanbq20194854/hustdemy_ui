@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { HiOutlineFolderDownload } from 'react-icons/hi'
-import { IAsset } from '../../../../../models/course'
+import { Asset } from '../../../../../models/course'
 import { MdDelete } from 'react-icons/md'
 import DeleteResourceItemModal from './DeleteResourceItemModal'
 
 interface IProps {
-  resourceItem: IAsset
+  resourceItem: Asset
 
   sectionId: number
   lectureId: number

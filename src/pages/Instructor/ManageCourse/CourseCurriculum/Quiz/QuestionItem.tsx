@@ -2,14 +2,14 @@ import { FaBars } from 'react-icons/fa'
 import { MdDelete, MdEdit } from 'react-icons/md'
 
 import { useBoolean } from '../../../../../hooks/useBoolean'
-import { IQuestion } from '../../../../../models/course'
+import { Question } from '../../../../../models/course'
 import DeleteQuestionItemModal from './DeleteQuestionItemModal'
 import styles from './QuestionItem.module.scss'
 
 interface IProps {
   handleQuestionEdit: () => void
 
-  questionItem: IQuestion
+  questionItem: Question
   sectionId: number
   index: number
 }

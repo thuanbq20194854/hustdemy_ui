@@ -1,9 +1,9 @@
 import CustomModal from '../../../../../components/CustomModal/CustomModal'
-import { IDeleteQuestion, IQuestion } from '../../../../../models/course'
+import { IDeleteQuestion, Question } from '../../../../../models/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
-  questionItem: IQuestion
+  questionItem: Question
   sectionId: number
 
   handleCommandModal: (cmd: boolean) => void

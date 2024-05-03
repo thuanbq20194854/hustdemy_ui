@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { ICreateSection } from '../../../../models/course'
+import { CreateSection } from '../../../../models/course'
 import { schemeCreateSection } from '../../../../validators/course'
 import CustomInput from '../../components/CustomInput'
 import { useCourseManageContext } from '../context/CourseMangeContext'
@@ -20,16 +20,16 @@ function AddSectionForm() {
     handleSubmit,
     formState: { errors },
     control
-  } = useForm<ICreateSection>({
+  } = useForm<CreateSection>({
     // mode: 'onSubmit',
     defaultValues: {
-      sectionTitle: '',
-      sectionOutcome: ''
+      title: '',
+      description: ''
     },
     resolver: yupResolver(schemeCreateSection)
   })
 
-  const handleAddSectionSubmit = (addSectionData: ICreateSection) => {
+  const handleAddSectionSubmit = (addSectionData: CreateSection) => {
     handleAddSection(addSectionData)
     setOpenForm(false)
   }
@@ -54,18 +54,18 @@ function AddSectionForm() {
               <div className='formItem'>
                 <Controller
                   control={control}
-                  name='sectionTitle'
+                  name='title'
                   render={({ field }) => (
                     <CustomInput
                       maxLength={80}
                       placeholder='Enter a title'
-                      className={errors.sectionTitle ? 'ud-form-group-error' : ''}
+                      className={errors.title ? 'ud-form-group-error' : ''}
                       {...field}
                     />
                   )}
                 />
 
-                {errors.sectionTitle && <span className='ud-form-note-validate'>{errors.sectionTitle.message}</span>}
+                {errors.title && <span className='ud-form-note-validate'>{errors.title.message}</span>}
               </div>
 
               <div className='formItem'>
@@ -73,19 +73,17 @@ function AddSectionForm() {
 
                 <Controller
                   control={control}
-                  name='sectionOutcome'
+                  name='description'
                   render={({ field }) => (
                     <CustomInput
                       maxLength={200}
                       placeholder='Enter a Learning Objective'
-                      className={errors.sectionOutcome ? 'ud-form-group-error' : ''}
+                      className={errors.description ? 'ud-form-group-error' : ''}
                       {...field}
                     />
                   )}
                 />
-                {errors.sectionOutcome && (
-                  <span className='ud-form-note-validate'>{errors.sectionOutcome.message}</span>
-                )}
+                {errors.description && <span className='ud-form-note-validate'>{errors.description.message}</span>}
               </div>
 
               <div className='btnActionsContainer'>

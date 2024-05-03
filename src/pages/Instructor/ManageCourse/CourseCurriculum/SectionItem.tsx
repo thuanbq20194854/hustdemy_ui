@@ -5,7 +5,7 @@ import { MdDelete, MdEdit } from 'react-icons/md'
 import styles from './SectionItem.module.scss'
 
 import { useBoolean } from '../../../../hooks/useBoolean'
-import { ELectureType, ISection } from '../../../../models/course'
+import { ELectureType, Curriculum } from '../../../../models/course'
 import AddNewCurriculumItem from './AddNewCurriculumItem'
 import DeleteSectionItemModal from './DeleteSectionItemModal'
 import EditSectionForm from './EditSectionForm'
@@ -13,7 +13,7 @@ import LectureItem from './Lecture/LectureItem'
 import QuizItem from './Quiz/QuizItem'
 
 interface IProps {
-  section: ISection
+  section: Curriculum
 
   index: number
 }
@@ -51,7 +51,7 @@ function SectionItem({ section, index }: IProps) {
               <FaRegFile />
             </div>
 
-            <span>{section.sectionTitle}</span>
+            <span>{section.title}</span>
           </span>
 
           <div className='btnPart'>
