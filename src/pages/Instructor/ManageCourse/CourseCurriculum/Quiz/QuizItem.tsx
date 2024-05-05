@@ -17,14 +17,14 @@ import styles from './QuizItem.module.scss'
 
 interface IProps {
   questions: Question[]
-  sectionId: number
+  curriculumId: number
   index: number
   quizItem: Lecture
   // handleUpdateQuiz: (quizData: UpdateQuiz) => void
   // handleDeleteLecture: (lectureData: DeleteLecture) => void
 }
 
-function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
+function QuizItem({ questions, curriculumId, index, quizItem }: IProps) {
   const QUIZ_ITEM_MODE = {
     NORMAL: 0,
     SHOW: 2,
@@ -66,7 +66,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
   return (
     <div className={styles.quizItemWrapper}>
       <DeleteLectureItemModal
-        sectionId={sectionId}
+        curriculumId={curriculumId}
         lectureItem={quizItem}
         isOpen={isOpen}
         setCommandModal={setCommandModal}
@@ -160,7 +160,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
                 key={questionItem.id}
                 index={index + 1}
                 questionItem={questionItem}
-                sectionId={quizItem.sectionId}
+                curriculumId={quizItem.curriculum_id}
                 handleQuestionEdit={() => handleQuestionEdit(questionItem)}
               />
             ))}
@@ -191,7 +191,7 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
       {(quizItemMode === QUIZ_ITEM_MODE.ADD_QUESTION || quizItemMode === QUIZ_ITEM_MODE.EDIT_QUESTION) && (
         <AddQuestionForm
           handleBackToPreviousMode={handleBackToPreviousMode}
-          sectionId={sectionId}
+          curriculumId={curriculumId}
           lectureId={quizItem.id}
           questionEdit={questionEdit}
           setQuestionEdit={setQuestionEdit}
@@ -199,7 +199,12 @@ function QuizItem({ questions, sectionId, index, quizItem }: IProps) {
       )}
 
       {quizItemMode === QUIZ_ITEM_MODE.EDIT && (
-        <EditQuizForm index={index} quizEdit={quizItem} sectionId={sectionId} handleNormalMode={handleNormalMode} />
+        <EditQuizForm
+          index={index}
+          quizEdit={quizItem}
+          curriculumId={curriculumId}
+          handleNormalMode={handleNormalMode}
+        />
       )}
     </div>
   )

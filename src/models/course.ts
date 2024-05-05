@@ -62,14 +62,19 @@ export interface IDeleteSection {
 }
 
 export interface Lecture {
-  sectionId: number
   id: number
-  type: number
   title: string
-  desc?: string | null
-  questions?: Question[]
-
-  assets?: Asset[]
+  type: number
+  article: string | null
+  curriculum_id: number
+  description: string | null
+  is_promotional: boolean
+  is_done: boolean
+  assets: Asset[]
+  questions: Question[]
+  order: number
+  updated_at: string
+  created_at: string
 }
 
 export interface Asset {
@@ -90,7 +95,7 @@ export interface Asset {
 // }
 
 export interface CreateQuiz {
-  sectionId: number
+  curriculum_id: number
   type: number
   title: string
   desc?: string | null
@@ -98,7 +103,7 @@ export interface CreateQuiz {
 
 export interface UpdateQuiz {
   id: number
-  sectionId: number
+  curriculum_id: number
   type: number
   title: string
   desc?: string | null
@@ -106,7 +111,7 @@ export interface UpdateQuiz {
 
 export interface DeleteLecture {
   id: number
-  sectionId: number
+  curriculum_id: number
 }
 
 export interface Question {
@@ -127,7 +132,7 @@ export interface Answer {
 }
 
 export interface CreateQuestionForm {
-  sectionID: number
+  curriculumID: number
   lectureID: number
   question_text: string
   indexOfCorrectAnswer?: string
@@ -144,7 +149,7 @@ export interface UpdateQuestionForm {
   id: number
   question_text: string
   lectureID: number
-  sectionID: number
+  curriculumID: number
 }
 export interface UpdateAnswerForm {
   id: number
@@ -152,31 +157,31 @@ export interface UpdateAnswerForm {
   is_correct: boolean
   explain?: string
   lectureID: number
-  sectionID: number
+  curriculumID: number
 }
 
 export interface IDeleteQuestion {
-  sectionID: number
+  curriculumID: number
   lectureID: number
   questionID: number
 }
 
 export interface CreateLectureForm {
   // id: number
-  sectionId: number
+  curriculum_id: number
   type: number
   title: string
 }
 export interface UpdateLecture {
   id: number
-  sectionId: number
+  curriculum_id: number
   type: number
   title: string
 }
 
 export interface DeleteLecture {
   id: number
-  sectionId: number
+  curriculum_id: number
 }
 
 export interface UpdateVideoForm {

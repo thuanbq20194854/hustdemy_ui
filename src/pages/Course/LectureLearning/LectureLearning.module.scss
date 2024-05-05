@@ -43,6 +43,8 @@
               font-weight: 400;
               max-width: 60rem;
 
+              font-size: 16px;
+
               .titleNavLink {
                 &:hover {
                   color: #d1d7dc;
@@ -129,7 +131,7 @@
             overflow-x: hidden;
             overflow-y: auto;
 
-            .curriculumItem {
+            .learningLectureItem {
               display: flex;
               align-items: start;
               gap: 16px;

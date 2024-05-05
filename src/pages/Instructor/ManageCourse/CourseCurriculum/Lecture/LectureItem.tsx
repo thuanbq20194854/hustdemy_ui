@@ -30,11 +30,11 @@ const LECTURE_MODE = {
 
 interface IProps {
   lectureItem: Lecture
-  sectionId: number
+  curriculumId: number
   index: number
 }
 
-function LectureItem({ lectureItem, sectionId, index }: IProps) {
+function LectureItem({ lectureItem, curriculumId, index }: IProps) {
   const [lectureMode, setLectureMode] = useState(LECTURE_MODE.NORMAL)
 
   const [open, setOpen] = useState(false)
@@ -123,7 +123,7 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
                 </div>
               </div>
             )}
-            {lectureItem.desc && (
+            {lectureItem.description && (
               <div className='descContainer'>
                 <div className='ud-heading-sm' style={{ paddingBottom: '8px' }}>
                   Lecture Description
@@ -132,7 +132,7 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
                   aria-hidden='true'
                   onClick={() => setLectureMode(LECTURE_MODE.OPEN_DESC)}
                   className='desc-text'
-                  dangerouslySetInnerHTML={{ __html: lectureItem.desc ?? '' }}
+                  dangerouslySetInnerHTML={{ __html: lectureItem.description ?? '' }}
                 />
               </div>
             )}
@@ -147,7 +147,7 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
                     <ResourceItem
                       key={resourceItem.id}
                       resourceItem={resourceItem}
-                      sectionId={sectionId}
+                      curriculumId={curriculumId}
                       lectureId={lectureItem.id}
                     />
                   ))}
@@ -156,7 +156,7 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
           </div>
 
           <div className='btnRegion'>
-            {!lectureItem.desc && (
+            {!lectureItem.description && (
               <button
                 className='addBtn ud-btn ud-btn-small ud-btn-secondary ud-heading-sm'
                 onClick={() => setLectureMode(LECTURE_MODE.OPEN_DESC)}
@@ -179,13 +179,17 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
       {lectureMode === LECTURE_MODE.OPEN_DESC && (
         <LectureDescriptionForm
           handleBackToNormal={handleBackToNormal}
-          sectionId={sectionId}
+          curriculumId={curriculumId}
           lectureItem={lectureItem}
         />
       )}
 
       {lectureMode === LECTURE_MODE.OPEN_RESOURCE && (
-        <LectureResourceForm sectionId={sectionId} lectureId={lectureItem.id} handleBackToNormal={handleBackToNormal} />
+        <LectureResourceForm
+          curriculumId={curriculumId}
+          lectureId={lectureItem.id}
+          handleBackToNormal={handleBackToNormal}
+        />
       )}
 
       {lectureMode === LECTURE_MODE.SELECT_CONTENT_TYPE && (
@@ -212,7 +216,7 @@ function LectureItem({ lectureItem, sectionId, index }: IProps) {
         <VideoUploadForm
           lectureVideoWatch={lectureVideoWatch}
           handleBackToNormal={handleBackToNormal}
-          sectionId={sectionId}
+          curriculumId={curriculumId}
           lectureId={lectureItem.id}
         />
       )}

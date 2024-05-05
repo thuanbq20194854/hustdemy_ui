@@ -11,22 +11,22 @@ import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuizForm.module.scss'
 
 interface IProps {
-  sectionId: number
+  curriculumId: number
 
   quizEdit: Lecture
   index: number | null
   handleNormalMode: () => void
 }
 
-function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) {
+function EditQuizForm({ curriculumId, quizEdit, index, handleNormalMode }: IProps) {
   const { handleUpdateQuiz } = useCourseManageContext()
   const customToolBar = [['bold', 'italic']]
 
   const methods = useForm<UpdateQuiz>({
     defaultValues: {
       id: quizEdit.id,
-      desc: quizEdit?.desc,
-      sectionId: sectionId,
+      desc: quizEdit?.description,
+      curriculum_id: curriculumId,
       title: quizEdit?.title,
       type: ELectureType.Quiz
     },
@@ -93,7 +93,7 @@ function EditQuizForm({ sectionId, quizEdit, index, handleNormalMode }: IProps) 
         {errors.title && <span className='ud-form-note-validate'>{errors.title.message}</span>}
 
         <TextEditor
-          defaultValue={quizEdit.desc ?? ''}
+          defaultValue={quizEdit.description ?? ''}
           className='textEditor'
           customToolBar={customToolBar}
           handleHTMLChange={handleHTMLChange}

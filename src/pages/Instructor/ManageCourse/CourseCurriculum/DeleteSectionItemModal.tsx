@@ -12,8 +12,8 @@ interface IProps {
 function DeleteSectionItemModal({ section, open, handleCommandModal }: IProps) {
   const { handleDeleteSection } = useCourseManageContext()
 
-  const handleOkModal = (sectionId: number) => {
-    handleDeleteSection(sectionId)
+  const handleOkModal = (curriculumId: number) => {
+    handleDeleteSection(curriculumId)
     handleCommandModal(false)
   }
 

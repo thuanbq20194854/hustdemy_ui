@@ -1,5 +1,5 @@
 import { Dropdown } from 'antd'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaRegFile } from 'react-icons/fa6'
 import { HiOutlineFolderDownload } from 'react-icons/hi'
@@ -10,56 +10,20 @@ import AccordionPanel from './AccordionPanel'
 import { IoMdClose } from 'react-icons/io'
 
 import styles from '../LectureLearning.module.scss'
+import { Course, Curriculum, EAssetType, ELectureType, Lecture } from '@/models/course'
+import { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
+import LearningLectureItem from './LearningLectureItem'
 
 interface ITEST {
   isCompleted: boolean
 }
 
-function CurriculumSidebar() {
-  const { register, watch } = useForm<ITEST>({
-    defaultValues: {
-      isCompleted: false
-    }
-  })
+interface IProps {
+  course: Course
+}
 
-  console.log('watch: ', watch())
-
-  const isVideo = false
-
-  const hasResource = true
-
-  const items = [
-    {
-      key: '1',
-      label: (
-        <button className='ud-btn ud-btn-large ud-btn-ghost ud-text-sm ud-block-list-item ud-block-list-item-small ud-block-list-item-neutral resouceButton'>
-          <HiOutlineFolderDownload size={16} className='downloadIcon' />
-
-          <span className='ud-block-list-item-content ellipse-1-row'>Identify-Your-Intended-Learners.pdf</span>
-        </button>
-      )
-    },
-    {
-      key: '2',
-      label: (
-        <button className='ud-btn ud-btn-large ud-btn-ghost ud-text-sm ud-block-list-item ud-block-list-item-small ud-block-list-item-neutral resouceButton'>
-          <HiOutlineFolderDownload size={16} className='downloadIcon' />
-
-          <span className='ud-block-list-item-content ellipse-1-row'>Identify-Your-Intended-Learners.pdf</span>
-        </button>
-      )
-    },
-    {
-      key: '3',
-      label: (
-        <button className='ud-btn ud-btn-large ud-btn-ghost ud-text-sm ud-block-list-item ud-block-list-item-small ud-block-list-item-neutral resouceButton'>
-          <HiOutlineFolderDownload size={16} className='downloadIcon' />
-
-          <span className='ud-block-list-item-content ellipse-1-row'>Identify-Your-Intended-Learners.pdf</span>
-        </button>
-      )
-    }
-  ]
+function CurriculumSidebar({ course }: IProps) {
+  const [curriculumContent, setCurriculumContent] = useState<Curriculum[]>(course.curriculums)
 
   const sidebarRef = useRef<HTMLDivElement>(null)
 
@@ -82,6 +46,20 @@ function CurriculumSidebar() {
     }
   }, [])
 
+  let quizIndex = 0
+  let lectureIndex = 0
+
+  const convertToHourMins = (passedMin: number) => {
+    const hour = Math.floor(passedMin / 60)
+    const minute = passedMin % 60
+
+    if (hour === 0) {
+      return `${minute}min`
+    } else {
+      return `${hour}hr${minute}min`
+    }
+  }
+
   return (
     <div className='curriculumSiderbar' ref={sidebarRef}>
       <div className='sidebar--header'>
@@ -92,7 +70,32 @@ function CurriculumSidebar() {
       </div>
 
       <div className='sidebar--content'>
-        {Array(10)
+        {curriculumContent.map((curriculumItem, index) => (
+          <AccordionPanel
+            title={`Section ${index + 1}: ${curriculumItem.title}`}
+            key={curriculumItem.id}
+            totalLecture={curriculumItem.lectures.length}
+            completedLecture={curriculumItem.lectures.filter((lectureItem) => lectureItem.is_done).length}
+          >
+            {curriculumItem.lectures.map((lectureItem) => {
+              return (
+                <LearningLectureItem
+                  index={lectureItem.type === ELectureType.Lecture ? ++lectureIndex : ++quizIndex}
+                  lectureItem={lectureItem}
+                />
+              )
+            })}
+          </AccordionPanel>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default CurriculumSidebar
+
+/*
+{Array(10)
           .fill(0)
           .map((item, index) => (
             <AccordionPanel title={`Section ${index + 1}: Save A Life by NHCPS & the Disque Foundation`} key={index}>
@@ -100,7 +103,6 @@ function CurriculumSidebar() {
                 .fill(0)
                 .map((item, index) => (
                   <div className='curriculumItem' key={index}>
-                    {/* <Checkbox {...register('isCompleted')} /> */}
 
                     <div className='inputContainer'>
                       <input type='checkbox' {...register('isCompleted')} className='inputElement' />
@@ -141,9 +143,4 @@ function CurriculumSidebar() {
                 ))}
             </AccordionPanel>
           ))}
-      </div>
-    </div>
-  )
-}
-
-export default CurriculumSidebar
+*/

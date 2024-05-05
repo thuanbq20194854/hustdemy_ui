@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { IoIosArrowDown } from 'react-icons/io'
-import { UpdateCoursePrice } from '../../../../models/course'
+import { Course, UpdateCoursePrice } from '../../../../models/course'
 import { schemeUpdateCoursePrice } from '../../../../validators/course'
 import { useCourseManageContext } from '../context/CourseMangeContext'
 import styles from './CoursePricing.module.scss'
@@ -33,15 +33,15 @@ function CoursePricing() {
     formState: { errors }
   } = useForm<UpdateCoursePrice>({
     defaultValues: {
-      id: course.price_id ?? undefined,
-      tier: course.price_id ? course.price_id : -1
+      id: course?.price_id ?? undefined,
+      tier: course?.price_id ? course.price_id : -1
     },
 
     resolver: yupResolver(schemeUpdateCoursePrice)
   })
 
   const handleSubmitForm = (formData: UpdateCoursePrice) => {
-    handleUpdateCoursePrice(formData, course.id as number)
+    handleUpdateCoursePrice(formData, (course as Course).id)
   }
   return (
     <div className={styles.coursePricing}>

@@ -4,18 +4,18 @@ import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
   questionItem: Question
-  sectionId: number
+  curriculumId: number
 
   handleCommandModal: (cmd: boolean) => void
   isOpen: boolean
 }
 
-function DeleteQuestionItemModal({ questionItem, sectionId, isOpen, handleCommandModal }: IProps) {
+function DeleteQuestionItemModal({ questionItem, curriculumId, isOpen, handleCommandModal }: IProps) {
   const { handleDeleteQuestion } = useCourseManageContext()
 
   const handleSubmitForm = () => {
     const deleteQuestionFormData: IDeleteQuestion = {
-      sectionID: sectionId,
+      curriculumID: curriculumId,
       lectureID: questionItem.lectureId,
       questionID: questionItem.id
     }

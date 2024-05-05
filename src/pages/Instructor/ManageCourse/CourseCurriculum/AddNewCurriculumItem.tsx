@@ -8,7 +8,7 @@ import styles from './AddNewCurriculumItem.module.scss'
 import AddQuizForm from './Quiz/AddQuizForm'
 
 interface IProps {
-  sectionId: number
+  curriculumId: number
 }
 
 export const ADD_CURRICULUM_ITEM_MODE = {
@@ -18,7 +18,7 @@ export const ADD_CURRICULUM_ITEM_MODE = {
   ADD_QUIZ: 3
 }
 
-function AddNewCurriculumItem({ sectionId }: IProps) {
+function AddNewCurriculumItem({ curriculumId }: IProps) {
   const [addCurriculumMode, setAddCurriculumMode] = useState(ADD_CURRICULUM_ITEM_MODE.ADD_LECTURE)
 
   const handleNormalMode = () => setAddCurriculumMode(ADD_CURRICULUM_ITEM_MODE.NORMAL)
@@ -59,11 +59,11 @@ function AddNewCurriculumItem({ sectionId }: IProps) {
         )}
 
         {addCurriculumMode === ADD_CURRICULUM_ITEM_MODE.ADD_LECTURE && (
-          <AddLectureForm handleNormalMode={handleNormalMode} sectionId={sectionId} />
+          <AddLectureForm handleNormalMode={handleNormalMode} curriculumId={curriculumId} />
         )}
         {addCurriculumMode === ADD_CURRICULUM_ITEM_MODE.ADD_QUIZ && (
           <AddQuizForm
-            sectionId={sectionId}
+            curriculumId={curriculumId}
             setAddCurriculumMode={setAddCurriculumMode}
             handleNormalMode={handleNormalMode}
           />

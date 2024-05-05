@@ -8,10 +8,12 @@
       width: 100%;
       padding: 1.6rem;
 
-      .flex {
+      .ud-btn {
         display: flex;
         align-items: start;
         justify-content: space-between;
+
+        width: 100%;
 
         .title {
           color: #2d2f31;
@@ -19,11 +21,15 @@
           text-align: left;
           white-space: normal;
           width: 100%;
+
+          flex: 1;
         }
 
         .arrowIcon {
           color: #2d2f31;
           transition: transform 150ms linear;
+
+          margin-left: auto;
         }
 
         .arrowIcon.rotate {

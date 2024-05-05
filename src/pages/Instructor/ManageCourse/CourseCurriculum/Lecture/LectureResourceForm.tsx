@@ -7,7 +7,7 @@ import { UpdateResource } from '../../../../../models/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
-  sectionId: number
+  curriculumId: number
   lectureId: number
   handleBackToNormal: () => void
 }
@@ -23,7 +23,7 @@ interface IUpload {
 
 const MAX_FILE_SIZE = 200000000000000
 
-function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProps) {
+function LectureResourceForm({ curriculumId, lectureId, handleBackToNormal }: IProps) {
   const { handleAddLectureResource } = useCourseManageContext()
 
   const [form] = useForm<IForm>()
@@ -37,7 +37,7 @@ function LectureResourceForm({ sectionId, lectureId, handleBackToNormal }: IProp
   const handleSubmitForm = () => {
     const formData: UpdateResource = {
       lecture_id: lectureId,
-      section_id: sectionId,
+      section_id: curriculumId,
       resource: form.getFieldValue('resource').fileList
     }
 

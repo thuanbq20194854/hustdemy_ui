@@ -7,10 +7,10 @@ import { useCourseManageContext } from '../context/CourseMangeContext'
 
 interface IProps {
   handleNormalMode: () => void
-  sectionId: number
+  curriculumId: number
 }
 
-function AddLectureForm({ handleNormalMode, sectionId }: IProps) {
+function AddLectureForm({ handleNormalMode, curriculumId }: IProps) {
   const { handleAddLecture } = useCourseManageContext()
   const {
     control,
@@ -18,7 +18,7 @@ function AddLectureForm({ handleNormalMode, sectionId }: IProps) {
     formState: { errors }
   } = useForm<CreateLectureForm>({
     defaultValues: {
-      sectionId: sectionId,
+      curriculum_id: curriculumId,
       title: '',
       type: ELectureType.Lecture
     },

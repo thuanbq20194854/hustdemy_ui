@@ -10,11 +10,11 @@ interface IProps {
   handleQuestionEdit: () => void
 
   questionItem: Question
-  sectionId: number
+  curriculumId: number
   index: number
 }
 
-function QuestionItem({ questionItem, index, handleQuestionEdit, sectionId }: IProps) {
+function QuestionItem({ questionItem, index, handleQuestionEdit, curriculumId }: IProps) {
   const [isOpen, handleCommandModal] = useBoolean(false)
   return (
     <div className={`${styles.questionItemWrapper} ud-text-sm`}>
@@ -22,7 +22,7 @@ function QuestionItem({ questionItem, index, handleQuestionEdit, sectionId }: IP
         isOpen={isOpen}
         handleCommandModal={handleCommandModal}
         questionItem={questionItem}
-        sectionId={sectionId}
+        curriculumId={curriculumId}
       />
       <div className='infoPart'>
         <div className='index ud-text-bold'>{index + '.'}</div>

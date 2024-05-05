@@ -84,7 +84,7 @@ function SectionItem({ section, index }: IProps) {
             <QuizItem
               quizItem={lectureItem}
               index={quizCount}
-              sectionId={section.id}
+              curriculumId={section.id}
               key={lectureItem.id}
               questions={lectureItem.questions || []}
             />
@@ -94,13 +94,18 @@ function SectionItem({ section, index }: IProps) {
           lectureCount++
 
           return (
-            <LectureItem sectionId={section.id} index={lectureCount} lectureItem={lectureItem} key={lectureItem.id} />
+            <LectureItem
+              curriculumId={section.id}
+              index={lectureCount}
+              lectureItem={lectureItem}
+              key={lectureItem.id}
+            />
           )
         }
       })}
 
       {/* Add New Section Item */}
-      <AddNewCurriculumItem sectionId={section.id} />
+      <AddNewCurriculumItem curriculumId={section.id} />
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { useCourseManageContext } from '../../context/CourseMangeContext'
 import { BsUpload } from 'react-icons/bs'
 
 interface IProps {
-  sectionId: number
+  curriculumId: number
   lectureId: number
   handleBackToNormal: () => void
   lectureVideoWatch: Asset | undefined
@@ -24,7 +24,7 @@ interface IUpload {
 
 const MAX_FILE_SIZE = 200000000000000
 
-function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVideoWatch }: IProps) {
+function VideoUploadForm({ curriculumId, lectureId, handleBackToNormal, lectureVideoWatch }: IProps) {
   const { handleUploadLectureVideo, handleReplaceLectureVideo } = useCourseManageContext()
 
   const [form] = useForm<IForm>()
@@ -38,7 +38,7 @@ function VideoUploadForm({ sectionId, lectureId, handleBackToNormal, lectureVide
   const handleSubmit = () => {
     const formData: UpdateVideoForm = {
       lecture_id: lectureId,
-      section_id: sectionId,
+      section_id: curriculumId,
       video: form.getFieldValue('videoUpload').fileList
     }
 

@@ -34,7 +34,7 @@ import CMSidebar from './CMSidebar'
 import CourseBasics from './CourseBasics/CourseBasics'
 import CourseCurriculum from './CourseCurriculum/CourseCurriculum'
 import CourseGoals from './CourseGoals/CourseGoals'
-import styles from './CourseManageLayout.module.scss'
+import styles from './CourseManage.module.scss'
 import CoursePricing from './CoursePricing/CoursePricing'
 import { tabPaths } from './constant/CourseManage'
 import { CourseManageProvider } from './context/CourseMangeContext'
@@ -53,12 +53,11 @@ const initCurriculum: Curriculum[] = [
 
     lectures: [
       {
-        sectionId: 1,
+        curriculum_id: 1,
         id: 1,
         type: ELectureType.Lecture,
         title: 'Hello world with C#',
-        desc: '<p>Description test 123123123123123232</p> ',
-
+        description: '<p>Description test 123123123123123232</p> ',
         assets: [
           {
             id: Math.random(),
@@ -72,14 +71,21 @@ const initCurriculum: Curriculum[] = [
             updated_at: new Date().toISOString(),
             created_at: new Date().toISOString()
           }
-        ]
+        ],
+        article: null,
+        created_at: '',
+        updated_at: '',
+        is_done: false,
+        is_promotional: false,
+        order: 1,
+        questions: []
       },
       {
-        sectionId: 1,
+        curriculum_id: 1,
         id: 2,
         type: ELectureType.Quiz,
         title: 'Mini Test Quiz  Revision',
-        desc: '<h2>Description test 123123123123123232</h2> ',
+        description: '<h2>Description test 123123123123123232</h2> ',
         questions: [
           {
             lectureId: 2,
@@ -137,7 +143,14 @@ const initCurriculum: Curriculum[] = [
               }
             ]
           }
-        ]
+        ],
+        assets: [],
+        article: null,
+        created_at: '',
+        updated_at: '',
+        is_done: false,
+        is_promotional: false,
+        order: 2
       }
     ]
   }
@@ -185,7 +198,7 @@ const initCourseData: Course = {
   created_at: ''
 }
 
-function CourseManageLayout() {
+function CourseManage() {
   const { courseId, content } = useParams()
 
   const navigate = useNavigate()
@@ -283,7 +296,7 @@ function CourseManageLayout() {
   }
 
   const handleAddQuiz = (quizData: CreateQuiz) => {
-    const expectedSection = (course.curriculums ?? []).find((sectionItem) => sectionItem.id === quizData.sectionId)
+    const expectedSection = (course.curriculums ?? []).find((sectionItem) => sectionItem.id === quizData.curriculum_id)
 
     const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
       if (sectionItem.id === expectedSection?.id) {
@@ -292,7 +305,20 @@ function CourseManageLayout() {
 
           lectures: [
             ...sectionItem.lectures,
-            { ...quizData, id: randomNumber(), questions: [], type: ELectureType.Quiz }
+            {
+              ...quizData,
+              id: randomNumber(),
+              questions: [],
+              type: ELectureType.Quiz,
+              assets: [],
+              article: null,
+              created_at: '',
+              updated_at: '',
+              is_done: false,
+              is_promotional: false,
+              order: 2,
+              description: ''
+            }
           ]
         }
       }
@@ -309,7 +335,7 @@ function CourseManageLayout() {
 
   const handleUpdateQuiz = (quizData: UpdateQuiz) => {
     const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
-      if (sectionItem.id === quizData.sectionId) {
+      if (sectionItem.id === quizData.curriculum_id) {
         const updatedLectures = sectionItem.lectures.map((lectureItem) => {
           if (lectureItem.id === quizData.id) {
             return {
@@ -340,7 +366,7 @@ function CourseManageLayout() {
 
   const handleDeleteLecture = (lectureData: DeleteLecture) => {
     const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
-      if (sectionItem.id === lectureData.sectionId) {
+      if (sectionItem.id === lectureData.curriculum_id) {
         const updatedLectures = sectionItem.lectures.filter((lectureItem) => lectureItem.id != lectureData.id)
 
         return {
@@ -362,7 +388,7 @@ function CourseManageLayout() {
   const handleAddQuestion = (data: CreateQuestionForm) => {
     /// id of question from API to pass and update state
     const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem: Curriculum) => {
-      if (sectionItem.id === data.sectionID) {
+      if (sectionItem.id === data.curriculumID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: Lecture) => {
           if (lectureItem.id === data.lectureID) {
             const newQuestionId = randomNumber()
@@ -413,7 +439,7 @@ function CourseManageLayout() {
     updateAnswerArrayForm: UpdateAnswerForm[]
   ) => {
     const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem: Curriculum) => {
-      if (sectionItem.id === updateQuestionFormData.sectionID) {
+      if (sectionItem.id === updateQuestionFormData.curriculumID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: Lecture) => {
           if (lectureItem.id === updateQuestionFormData.lectureID) {
             // id from API Add, Update return
@@ -465,7 +491,7 @@ function CourseManageLayout() {
 
   const handleDeleteQuestion = (questionItemData: IDeleteQuestion) => {
     const updatedSections = (course.curriculums ?? []).map((sectionItem: Curriculum) => {
-      if (sectionItem.id === questionItemData.sectionID) {
+      if (sectionItem.id === questionItemData.curriculumID) {
         const updatedLectures = sectionItem.lectures.map((lectureItem: Lecture) => {
           if (lectureItem.id === questionItemData.lectureID) {
             const updatedQuestions = lectureItem.questions?.filter(
@@ -498,11 +524,27 @@ function CourseManageLayout() {
 
   const handleAddLecture = (addLectureForm: CreateLectureForm) => {
     const updatedSections: Curriculum[] = (course.curriculums ?? []).map((sectionItem) => {
-      if (sectionItem.id === addLectureForm.sectionId) {
+      if (sectionItem.id === addLectureForm.curriculum_id) {
         return {
           ...sectionItem,
 
-          lectures: [...sectionItem.lectures, { ...addLectureForm, id: randomNumber() }]
+          lectures: [
+            ...sectionItem.lectures,
+            {
+              ...addLectureForm,
+              id: randomNumber(),
+
+              assets: [],
+              article: null,
+              created_at: '',
+              updated_at: '',
+              is_done: false,
+              is_promotional: false,
+              order: 2,
+              description: '',
+              questions: []
+            }
+          ]
         }
       }
 
@@ -826,4 +868,4 @@ function CourseManageLayout() {
   )
 }
 
-export default CourseManageLayout
+export default CourseManage

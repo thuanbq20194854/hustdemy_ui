@@ -6,7 +6,7 @@ import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
   lectureItem: Lecture
-  sectionId: number
+  curriculumId: number
   handleBackToNormal: () => void
 }
 
@@ -16,7 +16,7 @@ const customToolbar = [
   [{ list: 'ordered' }, { list: 'bullet' }]
 ]
 
-const LectureDescriptionForm = ({ lectureItem, sectionId, handleBackToNormal }: IProps) => {
+const LectureDescriptionForm = ({ lectureItem, curriculumId, handleBackToNormal }: IProps) => {
   const { handleUpdateLectureDesc } = useCourseManageContext()
 
   const {
@@ -27,8 +27,8 @@ const LectureDescriptionForm = ({ lectureItem, sectionId, handleBackToNormal }: 
   } = useForm<UpdateLectureDesc>({
     defaultValues: {
       lecture_id: lectureItem.id,
-      section_id: sectionId,
-      description: lectureItem.desc ?? ''
+      section_id: curriculumId,
+      description: lectureItem.description ?? ''
     }
   })
 

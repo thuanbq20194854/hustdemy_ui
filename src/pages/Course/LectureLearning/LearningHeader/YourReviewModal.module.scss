@@ -1,0 +1,32 @@
+.rootClassModal {
+  :global {
+    .ant-modal {
+      width: 600px !important;
+
+      //   .ant-modal-footer {
+      //     display: none;
+      //   }
+
+      .ant-modal-header {
+        padding-bottom: 24px;
+      }
+      .ant-modal-content {
+        width: 600px !important;
+        padding: 24px;
+        margin: 10vh 0;
+        border-radius: 0px;
+
+        .contentContainer {
+          .rateContainer {
+            text-align: left;
+          }
+
+          .reviewContainer {
+            margin-top: 8px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

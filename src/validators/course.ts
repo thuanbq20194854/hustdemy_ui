@@ -53,21 +53,21 @@ export const schemeDeleteSection: Yup.ObjectSchema<IDeleteSection> = Yup.object(
 })
 
 export const schemeCreateQuiz: Yup.ObjectSchema<CreateQuiz> = Yup.object({
-  sectionId: Yup.number().required('This field may not be blank'),
+  curriculum_id: Yup.number().required('This field may not be blank'),
   type: Yup.number().required('This field may not be blank'),
   title: Yup.string().required('This field may not be blank'),
   desc: Yup.string().nullable()
 })
 export const schemeUpdateQuiz: Yup.ObjectSchema<UpdateLecture> = Yup.object({
   id: Yup.number().required('This field may not be blank'),
-  sectionId: Yup.number().required('This field may not be blank'),
+  curriculum_id: Yup.number().required('This field may not be blank'),
   type: Yup.number().required('This field may not be blank'),
   title: Yup.string().required('This field may not be blank'),
   desc: Yup.string().nullable()
 })
 
 export const schemeCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
-  sectionID: Yup.number().required('This field is required'),
+  curriculumID: Yup.number().required('This field is required'),
   lectureID: Yup.number().required('This field is required'),
   question_text: Yup.string().required('Please write a question and not a blank '),
   indexOfCorrectAnswer: Yup.string().required('Please choose the best answer !'),
@@ -82,7 +82,7 @@ export const schemeCreateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
     )
 })
 export const schemeUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yup.object({
-  sectionID: Yup.number().required('This field is required'),
+  curriculumID: Yup.number().required('This field is required'),
   lectureID: Yup.number().required('This field is required'),
   question_text: Yup.string().required('This field is required'),
   indexOfCorrectAnswer: Yup.string().required('This field is required'),
@@ -97,7 +97,7 @@ export const schemeUpdateQuestionForm: Yup.ObjectSchema<CreateQuestionForm> = Yu
     )
 })
 export const schemeAddLectureForm: Yup.ObjectSchema<CreateLectureForm> = Yup.object({
-  sectionId: Yup.number().required('This field is required'),
+  curriculum_id: Yup.number().required('This field is required'),
   title: Yup.string().required('This field is required'),
   type: Yup.number().required('This field is required')
 })
@@ -122,11 +122,11 @@ export const schemeUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.
 })
 // export const schemeDeleteQuiz: Yup.ObjectSchema<DeleteLecture> = Yup.object({
 //   id: Yup.number().required('This field may not be blank'),
-//   sectionId: Yup.number().required('This field may not be blank')
+//   curriculum_id: Yup.number().required('This field may not be blank')
 // })
 
 // export interface CreateQuiz {
-//   sectionId: number
+//   curriculum_id: number
 //   type: string
 //   title: string
 //   desc: string
@@ -134,7 +134,7 @@ export const schemeUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.
 
 // export interface UpdateQuiz {
 //   id: number
-//   sectionId: number
+//   curriculum_id: number
 //   type: string
 //   title: string
 //   desc: string
@@ -142,5 +142,5 @@ export const schemeUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.
 
 // export interface IDeleteQuiz {
 //   id: number
-//   sectionId: string
+//   curriculum_id: string
 // }

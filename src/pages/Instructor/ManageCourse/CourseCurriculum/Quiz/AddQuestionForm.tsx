@@ -19,7 +19,7 @@ import styles from './AddQuestionForm.module.scss'
 
 interface IProps {
   handleBackToPreviousMode: () => void
-  sectionId: number
+  curriculumId: number
   lectureId: number
   questionEdit: Question | null
   setQuestionEdit: React.Dispatch<React.SetStateAction<Question | null>>
@@ -27,7 +27,7 @@ interface IProps {
 
 const customToolBar = [['bold', 'italic']]
 
-function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, questionEdit, setQuestionEdit }: IProps) {
+function AddQuestionForm({ handleBackToPreviousMode, curriculumId, lectureId, questionEdit, setQuestionEdit }: IProps) {
   const { handleAddQuestion, handleUpdateQuestion } = useCourseManageContext()
   const initAnswers = useMemo(() => {
     if (questionEdit != null) {
@@ -74,7 +74,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
       answers: initAnswers,
       indexOfCorrectAnswer: initCorrect,
       lectureID: lectureId,
-      sectionID: sectionId,
+      curriculumID: curriculumId,
       question_text: questionEdit ? questionEdit.question_text : ''
     },
     resolver: yupResolver(schemeCreateQuestionForm)
@@ -93,7 +93,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
         id: questionEdit.id,
         question_text: CreateQuestionFormData.question_text,
         lectureID: lectureId,
-        sectionID: sectionId
+        curriculumID: curriculumId
       }
 
       const updateAnswerFormArray: UpdateAnswerForm[] = CreateQuestionFormData.answers.map(
@@ -103,7 +103,7 @@ function AddQuestionForm({ handleBackToPreviousMode, sectionId, lectureId, quest
           is_correct: index === +(CreateQuestionFormData.indexOfCorrectAnswer ?? ''),
           explain: answerFormDataItem.explain,
           lectureID: lectureId,
-          sectionID: sectionId
+          curriculumID: curriculumId
         })
       )
 

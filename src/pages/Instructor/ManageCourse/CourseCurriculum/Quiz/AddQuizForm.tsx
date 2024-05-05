@@ -10,12 +10,12 @@ import { useCourseManageContext } from '../../context/CourseMangeContext'
 import styles from './AddQuizForm.module.scss'
 
 interface IProps {
-  sectionId: number
+  curriculumId: number
   setAddCurriculumMode: React.Dispatch<React.SetStateAction<number>>
   handleNormalMode: () => void
 }
 
-function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IProps) {
+function AddQuizForm({ setAddCurriculumMode, curriculumId, handleNormalMode }: IProps) {
   const { handleAddQuiz } = useCourseManageContext()
 
   const customToolBar = [['bold', 'italic']]
@@ -23,7 +23,7 @@ function AddQuizForm({ setAddCurriculumMode, sectionId, handleNormalMode }: IPro
   const methods = useForm<CreateQuiz>({
     defaultValues: {
       desc: '',
-      sectionId: sectionId,
+      curriculum_id: curriculumId,
       title: '',
       type: ELectureType.Quiz
     },

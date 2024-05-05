@@ -3,7 +3,7 @@ import { IDeleteResource } from '../../../../../models/course'
 import { useCourseManageContext } from '../../context/CourseMangeContext'
 
 interface IProps {
-  sectionId: number
+  curriculumId: number
   handleCommandModal: (cmd: boolean) => void
   isOpen: boolean
 
@@ -12,12 +12,12 @@ interface IProps {
   resourceId: number
 }
 
-function DeleteResourceItemModal({ sectionId, isOpen, handleCommandModal, resourceId, lectureId }: IProps) {
+function DeleteResourceItemModal({ curriculumId, isOpen, handleCommandModal, resourceId, lectureId }: IProps) {
   const { handleDeleteResource } = useCourseManageContext()
 
   const handleSubmitForm = () => {
     const deleteQuestionFormData: IDeleteResource = {
-      section_id: sectionId,
+      section_id: curriculumId,
       lecture_id: lectureId,
       resource_id: resourceId
     }

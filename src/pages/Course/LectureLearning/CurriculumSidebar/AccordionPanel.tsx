@@ -9,9 +9,12 @@ interface IProps {
 
   children: ReactNode
   className?: string
+
+  totalLecture: number
+  completedLecture: number
 }
 
-function AccordionFilterPanel({ children, title, className }: IProps) {
+function AccordionFilterPanel({ children, title, className, totalLecture, completedLecture }: IProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleFilterContent = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -23,13 +26,11 @@ function AccordionFilterPanel({ children, title, className }: IProps) {
     <div className={`${styles.accordionPanel} ${className}`}>
       <div className='panelHeader' onClick={toggleFilterContent}>
         <button className='ud-btn ud-btn-large ud-btn-link ud-heading-md'>
-          <div className='flex'>
-            <p className='title'>{title}</p>
-            <IoIosArrowDown size={20} className={`arrowIcon ${isOpen && 'rotate'}`} />
-          </div>
+          <p className='title'>{title}</p>
+          <IoIosArrowDown size={20} className={`arrowIcon ${isOpen && 'rotate'}`} />
         </button>
         <div className='ud-text-xs section--progress'>
-          <span>1 / 3 | 3min</span>
+          <span>{`${completedLecture} / ${totalLecture} | 3min`}</span>
         </div>
       </div>
 

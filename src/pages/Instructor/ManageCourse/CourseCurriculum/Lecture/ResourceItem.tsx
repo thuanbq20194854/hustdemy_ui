@@ -7,11 +7,11 @@ import DeleteResourceItemModal from './DeleteResourceItemModal'
 interface IProps {
   resourceItem: Asset
 
-  sectionId: number
+  curriculumId: number
   lectureId: number
 }
 
-function ResourceItem({ resourceItem, sectionId, lectureId }: IProps) {
+function ResourceItem({ resourceItem, curriculumId, lectureId }: IProps) {
   const [open, setOpen] = useState(false)
   return (
     <div className='materialItem'>
@@ -29,7 +29,7 @@ function ResourceItem({ resourceItem, sectionId, lectureId }: IProps) {
         resourceId={resourceItem.id}
         handleCommandModal={setOpen}
         isOpen={open}
-        sectionId={sectionId}
+        curriculumId={curriculumId}
         lectureId={lectureId}
       />
     </div>

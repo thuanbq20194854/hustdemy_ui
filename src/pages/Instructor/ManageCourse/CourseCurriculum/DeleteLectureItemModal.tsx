@@ -5,7 +5,7 @@ import { useCourseManageContext } from '../context/CourseMangeContext'
 interface IProps {
   isOpen: boolean
   setCommandModal: (cmd: boolean) => void
-  sectionId: number
+  curriculumId: number
   lectureItem: Lecture
 }
 

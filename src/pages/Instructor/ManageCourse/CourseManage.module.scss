@@ -1,0 +1,114 @@
+.layoutWrapper {
+  :global {
+    .headerWrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      width: 100%;
+      background: #2d2f31;
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.24);
+      color: #fff;
+      min-height: 5.6rem;
+      padding: 1.1rem 1.6rem;
+      position: sticky;
+      position: -webkit-sticky;
+      top: 0;
+      z-index: 1010;
+
+      display: flex;
+      align-items: center;
+      gap: 0.8rem 1.6rem;
+      max-width: 100%;
+      min-width: 1px;
+
+      .backBtn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        color: white;
+
+        .iconContainer {
+          width: 24px;
+          height: 24px;
+          // font-size: 24px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .restPart {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+
+        .infoPart {
+          display: flex;
+          align-items: center;
+          gap: 1.6rem;
+          flex: 1;
+
+          .courseTitle {
+          }
+
+          .courseStatus {
+            background-color: #6a6f73;
+            color: #f7f9fa;
+            text-transform: uppercase;
+          }
+        }
+        .actionPart {
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+
+          .saveBtn {
+            background-color: white;
+            height: 100%;
+
+            height: 34px;
+
+            &.disabledBtn {
+              cursor: not-allowed;
+              opacity: 0.5;
+            }
+          }
+
+          .settingContainer {
+            width: 24px;
+            height: 24px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    .appContainer {
+      max-width: 134rem;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+
+      display: flex;
+      align-items: start;
+
+      .mainContentWrapper {
+        flex: 1;
+        min-width: 1px;
+        width: 100%;
+        background-color: #fff;
+        box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.08),
+          0 4px 12px rgba(0, 0, 0, 0.16);
+      }
+    }
+  }
+}
