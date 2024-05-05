@@ -1,14 +1,16 @@
-import { MdSearch, MdOutlineShoppingCart, MdKeyboardArrowRight } from 'react-icons/md'
-import styles from './Header.module.scss'
-import { IoMdHeartEmpty } from 'react-icons/io'
-import { GoBell } from 'react-icons/go'
+import { USER_ROLE } from '@/contants/user.constant'
+import { useBoolean } from '@/hooks/useBoolean'
 import { useState } from 'react'
-import CustomTooltip from '../../../components/CustomTooltip/CustomTooltip'
-import CourseList from './CourseList'
+import { GoBell } from 'react-icons/go'
+import { IoMdHeartEmpty } from 'react-icons/io'
+import { MdKeyboardArrowRight, MdOutlineShoppingCart, MdSearch } from 'react-icons/md'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { GrLanguage } from 'react-icons/gr'
+import CustomTooltip from '../../../components/CustomTooltip/CustomTooltip'
 import { useAppSelector } from '../../../services/state/redux/store'
 import { clearAuthTokenLS } from '../../../utils/utils'
+import CourseList from './CourseList'
+import GoToLoginModal from './GoToLoginModal'
+import styles from './Header.module.scss'
 
 const fakesCategories = [
   'Development',
@@ -231,8 +233,9 @@ const Level1Categories = [
 
 function Header() {
   const cartState = useAppSelector((state) => state.cart)
-  const userState = useAppSelector((state) => state.auth)
-  const { isLoggedIn } = userState
+  const authSlice = useAppSelector((state) => state.auth)
+  const { isLoggedIn, user } = authSlice
+  const [openLoginModal, handleCommandLoginModal] = useBoolean()
 
   const [level1Category, setLevel1Category] = useState<string>('')
   const [level2Category, setLevel2Category] = useState<string>('')
@@ -407,6 +410,15 @@ function Header() {
     navigate('/login')
   }
 
+  const handleRegisterTeacherRole = async () => {
+    if (isLoggedIn) {
+      navigate('/register-instructor')
+    } else {
+      handleCommandLoginModal(true)
+    }
+  }
+
+  console.log('openLoginModal: ', openLoginModal)
   return (
     <div className={styles.headerWrapper}>
       <div className='upperRegion'>
@@ -443,15 +455,23 @@ function Header() {
           </form>
         </div>
 
-        <button className='text-item'>
+        {/* <button className='text-item'>
           <span className='ud-text-sm'>Hustdemy Business</span>
-        </button>
+        </button> */}
 
-        <NavLink to='instructor/courses'>
-          <button className='text-item'>
-            <span className='ud-text-sm'>Instructor</span>
-          </button>
-        </NavLink>
+        {isLoggedIn && user?.role === USER_ROLE.INSTRUCTOR ? (
+          <NavLink to='instructor/courses'>
+            <button className='text-item'>
+              <span className='ud-text-sm'>Instructor</span>
+            </button>
+          </NavLink>
+        ) : (
+          <>
+            <button className='text-item' onClick={handleRegisterTeacherRole}>
+              <span className='ud-text-sm'>Teach On Hustdemy</span>
+            </button>
+          </>
+        )}
 
         {isLoggedIn && (
           <>
@@ -531,6 +551,7 @@ function Header() {
           </>
         )}
       </div>
+      <GoToLoginModal open={openLoginModal} handleCommandModal={handleCommandLoginModal} />
     </div>
   )
 }

@@ -13,5 +13,11 @@ export const userServiceApi = {
   loginByGoogle: (data: SignInByGoogle): Promise<any> => {
     const url = '/auth/login-google'
     return https.post(url, data)
+  },
+
+  requestRegisterTeacher: (): Promise<any> => {
+    const url = '/users/request-teacher'
+    return https.post(url)
   }
 }
+ 

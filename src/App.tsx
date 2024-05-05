@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const { isLoading, _, showLoading, closeLoading } = useContext(LoadingContext)
-
   const callAPi = () => {
     showLoading()
 

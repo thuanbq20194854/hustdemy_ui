@@ -20,6 +20,7 @@ import SettingsLayout from './layouts/SettingsLayout/SettingsLayout'
 import EditAccount from './pages/User/EditAccount/EditAccount'
 import EditPhoto from './pages/User/EditPhoto/EditPhoto'
 import EditProfile from './pages/User/EditProfile/EditProfile'
+import RegisterInstructor from './pages/Auth/RegisterInstructor/RegisterInstructor'
 
 export const useRouteElements = () => {
   const isAuthed = true
@@ -130,6 +131,11 @@ export const useRouteElements = () => {
     {
       path: '/instructor/course/:courseId/manage/:content',
       element: <CourseManageLayout />
+    },
+
+    {
+      path: '/register-instructor',
+      element: <RegisterInstructor />
     },
 
     {

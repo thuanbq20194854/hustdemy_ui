@@ -1,6 +1,5 @@
-import { Modal, Rate } from 'antd'
+import { Modal } from 'antd'
 import styles from './DeleteReviewModal.module.scss'
-import { useBoolean } from '@/hooks/useBoolean'
 
 interface IProps {
   open: boolean
