@@ -2,27 +2,32 @@ import { Modal, Select } from 'antd'
 import styles from './ReportModal.module.scss'
 import TextArea from 'antd/es/input/TextArea'
 import { IoIosArrowDown } from 'react-icons/io'
+import { useState } from 'react'
 
 interface IProps {
-  onSubmit?: (...args: any[]) => any
-  onCancle?: (...args: any[]) => any
+  // onSubmit?: (...args: any[]) => any
+  // onCancle?: (...args: any[]) => any
   open: boolean
 
-  id?: number
+  handleCommandModal: (cmd: boolean) => void
 
-  handleCloseModal: () => void
+  id: number
 }
 
-function ReportModal({ onSubmit, onCancle, open, handleCloseModal }: IProps) {
-  const handleCancle = () => {
-    onCancle && onCancle()
-  }
-  const handleSubmit = () => {
-    onSubmit && onSubmit()
+function ReportModal({ open, handleCommandModal }: IProps) {
+  const [selectedReportType, setSelectedReportType] = useState('Select an issue')
+
+  const [reportDetails, setReportDetails] = useState('')
+
+  const handleOnChangeSelectType = (value: string) => {
+    setSelectedReportType(value)
   }
 
+  const handleSubmit = () => {
+    /// API
+  }
   return (
-    <Modal open={open} rootClassName={styles.rootClassReportModal} onCancel={handleCloseModal}>
+    <Modal open={open} rootClassName={styles.rootClassReportModal} onCancel={() => handleCommandModal(false)}>
       <div className='title ud-heading-lg'>Report abuse</div>
 
       <form action='' className='reportForm'>
@@ -35,8 +40,8 @@ function ReportModal({ onSubmit, onCancle, open, handleCloseModal }: IProps) {
           {/* <Select rootClassName='rootClassSelect' /> */}
 
           <div className='ud-select-container ud-select-container-large'>
-            <select className='ud-select ud-text-md'>
-              <option value={-1} disabled>
+            <select className='ud-select ud-text-md' onChange={(evt) => handleOnChangeSelectType(evt.target.value)}>
+              <option value={'Select an issue'} disabled>
                 Select an issue
               </option>
               <option value='Inappropriate Course Content'>Inappropriate Course Content</option>
@@ -54,6 +59,8 @@ function ReportModal({ onSubmit, onCancle, open, handleCloseModal }: IProps) {
         <div className='formGroup'>
           <div className='ud-form-label ud-heading-sm'>Issue details</div>
           <textarea
+            value={reportDetails}
+            onChange={(evt) => setReportDetails(evt.target.value)}
             spellCheck={false}
             aria-invalid='false'
             className='ud-text-input ud-text-area ud-text-md ud-text-are-large'
@@ -62,7 +69,7 @@ function ReportModal({ onSubmit, onCancle, open, handleCloseModal }: IProps) {
       </form>
 
       <div className='ud-footer-btns' style={{ textAlign: 'right' }}>
-        <button className='ud-btn ud-btn-large ud-btn-ghost ud-heading-md' onClick={handleCancle}>
+        <button className='ud-btn ud-btn-large ud-btn-ghost ud-heading-md' onClick={() => handleCommandModal(false)}>
           <span>Cancle</span>
         </button>
         <button type='submit' className='ud-btn ud-btn-large ud-btn-primary ud-heading-md' onClick={handleSubmit}>

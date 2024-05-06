@@ -2,9 +2,10 @@ import { Course, Curriculum, EAssetType, ELectureType } from '@/models/course'
 import { Spin, Tabs, TabsProps } from 'antd'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import LearningHeader from './LearningHeader/LearningHeader'
 import CurriculumSidebar from './CurriculumSidebar/CurriculumSidebar'
+import LearningHeader from './LearningHeader/LearningHeader'
 import styles from './LectureLearning.module.scss'
+import QASection from './QASection/QASection'
 import ReviewSection from './ReviewSection/ReviewSection'
 
 const initCurriculum: Curriculum[] = [
@@ -599,7 +600,15 @@ function LectureLearning() {
             </div>
 
             <div className='sizingWrapper'>
-              {isLoading ? <Spin rootClassName={styles.rootSpin} /> : <>{tab === TAB.Reviews && <ReviewSection />}</>}
+              {isLoading ? (
+                <Spin rootClassName={styles.rootSpin} />
+              ) : (
+                <>
+                  {tab === TAB.QAndA && <QASection />}
+
+                  {tab === TAB.Reviews && <ReviewSection />}
+                </>
+              )}
             </div>
           </div>
         </div>

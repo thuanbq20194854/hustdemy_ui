@@ -785,3 +785,14 @@ a.resetNavlink:hover {
   text-overflow: ellipsis;
   white-space: normal;
 }
+
+/* ud-btn-link*/
+.ud-btn-link-underline,
+.ud-link-underline,
+.ud-text-with-links a {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+  text-decoration-color: #8072e6;
+
+  color: #8072e6;
+}

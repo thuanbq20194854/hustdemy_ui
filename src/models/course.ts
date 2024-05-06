@@ -282,3 +282,46 @@ export interface FilterCoursesCategory {
   duration: string[] | boolean
   level: string[] | boolean
 }
+
+export interface LearningReview {
+  id: number
+  type: number
+  star_count: number | null
+  comment: string | null
+  user: UserReview
+  updated_at: string
+  created_at: string
+}
+
+interface UserReview {
+  id: number
+  name: string
+  avatar?: string
+}
+
+export interface QuestionLecture {
+  id: number
+  course_id: number
+  lecture_id: number
+  user: UserQuestionLecture
+  title: string
+  description: string | null
+  total_answer: number
+  updated_at: string
+  created_at: string
+}
+
+export interface AnswerLecture {
+  id: number
+  question_lecture_id: number
+  user: UserQuestionLecture
+  answer: string
+  updated_at: string
+  created_at: string
+}
+
+interface UserQuestionLecture {
+  id: number
+  avatar: string | null
+  name: string
+}
