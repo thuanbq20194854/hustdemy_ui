@@ -9,13 +9,14 @@ import { App as AntdApp, ConfigProvider } from 'antd'
 import './index.css'
 import 'normalize.css'
 import { Provider } from 'react-redux'
-import { store } from './services/state/redux/store'
+import { store, persistor } from './services/state/redux/store'
 import LoadingProvider from './contexts/loading.context'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <ConfigProvider>
           <AntdApp>
@@ -27,6 +28,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           </AntdApp>
         </ConfigProvider>
       </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+    </PersistGate>
+  </Provider>
 )

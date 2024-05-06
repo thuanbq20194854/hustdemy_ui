@@ -18,6 +18,9 @@ export const userServiceApi = {
   requestRegisterTeacher: (): Promise<any> => {
     const url = '/users/request-teacher'
     return https.post(url)
+  },
+  verifyRegisterTeacher: (data: any): Promise<any> => {
+    const url = '/users/verify-teacher'
+    return https.post(url, data)
   }
 }
- 

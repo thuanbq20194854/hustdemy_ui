@@ -5,6 +5,7 @@ import { Modal } from 'antd'
 import { useState } from 'react'
 
 import { IoClose } from 'react-icons/io5'
+import AnswerItem from './AnswerItem'
 
 interface IProps {
   open: boolean
@@ -117,7 +118,11 @@ function AnswerModal({ open, handleCommandModal }: IProps) {
       closeIcon={<IoClose onClick={() => handleCommandModal(false)} />}
       rootClassName={styles.answerModalWrapper}
     >
-      <div className='content'></div>
+      <div className='content'>
+        {answerList.map((answerItem) => (
+          <AnswerItem answerItem={answerItem} />
+        ))}
+      </div>
     </Modal>
   )
 }

@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom'
 interface IProps {
   question: QuestionLecture
   handleOpenAnswerModal: (questionId: number) => void
+  className?: string
 }
 
 const fakeQAList = [
@@ -87,9 +88,9 @@ const fakeQAList = [
     created_at: '2024-05-06T04:50:32.1079751+00:00'
   }
 ]
-function QuestionItem({ question, handleOpenAnswerModal }: IProps) {
+function QuestionItem({ question, handleOpenAnswerModal, className }: IProps) {
   return (
-    <div className='questionItemWrapper'>
+    <div className={`questionItemWrapper ${className}`}>
       <div className='avatarWrapper'>
         <img src={question.user.avatar ? question.user.avatar : ''} alt='' />
       </div>

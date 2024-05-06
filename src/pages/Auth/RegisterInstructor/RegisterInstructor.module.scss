@@ -1,0 +1,23 @@
+.registerInstructorWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 32px;
+
+  & > * {
+    text-align: center;
+  }
+  :global {
+    .verifySuccess a {
+      color: #84b1e1;
+
+      text-decoration: underline;
+
+      &:hover,
+      &:active {
+        color: #69b1ff;
+      }
+    }
+  }
+}
