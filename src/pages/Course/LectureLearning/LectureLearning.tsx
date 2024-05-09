@@ -1,14 +1,13 @@
-import { Course, Curriculum, EAssetType, ELectureType } from '@/models/course'
-import { Spin, Tabs, TabsProps } from 'antd'
-import { useState } from 'react'
+import { ContentCourse, CourseShow, Curriculum, EAssetType, ELectureType } from '@/models/course'
+import { Card } from 'antd'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import CurriculumSidebar from './CurriculumSidebar/CurriculumSidebar'
-import LearningHeader from './LearningHeader/LearningHeader'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import styles from './LectureLearning.module.scss'
-import QASection from './QASection/QASection'
-import ReviewSection from './ReviewSection/ReviewSection'
+import LectureLearningDetail from './LectureLearningDetail'
+import { LectureLearningContextProvider } from './context/LectureLearningContext'
 
-const initCurriculum: Curriculum[] = [
+const initCurriculums: Curriculum[] = [
   {
     id: 1,
 
@@ -491,7 +490,7 @@ const initCurriculum: Curriculum[] = [
   }
 ]
 
-const initCourseData: Course = {
+const initCourseShow: CourseShow = {
   id: 1,
   out_comes: [
     'Learn how to install and use Docker on any system (macOS, Windows, Linux)',
@@ -510,9 +509,6 @@ const initCourseData: Course = {
     'AWS (used in a couple of deployment examples, ~4 hours of the course) requires a credit card - you can also follow along passively though'
   ],
   product_id_stripe: 'random1233213122312',
-  level_id: 1,
-  category_id: 1,
-  sub_category_id: 1,
   title: 'Docker & Kubernetes: The Practical Guide [2024 Edition]',
   review_status: 1,
   welcome_message: null,
@@ -522,19 +518,54 @@ const initCourseData: Course = {
   primarily_teach: null,
   description: '<p>KEKE</p>',
   status: 1,
-  language_id: 1,
-  price_id: 1200,
-  user_id: 1,
   promotional_video: null,
   image:
     'https://images.pexels.com/photos/18536697/pexels-photo-18536697/free-photo-of-woman-in-a-dress-dancing-on-a-desert.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load',
-  curriculums: initCurriculum,
+  curriculums: initCurriculums,
   updated_at: '',
-  created_at: ''
-}
-
-interface ITEST {
-  isCompleted: boolean
+  created_at: '',
+  average_review: 3.5,
+  count_review: 1578,
+  count_student: 200,
+  category: {
+    id: 3,
+    name: 'Programming',
+    parent_id: 1,
+    children: null,
+    created_at: '05 October 2011 14:48 UTC',
+    updated_at: '05 October 2011 14:48 UTC'
+  },
+  language: {
+    id: 1,
+    name: 'English',
+    created_at: '05 October 2011 14:48 UTC',
+    updated_at: '05 October 2011 14:48 UTC'
+  },
+  level: {
+    id: 1,
+    name: 'Intermediate',
+    created_at: '05 October 2011 14:48 UTC',
+    updated_at: '05 October 2011 14:48 UTC'
+  },
+  price: {
+    id: 1,
+    tier: '50-100',
+    value: 75,
+    created_at: '05 October 2011 14:48 UTC',
+    updated_at: '05 October 2011 14:48 UTC'
+  },
+  sub_category: {
+    id: 3,
+    name: 'Programming',
+    parent_id: 1,
+    children: null,
+    created_at: '05 October 2011 14:48 UTC',
+    updated_at: '05 October 2011 14:48 UTC'
+  },
+  user: {
+    id: 1,
+    name: 'Damian Tony'
+  }
 }
 
 const TAB = {
@@ -542,77 +573,111 @@ const TAB = {
   Reviews: 'Reviews'
 }
 
-function LectureLearning() {
-  const { register, watch } = useForm<ITEST>({
-    defaultValues: {
-      isCompleted: false
+export interface MarkLecture {
+  lecture_id: number
+  curriculum_id: number
+}
+
+const initCurrentLecture = (curriculums: Curriculum[]) => {
+  if (!curriculums || curriculums.length === 0 || curriculums[0].lectures.length === 0) {
+    return null
+  } else {
+    const lecturenInfo = curriculums[0].lectures[0]
+
+    if (lecturenInfo.type === ELectureType.Lecture) {
+      return {
+        type: 'video',
+        id: lecturenInfo.id,
+        curriculumID: curriculums[0].id,
+
+        index: 0,
+
+        content: {
+          url: 'https://iframe.mediadelivery.net/play/155247/fee1d27b-4728-4c7b-8484-1eb4cd21a3cf'
+        }
+      }
     }
-  })
 
-  const [course, setCourse] = useState<Course>(initCourseData)
+    return {
+      type: 'quiz',
+      id: lecturenInfo.id,
+      curriculumID: curriculums[0].id,
+      index: 0,
+      content: {
+        indexNumber: 'Quiz 1:',
+        title: curriculums[0].lectures[0].title,
+        questions: curriculums[0].lectures[0].questions
+      }
+    }
+  }
+}
 
-  const [tab, setTab] = useState(TAB.QAndA)
+function LectureLearning() {
+  const [course, setCourse] = useState<CourseShow>(initCourseShow)
+
+  const [currentLecture, setCurrentLecture] = useState<ContentCourse | null>(initCurrentLecture(course.curriculums))
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  console.log('watch: ', watch())
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  const tabsItem: TabsProps['items'] = [
-    {
-      label: (
-        <button className='ud-btn ud-btn-large ud-btn-ghost ud-heading-md ud-nav-button navBtn'>
-          <span>Q&A</span>
-        </button>
-      ),
+  const courseId = searchParams.get('courseId')
 
-      key: TAB.QAndA
-    },
-    {
-      label: (
-        <button className='ud-btn ud-btn-large ud-btn-ghost ud-heading-md ud-nav-button navBtn'>
-          <span>Reviews</span>
-        </button>
-      ),
-      key: TAB.Reviews
-    }
-  ]
+  useEffect(() => {
+    // fetch API Course by id
+    //
+  }, [])
 
-  const handleTabChange = async (value: string) => {
-    setIsLoading(true)
-    setTab(value)
+  const handleUpdateCompleteLecure = (formData: MarkLecture) => {
+    const updatedCurriculum = course.curriculums.map((curriculumItem) => {
+      if (curriculumItem.id === formData.curriculum_id) {
+        const updatedLectures = curriculumItem.lectures.map((lectureItem) => {
+          if (lectureItem.id === formData.lecture_id) {
+            return {
+              ...lectureItem,
+              is_done: true
+            }
+          }
+          return lectureItem
+        })
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
+        return {
+          ...curriculumItem,
+
+          lectures: updatedLectures
+        }
+      }
+      return curriculumItem
+    })
+
+    setCourse({
+      ...course,
+      curriculums: updatedCurriculum
+    })
   }
 
   return (
     <div className={styles.pageWrapper}>
-      <LearningHeader course={course} />
-
-      <div className='pageContainer'>
-        <div className='containerContent'>
-          <div className='videoSection'></div>
-          <CurriculumSidebar course={course} />
-          <div className='dashboardSection'>
-            <div className='tabWrapper'>
-              <Tabs rootClassName={styles.rootTabs} items={tabsItem} onChange={(value) => handleTabChange(value)} />
-            </div>
-
-            <div className='sizingWrapper'>
-              {isLoading ? (
-                <Spin rootClassName={styles.rootSpin} />
-              ) : (
-                <>
-                  {tab === TAB.QAndA && <QASection />}
-
-                  {tab === TAB.Reviews && <ReviewSection />}
-                </>
-              )}
-            </div>
-          </div>
+      {!course ? (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Card>
+            <h4>Course not found</h4>
+            <NavLink to='/'>Back To Home</NavLink>
+          </Card>
         </div>
-      </div>
+      ) : (
+        <>
+          <LectureLearningContextProvider
+            value={{
+              course: course,
+              currentLecture: currentLecture,
+              handleUpdateCompleteLecure: handleUpdateCompleteLecure
+            }}
+          >
+            <LectureLearningDetail />
+          </LectureLearningContextProvider>
+        </>
+      )}
     </div>
   )
 }

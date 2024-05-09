@@ -8,14 +8,12 @@ import RatingModal from './RatingModal'
 import CustomTooltip from '@/components/CustomTooltip/CustomTooltip'
 
 import styles from '../LectureLearning.module.scss'
-import { Course } from '@/models/course'
+import { Course, CourseShow } from '@/models/course'
 import YourReviewModal from './YourReviewModal'
+import { useLectureLearningContext } from '../context/LectureLearningContext'
 
-interface IProps {
-  course: Course
-}
-
-function LearningHeader({ course }: IProps) {
+function LearningHeader() {
+  const { course } = useLectureLearningContext()
   const [openRating, handleCommandRatingModal, handleOpenRatingModal, handleCloseRatingModal] = useBoolean()
 
   const [openYR, setYRCommand, handleOpenYR, handleCloseYR] = useBoolean()
@@ -37,8 +35,7 @@ function LearningHeader({ course }: IProps) {
   const completedProgess = () => {
     let totalLecture = 0
     let completedLecture = 0
-
-    course.curriculums.forEach((curriculumItem) => {
+    course?.curriculums.forEach((curriculumItem) => {
       totalLecture += curriculumItem.lectures.length
 
       const completedLectureInThisSection = curriculumItem.lectures.filter((lecture) => lecture.is_done).length
@@ -118,7 +115,7 @@ function LearningHeader({ course }: IProps) {
           <div className='title'>
             <h1 className='courseTitle ud-text-md'>
               <NavLink className='titleNavLink' to='/course/123312312'>
-                {course.title}
+                {course?.title}
               </NavLink>
             </h1>
           </div>

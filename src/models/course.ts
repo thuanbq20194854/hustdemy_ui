@@ -325,3 +325,91 @@ interface UserQuestionLecture {
   avatar: string | null
   name: string
 }
+
+export interface CreateAnswerLecture {
+  answer: string
+}
+
+export interface CourseShow {
+  id: number
+  out_comes: string[] | null
+  intended_for: string[] | null
+  requirements: string[] | null
+  product_id_stripe: string
+  level: Level | null
+  category: Category | null
+  sub_category: Category | null
+  title: string
+  review_status: number
+  welcome_message: string | null
+  congratulations_message: string | null
+  subtitle: string | null
+  primarily_teach: string | null
+  description: string | null
+  status: number
+  language: Language | null
+  price: Price | null
+  user: UserShow
+  promotional_video: string | null
+  image: string | null
+  curriculums: Curriculum[]
+  average_review: number
+  count_review: number
+  count_student: number
+  updated_at: string
+  created_at: string
+}
+
+export interface Level {
+  id: number
+  name: string
+  created_at: string
+  updated_at: string
+}
+
+export interface Category {
+  id: number
+  name: string
+  parent_id: number | null
+  children: Category[] | null
+  created_at: string
+  updated_at: string
+}
+
+export interface Language {
+  id: number
+  name: string
+  created_at: string
+  updated_at: string
+}
+
+export interface Price {
+  id: number
+  tier: string
+  value: number
+  created_at: string
+  updated_at: string
+}
+
+export interface ContentCourse {
+  type: string
+  id: number
+  curriculumID: number
+  index: number
+  content: ContentQuiz | ContentVideo | ContentArticle | null
+}
+
+export interface ContentQuiz {
+  questions: Question[]
+  title: string
+  indexNumber: string
+}
+
+export interface ContentVideo {
+  url: string
+}
+
+export interface ContentArticle {
+  article: string
+  title: string
+}

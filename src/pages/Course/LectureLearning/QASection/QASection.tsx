@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import styles from '../LectureLearning.module.scss'
-import { IoIosArrowDown, IoIosSearch, IoMdChatboxes } from 'react-icons/io'
-import { LuArrowUpCircle } from 'react-icons/lu'
-import { NavLink } from 'react-router-dom'
-import { QuestionLecture } from '@/models/course'
-import dayjs from 'dayjs'
-import QuestionItem from './QuestionItem'
-import AnswerModal from './AnswerModal'
 import { useBoolean } from '@/hooks/useBoolean'
+import { QuestionLecture } from '@/models/course'
+import { useEffect, useState } from 'react'
+import { IoIosArrowDown, IoIosSearch } from 'react-icons/io'
+import styles from '../LectureLearning.module.scss'
+import AnswerModal from './AnswerModal'
+import QuestionItem from './QuestionItem'
 
 export const EFilterByQA = {
   ALL_LECTURES: 1,
@@ -103,20 +100,26 @@ function QASection() {
 
   const [sortBy, setSortBy] = useState(ESortBy.MOST_RECENT)
 
-  const [qaList, setQAList] = useState<QuestionLecture[]>(fakeQAList)
+  const [questionList, setQuestionList] = useState<QuestionLecture[]>(fakeQAList)
 
-  const [questionId, setQuestionId] = useState(1)
+  // const [questionId, setQuestionId] = useState(1)
 
-  const [open, handleCommandAnswerModal] = useBoolean()
+  const [questionInAnswerModal, setQuestionInAnswerModal] = useState<QuestionLecture | null>(null)
+
+  const [openAnswerModal, handleCommandAnswerModal] = useBoolean()
 
   const handleSearch = () => {
     console.log('search')
   }
 
-  const handleOpenAnswerModal = (questionId: number) => {
-    setQuestionId(questionId)
+  const handleOpenAnswerModal = (question: QuestionLecture) => {
+    setQuestionInAnswerModal(question)
     handleCommandAnswerModal(true)
   }
+
+  useEffect(() => {
+    // fetch API when param change
+  }, [filterBy, sortBy, searchInput])
   return (
     <div className={styles.qaSectionWrapper}>
       <div className='filterQAPart'>
@@ -181,13 +184,20 @@ function QASection() {
         </div>
 
         <div className='questionList'>
-          {qaList.map((questionItem) => (
-            <QuestionItem question={questionItem} handleOpenAnswerModal={handleOpenAnswerModal} />
+          {questionList.map((questionItem) => (
+            <QuestionItem question={questionItem} handleOpenAnswerModal={handleOpenAnswerModal} key={questionItem.id} />
           ))}
         </div>
       </div>
 
-      <AnswerModal questionId={questionId} open={open} handleCommandModal={handleCommandAnswerModal} />
+      {questionInAnswerModal && (
+        <AnswerModal
+          questionItem={questionInAnswerModal}
+          open={openAnswerModal}
+          setQuestionInAnswerModal={setQuestionInAnswerModal}
+          handleCommandModal={handleCommandAnswerModal}
+        />
+      )}
     </div>
   )
 }

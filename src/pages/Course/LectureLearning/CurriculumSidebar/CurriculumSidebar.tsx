@@ -1,29 +1,15 @@
-import { Dropdown } from 'antd'
 import { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { FaRegFile } from 'react-icons/fa6'
-import { HiOutlineFolderDownload } from 'react-icons/hi'
-import { ImFolderOpen } from 'react-icons/im'
-import { MdOndemandVideo } from 'react-icons/md'
-import { RiArrowDownSLine } from 'react-icons/ri'
-import AccordionPanel from './AccordionPanel'
 import { IoMdClose } from 'react-icons/io'
+import AccordionPanel from './AccordionPanel'
 
-import styles from '../LectureLearning.module.scss'
-import { Course, Curriculum, EAssetType, ELectureType, Lecture } from '@/models/course'
-import { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
+import { Course, CourseShow, Curriculum, ELectureType } from '@/models/course'
 import LearningLectureItem from './LearningLectureItem'
+import { useLectureLearningContext } from '../context/LectureLearningContext'
 
-interface ITEST {
-  isCompleted: boolean
-}
+function CurriculumSidebar() {
+  // const [curriculumContent, setCurriculumContent] = useState<Curriculum[]>(course.curriculums)
 
-interface IProps {
-  course: Course
-}
-
-function CurriculumSidebar({ course }: IProps) {
-  const [curriculumContent, setCurriculumContent] = useState<Curriculum[]>(course.curriculums)
+  const { course } = useLectureLearningContext()
 
   const sidebarRef = useRef<HTMLDivElement>(null)
 
@@ -31,10 +17,11 @@ function CurriculumSidebar({ course }: IProps) {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       const element: HTMLDivElement | null = sidebarRef.current
-      if (element && scrollPosition > 56) {
-        element.style.top = '0px' // Change margin when scrolled more than 56px
+
+      if (element && scrollPosition < 56) {
+        element.style.top = `${56 - scrollPosition}px`
       } else if (element) {
-        element.style.top = '56px'
+        element.style.top = '0px'
       }
     }
 
@@ -70,7 +57,7 @@ function CurriculumSidebar({ course }: IProps) {
       </div>
 
       <div className='sidebar--content'>
-        {curriculumContent.map((curriculumItem, index) => (
+        {course?.curriculums.map((curriculumItem, index) => (
           <AccordionPanel
             title={`Section ${index + 1}: ${curriculumItem.title}`}
             key={curriculumItem.id}
@@ -80,6 +67,7 @@ function CurriculumSidebar({ course }: IProps) {
             {curriculumItem.lectures.map((lectureItem) => {
               return (
                 <LearningLectureItem
+                  key={lectureItem.id}
                   index={lectureItem.type === ELectureType.Lecture ? ++lectureIndex : ++quizIndex}
                   lectureItem={lectureItem}
                 />

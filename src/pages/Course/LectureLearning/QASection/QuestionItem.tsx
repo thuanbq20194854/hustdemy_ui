@@ -1,13 +1,11 @@
 import { QuestionLecture } from '@/models/course'
 import dayjs from 'dayjs'
-import React from 'react'
 import { IoMdChatboxes } from 'react-icons/io'
-import { LuArrowUpCircle } from 'react-icons/lu'
 import { NavLink } from 'react-router-dom'
 
 interface IProps {
   question: QuestionLecture
-  handleOpenAnswerModal: (questionId: number) => void
+  handleOpenAnswerModal: (question: QuestionLecture) => void
   className?: string
 }
 
@@ -110,7 +108,7 @@ function QuestionItem({ question, handleOpenAnswerModal, className }: IProps) {
             </div> */}
             <button
               className='upvoteContainer ud-btn ud-btn-large ud-btn-link ud-heading-md'
-              onClick={() => handleOpenAnswerModal(question.id)}
+              onClick={() => handleOpenAnswerModal(question)}
             >
               <span className='ud-sr-only numUpvote'>{question.total_answer}</span>
               <IoMdChatboxes size={24} style={{ marginLeft: '4px' }} />
@@ -124,7 +122,7 @@ function QuestionItem({ question, handleOpenAnswerModal, className }: IProps) {
 
           <span>{`Lecture ${question.lecture_id}`}</span>
 
-          <span>{dayjs(question.updated_at).format('DD/MMM/YYYY')}</span>
+          <span>{dayjs(question.updated_at).format('DD/MMM/YYYY HH:MM')}</span>
         </div>
       </div>
     </div>

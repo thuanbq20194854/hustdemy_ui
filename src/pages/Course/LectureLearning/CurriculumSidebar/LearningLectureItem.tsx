@@ -7,6 +7,8 @@ import { RiArrowDownSLine } from 'react-icons/ri'
 
 import { Curriculum, EAssetType, ELectureType, Lecture } from '@/models/course'
 import styles from '../LectureLearning.module.scss'
+import { useLectureLearningContext } from '../context/LectureLearningContext'
+import { MarkLecture } from '../LectureLearning'
 
 interface IProps {
   lectureItem: Lecture
@@ -15,6 +17,8 @@ interface IProps {
 }
 
 function LearningLectureItem({ lectureItem, index }: IProps) {
+  const { handleUpdateCompleteLecure, course } = useLectureLearningContext()
+
   const renderResourceDropdown = (lectureItem: Lecture) => {
     return lectureItem.assets
       .filter((assetItem) => assetItem.type === EAssetType.Resource)
@@ -61,10 +65,36 @@ function LearningLectureItem({ lectureItem, index }: IProps) {
       return `${hour}hr${minute}min`
     }
   }
+
+  const handleChangeChecked = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    // API and Update State
+
+    const formData: MarkLecture = {
+      curriculum_id: lectureItem.curriculum_id,
+      lecture_id: lectureItem.id
+    }
+
+    try {
+      handleUpdateCompleteLecure(formData)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleChangeLecture = () => {}
+
+  console.log('render')
   return (
     <div className='learningLectureItem' key={lectureItem.id}>
       <div className='inputContainer'>
-        <input type='checkbox' className='inputElement' />
+        <input
+          type='checkbox'
+          className='inputElement'
+          // disabled={lectureItem.is_done}
+          // readOnly={lectureItem.is_done}
+          checked={lectureItem.is_done}
+          onChange={handleChangeChecked}
+        />
       </div>
 
       <div className='itemContainer'>

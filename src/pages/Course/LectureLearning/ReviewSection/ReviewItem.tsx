@@ -24,7 +24,7 @@ function ReviewItem({ review }: IProps) {
           <div className='name ud-heading-md'>{review.user.name}</div>
           <div className='rating'>
             <RatingContainer averageReview={review.star_count as number} />
-            <span className='ud-heading-xs'>{dayjs(review.updated_at).format('DD/MM/YYYY')}</span>
+            <span className='ud-heading-xs'>{dayjs(review.updated_at).format('DD/MM/YYYY HH:MM')}</span>
           </div>
         </div>
       </div>

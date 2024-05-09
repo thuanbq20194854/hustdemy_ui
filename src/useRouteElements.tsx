@@ -109,7 +109,7 @@ export const useRouteElements = () => {
     },
 
     {
-      path: '/course/:courseId/learn/lecture/:lectureId',
+      path: '/course/:courseId/learn/lecture',
       element: <LectureLearning />
     },
 

@@ -6,9 +6,9 @@ import { authSlice } from './authSlice'
 import { cartSlice } from './cartSlice'
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
-import persistReducer from 'redux-persist/es/persistReducer'
-import persistStore from 'redux-persist/es/persistStore'
-// import { persistReducer, persistStore } from 'redux-persist'
+// import persistReducer from 'redux-persist/es/persistReducer'
+// import persistStore from 'redux-persist/es/persistStore'
+import { persistReducer, persistStore } from 'redux-persist'
 
 // ...
 

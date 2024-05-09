@@ -623,11 +623,22 @@
   :global {
     .ant-modal {
       width: 920px !important;
+      max-height: 80vh;
       .ant-modal-content {
         width: 920px !important;
-        padding: 24px;
+        max-height: 80vh;
+
+        overflow: auto;
+
+        padding: 48px 24px;
 
         border-radius: 0px;
+
+        .flex-center {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
 
         .title {
           display: flex;
@@ -642,6 +653,84 @@
         }
 
         .content {
+          .customQuestionItemWrapper {
+            display: flex;
+            align-items: start;
+            gap: 16px;
+
+            padding-bottom: 24px;
+
+            .avatarWrapper {
+              border-radius: 50%;
+
+              overflow: hidden;
+
+              width: 32px;
+              height: 32px;
+
+              cursor: pointer;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+            .infoContainer {
+              flex: 1;
+
+              width: 100%;
+
+              .questionLinkRow {
+                flex: 1;
+                display: flex;
+                align-items: start;
+
+                .textContent {
+                  flex: 1;
+                }
+                .responseNumContainer {
+                  text-align: right;
+
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                  .upvoteContainer {
+                    color: #6a6f73;
+                    padding: 0 0.8rem;
+
+                    &:hover {
+                      color: #2d2f31;
+                    }
+
+                    .numUpvote {
+                      color: #2d2f31;
+                    }
+                  }
+                }
+              }
+
+              .metaData {
+                display: flex;
+                align-items: start;
+
+                & > span:not(:first-child)::before {
+                  content: '●';
+                  margin: 0 0.4rem;
+                  font-size: 0.6rem;
+                }
+              }
+
+              .bodyContent {
+                margin-top: 16px;
+              }
+            }
+          }
+
+          .separatorContainer {
+            padding-bottom: 16px;
+          }
           .answerItemWrapper {
             display: flex;
             align-items: start;
@@ -670,41 +759,36 @@
 
               .answerItemLinkRow {
                 display: flex;
-                .metaData {
+
+                .userName {
                   flex: 1;
                 }
-              }
-            }
 
-            .questionLinkRow {
-              display: flex;
-              align-items: start;
-
-              .textContent {
-                .bodyContent {
-                  margin-top: 4px;
-                }
-              }
-              .responseNumContainer {
-                text-align: right;
-
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                .upvoteContainer {
+                .moreBtn {
                   color: #6a6f73;
                   padding: 0 0.8rem;
+                }
 
-                  &:hover {
-                    color: #2d2f31;
-                  }
-
-                  .numUpvote {
-                    color: #2d2f31;
-                  }
+                .moreBtn:hover {
+                  color: #2d2f31;
                 }
               }
+
+              .bodyContent {
+                margin-top: 16px;
+              }
             }
+          }
+
+          .addYourAnswerWrapper {
+            margin-top: 32px;
+            .ud-form-group {
+              max-width: none;
+            }
+          }
+
+          .loadMoreBtn {
+            width: 100%;
           }
         }
       }

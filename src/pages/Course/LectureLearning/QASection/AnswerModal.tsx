@@ -1,18 +1,21 @@
-import { AnswerLecture } from '@/models/course'
+import { AnswerLecture, QuestionLecture } from '@/models/course'
 import styles from '../LectureLearning.module.scss'
 
-import { Modal } from 'antd'
-import { useState } from 'react'
+import { Modal, Spin } from 'antd'
+import { useEffect, useState } from 'react'
 
 import { IoClose } from 'react-icons/io5'
 import AnswerItem from './AnswerItem'
+import CustomQuestionItem from './CustomQuestionItem'
+import AddAnswerForm from './AddAnswerForm'
 
 interface IProps {
   open: boolean
 
   handleCommandModal: (cmd: boolean) => void
 
-  questionId: number
+  questionItem: QuestionLecture
+  setQuestionInAnswerModal: React.Dispatch<React.SetStateAction<QuestionLecture | null>>
 }
 
 const questionFake = {
@@ -106,23 +109,80 @@ const fakeAnswerList: AnswerLecture[] = [
   }
 ]
 
-function AnswerModal({ open, handleCommandModal }: IProps) {
-  // State: param + list
-
-  // useEffect: fetch + id
+function AnswerModal({ open, handleCommandModal, questionItem, setQuestionInAnswerModal }: IProps) {
+  const [totalPage, setTotalPage] = useState(1)
 
   const [answerList, setAnswerList] = useState<AnswerLecture[]>(fakeAnswerList)
+
+  const [question, setQuestion] = useState<QuestionLecture>(questionItem)
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [isLoadMore, setIsLoadMore] = useState(false)
+
+  useEffect(() => {
+    try {
+      setIsLoading(true)
+
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500)
+      // fetch API with Question + Answer
+
+      // reset page to 1
+      setTotalPage(1)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [questionItem.id])
+
+  useEffect(() => {
+    if (totalPage === 1) {
+      return
+    }
+
+    // fetch API with new Param
+  }, [totalPage])
+
+  useEffect(() => {
+    return () => {
+      setQuestionInAnswerModal(null)
+    }
+  }, [])
+
   return (
     <Modal
       open={open}
       closeIcon={<IoClose onClick={() => handleCommandModal(false)} />}
       rootClassName={styles.answerModalWrapper}
+      maskClosable={true}
+      closable={true}
     >
-      <div className='content'>
-        {answerList.map((answerItem) => (
-          <AnswerItem answerItem={answerItem} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className='flex-center'>
+          <Spin></Spin>
+        </div>
+      ) : (
+        <div className='content'>
+          <CustomQuestionItem question={questionFake} />
+          <div className='separatorContainer'>
+            <h4 className='ud-heading-md'>{answerList.length} replies</h4>
+          </div>
+          <div className='answerList'>
+            {answerList.map((answerItem) => (
+              <AnswerItem answerItem={answerItem} key={answerItem.id} />
+            ))}
+          </div>
+
+          <div className='loadMoreBtnContainer'>
+            <button disabled={isLoadMore} className='ud-btn ud-btn-large ud-btn-secondary ud-heading-md loadMoreBtn'>
+              {isLoadMore ? <Spin></Spin> : <span>Load more answers</span>}
+            </button>
+          </div>
+
+          <AddAnswerForm />
+        </div>
+      )}
     </Modal>
   )
 }

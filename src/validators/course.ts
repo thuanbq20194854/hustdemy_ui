@@ -9,7 +9,8 @@ import {
   UpdateSection,
   UpdateCourseLandingPageForm,
   UpdateCoursePrice,
-  IntendedLearners
+  IntendedLearners,
+  CreateAnswerLecture
 } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
@@ -144,3 +145,7 @@ export const schemeUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.
 //   id: number
 //   curriculum_id: string
 // }
+
+export const schemeCreateAnswerLecture: Yup.ObjectSchema<CreateAnswerLecture> = Yup.object({
+  answer: Yup.string().required('Answer is required').max(500, 'Answer is more than 500 characters')
+})
