@@ -10,7 +10,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   user: undefined,
   token: '',
   isLoading: false
@@ -31,6 +31,7 @@ export const authSlice = createSlice({
     },
 
     logoutSuccess(state) {
+      console.log('logout')
       state.isLoggedIn = false
       state.user = undefined
       state.token = ''

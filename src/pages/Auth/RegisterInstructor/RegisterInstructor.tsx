@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 
 import styles from './RegisterInstructor.module.scss'
-import { toast } from 'react-toastify'
 import { USER_ROLE } from '@/contants/user.constant'
+import { toast } from 'react-toastify'
 
 function RegisterInstructor() {
   const { user } = useAppSelector((state) => state.auth)
@@ -26,9 +26,6 @@ function RegisterInstructor() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user.role === USER_ROLE.INSTRUCTOR) {
-      navigate('/instructor/courses')
-    }
     if (searchParams.get('return_url') && searchParams.get('key')) {
       console.log('iffff')
 
