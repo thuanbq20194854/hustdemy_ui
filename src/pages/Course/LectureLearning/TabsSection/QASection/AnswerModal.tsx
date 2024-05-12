@@ -1,5 +1,5 @@
 import { AnswerLecture, QuestionLecture } from '@/models/course'
-import styles from '../LectureLearning.module.scss'
+import styles from '../../LectureLearning.module.scss'
 
 import { Modal, Spin } from 'antd'
 import { useEffect, useState } from 'react'

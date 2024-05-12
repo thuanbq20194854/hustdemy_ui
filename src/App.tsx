@@ -1,15 +1,14 @@
-import { useContext, useEffect } from 'react'
-import { useLoading } from './hooks/useLoading'
-import { useRouteElements } from './useRouteElements'
-import { useBoolean } from './hooks/useBoolean'
-import { LoadingContext } from './contexts/loading.context'
-import LazyLoading from './components/LazyLoading/LazyLoading'
+import { useContext } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import LazyLoading from './components/LazyLoading/LazyLoading'
+import { LoadingContext } from './contexts/loading.context'
+import { useBoolean } from './hooks/useBoolean'
 import { useAppSelector } from './services/state/redux/store'
+import { useRouteElements } from './useRouteElements'
 
 function App() {
-  const { isLoading, _, showLoading, closeLoading } = useContext(LoadingContext)
+  const { isLoading, showLoading, closeLoading } = useContext(LoadingContext)
   const callAPi = () => {
     showLoading()
 
@@ -25,9 +24,12 @@ function App() {
   return (
     <div>
       <ToastContainer />
-      {/* <button onClick={callAPi}>API</button>
-      {isLoading && <LazyLoading />} */}
+      {/* <button onClick={callAPi}>API</button> */}
+      {isLoading && <LazyLoading />}
       {useRouteElements()}
+
+      {/* <button onClick={() => setOpen(true)}>Click Tao</button>
+      <ModalCustom open={open} setOpen={setOpen} /> */}
     </div>
   )
 }

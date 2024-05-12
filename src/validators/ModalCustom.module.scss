@@ -1,0 +1,50 @@
+.modalRoot {
+  :global {
+    .modal-mask {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+
+    .modal-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 1001;
+      overflow: auto;
+      outline: 0;
+      //   -webkit-overflow-scrolling: touch;
+
+      background-color: green;
+
+      .modal {
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 0;
+        color: rgba(0, 0, 0, 0.88);
+        font-size: 14px;
+        line-height: 1.5714285714285714;
+        list-style: none;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+          sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        // pointer-events: none;
+        position: relative;
+        top: 100px;
+        width: auto;
+        max-width: calc(100vw - 32px);
+        padding-bottom: 24px;
+
+        background-color: red;
+
+        .closeButton {
+          background-color: white;
+          right: 10px;
+          top: 10px;
+          position: absolute;
+        }
+      }
+    }
+  }
+}

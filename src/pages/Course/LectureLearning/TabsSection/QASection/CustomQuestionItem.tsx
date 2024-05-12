@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import { IoMdMore } from 'react-icons/io'
 import { NavLink } from 'react-router-dom'
 
-import styles from '../LectureLearning.module.scss'
+import styles from '../../LectureLearning.module.scss'
 import { TbFlag } from 'react-icons/tb'
 
 interface IProps {

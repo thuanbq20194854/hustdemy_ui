@@ -2,9 +2,10 @@ import { useBoolean } from '@/hooks/useBoolean'
 import { QuestionLecture } from '@/models/course'
 import { useEffect, useState } from 'react'
 import { IoIosArrowDown, IoIosSearch } from 'react-icons/io'
-import styles from '../LectureLearning.module.scss'
+import styles from '../../LectureLearning.module.scss'
 import AnswerModal from './AnswerModal'
 import QuestionItem from './QuestionItem'
+import { useLectureLearningContext } from '../../context/LectureLearningContext'
 
 export const EFilterByQA = {
   ALL_LECTURES: 1,
@@ -93,7 +94,11 @@ const fakeQAList = [
   }
 ]
 
-function QASection() {
+interface IProps {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function QASection({ setIsLoading }: IProps) {
   const [searchInput, setSearchInput] = useState('')
 
   const [filterBy, setFilterBy] = useState<number>(EFilterByQA.ALL_LECTURES)
@@ -102,11 +107,11 @@ function QASection() {
 
   const [questionList, setQuestionList] = useState<QuestionLecture[]>(fakeQAList)
 
-  // const [questionId, setQuestionId] = useState(1)
-
   const [questionInAnswerModal, setQuestionInAnswerModal] = useState<QuestionLecture | null>(null)
 
   const [openAnswerModal, handleCommandAnswerModal] = useBoolean()
+
+  const { currentLecture } = useLectureLearningContext()
 
   const handleSearch = () => {
     console.log('search')
@@ -118,8 +123,14 @@ function QASection() {
   }
 
   useEffect(() => {
-    // fetch API when param change
-  }, [filterBy, sortBy, searchInput])
+    try {
+    } catch (err) {
+      setIsLoading(true)
+      // fetch API when param change
+
+      setIsLoading(false)
+    }
+  }, [filterBy, sortBy, searchInput, currentLecture?.id])
   return (
     <div className={styles.qaSectionWrapper}>
       <div className='filterQAPart'>

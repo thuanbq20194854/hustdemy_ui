@@ -1,11 +1,13 @@
 import RatingContainer from '@/components/RatingContainer/RatingContainer'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoClose } from 'react-icons/io5'
 
 import { IoIosArrowDown, IoIosSearch } from 'react-icons/io'
-import styles from '../LectureLearning.module.scss'
+import styles from '../../LectureLearning.module.scss'
 import ReviewItem from './ReviewItem'
 import { LearningReview } from '@/models/course'
+import { useLectureLearningContext } from '../../context/LectureLearningContext'
+import { TRUE } from 'sass'
 
 const fakeFilters = [
   {
@@ -122,7 +124,11 @@ const fakeReviewList = [
   }
 ]
 
-function ReviewSection() {
+interface IProps {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function ReviewSection({ setIsLoading }: IProps) {
   const initialFilter = [1, 2, 3, 4, 5]
 
   const [filterRateOrder, setFilterRateOrder] = useState(initialFilter)
@@ -136,6 +142,8 @@ function ReviewSection() {
   const [totalPage, setTotalPage] = useState(1)
 
   const [reviewList, setReviewList] = useState<LearningReview[]>(fakeReviewList)
+
+  const { currentLecture } = useLectureLearningContext()
 
   const handleSelectFilterOptions = (passOrdered: number) => {
     setFilterRateOrder((prev) => [passOrdered])
@@ -168,6 +176,17 @@ function ReviewSection() {
     // change Params
     setTotalPage((prev) => prev + 1)
   }
+
+  useEffect(() => {
+    try {
+      setIsLoading(true)
+
+      // API follow lecture id
+      setIsLoading(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [currentLecture?.id, searchInput, selectedRating, totalPage])
 
   // useEffect call API filter whenever one of filter is change + get filterOption + reviewStatics
   // search + option + totalPage
