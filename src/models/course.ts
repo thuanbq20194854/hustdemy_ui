@@ -399,6 +399,11 @@ export interface ContentCourse {
   content: ContentQuiz | ContentVideo | ContentArticle | null
 }
 
+export const EContentCourseType = {
+  Video: 'video',
+  Quiz: 'quiz'
+}
+
 export interface ContentQuiz {
   questions: Question[]
   title: string

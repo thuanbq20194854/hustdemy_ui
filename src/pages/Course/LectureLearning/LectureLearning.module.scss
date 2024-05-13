@@ -95,8 +95,23 @@
         width: 75%;
         background-color: white;
 
-        .videoSection {
+        .lectureContent {
           height: 650px;
+
+          background-color: red;
+
+          .videoWrapper {
+            background-color: green;
+            height: 650px;
+            width: 75%;
+
+            overflow: hidden;
+
+            .iframeElement {
+              height: 100%;
+              width: 100%;
+            }
+          }
         }
 
         .curriculumSiderbar {
