@@ -1,4 +1,4 @@
-import { USER_ROLE } from '@/contants/user.constant'
+import { AVATAR_DEFAULT, USER_ROLE } from '@/contants/user.constant'
 import { useBoolean } from '@/hooks/useBoolean'
 import { useState } from 'react'
 import { GoBell } from 'react-icons/go'
@@ -540,11 +540,7 @@ function Header() {
             <Dropdown menu={{ items: renderAvatarDropdown() }} rootClassName={styles.rootDropDownAvatar}>
               <div className='avatar-ud-btn'>
                 <div className='avatar-container'>
-                  <img
-                    className='avatar'
-                    src='https://lh3.googleusercontent.com/a/ACg8ocJEoJUYixlFMzUzd9DpRQhHhKAAYx3l1wGSEWfeidHDyrw=s96-c'
-                    alt=''
-                  />
+                  <img className='avatar' src={user?.avatar ? user.avatar : AVATAR_DEFAULT} alt='' />
                 </div>
               </div>
             </Dropdown>

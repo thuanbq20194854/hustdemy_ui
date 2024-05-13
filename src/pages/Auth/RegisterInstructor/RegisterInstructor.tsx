@@ -1,5 +1,5 @@
 import { userServiceApi } from '@/services/apis/userServiceApi'
-import { useAppSelector } from '@/services/state/redux/store'
+import { useAppDispatch, useAppSelector } from '@/services/state/redux/store'
 import { Button, Card, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import styles from './RegisterInstructor.module.scss'
 import { USER_ROLE } from '@/contants/user.constant'
 import { toast } from 'react-toastify'
+import { authSliceActions } from '@/services/state/redux/authSlice'
 
 function RegisterInstructor() {
   const { user } = useAppSelector((state) => state.auth)
@@ -23,7 +24,15 @@ function RegisterInstructor() {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const dispatch = useAppDispatch()
+
   const navigate = useNavigate()
+  console.log('registerURL: ', registerURL)
+
+  // const handleLog = () => {
+  //   const dataadsads = localStorage.getItem('data')
+  //   // console.log('zzzzzzz: ', JSON.parse(dataadsads ?? ''))
+  // }
 
   useEffect(() => {
     if (searchParams.get('return_url') && searchParams.get('key')) {
@@ -31,41 +40,61 @@ function RegisterInstructor() {
 
       try {
         const verifyRegisterInstructor = async () => {
-          setRegisterSuccess(true)
-
           setIsLoadingVerify(true)
 
           const formData = {
             key: searchParams.get('key')
           }
 
-          await userServiceApi.verifyRegisterTeacher(formData)
+          const data = await userServiceApi.verifyRegisterTeacher(formData)
+
+          dispatch(authSliceActions.startLogin())
+
+          console.log('Data: ', data)
+
+          const dataString = JSON.stringify(data)
+          localStorage.setItem('data', dataString)
+
+          dispatch(
+            authSliceActions.loginSuccess({
+              user: data.data.user,
+              token: data.data.token
+            })
+          )
+
           setIsLoadingVerify(false)
           toast('Register Instructor Successfully!', {
             type: 'success',
             autoClose: 500
           })
+          setRegisterSuccess(true)
         }
 
         verifyRegisterInstructor()
       } catch (err) {
         console.log(err)
+        toast.error('Somethings went wrong on server !')
       }
     } else {
       console.log('elseeeee')
 
-      const fetchRegisterURL = async () => {
-        const result = await userServiceApi.requestRegisterTeacher()
+      if (user?.role === USER_ROLE.INSTRUCTOR) {
+        navigate('/instructor/courses')
+        return
+      }
 
+      const fetchRegisterURL = async () => {
+        setIsLoadingURL(true)
+        const result = await userServiceApi.requestRegisterTeacher()
         setRegisterURL(result.data.link)
+        setIsLoadingURL(false)
       }
 
       try {
-        setIsLoadingURL(true)
         fetchRegisterURL()
-        setIsLoadingURL(false)
       } catch (err) {
-        console.log('err')
+        console.log(err)
+        toast.error('Somethings went wrong on server !')
       }
     }
   }, [])
@@ -79,15 +108,17 @@ function RegisterInstructor() {
           <p>You need to link your card with us to become a teacher and to receive fees from the courses you create.</p>
 
           {isLoadingURL ? (
-            <Button loading color={'purple'}>
+            <Button loading disabled color={'purple'}>
               <span>Link</span>
             </Button>
           ) : (
-            <NavLink to={registerURL}>
-              <Button color={'purple'}>
-                <span>Click To Link Your Card</span>
-              </Button>
-            </NavLink>
+            <div>
+              <NavLink to={registerURL}>
+                <Button color={'purple'}>
+                  <span>Click To Link Your Card</span>
+                </Button>
+              </NavLink>
+            </div>
           )}
         </div>
       ) : (

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../services/state/redux/st
 import { schemeSignUp } from '../../../validators/auth'
 import styles from './Register.module.scss'
 import { useState } from 'react'
+import { setAuthTokenLS } from '@/utils/utils'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -43,14 +44,18 @@ export default function Register() {
     try {
       const data = await userServiceApi.register(formData)
 
+      console.log('data: ', data)
+
+      setAuthTokenLS(data.data.token)
+
       const responseData: ResponseSignUp = {
         token: data.token,
         user: data.user
       }
       dispatch(authSliceActions.signUp(responseData))
-      localStorage.setItem('token', responseData.token)
 
       reset()
+      setError('')
 
       toast('Register Successfully!', {
         autoClose: 500,

@@ -30,11 +30,12 @@ function Login() {
         token: tokenResponse.access_token
       }
       const result = await userServiceApi.loginByGoogle(data)
-      setAuthTokenLS(result.token)
 
+      console.log('35 result: ', result)
+      setAuthTokenLS(result.data.token)
       const payloadLogin: ResponseLogin = {
-        token: result.token,
-        user: result.user
+        token: result.data.token,
+        user: result.data.user
       }
       dispatch(authSliceActions.loginSuccess(payloadLogin))
       navigate('/')
@@ -76,12 +77,14 @@ function Login() {
       console.log(responseData)
       setAuthTokenLS(responseData.token)
 
+      console.log('responseData: ', responseData)
+
       dispatch(authSliceActions.loginSuccess(responseData))
 
       reset()
+      setError('')
 
       navigate('/')
-
       toast('Login Sucessfully!', {
         autoClose: 500,
         draggable: false,
@@ -146,7 +149,7 @@ function Login() {
 
           <div className='ud-text-sm'>
             <span>Don't have an account?</span>
-            <NavLink className='link ud-link-underline ud-text-bold' to='/sign-up'>
+            <NavLink className='link ud-link-underline ud-text-bold' to='/register'>
               Sign Up
             </NavLink>
           </div>

@@ -16,6 +16,9 @@ const initialState: AuthState = {
   isLoading: false
 }
 
+interface responseVerifyInstructor {
+  user: User
+}
 export const authSlice = createSlice({
   name: 'user',
   initialState,
@@ -45,6 +48,11 @@ export const authSlice = createSlice({
       state.user = action.payload.user
       state.token = action.payload.token
       state.isLoggedIn = true
+    },
+
+    verifyRegisterInstructor(state, action: PayloadAction<responseVerifyInstructor>) {
+      console.log('set verify redux')
+      state.user = action.payload.user
     }
   }
 })
