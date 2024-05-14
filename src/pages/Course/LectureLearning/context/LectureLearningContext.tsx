@@ -6,12 +6,14 @@ interface IContext {
   course: CourseShow | null
   currentLecture: ContentCourse | null
   handleUpdateCompleteLecure: (formData: MarkLecture) => void
+  setCurrentLecture: React.Dispatch<React.SetStateAction<ContentCourse | null>>
 }
 
 const LectureLearningContext = createContext<IContext>({
   course: null,
   currentLecture: null,
-  handleUpdateCompleteLecure: () => {}
+  handleUpdateCompleteLecure: () => {},
+  setCurrentLecture: () => {}
 })
 
 interface LectureLearningContextProps {

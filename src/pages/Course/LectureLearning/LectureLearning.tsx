@@ -23,7 +23,7 @@ const initCurriculums: Curriculum[] = [
       {
         curriculum_id: 1,
         id: 1,
-        type: ELectureType.Lecture,
+        type: ELectureType.Quiz,
         title: 'Hello world with C#',
         description: '<p>Description test 123123123123123232</p> ',
         assets: [
@@ -671,7 +671,8 @@ function LectureLearning() {
             value={{
               course: course,
               currentLecture: currentLecture,
-              handleUpdateCompleteLecure: handleUpdateCompleteLecure
+              handleUpdateCompleteLecure: handleUpdateCompleteLecure,
+              setCurrentLecture: setCurrentLecture
             }}
           >
             <LectureLearningDetail />
