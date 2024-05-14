@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { useLectureLearningContext } from '../context/LectureLearningContext'
-import { EContentCourseType, ELectureType } from '@/models/course'
+import { ContentCourse, ContentQuiz, CourseShow, EContentCourseType, ELectureType, Question } from '@/models/course'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import QuestionForm from './QuestionForm'
 
-const EQuizContentMode = {
-  Start: 1,
-  InProgress: 2,
-  End: 3
+// const EQuizContentMode = {
+//   Start: 1,
+//   InProgress: 2,
+//   End: 3
+// }
+
+const initCurrentQuestion = (currentLecture: ContentCourse | null) => {
+  if (currentLecture?.type === EContentCourseType.Quiz) {
+    return (currentLecture.content as ContentQuiz).questions
+  }
 }
 
 function LectureContent() {
   const { currentLecture, course } = useLectureLearningContext()
 
-  const [currentQuestion, setCurrentQuestion] = useEffect(() => {
-    // if (currentLecture?.type === ELectureType.Quiz) {
-    //   set
-    // }
-    return () => {
-      setCurrentQuestion(null)
+  const [quizQuestions, setQuizQuestions] = useState<Question[]>(initCurrentQuestion(currentLecture) ?? [])
+
+  const [quizStep, setQuizStep] = useState(0)
+
+  useEffect(() => {
+    if (currentLecture?.type === EContentCourseType.Quiz) {
+      setQuizQuestions((currentLecture.content as ContentQuiz).questions)
     }
-  }, [currentLecture?.curriculumID])
+  }, [currentLecture])
 
   const isTheLastLecture = () => {
     if (course) {
@@ -46,7 +54,14 @@ function LectureContent() {
     return false
   }
 
-  const [quizContentMode, setQuizContentMode] = useState(EQuizContentMode.Start)
+  const handleGoNextLecture = () => {
+    console.log('handleGoNextLecture')
+  }
+
+  const handleGoPrevLecture = () => {
+    console.log('handleGoPrevLecture')
+  }
+
   return (
     <div className='lectureContentWrapper'>
       {currentLecture?.type === EContentCourseType.Video && (
@@ -66,7 +81,7 @@ function LectureContent() {
 
       {currentLecture?.type === EContentCourseType.Quiz && (
         <div className='quizWrapper'>
-          {quizContentMode === EQuizContentMode.Start && (
+          {quizStep === 0 && (
             <div className='startPage'>
               <h1 className='ud-heading-xxl'>Web Design Quiz 1</h1>
 
@@ -77,27 +92,43 @@ function LectureContent() {
               </div>
 
               <div className='actionButton'>
-                <button className='ud-btn ud-btn-large ud-btn-primary ud-heading-md'>Start Quiz</button>
+                <button
+                  className='ud-btn ud-btn-large ud-btn-primary ud-heading-md'
+                  onClick={() => setQuizStep((prev) => prev + 1)}
+                >
+                  Start Quiz
+                </button>
 
-                <button className='item-link item-link--common--j8WLy ud-btn ud-btn-large ud-btn-ghost ud-heading-md ud-link-neutral'>
+                <button
+                  onClick={handleGoNextLecture}
+                  className='item-link item-link--common--j8WLy ud-btn ud-btn-large ud-btn-ghost ud-heading-md ud-link-neutral'
+                >
                   Skip Quiz
                 </button>
               </div>
             </div>
           )}
+
+          {quizStep > 0 && quizStep < quizQuestions.length + 1 && (
+            <>
+              <QuestionForm question={quizQuestions[quizStep - 1]} quizStep={quizStep} setQuizStep={setQuizStep} />
+            </>
+          )}
+
+          {quizStep < quizQuestions.length + 1 && <div>Finish Quiz</div>}
         </div>
       )}
 
       {/* Handle Prev */}
       {!isTheFirstLecture() && (
-        <button className='prevButton'>
+        <button className='prevButton' onClick={handleGoPrevLecture}>
           <IoIosArrowBack size={30} />
         </button>
       )}
 
       {/* Handle Next */}
       {!isTheLastLecture() && (
-        <button className='nextButton'>
+        <button className='nextButton' onClick={handleGoNextLecture}>
           <IoIosArrowForward size={30} />
         </button>
       )}

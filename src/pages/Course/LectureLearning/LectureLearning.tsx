@@ -22,58 +22,6 @@ const initCurriculums: Curriculum[] = [
     lectures: [
       {
         curriculum_id: 1,
-        id: 1,
-        type: ELectureType.Quiz,
-        title: 'Hello world with C#',
-        description: '<p>Description test 123123123123123232</p> ',
-        assets: [
-          {
-            id: 1,
-            bunnyID: Math.random() + 1 + '',
-            url: '',
-            type: EAssetType.VideoWatch,
-            duration: 122,
-            name: 'Screenshot 2024-03-05 001222.png',
-            size: 7000,
-            lecture_id: 1,
-            updated_at: new Date().toISOString(),
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 2,
-            bunnyID: Math.random() + 1 + '',
-            url: '',
-            type: EAssetType.Resource,
-            duration: 5,
-            name: 'Screenshot 1111 001222.png',
-            size: 7000,
-            lecture_id: 1,
-            updated_at: new Date().toISOString(),
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 3,
-            bunnyID: Math.random() + 1 + '',
-            url: '',
-            type: EAssetType.Resource,
-            duration: 5,
-            name: 'Screenshot 22222 001222.png',
-            size: 7000,
-            lecture_id: 1,
-            updated_at: new Date().toISOString(),
-            created_at: new Date().toISOString()
-          }
-        ],
-        article: null,
-        created_at: '',
-        updated_at: '',
-        is_done: true,
-        is_promotional: false,
-        order: 1,
-        questions: []
-      },
-      {
-        curriculum_id: 1,
         id: 2,
         type: ELectureType.Quiz,
         title: 'Mini Test Quiz  Revision',
@@ -143,6 +91,58 @@ const initCurriculums: Curriculum[] = [
         is_done: true,
         is_promotional: false,
         order: 2
+      },
+      {
+        curriculum_id: 1,
+        id: 1,
+        type: ELectureType.Lecture,
+        title: 'Hello world with C#',
+        description: '<p>Description test 123123123123123232</p> ',
+        assets: [
+          {
+            id: 1,
+            bunnyID: Math.random() + 1 + '',
+            url: '',
+            type: EAssetType.VideoWatch,
+            duration: 122,
+            name: 'Screenshot 2024-03-05 001222.png',
+            size: 7000,
+            lecture_id: 1,
+            updated_at: new Date().toISOString(),
+            created_at: new Date().toISOString()
+          },
+          {
+            id: 2,
+            bunnyID: Math.random() + 1 + '',
+            url: '',
+            type: EAssetType.Resource,
+            duration: 5,
+            name: 'Screenshot 1111 001222.png',
+            size: 7000,
+            lecture_id: 1,
+            updated_at: new Date().toISOString(),
+            created_at: new Date().toISOString()
+          },
+          {
+            id: 3,
+            bunnyID: Math.random() + 1 + '',
+            url: '',
+            type: EAssetType.Resource,
+            duration: 5,
+            name: 'Screenshot 22222 001222.png',
+            size: 7000,
+            lecture_id: 1,
+            updated_at: new Date().toISOString(),
+            created_at: new Date().toISOString()
+          }
+        ],
+        article: null,
+        created_at: '',
+        updated_at: '',
+        is_done: true,
+        is_promotional: false,
+        order: 1,
+        questions: []
       }
     ]
   },

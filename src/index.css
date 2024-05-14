@@ -290,6 +290,21 @@ ol {
   padding: 0;
 }
 
+.ud-btn.ud-btn-disabled::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ud-btn.ud-btn-disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
 .ud-btn-white-outline,
 .ud-btn-white-outline.ud-btn-disabled {
   background-color: transparent;
@@ -339,6 +354,7 @@ ol {
   min-width: auto;
   padding: 0;
 }
+
 /* color: #101011; */
 
 .ud-btn-ghost:hover,
@@ -491,9 +507,11 @@ a.resetNavlink:hover {
 .ud-select-container-large .ud-select-icon-container {
   width: 4rem;
 }
+
 .ud-select-icon-right {
   right: 0;
 }
+
 .ud-select-icon-container {
   pointer-events: none;
   display: flex;
@@ -507,10 +525,12 @@ a.resetNavlink:hover {
 .ud-icon-color-neutral {
   color: #2d2f31;
 }
+
 .ud-icon-small {
   width: 2rem;
   height: 2rem;
 }
+
 .ud-icon {
   fill: currentColor;
   display: inline-block;
@@ -554,8 +574,7 @@ a.resetNavlink:hover {
   padding-top: 0.8rem;
 }
 
-.form-group-note--8 {
-}
+.form-group-note--8 {}
 
 /* Input */
 .ud-text-input-container {
@@ -564,6 +583,7 @@ a.resetNavlink:hover {
   position: relative;
   z-index: 0;
 }
+
 .ud-text-input-large {
   height: 4.8rem;
 }
@@ -582,6 +602,7 @@ a.resetNavlink:hover {
     color: #6a6f73;
     margin: 0 1.6rem;
   }
+
   .ud-text-input-box {
     border: 1px solid #2d2f31;
     position: absolute;
@@ -593,6 +614,7 @@ a.resetNavlink:hover {
 
     /* background-color: red; */
   }
+
   .ud-text-input {
     border-right: 0;
     padding-right: 0;
@@ -624,7 +646,7 @@ a.resetNavlink:hover {
 
 /* um-seciton */
 
-.um-section + .um-section {
+.um-section+.um-section {
   border-top: 1px solid #d1d7dc;
   padding-top: 2.4rem;
   margin-top: 2.4rem;
@@ -639,7 +661,7 @@ a.resetNavlink:hover {
 
 /* Form Group */
 
-.ud-form-group + .ud-form-group {
+.ud-form-group+.ud-form-group {
   margin-top: 1.6rem;
 }
 
@@ -659,7 +681,7 @@ a.resetNavlink:hover {
   color: #2d2f31;
 }
 
-.ud-footer-btns .ud-btn + .ud-btn {
+.ud-footer-btns .ud-btn+.ud-btn {
   margin-left: 1.6rem;
 }
 
@@ -676,6 +698,7 @@ a.resetNavlink:hover {
   padding-top: 3.2rem;
   padding-bottom: 3.2rem;
 }
+
 .ud-container {
   width: 100%;
   max-width: 134rem;
@@ -690,6 +713,7 @@ a.resetNavlink:hover {
   border: 1px solid #2d2f31;
   position: relative;
 }
+
 .ud-compact-form-label-content,
 .ud-compact-form-control-container {
   display: flex;
@@ -711,7 +735,7 @@ a.resetNavlink:hover {
   transition: opacity 100ms linear 150ms;
 }
 
-.ud-compact-form-control-container > *:first-child {
+.ud-compact-form-control-container>*:first-child {
   flex: 1;
 }
 

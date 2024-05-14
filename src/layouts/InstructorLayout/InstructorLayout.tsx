@@ -126,13 +126,6 @@ function InstructorLayout() {
             </NavLink>
           </div>
 
-          {/* <Dropdown menu={{ items: renderAvatarDropdown() }} rootClassName={styles.rootDropDownAvatar}>
-            <div className='avatarContainer'>
-              <div className='innerContainer'>
-                <img src={user?.avatar ? user.avatar : AVATAR_DEFAULT} alt='' />
-              </div>
-            </div>
-          </Dropdown> */}
           <Dropdown menu={{ items: renderAvatarDropdown() }} rootClassName={styles.rootDropDownAvatar}>
             <div className='avatar-ud-btn'>
               <div className='avatar-container'>
