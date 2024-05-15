@@ -4,12 +4,6 @@ import { ContentCourse, ContentQuiz, CourseShow, EContentCourseType, ELectureTyp
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import QuestionForm from './QuestionForm'
 
-// const EQuizContentMode = {
-//   Start: 1,
-//   InProgress: 2,
-//   End: 3
-// }
-
 const initCurrentQuestion = (currentLecture: ContentCourse | null) => {
   if (currentLecture?.type === EContentCourseType.Quiz) {
     return (currentLecture.content as ContentQuiz).questions
@@ -19,13 +13,13 @@ const initCurrentQuestion = (currentLecture: ContentCourse | null) => {
 function LectureContent() {
   const { currentLecture, course } = useLectureLearningContext()
 
-  const [quizQuestions, setQuizQuestions] = useState<Question[]>(initCurrentQuestion(currentLecture) ?? [])
+  const [resultQuestions, setResultQuestions] = useState<Question[]>(initCurrentQuestion(currentLecture) ?? [])
 
   const [quizStep, setQuizStep] = useState(0)
 
   useEffect(() => {
     if (currentLecture?.type === EContentCourseType.Quiz) {
-      setQuizQuestions((currentLecture.content as ContentQuiz).questions)
+      setResultQuestions((currentLecture.content as ContentQuiz).questions)
     }
   }, [currentLecture])
 
@@ -79,7 +73,7 @@ function LectureContent() {
 
       {/* Quiz */}
 
-      {currentLecture?.type === EContentCourseType.Quiz && (
+      {currentLecture && currentLecture.type === EContentCourseType.Quiz && (
         <div className='quizWrapper'>
           {quizStep === 0 && (
             <div className='startPage'>
@@ -109,13 +103,17 @@ function LectureContent() {
             </div>
           )}
 
-          {quizStep > 0 && quizStep < quizQuestions.length + 1 && (
+          {quizStep > 0 && quizStep < (currentLecture.content as ContentQuiz).questions.length + 1 && (
             <>
-              <QuestionForm question={quizQuestions[quizStep - 1]} quizStep={quizStep} setQuizStep={setQuizStep} />
+              <QuestionForm
+                question={(currentLecture.content as ContentQuiz).questions[quizStep - 1]}
+                quizStep={quizStep}
+                setQuizStep={setQuizStep}
+              />
             </>
           )}
 
-          {quizStep < quizQuestions.length + 1 && <div>Finish Quiz</div>}
+          {quizStep === (currentLecture.content as ContentQuiz).questions.length + 1 && <div>Finish Quiz</div>}
         </div>
       )}
 

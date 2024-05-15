@@ -596,17 +596,17 @@ const initCurrentLecture = (curriculums: Curriculum[]) => {
           url: 'https://iframe.mediadelivery.net/play/155247/fee1d27b-4728-4c7b-8484-1eb4cd21a3cf'
         }
       }
-    }
-
-    return {
-      type: 'quiz',
-      id: lecturenInfo.id,
-      curriculumID: curriculums[0].id,
-      index: 0,
-      content: {
-        indexNumber: 'Quiz 1:',
-        title: curriculums[0].lectures[0].title,
-        questions: curriculums[0].lectures[0].questions
+    } else {
+      return {
+        type: 'quiz',
+        id: lecturenInfo.id,
+        curriculumID: curriculums[0].id,
+        index: 0,
+        content: {
+          indexNumber: 'Quiz 1:',
+          title: curriculums[0].lectures[0].title,
+          questions: curriculums[0].lectures[0].questions
+        }
       }
     }
   }

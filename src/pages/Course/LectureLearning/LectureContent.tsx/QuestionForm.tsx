@@ -10,7 +10,7 @@ interface IProps {
 
 const EQuestionFormMode = {
   INIT: 0,
-  SELECTED_ANSWER: 1,
+  SELECT_ANSWER: 1,
   CORRECT: 2,
   INCORRECT: 3
 }
@@ -19,8 +19,8 @@ function QuestionForm({ question, quizStep, setQuizStep }: IProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<Answer | null>(null)
   const [questionFormMode, setQuestionFormMode] = useState(EQuestionFormMode.INIT)
 
-  const handleSkipQuestion = () => {
-    console.log('handleSkipQuestion')
+  const handleNextQuestion = () => {
+    console.log('handleNextQuestion')
 
     setQuestionFormMode(EQuestionFormMode.INIT)
     setSelectedAnswer(null)
@@ -37,18 +37,25 @@ function QuestionForm({ question, quizStep, setQuizStep }: IProps) {
         setQuestionFormMode(EQuestionFormMode.CORRECT)
       } else {
         setQuestionFormMode(EQuestionFormMode.INCORRECT)
-        setSelectedAnswer(null)
       }
     }
   }
+
+  const handleRetry = () => {
+    setQuizStep(1)
+    setSelectedAnswer(null)
+
+    setQuestionFormMode(EQuestionFormMode.INIT)
+  }
+
   return (
     <>
       <div className='questionFormWrapper'>
         {questionFormMode === EQuestionFormMode.CORRECT && (
           <Alert
-            message='Success Tips'
-            description='Detailed description and advice about successful copywriting.'
-            type='success'
+            message='Good job!'
+            // description='Detailed description and advice about successful copywriting.'
+            type='error'
             showIcon
           />
         )}
@@ -83,7 +90,7 @@ function QuestionForm({ question, quizStep, setQuizStep }: IProps) {
               }
               onChange={() => {
                 setSelectedAnswer(answerItem)
-                setQuestionFormMode(EQuestionFormMode.SELECTED_ANSWER)
+                setQuestionFormMode(EQuestionFormMode.SELECT_ANSWER)
               }}
             />
             <p>{answerItem.answer_text}</p>
@@ -97,19 +104,36 @@ function QuestionForm({ question, quizStep, setQuizStep }: IProps) {
         </span>
 
         <div className='btnRegion'>
-          <button
-            className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
-            onClick={handleSkipQuestion}
-          >
-            <span>Skip question</span>
-          </button>
-
-          <button
-            className={`ud-btn ud-btn-small ud-btn-primary ud-heading-sm ${selectedAnswer && 'ud-btn-disabled'}`}
-            onClick={handleCheckAnswer}
-          >
-            <span>Check Answer</span>
-          </button>
+          {quizStep < question.answers.length + 1 && questionFormMode != EQuestionFormMode.CORRECT && (
+            <button
+              className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
+              onClick={handleNextQuestion}
+            >
+              <span>Skip question</span>
+            </button>
+          )}
+          {quizStep === question.answers.length && questionFormMode === EQuestionFormMode.CORRECT ? (
+            <button
+              className={`ud-btn ud-btn-small ud-btn-primary ud-heading-sm ${!selectedAnswer && 'ud-btn-disabled'}`}
+              onClick={handleCheckAnswer}
+            >
+              <span>See results</span>
+            </button>
+          ) : questionFormMode === EQuestionFormMode.CORRECT ? (
+            <button
+              className='ud-btn ud-btn-small ud-btn-ghost ud-heading-sm ud-link-neutral'
+              onClick={handleNextQuestion}
+            >
+              <span>Next question</span>
+            </button>
+          ) : (
+            <button
+              className={`ud-btn ud-btn-small ud-btn-primary ud-heading-sm ${!selectedAnswer && 'ud-btn-disabled'}`}
+              onClick={handleCheckAnswer}
+            >
+              <span>Check answer</span>
+            </button>
+          )}
         </div>
       </div>
     </>
