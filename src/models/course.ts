@@ -418,3 +418,9 @@ export interface ContentArticle {
   article: string
   title: string
 }
+
+export interface CreateCourse {
+  title: string
+  category_id: number
+  sub_category_id: number
+}

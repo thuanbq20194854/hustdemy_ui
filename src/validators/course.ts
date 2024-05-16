@@ -10,7 +10,8 @@ import {
   UpdateCourseLandingPageForm,
   UpdateCoursePrice,
   IntendedLearners,
-  CreateAnswerLecture
+  CreateAnswerLecture,
+  CreateCourse
 } from '../models/course'
 
 // export const schemeUpdateIntendedLeaner: Yup.ObjectSchema<IntendedLearners> = Yup.object({
@@ -148,4 +149,15 @@ export const schemeUpdateCoursePrice: Yup.ObjectSchema<UpdateCoursePrice> = Yup.
 
 export const schemeCreateAnswerLecture: Yup.ObjectSchema<CreateAnswerLecture> = Yup.object({
   answer: Yup.string().required('Answer is required').max(500, 'Answer is more than 500 characters')
+})
+
+export const schemeCreateCourse: Yup.ObjectSchema<CreateCourse> = Yup.object({
+  title: Yup.string().required('Title is required').max(60, 'Title is more than 60 characters'),
+
+  sub_category_id: Yup.number()
+    .required()
+    .test('require', 'Category is required', (data) => data != -1),
+  category_id: Yup.number()
+    .required()
+    .test('require', 'Subcategory is required', (data) => data != -1)
 })

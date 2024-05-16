@@ -21,6 +21,7 @@ import EditAccount from './pages/User/EditAccount/EditAccount'
 import EditPhoto from './pages/User/EditPhoto/EditPhoto'
 import EditProfile from './pages/User/EditProfile/EditProfile'
 import RegisterInstructor from './pages/Auth/RegisterInstructor/RegisterInstructor'
+import CreateCourse from './pages/Course/CreateCourse/CreateCourse'
 
 export const useRouteElements = () => {
   const isAuthed = true
@@ -45,7 +46,6 @@ export const useRouteElements = () => {
           path: '/register',
           element: <Register />
         },
-
         {
           path: '/cart',
           element: <Cart />
@@ -131,6 +131,11 @@ export const useRouteElements = () => {
     {
       path: '/instructor/course/:courseId/manage/:content',
       element: <CourseManageLayout />
+    },
+
+    {
+      path: '/course/create',
+      element: <CreateCourse />
     },
 
     {

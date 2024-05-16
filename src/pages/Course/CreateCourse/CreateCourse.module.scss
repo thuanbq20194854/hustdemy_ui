@@ -1,0 +1,51 @@
+.createCourseWrapper {
+  :global {
+    .createCourseHeader {
+      position: sticky;
+      top: 0;
+      height: 72px;
+
+      padding: 0px 16px;
+
+      display: flex;
+      align-items: center;
+
+      justify-content: space-between;
+
+      border-bottom: 1px solid #d1d7dc;
+
+      .logoContainer {
+        img {
+          height: 3.4rem;
+          width: auto;
+        }
+      }
+    }
+
+    .createCourseContent {
+      padding: 6.4rem 2.4rem;
+      display: flex;
+      justify-content: center;
+
+      .create-course-title {
+        text-align: center;
+      }
+
+      .create-course-title-explain {
+        text-align: center;
+      }
+
+      .ud-form-group {
+        margin-top: 24px;
+        text-align: center;
+
+        width: 60rem;
+      }
+
+      .actionRegion {
+        margin-top: 16px;
+        text-align: end;
+      }
+    }
+  }
+}

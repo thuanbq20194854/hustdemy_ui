@@ -64,9 +64,11 @@ function InstructorCourses() {
           </div>
         </CustomTooltip>
 
-        <button className='newCourseBtn ud-btn ud-btn-large ud-btn-brand ud-heading-md'>
-          <span>New Course</span>
-        </button>
+        <NavLink to='/course/create'>
+          <button className='newCourseBtn ud-btn ud-btn-large ud-btn-brand ud-heading-md'>
+            <span>New Course</span>
+          </button>
+        </NavLink>
       </div>
 
       <div className='courseListSection'>
