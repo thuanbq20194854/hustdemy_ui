@@ -73,16 +73,16 @@ function LectureContent() {
 
       {/* Quiz */}
 
-      {currentLecture && currentLecture.type === EContentCourseType.Quiz && (
+      {currentLecture && (currentLecture.content as ContentQuiz) && currentLecture.type === EContentCourseType.Quiz && (
         <div className='quizWrapper'>
           {quizStep === 0 && (
             <div className='startPage'>
               <h1 className='ud-heading-xxl'>Web Design Quiz 1</h1>
 
               <div className='quizMetadata'>
-                <span>Quiz 1</span>
+                <span>Quiz {}</span>
                 <span> | </span>
-                <span>5 questions</span>
+                <span>{(currentLecture.content as ContentQuiz).questions.length} questions</span>
               </div>
 
               <div className='actionButton'>

@@ -112,6 +112,15 @@ function QuestionForm({ question, quizStep, setQuizStep }: IProps) {
               <span>Skip question</span>
             </button>
           )}
+
+          {quizStep === question.answers.length + 1 && (
+            <button
+              className={`ud-btn ud-btn-small ud-btn-primary ud-heading-sm ${!selectedAnswer && 'ud-btn-disabled'}`}
+              onClick={handleRetry}
+            >
+              <span>Check answer</span>
+            </button>
+          )}
           {quizStep === question.answers.length && questionFormMode === EQuestionFormMode.CORRECT ? (
             <button
               className={`ud-btn ud-btn-small ud-btn-primary ud-heading-sm ${!selectedAnswer && 'ud-btn-disabled'}`}
